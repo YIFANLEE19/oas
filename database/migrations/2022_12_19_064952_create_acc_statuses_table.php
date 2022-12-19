@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudentTypesTable extends Migration
+class CreateAccStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateStudentTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_types', function (Blueprint $table) {
+        Schema::create('acc_statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            // 0 = deactived, 1 = active
-            $table->integer('status')->default(1);
+            $table->string('status');
         });
     }
 
@@ -28,6 +26,6 @@ class CreateStudentTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_types');
+        Schema::dropIfExists('acc_statuses');
     }
 }

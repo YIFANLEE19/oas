@@ -12,8 +12,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $dateFormat = 'U';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -22,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'role_id',
+        'acc_status_id',
         'email',
         'password',
     ];
@@ -47,11 +46,7 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->hasOne(Role::class);
+        return $this->belongsTo(Role::class);
     }
-
-    public function studentType()
-    {
-        return $this->hasOne(StudentType::class);
-    }
+    
 }

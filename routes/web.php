@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Superadmin\RoleController;
-use App\Http\Controllers\Superadmin\StudentTypeController;
+use App\Http\Controllers\Superadmin\AdminAccountController;
+use App\Http\Controllers\Superadmin\AccStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,12 @@ Route::controller(RoleController::class)->prefix('superadmin/role/')->name('role
     Route::post('/update','update')->name('update');
 });
 
-Route::controller(StudentTypeController::class)->prefix('superadmin/studentType/')->name('studentType.')->group(function(){
+Route::controller(AdminAccountController::class)->prefix('superadmin/adminAccount/')->name('adminAccount.')->group(function(){
+    Route::get('/','index')->name('home');
+    Route::post('/create','create')->name('create');
+});
+
+Route::controller(AccStatusController::class)->prefix('superadmin/accStatus/')->name('accStatus.')->group(function(){
     Route::get('/','index')->name('home');
     Route::post('/create','create')->name('create');
     Route::post('/update','update')->name('update');

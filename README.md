@@ -3,8 +3,9 @@
 Finish
 
 1. Role
-1. Student Type
+1. AccStatus
 
 TODO
 
 1. Middleware - multiroles
+1. Search user account and change role
