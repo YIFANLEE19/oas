@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AccStatus extends Model
+class Marital extends Model
 {
     use HasFactory;
-    
+
     /**
      * timestamps false
      */
@@ -18,6 +18,8 @@ class AccStatus extends Model
      *  The attributes that are mass assignable.
      */
     protected $fillable = [
+        'marital_code',
+        'name',
         'status',
     ];
 }

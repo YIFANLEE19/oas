@@ -104,8 +104,8 @@
 
         {{-- table --}}
         <div class="row mt-4">
-            <div class="col-md-8">
-                <table class="table">
+            <div class="col-md-8 mb-4">
+                <table class="table" id="accountTable">
                     <thead class="table-primary">
                         <tr>
                             <th scope="col" class="col-md-1">Id</th>
@@ -114,24 +114,70 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $user)
+                        @if (count($users))
+                            @foreach ($users as $user)
+                                <tr>
+                                    <th scope="row">{{ $user->id }}</th>
+                                    <td>{{ $user->name }}</td>
+                                    <td>
+                                        @if ($user->role['name'] == 'Local Student')
+                                            <span class="badge bg-primary px-3 py-2">{{ $user->role['name'] }}</span>
+                                        @else
+                                            <span class="badge bg-secondary px-3 py-2">{{ $user->role['name'] }}</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
                             <tr>
-                                <th scope="row">{{ $user->id }}</th>
-                                <td>{{ $user->name }}</td>
-                                <td>
-                                    @if ($user->role['name'] == 'Local Student')
-                                        <span class="badge bg-primary px-3 py-2">{{ $user->role['name'] }}</span>
-                                    @else
-                                        <span class="badge bg-secondary px-3 py-2">{{ $user->role['name'] }}</span>
-                                    @endif
-                                </td>
+                                <th scope="row">-</th>
+                                <td>-</td>
+                                <td>-</td>
                             </tr>
-                        @endforeach
+                        @endif
                     </tbody>
                 </table>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <form action="{{ route('adminAccount.update') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card-header bg-primary text-white">Edit Admin Role</div>
+                        <div class="card-body">
+                            <div class="mb-2">
+                                <label for="id" class="form-label">ID</label>
+                                <input type="text" name="id" id="id" class="form-control" placeholder="user id">
+                            </div>
+                            <div class="mb-2">
+                                <label for="role_id" class="form-label">Select role</label>
+                                <select name="role_id" id="role_id" class="form-select">
+                                    @if (count($roles))
+                                        @foreach ($roles as $role)
+                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="">Please create role</option>
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         {{-- end table --}}
     </div>
+
+    {{-- datatables --}}
+    <script>
+        $(document).ready(function () {
+            $('#accountTable').DataTable();
+        });
+    </script>
+    {{-- end datatables --}}
+
 
 @endsection

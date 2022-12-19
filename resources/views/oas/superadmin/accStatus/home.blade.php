@@ -34,7 +34,7 @@
                 <h1 class="fw-bold">Account Status</h1>
                 <div class="d-flex justify-content-between">
                     <p class="text-secondary">Manage account status here.</p>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newAccStatus">Add new role</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newAccStatus">Add new account status</button>
                 </div>
             </div>
         </div>
@@ -55,8 +55,8 @@
 
         {{-- table --}}
         <div class="row mt-4">
-            <div class="col-md-4">
-                <table class="table align-middle">
+            <div class="col-md-8 mb-4">
+                <table class="table align-middle" id="accStatusTable">
                     <thead class="table-primary">
                         <tr>
                             <th scope="col" class="col-md-2">Status id</th>
@@ -80,7 +80,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-4">
                 <div class="card">
                     <form action="{{ route('accStatus.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -89,9 +89,13 @@
                             <div class="mb-2">
                                 <label for="id" class="form-label">Account Status name</label>
                                 <select name="id" id="id" class="form-select mb-2" required>
-                                    @foreach ($accStatuses as $accStatus)
-                                        <option value="{{ $accStatus->id }}">{{ $accStatus->status }}</option>
-                                    @endforeach
+                                    @if (count($accStatuses))
+                                        @foreach ($accStatuses as $accStatus)
+                                            <option value="{{ $accStatus->id }}">{{ $accStatus->status }}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="">Please create account status</option>
+                                    @endif
                                 </select>
                                 <p>Change to</p>
                                 <input type="text" name="status_name" id="status_name" class="form-control" placeholder="new account status name">
@@ -106,4 +110,13 @@
         </div>
         {{-- end table --}}
     </div>
+
+    {{-- datatables --}}
+    <script>
+        $(document).ready(function () {
+            $('#accStatusTable').DataTable();
+        });
+    </script>
+    {{-- end datatables --}}
+
 @endsection

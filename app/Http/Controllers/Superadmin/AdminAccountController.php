@@ -43,4 +43,16 @@ class AdminAccountController extends Controller
         Session::flash('success','New admin account created successfully.');
         return back();
     }
+    /**
+     * update admin account
+     */
+    public function update()
+    {
+        $r = request();
+        $user = User::find($r->id);
+        $user->role_id = $r->role_id;
+        $user->save();
+        Session::flash('success',"User's role updated successfully");
+        return back();
+    }
 }
