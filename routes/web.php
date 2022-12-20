@@ -12,6 +12,8 @@ use App\Http\Controllers\Superadmin\ReligionController;
 use App\Http\Controllers\Superadmin\RaceController;
 use App\Http\Controllers\Superadmin\GuardianRelationshipController;
 use App\Http\Controllers\Superadmin\SuperadminController;
+use App\Http\Controllers\Superadmin\AddressTypeController;
+use App\Http\Controllers\Superadmin\ApplicationStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +101,22 @@ Route::prefix('superadmin/')->middleware('auth')->group(function(){
         Route::post('/create','create')->name('create');
         Route::post('/update','update')->name('update');
     });
+
+    Route::controller(AddressTypeController::class)->prefix('addressType/')->name('addressType.')->group(function(){
+        Route::get('/','index')->name('home');
+        Route::post('/create','create')->name('create');
+        Route::post('/update','update')->name('update');
+    });
+
+    Route::controller(ApplicationStatusController::class)->prefix('applicationStatus/')->name('applicationStatus.')->group(function(){
+        Route::get('/','index')->name('home');
+        Route::post('/create','create')->name('create');
+        Route::post('/update','update')->name('update');
+    });
+});
+
+Route::get('/personal-particulars', function(){
+    return view('oas.userProfile.personalParticulars');
 });
 
 
