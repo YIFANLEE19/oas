@@ -11,6 +11,7 @@ use App\Http\Controllers\Superadmin\NationalityController;
 use App\Http\Controllers\Superadmin\ReligionController;
 use App\Http\Controllers\Superadmin\RaceController;
 use App\Http\Controllers\Superadmin\GuardianRelationshipController;
+use App\Http\Controllers\Superadmin\SuperadminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,10 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // superadmin
+Route::controller(SuperadminController::class)->prefix('superadmin/')->name('superadmin.')->group(function(){
+    Route::get('/','index')->name('home');
+});
+
 Route::controller(RoleController::class)->prefix('superadmin/role/')->name('role.')->group(function(){
     Route::get('/','index')->name('home');
     Route::post('/create','create')->name('create');
