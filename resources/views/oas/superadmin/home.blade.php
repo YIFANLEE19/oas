@@ -1,7 +1,7 @@
 @extends('oas.layouts.superadmin')
 
 @section('content')
-    
+
     <div class="container">
         {{-- header --}}
         <div class="row">
@@ -17,7 +17,7 @@
             <div class="col-md-3 mb-3">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h5 class="card-title">Account Status</h5>
+                        <h5 class="card-title">Account status</h5>
                         <a href="{{ route('accStatus.home') }}" class="btn btn-primary">Go</a>
                     </div>
                 </div>
@@ -27,8 +27,8 @@
             <div class="col-md-3 mb-3">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h5 class="card-title">Account Role</h5>
-                        <a href="{{ route('accStatus.home') }}" class="btn btn-primary">Go</a>
+                        <h5 class="card-title">Admin account</h5>
+                        <a href="{{ route('adminAccount.home') }}" class="btn btn-primary">Go</a>
                     </div>
                 </div>
             </div>
