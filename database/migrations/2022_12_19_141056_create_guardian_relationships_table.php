@@ -15,8 +15,8 @@ class CreateGuardianRelationshipsTable extends Migration
     {
         Schema::create('guardian_relationships', function (Blueprint $table) {
             $table->id();
-            $table->string('relationship_code');
             $table->string('name');
+            $table->string('relationship_code');
             // 0 = deactived, 1 = active
             $table->integer('status')->default(1);
         });

@@ -17,9 +17,10 @@ class CreateAddressesTable extends Migration
             $table->id();
             $table->text('street1');
             $table->text('street2');
-            $table->text('street3');
-            $table->string('zip_code');
+            $table->text('street3')->nullable();
+            $table->string('zipcode');
             $table->string('city');
+            $table->string('state');
             $table->string('country');
             $table->foreignId('address_type_id')->constrained()->onUpdate('cascade');
         });

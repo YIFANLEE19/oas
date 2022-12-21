@@ -15,8 +15,8 @@ class CreateReligionsTable extends Migration
     {
         Schema::create('religions', function (Blueprint $table) {
             $table->id();
-            $table->string('religion_code');
             $table->string('name');
+            $table->string('religion_code');
             // 0 = deactived, 1 = active
             $table->integer('status')->default(1);
         });

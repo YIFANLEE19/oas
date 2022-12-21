@@ -15,8 +15,8 @@ class CreateRacesTable extends Migration
     {
         Schema::create('races', function (Blueprint $table) {
             $table->id();
-            $table->string('race_code');
             $table->string('name');
+            $table->string('race_code');
             // 0 = deactived, 1 = active
             $table->integer('status')->default(1);
         });

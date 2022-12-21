@@ -15,8 +15,8 @@ class CreateIncomesTable extends Migration
     {
         Schema::create('incomes', function (Blueprint $table) {
             $table->id();
-            $table->string('income_code');
             $table->string('range');
+            $table->string('income_code');
             // 0 = deactived, 1 = active
             $table->integer('status')->default(1);
         });

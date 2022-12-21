@@ -15,8 +15,8 @@ class CreateGendersTable extends Migration
     {
         Schema::create('genders', function (Blueprint $table) {
             $table->id();
-            $table->string('gender_code');
             $table->string('name');
+            $table->string('gender_code');
             // 0 = deactived, 1 = active
             $table->integer('status')->default(1);
         });

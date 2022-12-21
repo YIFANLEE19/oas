@@ -18,6 +18,13 @@ class Address extends Model
      *  The attributes that are mass assignable.
      */
     protected $fillable = [
-        'type',
+        'street1',
+        'street2',
+        'street3',
+        'zipcode',
+        'city',
+        'state',
+        'country',
+        'address_type_id',
     ];
 }

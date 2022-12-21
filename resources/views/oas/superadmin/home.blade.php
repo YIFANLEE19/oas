@@ -23,6 +23,16 @@
                 </div>
             </div>
             {{-- end accStatus --}}
+            {{-- addressType --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Address type</h5>
+                        <a href="{{ route('addressType.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end addressType --}}
             {{-- admin account --}}
             <div class="col-md-3 mb-3">
                 <div class="card shadow">
@@ -33,6 +43,16 @@
                 </div>
             </div>
             {{-- end admin account --}}
+            {{-- applicationStatus --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Application Status</h5>
+                        <a href="{{ route('applicationStatus.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end applicationStatus --}}
             {{-- gender --}}
             <div class="col-md-3 mb-3">
                 <div class="card shadow">

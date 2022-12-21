@@ -15,8 +15,8 @@ class CreateMaritalsTable extends Migration
     {
         Schema::create('maritals', function (Blueprint $table) {
             $table->id();
-            $table->string('marital_code');
             $table->string('name');
+            $table->string('marital_code');
             // 0 = deactived, 1 = active
             $table->integer('status')->default(1);
         });

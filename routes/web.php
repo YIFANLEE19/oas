@@ -14,6 +14,7 @@ use App\Http\Controllers\Superadmin\GuardianRelationshipController;
 use App\Http\Controllers\Superadmin\SuperadminController;
 use App\Http\Controllers\Superadmin\AddressTypeController;
 use App\Http\Controllers\Superadmin\ApplicationStatusController;
+use App\Http\Controllers\UserProfile\PersonalParticularController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // superadmin
 
-Route::prefix('superadmin/')->middleware('auth')->group(function(){
+Route::prefix('superadmin/')->group(function(){
 
     Route::controller(SuperadminController::class)->name('superadmin.')->group(function(){
         Route::get('/','index')->name('home');
@@ -115,8 +116,9 @@ Route::prefix('superadmin/')->middleware('auth')->group(function(){
     });
 });
 
-Route::get('/personal-particulars', function(){
-    return view('oas.userProfile.personalParticulars');
+Route::controller(PersonalParticularController::class)->prefix('user-profile/personal-particulars')->name('personalParticulars.')->group(function(){
+    Route::get('/','index')->name('home');
+    Route::post('/create','create')->name('create');
 });
 
 

@@ -34,7 +34,7 @@
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
                     <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
                     <br>
-                    <button class="btn btn-primary mt-2">Click here to setup</button>
+                    <a href="{{ route('personalParticulars.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
                 </div>
             </div>
         </div>
