@@ -53,6 +53,16 @@
                 </div>
             </div>
             {{-- end applicationStatus --}}
+            {{-- country --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Country</h5>
+                        <a href="{{ route('country.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end country --}}
             {{-- gender --}}
             <div class="col-md-3 mb-3">
                 <div class="card shadow">

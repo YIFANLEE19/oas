@@ -20,7 +20,7 @@ class CreateAddressesTable extends Migration
             $table->string('zipcode');
             $table->string('city');
             $table->string('state');
-            $table->string('country');
+            $table->foreignId('country_id')->constrained()->onUpdate('cascade');
             $table->foreignId('address_type_id')->constrained()->onUpdate('cascade');
         });
     }

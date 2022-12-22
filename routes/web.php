@@ -14,6 +14,7 @@ use App\Http\Controllers\Superadmin\GuardianRelationshipController;
 use App\Http\Controllers\Superadmin\SuperadminController;
 use App\Http\Controllers\Superadmin\AddressTypeController;
 use App\Http\Controllers\Superadmin\ApplicationStatusController;
+use App\Http\Controllers\Superadmin\CountryController;
 use App\Http\Controllers\UserProfile\PersonalParticularController;
 use App\Http\Controllers\UserProfile\ParentGuardianParticularController;
 use App\Http\Controllers\UserProfile\EmergencyContactController;
@@ -112,6 +113,12 @@ Route::prefix('superadmin/')->group(function(){
     });
 
     Route::controller(ApplicationStatusController::class)->prefix('applicationStatus/')->name('applicationStatus.')->group(function(){
+        Route::get('/','index')->name('home');
+        Route::post('/create','create')->name('create');
+        Route::post('/update','update')->name('update');
+    });
+
+    Route::controller(CountryController::class)->prefix('country/')->name('country.')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
         Route::post('/update','update')->name('update');
