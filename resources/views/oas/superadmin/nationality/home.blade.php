@@ -115,15 +115,16 @@
                         <div class="card-body">
                             <div class="mb-2">
                                 <label for="id" class="form-label">Nationality code</label>
-                                <select name="id" id="id" class="form-select mb-2">
+                                <input type="text" name="id" id="id" list="nationalityOptions" class="form-control mb-2">
+                                <datalist id="nationalityOptions">  
                                     @if (count($nationalities))
                                         @foreach ($nationalities as $nationality)
-                                            <option value="{{ $nationality->id }}">{{ $nationality->nationality_code }}</option>
+                                            <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
                                         @endforeach
                                     @else
                                         <option value="">Please create nationality code</option>
                                     @endif
-                                </select>
+                                </datalist>
                                 <p>Change to</p>
                                 <input type="text" name="nationality_code" id="nationality_code" class="form-control mb-2" placeholder="new nationality code">
                                 <input type="text" name="nationality_name" id="nationality_name" class="form-control mb-2" placeholder="new nationality name">

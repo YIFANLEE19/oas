@@ -23,7 +23,7 @@ class Address extends Model
         'zipcode',
         'city',
         'state',
-        'country',
+        'country_id',
         'address_type_id',
     ];
 }

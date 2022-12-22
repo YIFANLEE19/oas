@@ -210,7 +210,12 @@
                         </div>
                         <div class="col-md">
                             <div class="form-floating mb-3 me-3">
-                                <input type="text" name="p_country" id="p_country" class="form-control" placeholder="Country" required>
+                                <select name="p_country" id="p_country" class="form-select" required>
+                                    <option selected disabled>Choose your country</option>
+                                    @foreach ($allCountries as $country)
+                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    @endforeach
+                                </select>
                                 <label for="p_country">Country<span class="text-danger">*</span></label>
                             </div>
                         </div>

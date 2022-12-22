@@ -13,6 +13,7 @@ use App\Models\ApplicantProfile;
 use App\Models\ApplicationRecord;
 use App\Models\AddressMapping;
 use App\Models\Address;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
@@ -27,7 +28,8 @@ class PersonalParticularController extends Controller
         $allNationalities = Nationality::all();
         $allGenders = Gender::all();
         $allMaritals = Marital::all();
-        return view('oas.userProfile.personalParticulars', compact(['allRaces','allReligions','allNationalities','allGenders','allMaritals']));
+        $allCountries = Country::all();
+        return view('oas.userProfile.personalParticulars', compact(['allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries']));
     }
 
     /**
@@ -64,7 +66,7 @@ class PersonalParticularController extends Controller
             'zipcode' => $r->c_zipcode,
             'city' => $r->c_city,
             'state' => $r->c_state,
-            'country' => $r->c_country,
+            'country_id' => $r->c_country_id,
             'address_type_id' => 1,
         ]);
         $p_address_id = Address::insertGetId([
@@ -73,7 +75,7 @@ class PersonalParticularController extends Controller
             'zipcode' => $r->p_zipcode,
             'city' => $r->p_city,
             'state' => $r->p_state,
-            'country' => $r->p_country,
+            'country_id' => $r->p_country_id,
             'address_type_id' => 2,
         ]);
         $address_mapping = AddressMapping::create(

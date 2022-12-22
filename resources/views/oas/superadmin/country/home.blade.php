@@ -114,16 +114,17 @@
                         <div class="card-header bg-primary text-white">Edit country</div>
                         <div class="card-body">
                             <div class="mb-2">
-                                <label for="id" class="form-label">country code</label>
-                                <select name="id" id="id" class="form-select mb-2" data-live-search="true">
+                                <label for="id" class="form-label">Country id</label>
+                                <input name="id" id="id" list="countryOptions" class="form-control mb-2 " placeholder="Type country name">
+                                <datalist id="countryOptions">
                                     @if (count($countries))
                                         @foreach ($countries as $country)
-                                            <option value="{{ $country->id }}">{{ $country->country_code }}</option>
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
                                         @endforeach
                                     @else
                                         <option value="">Please create country code</option>
                                     @endif
-                                </select>
+                                </datalist>
                                 <p>Change to</p>
                                 <input type="text" name="country_code" id="country_code" class="form-control mb-2" placeholder="new country code">
                                 <input type="text" name="country_name" id="country_name" class="form-control mb-2" placeholder="new country name">
@@ -156,8 +157,4 @@
         });
     </script>
     {{-- end datatables --}}
-    {{-- select picker --}}
-    <!-- Latest compiled and minified JavaScript -->
-
-    {{-- end select picker --}}
 @endsection

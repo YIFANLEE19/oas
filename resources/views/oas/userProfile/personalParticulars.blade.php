@@ -165,7 +165,7 @@
                     <div class="row g-2">
                         <div class="col-md">
                             <label for="gender" class="form-label text-secondary">Gender<span class="text-danger">*</span></label>
-                            <div class="d-flex flex-row">
+                            <div class="d-flex flex-row mb-3 me-3">
                                 @foreach ($allGenders as $gender)
                                     @if ($gender->id == 1)
                                         <div class="form-check-label me-4" for="gender">
@@ -182,21 +182,14 @@
                             </div>
                         </div>
                         <div class="col-md">
-                            <label for="marital" class="form-label text-secondary">Marital<span class="text-danger">*</span></label>
-                            <div class="d-flex flex-row">
-                                @foreach ($allMaritals as $marital)
-                                    @if ($marital->id == 1)
-                                        <div class="form-check-label me-4" for="marital">
-                                            <input type="radio" name="marital_id" id="marital1" class="form-check-input" value="{{ $marital->id }}" checked>
-                                            <span class="ms-4">{{ $marital->name }}</span>
-                                        </div>
-                                    @else
-                                        <div class="form-check-label me-4" for="marital">
-                                            <input type="radio" name="marital_id" id="marital1" class="form-check-input" value="{{ $marital->id }}">
-                                            <span class="ms-4">{{ $marital->name }}</span>
-                                        </div>
-                                    @endif
-                                @endforeach
+                            <div class="form-floating mb-3 me-3">
+                                <select name="marital_id" id="marital" class="form-select" required>
+                                    <option selected disabled>Choose your marital</option>
+                                    @foreach ($allMaritals as $marital)
+                                        <option value="{{ $marital->id }}">{{ $marital->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="race">Marital<span class="text-danger">*</span></label>
                             </div>
                         </div>
                     </div>
@@ -277,7 +270,12 @@
                         </div>
                         <div class="col-md">
                             <div class="form-floating mb-3 me-3">
-                                <input type="text" name="c_country" id="c_country" class="form-control" placeholder="Country" required>
+                                <select name="c_country" id="c_country" class="form-select" required>
+                                    <option selected disabled>Choose your country</option>
+                                    @foreach ($allCountries as $country)
+                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    @endforeach
+                                </select>
                                 <label for="c_country">Country<span class="text-danger">*</span></label>
                             </div>
                         </div>
@@ -334,7 +332,12 @@
                         </div>
                         <div class="col-md">
                             <div class="form-floating mb-3 me-3">
-                                <input type="text" name="p_country" id="p_country" class="form-control" placeholder="Country" required>
+                                <select name="p_country" id="p_country" class="form-select" required>
+                                    <option selected disabled>Choose your country</option>
+                                    @foreach ($allCountries as $country)
+                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    @endforeach
+                                </select>
                                 <label for="p_country">Country<span class="text-danger">*</span></label>
                             </div>
                         </div>

@@ -11,6 +11,7 @@ use App\Models\GuardianDetail;
 use App\Models\UserDetail;
 use App\Models\Address;
 use App\Models\AddressMapping;
+use App\Models\Country;
 use App\Models\ApplicantGuardianList;
 use Illuminate\Http\Request;
 use Auth;
@@ -24,7 +25,8 @@ class ParentGuardianParticularController extends Controller
         $allRelationships = GuardianRelationship::all();
         $allNationalities = Nationality::all();
         $allIncomes = Income::all();
-        return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes']));
+        $allCountries = Country::all();
+        return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes','allCountries']));
     }
 
     /**
@@ -58,7 +60,7 @@ class ParentGuardianParticularController extends Controller
             'zipcode' => $r->p_zipcode,
             'city' => $r->p_city,
             'state' => $r->p_state,
-            'country' => $r->p_country,
+            'country_id' => $r->p_country_id,
             'address_type_id' => 2,
         ]);
         $address_mapping = AddressMapping::create([
