@@ -17,7 +17,6 @@ class CreateAddressesTable extends Migration
             $table->id();
             $table->text('street1');
             $table->text('street2');
-            $table->text('street3')->nullable();
             $table->string('zipcode');
             $table->string('city');
             $table->string('state');

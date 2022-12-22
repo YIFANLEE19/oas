@@ -1,7 +1,7 @@
 @extends('oas.layouts.superadmin')
 
 @section('content')
-    {{-- new role modal --}}
+    {{-- modal --}}
     <div class="modal fade" id="newGuardianRelationship" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newGuardianRelationshipLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    {{-- end new role modal --}}
+    {{-- end modal --}}
 
     <div class="container">
 

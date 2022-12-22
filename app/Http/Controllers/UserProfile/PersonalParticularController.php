@@ -61,7 +61,6 @@ class PersonalParticularController extends Controller
         $c_address_id = Address::insertGetId([
             'street1' => $r->c_street1,
             'street2' => $r->c_street2,
-            'street3' => $r->c_street3,
             'zipcode' => $r->c_zipcode,
             'city' => $r->c_city,
             'state' => $r->c_state,
@@ -71,22 +70,23 @@ class PersonalParticularController extends Controller
         $p_address_id = Address::insertGetId([
             'street1' => $r->p_street1,
             'street2' => $r->p_street2,
-            'street3' => $r->p_street3,
             'zipcode' => $r->p_zipcode,
             'city' => $r->p_city,
             'state' => $r->p_state,
             'country' => $r->p_country,
             'address_type_id' => 2,
         ]);
-        $c_address_mapping = AddressMapping::create([
-            'user_detail_id' => $user_detail_id,
-            'address_id' => $c_address_id,
-        ]);
-        $p_address_mapping = AddressMapping::create([
-            'user_detail_id' => $user_detail_id,
-            'address_id' => $p_address_id,
-        ]);
+        $address_mapping = AddressMapping::create(
+            [
+                'user_detail_id' => $user_detail_id,
+                'address_id' => $c_address_id,
+            ],
+            [
+                'user_detail_id' => $user_detail_id,
+                'address_id' => $p_address_id,
+            ],
+        );
         Session::flash('success','Your personal particulars created successfully.');
-        return back();
+        return view('oas.userProfile.personalParticulars')->with(['nextStep' => 'parentGuardianParticulars.home']);
     }
 }

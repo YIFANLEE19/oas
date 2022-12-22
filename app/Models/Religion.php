@@ -18,8 +18,8 @@ class Religion extends Model
      *  The attributes that are mass assignable.
      */
     protected $fillable = [
-        'religion_code',
         'name',
+        'religion_code',
         'status',
     ];
 }

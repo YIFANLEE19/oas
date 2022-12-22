@@ -10,7 +10,7 @@
         @endforeach
      --}}
 
-    {{-- new role modal --}}
+    {{-- modal --}}
     <div class="modal fade" id="newAdminAccount" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newAdminAccountLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -74,7 +74,7 @@
             </div>
         </div>
     </div>
-    {{-- end new role modal --}}
+    {{-- end modal --}}
     
     <div class="container">
 

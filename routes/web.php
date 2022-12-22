@@ -15,6 +15,8 @@ use App\Http\Controllers\Superadmin\SuperadminController;
 use App\Http\Controllers\Superadmin\AddressTypeController;
 use App\Http\Controllers\Superadmin\ApplicationStatusController;
 use App\Http\Controllers\UserProfile\PersonalParticularController;
+use App\Http\Controllers\UserProfile\ParentGuardianParticularController;
+use App\Http\Controllers\UserProfile\EmergencyContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,10 +118,25 @@ Route::prefix('superadmin/')->group(function(){
     });
 });
 
-Route::controller(PersonalParticularController::class)->prefix('user-profile/personal-particulars')->name('personalParticulars.')->group(function(){
-    Route::get('/','index')->name('home');
-    Route::post('/create','create')->name('create');
+Route::prefix('user-profile/')->middleware('auth')->group(function(){
+
+    Route::controller(PersonalParticularController::class)->prefix('personal-particulars')->name('personalParticulars.')->group(function(){
+        Route::get('/','index')->name('home');
+        Route::post('/create','create')->name('create');
+    });
+
+    Route::controller(ParentGuardianParticularController::class)->prefix('parent-guardian-particulars')->name('parentGuardianParticulars.')->group(function(){
+        Route::get('/','index')->name('home');
+        Route::post('/create','create')->name('create');
+    });
+
+    Route::controller(EmergencyContactController::class)->prefix('emergency-contact')->name('emergencyContact.')->group(function(){
+        Route::get('/','index')->name('home');
+        Route::post('/create','create')->name('create');
+    });
+
 });
+
 
 
 

@@ -1,7 +1,7 @@
 @extends('oas.layouts.superadmin')
 
 @section('content')
-    {{-- new acc status modal --}}
+    {{-- new modal --}}
     <div class="modal fade" id="newApplicationStatus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newApplicationStatusLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-    {{-- end new acc status modal --}}
+    {{-- end modal --}}
 
     <div class="container">
 

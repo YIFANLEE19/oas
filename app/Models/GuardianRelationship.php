@@ -18,8 +18,8 @@ class GuardianRelationship extends Model
      *  The attributes that are mass assignable.
      */
     protected $fillable = [
-        'relationship_code',
         'name',
+        'relationship_code',
         'status',
     ];
 }

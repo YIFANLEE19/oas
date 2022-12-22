@@ -18,8 +18,8 @@ class Marital extends Model
      *  The attributes that are mass assignable.
      */
     protected $fillable = [
-        'marital_code',
         'name',
+        'marital_code',
         'status',
     ];
 }

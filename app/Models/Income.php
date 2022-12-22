@@ -18,8 +18,8 @@ class Income extends Model
      *  The attributes that are mass assignable.
      */
     protected $fillable = [
-        'income_code',
         'range',
+        'income_code',
         'status',
     ];
 }

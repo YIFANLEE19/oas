@@ -18,8 +18,8 @@ class Race extends Model
      *  The attributes that are mass assignable.
      */
     protected $fillable = [
-        'race_code',
         'name',
+        'race_code',
         'status',
     ];
 }

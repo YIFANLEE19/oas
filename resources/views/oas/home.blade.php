@@ -40,38 +40,6 @@
         </div>
     </div>
     {{-- end personal profile --}}
-
-    {{-- guardian profile --}}
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body px-4 py-4">
-                    <h1>Setup parent / guardian particulars</h1>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
-                    <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
-                    <br>
-                    <button class="btn btn-primary mt-2">Click here to setup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- end guardian profile --}}
-
-    {{-- emergency contact --}}
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body px-4 py-4">
-                    <h1>Setup emergency contact</h1>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
-                    <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
-                    <br>
-                    <button class="btn btn-primary mt-2">Click here to setup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- end emergency contact --}}
     
 </div>
 @endsection

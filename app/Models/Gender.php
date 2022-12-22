@@ -17,9 +17,9 @@ class Gender extends Model
     /**
      *  The attributes that are mass assignable.
      */
-    protected $fillable = [
-        'gender_code',
+    protected $fillable = [   
         'name',
+        'gender_code',
         'status',
     ];
 }

@@ -259,14 +259,6 @@
                     <div class="row g-3">
                         <div class="col-md">
                             <div class="form-floating mb-3 me-3">
-                                <input type="text" name="c_street3" id="c_street3" class="form-control" placeholder="Address line 2(optional)">
-                                <label for="c_street2">Address line 3 (optional)</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
                                 <input type="text" name="c_zipcode" id="c_zipcode" class="form-control" placeholder="Zipcode" required>
                                 <label for="c_zipcode">Zipcode<span class="text-danger">*</span></label>
                             </div>
@@ -318,14 +310,6 @@
                             <div class="form-floating mb-3 me-3">
                                 <input type="text" name="p_street2" id="p_street2" class="form-control" placeholder="Address line 2" required>
                                 <label for="p_street2">Address line 2<span class="text-danger">*</span></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="p_street3" id="p_street3" class="form-control" placeholder="Address line 2(optional)">
-                                <label for="p_street3">Address line 3 (optional)</label>
                             </div>
                         </div>
                     </div>
@@ -386,7 +370,6 @@
     function copyAddress(){
         var c_street1 = document.getElementById('c_street1');
         var c_street2 = document.getElementById('c_street2');
-        var c_street3 = document.getElementById('c_street3');
         var c_zipcode = document.getElementById('c_zipcode');
         var c_city = document.getElementById('c_city');
         var c_state = document.getElementById('c_state');
@@ -394,7 +377,6 @@
 
         var p_street1 = document.getElementById('p_street1');
         var p_street2 = document.getElementById('p_street2');
-        var p_street3 = document.getElementById('p_street3');
         var p_zipcode = document.getElementById('p_zipcode');
         var p_city = document.getElementById('p_city');
         var p_state = document.getElementById('p_state');
@@ -404,7 +386,6 @@
         if(sameAbove.checked){
             p_street1.value = c_street1.value;
             p_street2.value = c_street2.value;
-            p_street3.value = c_street3.value;
             p_zipcode.value = c_zipcode.value;
             p_city.value = c_city.value;
             p_state.value = c_state.value;
@@ -412,7 +393,6 @@
         }else if(sameAbove.checked == false){
             p_street1.value = '';
             p_street2.value = '';
-            p_street3.value = '';
             p_zipcode.value = '';
             p_city.value = '';
             p_state.value = '';

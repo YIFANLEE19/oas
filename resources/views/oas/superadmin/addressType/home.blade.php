@@ -1,7 +1,7 @@
 @extends('oas.layouts.superadmin')
 
 @section('content')
-    {{-- new acc Type modal --}}
+    {{-- modal --}}
     <div class="modal fade" id="newAddressType" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newAddressTypeLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-    {{-- end new address type modal --}}
+    {{-- end modal --}}
 
     <div class="container">
 

@@ -18,8 +18,8 @@ class Nationality extends Model
      *  The attributes that are mass assignable.
      */
     protected $fillable = [
-        'nationality_code',
         'name',
+        'nationality_code',
         'status',
     ];
 }
