@@ -71,7 +71,7 @@ class ParentGuardianParticularController extends Controller
             'applicant_profile_id' => $applicationRecord->applicant_profile_id,
             'guardian_detail_id' => $guardian_detail_id,
         ]);
-        Session::flash('success','Your guardian particulars created successfully.');
+        Session::flash('success','Congratulations!');
         return back();
     }
 }

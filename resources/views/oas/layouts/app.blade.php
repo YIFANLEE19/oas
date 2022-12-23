@@ -18,6 +18,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- dselect -->
+    <link rel="stylesheet" href="https://unpkg.com/@jarstone/dselect/dist/css/dselect.css">
+    <script src="https://unpkg.com/@jarstone/dselect/dist/js/dselect.js"></script>
+    
 </head>
 <body>
     <div id="app">
@@ -77,7 +85,6 @@
         <main class="py-4">
             @yield('content')
         </main>
-
     </div>
 </body>
 </html>

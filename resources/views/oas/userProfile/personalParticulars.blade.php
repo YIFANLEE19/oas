@@ -8,7 +8,7 @@
             <div class="col-xl-12">
                 <div class="border-bottom">
                     <h3 class="fw-bold">Personal Particulars</h3>
-                    <p class="text-secondary">Next >>> Guardian Particulars</p>
+                    <p class="text-secondary"></p>
                 </div>
             </div>
         </div>
@@ -21,7 +21,10 @@
         <div class="row mt-4">
             <div class="col-md-12">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ Session::get('success') }}
+                    <h4 class="alert-heading">{{ Session::get('success') }} </h4>
+                    <p>You have successfully submitted your personal particulars to us. You will also need to fill in the details of your parent / guardian particulars, emergency contact and submit a personal photo to apply for the programme.</p>
+                    <hr>
+                    <p class="mb-0">If you want to go ahead and fill in the <span class="fw-bold">parent / guardian particulars</span> please click <a href="{{ route('parentGuardianParticulars.home') }}" class="alert-link">here</a> </p>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
@@ -42,17 +45,13 @@
                 </div>
                 <div class="col-md-8">
                     <div class="row g-2">
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="en_name" id="en_name" class="form-control" placeholder="English name" required>
-                                <label for="en_name">English Name<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="en_name" class="form-label">English name<span class="text-danger">*</span></label>
+                            <input type="text" name="en_name" id="en_name" class="form-control" placeholder="" required>
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="ch_name" id="ch_name" class="form-control" placeholder="Chinese name">
-                                <label for="ch_name">Chinese Name</label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="ch_name" class="form-label">Chinese name</label>
+                            <input type="text" name="ch_name" id="ch_name" class="form-control" placeholder="">
                         </div>
                     </div>
                 </div>
@@ -67,11 +66,9 @@
                 </div>
                 <div class="col-md-8">
                     <div class="row">
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="ic" id="ic" class="form-control" placeholder="ic" required>
-                                <label for="ic">Identity card<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="ic" class="form-label">Identity card<span class="text-danger">*</span></label>
+                            <input type="text" name="ic" id="ic" class="form-control" placeholder="" required>
                         </div>
                     </div>
                 </div>
@@ -86,38 +83,32 @@
                 </div>
                 <div class="col-md-8">
                     <div class="row g-3">
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <select name="race_id" id="race" class="form-select" required>
-                                    <option selected disabled>Choose your race</option>
-                                    @foreach ($allRaces as $race)
-                                        <option value="{{ $race->id }}">{{ $race->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="race">Race<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="race" class="form-label">Race<span class="text-danger">*</span></label>
+                            <select name="race_id" id="race" class="form-select" required>
+                                <option selected disabled>Choose your race</option>
+                                @foreach ($allRaces as $race)
+                                    <option value="{{ $race->id }}">{{ $race->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <select name="religion_id" id="religion" class="form-select" required>
-                                    <option selected disabled>Choose your religion</option>
-                                    @foreach ($allReligions as $religion)
-                                        <option value="{{ $religion->id }}">{{ $religion->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="race">Religion<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="religion" class="form-label">Religion<span class="text-danger">*</span></label>
+                            <select name="religion_id" id="religion" class="form-select" required>
+                                <option selected disabled>Choose your religion</option>
+                                @foreach ($allReligions as $religion)
+                                    <option value="{{ $religion->id }}">{{ $religion->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <select name="nationality_id" id="nationality" class="form-select" required>
-                                    <option selected disabled>Choose your nationality</option>
-                                    @foreach ($allNationalities as $nationality)
-                                        <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="race">Nationality<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="nationality" class="form-label">Nationality<span class="text-danger">*</span></label>
+                            <select name="nationality_id" id="nationality" class="form-select" required>
+                                <option selected disabled>Choose your nationality</option>
+                                @foreach ($allNationalities as $nationality)
+                                    <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -132,23 +123,17 @@
                 </div>
                 <div class="col-md-8">
                     <div class="row g-3">
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="date" name="birth_date" id="birth_date" class="form-control" placeholder="Birth date" onchange="ageCalculator()">
-                                <label for="birth_date">Birth date<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="birth_date" class="form-label">Birth date<span class="text-danger">*</span></label>
+                            <input type="date" name="birth_date" id="birth_date" class="form-control" placeholder="" onchange="ageCalculator()">
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="age" id="age" value="" class="form-control-plaintext" readonly>
-                                <label for="age">Age<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="age" class="form-label">Age<span class="text-danger">*</span></label>
+                            <input type="text" name="age" id="age" value="" class="form-control" placeholder="" disabled>
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="place_of_birth" id="place_of_birth" class="form-control" placeholder="Place of birth">
-                                <label for="place_of_birth">Place of birth<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="place_of_birth" class="form-label">Place of birth<span class="text-danger">*</span></label>
+                            <input type="text" name="place_of_birth" id="place_of_birth" class="form-control" placeholder="">
                         </div>
                     </div>
                 </div>
@@ -182,15 +167,13 @@
                             </div>
                         </div>
                         <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <select name="marital_id" id="marital" class="form-select" required>
-                                    <option selected disabled>Choose your marital</option>
-                                    @foreach ($allMaritals as $marital)
-                                        <option value="{{ $marital->id }}">{{ $marital->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="race">Marital<span class="text-danger">*</span></label>
-                            </div>
+                            <label for="marital" class="form-label">Marital<span class="text-danger">*</span></label>
+                            <select name="marital_id" id="marital" class="form-select" required>
+                                <option selected disabled>Choose your marital</option>
+                                @foreach ($allMaritals as $marital)
+                                    <option value="{{ $marital->id }}">{{ $marital->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -205,23 +188,17 @@
                 </div>
                 <div class="col-md-8">
                     <div class="row g-3">
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" required>
-                                <label for="email">Email Address<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="email" class="form-label">Email Address<span class="text-danger">*</span></label>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="abc@email.com" required>
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="tel_h" id="tel_h" class="form-control" placeholder="Tel No. (H)" required>
-                                <label for="tel_h">Tel No. (H)<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                                <label for="tel_h" class="form-label">Tel No. (H)<span class="text-danger">*</span></label>
+                                <input type="text" name="tel_h" id="tel_h" class="form-control" placeholder="" required>
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="tel_hp" id="tel_hp" class="form-control" placeholder="Tel No. (H/P)" required>
-                                <label for="tel_hp">Tel No. (H/P)<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="tel_hp" class="form-label">Tel No. (H/P)<span class="text-danger">*</span></label>
+                            <input type="text" name="tel_hp" id="tel_hp" class="form-control" placeholder="" required>
                         </div>
                     </div>
                 </div>
@@ -236,48 +213,38 @@
                 </div>
                 <div class="col-md-8">
                     <div class="row g-3">
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="c_street1" id="c_street1" class="form-control" placeholder="Address line 1" required>
-                                <label for="c_street1">Address line 1<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="c_street1" class="form-label">Address line 1<span class="text-danger">*</span></label>
+                            <input type="text" name="c_street1" id="c_street1" class="form-control" placeholder="" required>
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="c_street2" id="c_street2" class="form-control" placeholder="Address line 2" required>
-                                <label for="c_street2">Address line 2<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="c_street2" class="form-label">Address line 2<span class="text-danger">*</span></label>
+                            <input type="text" name="c_street2" id="c_street2" class="form-control" placeholder="" required>
                         </div>
                     </div>
                     <div class="row g-3">
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="c_zipcode" id="c_zipcode" class="form-control" placeholder="Zipcode" required>
-                                <label for="c_zipcode">Zipcode<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="c_zipcode" class="form-label">Zipcode<span class="text-danger">*</span></label>
+                            <input type="text" name="c_zipcode" id="c_zipcode" class="form-control" placeholder="" required>
+                        </div>
+                        <div class="col-md mb-3">
+                            <label for="c_city" class="form-label">City<span class="text-danger">*</span></label>
+                            <input type="text" name="c_city" id="c_city" class="form-control" placeholder="" required>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md mb-3">
+                            <label for="c_state" class="form-label">State<span class="text-danger">*</span></label>
+                            <input type="text" name="c_state" id="c_state" class="form-control" placeholder="" required>
                         </div>
                         <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="c_city" id="c_city" class="form-control" placeholder="City" required>
-                                <label for="c_city">City<span class="text-danger">*</span></label>
-                            </div>
-                        </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="c_state" id="c_state" class="form-control" placeholder="State" required>
-                                <label for="c_state">State<span class="text-danger">*</span></label>
-                            </div>
-                        </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <select name="c_country" id="c_country" class="form-select" required>
-                                    <option selected disabled>Choose your country</option>
-                                    @foreach ($allCountries as $country)
-                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="c_country">Country<span class="text-danger">*</span></label>
-                            </div>
+                            <label for="c_country" class="form-label">Country<span class="text-danger">*</span></label>
+                            <select name="c_country_id" id="c_country" class="form-select" required>
+                                <option value="" selected disabled>Choose your country</option>
+                                @foreach ($allCountries as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -289,57 +256,41 @@
                 <div class="col-md-4">
                     <h4 class="fw-bold">Permanent Address</h4>
                     <p class="text-secondary"></p>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="sameAbove" onclick="copyAddress()">
-                        <label class="form-check-label" for="sameAbove">
-                          Same with correspondence address
-                        </label>
-                    </div>
                 </div>
                 <div class="col-md-8">
                     <div class="row g-3">
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="p_street1" id="p_street1" class="form-control" placeholder="Address line 1" required>
-                                <label for="p_street1">Address line 1<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="p_street1" class="form-label">Address line 1<span class="text-danger">*</span></label>
+                            <input type="text" name="p_street1" id="p_street1" class="form-control" placeholder="" required>
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="p_street2" id="p_street2" class="form-control" placeholder="Address line 2" required>
-                                <label for="p_street2">Address line 2<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="p_street2" class="form-label">Address line 2<span class="text-danger">*</span></label>
+                            <input type="text" name="p_street2" id="p_street2" class="form-control" placeholder="" required>
                         </div>
                     </div>
                     <div class="row g-3">
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="p_zipcode" id="p_zipcode" class="form-control" placeholder="Zipcode" required>
-                                <label for="p_zipcode">Zipcode<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="p_zipcode" class="form-label">Zipcode<span class="text-danger">*</span></label>
+                            <input type="text" name="p_zipcode" id="p_zipcode" class="form-control" placeholder="" required>
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="p_city" id="p_city" class="form-control" placeholder="City" required>
-                                <label for="p_city">City<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="p_city" class="form-label">City<span class="text-danger">*</span></label>
+                            <input type="text" name="p_city" id="p_city" class="form-control" placeholder="" required>
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <input type="text" name="p_state" id="p_state" class="form-control" placeholder="State" required>
-                                <label for="p_state">State<span class="text-danger">*</span></label>
-                            </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md mb-3">
+                            <label for="p_state" class="form-label">State<span class="text-danger">*</span></label>
+                            <input type="text" name="p_state" id="p_state" class="form-control" placeholder="" required>
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating mb-3 me-3">
-                                <select name="p_country" id="p_country" class="form-select" required>
-                                    <option selected disabled>Choose your country</option>
-                                    @foreach ($allCountries as $country)
-                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="p_country">Country<span class="text-danger">*</span></label>
-                            </div>
+                        <div class="col-md mb-3">
+                            <label for="p_country" class="form-label">Country<span class="text-danger">*</span></label>
+                            <select name="p_country_id" id="p_country" class="form-select" required>
+                                <option value="" selected disabled>Choose your country</option>
+                                @foreach ($allCountries as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -347,11 +298,31 @@
             <div class="border-bottom mt-4 mb-4"></div>
             {{-- permanent address --}}
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            {{-- form submit --}}
+            <div class="row">
+                <div class="col-md-12 mb-2">
+                    <div class="d-flex flex-column">
+                        <p class="text-secondary"><span class="text-danger">*</span>Please reconfirm the information before submitting</p>
+                        <button type="submit" class="btn btn-primary col-md-3">Submit</button>
+                    </div>
+                </div>
+            </div>
+            {{-- end form submit --}}
         </form>
     </div>
-    {{-- end form --}}
-
+    
+    {{-- dselect --}}
+    <script>
+        const config = {
+            search: true, // Toggle search feature. Default: false
+        }
+        dselect(document.querySelector('#race'), config)
+        dselect(document.querySelector('#religion'), config)
+        dselect(document.querySelector('#nationality'), config)
+        dselect(document.querySelector('#marital'), config)
+        dselect(document.querySelector('#c_country'), config)
+        dselect(document.querySelector('#p_country'), config)
+    </script>
 
     <script>
     // age
@@ -367,39 +338,6 @@
             return document.getElementById("age").value = age;
         }else{
             return false;
-        }
-    }
-    // sameabove
-    function copyAddress(){
-        var c_street1 = document.getElementById('c_street1');
-        var c_street2 = document.getElementById('c_street2');
-        var c_zipcode = document.getElementById('c_zipcode');
-        var c_city = document.getElementById('c_city');
-        var c_state = document.getElementById('c_state');
-        var c_country = document.getElementById('c_country');
-
-        var p_street1 = document.getElementById('p_street1');
-        var p_street2 = document.getElementById('p_street2');
-        var p_zipcode = document.getElementById('p_zipcode');
-        var p_city = document.getElementById('p_city');
-        var p_state = document.getElementById('p_state');
-        var p_country = document.getElementById('p_country');
-
-        const sameAbove = document.getElementById('sameAbove');
-        if(sameAbove.checked){
-            p_street1.value = c_street1.value;
-            p_street2.value = c_street2.value;
-            p_zipcode.value = c_zipcode.value;
-            p_city.value = c_city.value;
-            p_state.value = c_state.value;
-            p_country.value = c_country.value;
-        }else if(sameAbove.checked == false){
-            p_street1.value = '';
-            p_street2.value = '';
-            p_zipcode.value = '';
-            p_city.value = '';
-            p_state.value = '';
-            p_country.value = '';
         }
     }
 </script>

@@ -18,6 +18,7 @@ use App\Http\Controllers\Superadmin\CountryController;
 use App\Http\Controllers\UserProfile\PersonalParticularController;
 use App\Http\Controllers\UserProfile\ParentGuardianParticularController;
 use App\Http\Controllers\UserProfile\EmergencyContactController;
+use App\Http\Controllers\UserProfile\ProfilePictureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,6 +139,11 @@ Route::prefix('user-profile/')->middleware('auth')->group(function(){
     });
 
     Route::controller(EmergencyContactController::class)->prefix('emergency-contact')->name('emergencyContact.')->group(function(){
+        Route::get('/','index')->name('home');
+        Route::post('/create','create')->name('create');
+    });
+
+    Route::controller(ProfilePictureController::class)->prefix('profile-picture')->name('profilePicture.')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
     });

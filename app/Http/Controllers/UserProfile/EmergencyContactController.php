@@ -61,7 +61,7 @@ class EmergencyContactController extends Controller
             ],
         );
 
-        Session::flash('success','Your emergency contact created successfully.');
+        Session::flash('success','Congratulations!');
         return back();
     }
 }

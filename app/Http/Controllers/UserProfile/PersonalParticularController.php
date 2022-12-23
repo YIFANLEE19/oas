@@ -88,7 +88,7 @@ class PersonalParticularController extends Controller
                 'address_id' => $p_address_id,
             ],
         );
-        Session::flash('success','Your personal particulars created successfully.');
-        return view('oas.userProfile.personalParticulars')->with(['nextStep' => 'parentGuardianParticulars.home']);
+        Session::flash('success','Congratulations!');
+        return back();
     }
 }
