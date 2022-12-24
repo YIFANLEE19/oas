@@ -8,7 +8,12 @@
             <div class="col-xl-12">
                 <div class="border-bottom">
                     <h3 class="fw-bold">Parent / Guardian Particulars</h3>
-                    <p class="text-secondary"></p>
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                          <li class="breadcrumb-item active fw-bold" aria-current="page">Parent / Guardian Particulars</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -213,5 +218,15 @@
     </div>
     {{-- end form --}}
 
+    {{-- dselect --}}
+    <script>
+        const config = {
+            search: true, // Toggle search feature. Default: false
+        }
+        dselect(document.querySelector('#relationship'), config)
+        dselect(document.querySelector('#income'), config)
+        dselect(document.querySelector('#nationality'), config)
+        dselect(document.querySelector('#p_country'), config)
+    </script>
 
 @endsection

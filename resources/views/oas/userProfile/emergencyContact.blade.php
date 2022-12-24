@@ -57,7 +57,7 @@
                     <div class="row g-2">
                         <div class="col-md mb-3">
                             <label for="relationship" class="form-label">Relationship</label>
-                            <select name="guardian_relationship_id1" id="relationship" class="form-select" required>
+                            <select name="guardian_relationship_id1" id="relationship1" class="form-select" required>
                                 <option selected disabled>Choose relationship</option>
                                 @foreach ($allRelationships as $relationship)
                                     <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
@@ -93,7 +93,7 @@
                     <div class="row g-2">
                         <div class="col-md mb-3">
                             <label for="relationship" class="form-label">Relationship</label>
-                            <select name="guardian_relationship_id2" id="relationship" class="form-select" required>
+                            <select name="guardian_relationship_id2" id="relationship2" class="form-select" required>
                                 <option selected disabled>Choose relationship</option>
                                 @foreach ($allRelationships as $relationship)
                                     <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
@@ -122,5 +122,14 @@
         </form>
     </div>
     {{-- end form --}}
+
+    {{-- dselect --}}
+    <script>
+        const config = {
+            search: true, // Toggle search feature. Default: false
+        }
+        dselect(document.querySelector('#relationship1'), config)
+        dselect(document.querySelector('#relationship2'), config)
+    </script>
 
 @endsection

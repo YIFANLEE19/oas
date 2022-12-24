@@ -7,8 +7,14 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="border-bottom">
-                    <h3 class="fw-bold">Personal Particulars</h3>
+                    <h1 class="fw-bold">Personal Particulars</h1>
                     <p class="text-secondary"></p>
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                          <li class="breadcrumb-item active fw-bold" aria-current="page">Personal Particulars</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>

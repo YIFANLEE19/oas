@@ -7,6 +7,7 @@ use App\Models\ApplicantProfilePicture;
 use App\Models\ApplicationRecord;
 use Auth;
 use Illuminate\Http\Request;
+use Session;
 
 class ProfilePictureController extends Controller
 {
@@ -35,6 +36,7 @@ class ProfilePictureController extends Controller
             'path' => $pictureName
         ]);
 
+        Session::flash('success_code',1);
         return back();
     }
 }

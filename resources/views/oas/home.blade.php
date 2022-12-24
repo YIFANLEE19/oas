@@ -25,21 +25,78 @@
     </div>
     {{-- end alert --}}
 
-    {{-- personal profile --}}
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body px-4 py-4">
-                    <h1>Setup your personal particulars</h1>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
-                    <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
-                    <br>
-                    <a href="{{ route('personalParticulars.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
+    @if ($status_code == 0)
+        {{-- personal profile --}}
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body px-4 py-4">
+                        <h1>Setup your personal particulars</h1>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
+                        <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
+                        <br>
+                        <a href="{{ route('personalParticulars.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{-- end personal profile --}}
-    
+        {{-- end personal profile --}}
+    @elseif ($status_code == 1 || $status_code == 2)
+        {{-- parent / guardian profile --}}
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body px-4 py-4">
+                        <h1>Setup your parent / guardian particulars</h1>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
+                        <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
+                        <br>
+                        <a href="{{ route('parentGuardianParticulars.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- end parent / guardian profile --}}
+    @elseif ($status_code == 3)
+        {{-- emergency contact --}}
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body px-4 py-4">
+                        <h1>Setup your emergency contact</h1>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
+                        <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
+                        <br>
+                        <a href="{{ route('emergencyContact.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- end emergency contact --}}
+    @elseif ($status_code == 4)
+        {{-- profile picture --}}
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body px-4 py-4">
+                        <h1>Setup your profile picture</h1>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
+                        <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
+                        <br>
+                        <a href="{{ route('profilePicture.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- end profile picture --}}
+    @elseif ($status_code == 5)
+        {{-- can apply program --}}
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <button class="btn btn-primary">Apply programme</button>
+            </div>
+        </div>
+    @endif
+
 </div>
 @endsection

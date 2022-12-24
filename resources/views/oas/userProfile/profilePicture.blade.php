@@ -1,13 +1,49 @@
 @extends('oas.layouts.app')
 
 @section('content')
-    
+    <?php
+        $count = 1;
+    ?>
+    {{-- modal --}}
+    <style>
+        .modal-backdrop {
+            background-color: rgb(50, 47, 47);
+        }
+    </style>
+
+    @if(Session::has('success_code') && Session::get('success_code') == 1)
+        <script>
+            $(function(){
+                $('#exampleModal').modal('show');
+            });
+        </script>
+    @endif
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Well done!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Congratulations, you have filled in all your personal particulars, parent / guardian particulars, emergency contact and uploaded your profile picture. Now you can go to the home page to apply for courses.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('home') }}" type="button" class="btn btn-primary">Back to home page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end modal --}}
+
+
     {{-- header --}}
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
                 <div class="border-bottom">
-                    <h3 class="fw-bold">Uploads profile picture</h3>
+                    <h3 class="fw-bold">Uploads profile picture {{ $count }}</h3>
                     <p class="text-secondary">Next >>> Submit and finish setup profile</p>
                 </div>
             </div>

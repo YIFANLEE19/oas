@@ -78,16 +78,14 @@ class PersonalParticularController extends Controller
             'country_id' => $r->p_country_id,
             'address_type_id' => 2,
         ]);
-        $address_mapping = AddressMapping::create(
-            [
-                'user_detail_id' => $user_detail_id,
-                'address_id' => $c_address_id,
-            ],
-            [
-                'user_detail_id' => $user_detail_id,
-                'address_id' => $p_address_id,
-            ],
-        );
+        $c_address_mapping = AddressMapping::create([
+            'user_detail_id' => $user_detail_id,
+            'address_id' => $c_address_id,
+        ]);
+        $p_address_mapping = AddressMapping::create([        
+            'user_detail_id' => $user_detail_id,
+            'address_id' => $p_address_id,
+        ]);
         Session::flash('success','Congratulations!');
         return back();
     }
