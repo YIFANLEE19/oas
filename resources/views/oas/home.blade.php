@@ -12,17 +12,19 @@
     {{-- end header --}}
 
     {{-- alert --}}
-    <div class="row mt-4 mb-2">
-        <div class="col-xl-12">
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <h4 class="alert-heading fw-bold">Read me before apply any programme!</h4>
-                <p>Aww yeah, you successfully read this important alert message. Before you apply for any course, you have to fill in three particulars, that is Personal particulars, Parent / Guardian particulars and Emergency contact. When you have finished filling it out, you will see the Apply button</p>
-                <hr>
-                <p class="mb-0">Thank you for your cooperation. I will wait for you at the next step.</p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    @if ($status_code != 5)
+        <div class="row mt-4 mb-2">
+            <div class="col-xl-12">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <h4 class="alert-heading fw-bold">Read me before apply any programme!</h4>
+                    <p>Aww yeah, you successfully read this important alert message. Before you apply for any course, you have to fill in three particulars, that is Personal particulars, Parent / Guardian particulars and Emergency contact. When you have finished filling it out, you will see the Apply button</p>
+                    <hr>
+                    <p class="mb-0">Thank you for your cooperation. I will wait for you at the next step.</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
     {{-- end alert --}}
 
     @if ($status_code == 0)
