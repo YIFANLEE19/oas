@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo;
 
     /**
      * Create a new controller instance.
@@ -39,30 +39,22 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
     /**
-     * Custom role login
+     * Handle an authentication attempt.
      */
-    public function login(Request $request)
+    public function redirectTo()
     {
-        $inputVal = $request->all();
-   
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-   
-        if(auth()->attempt(array('email' => $inputVal['email'], 'password' => $inputVal['password']))){
-            if (auth()->user()->role_id == 3 || auth()->user()->role_id == 4 || auth()->user()->role_id == 5 || auth()->user()->role_id == 6 || auth()->user()->role_id == 7)
-            {
-                return redirect()->route('superadmin.home');
-            }
-            else
-            {
-                return redirect()->route('home');
-            }
+        if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2){
+            return $this->redirectTo = '/home';
+        }
+        elseif(Auth::user()->role_id == 3){
+            return $this->redirectTo = '/superadmin';
         }else{
-            return redirect()->route('login')->with('error','Email & Password are incorrect.');
-        }     
+            /**
+             * TODO
+             *  change when admin dashboard created!!
+             */
+            return $this->redirectTo = '/superadmin';
+        }
     }
 }

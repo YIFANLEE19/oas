@@ -40,8 +40,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // superadmin
-
-Route::prefix('superadmin/')->group(function(){
+Route::prefix('superadmin/')->middleware('superadmin')->group(function(){
 
     Route::controller(SuperadminController::class)->name('superadmin.')->group(function(){
         Route::get('/','index')->name('home');
