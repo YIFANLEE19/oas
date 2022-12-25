@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Auth;
 
-class AFO
+class Admin
 {
     /**
      * Handle an incoming request.
@@ -16,9 +17,14 @@ class AFO
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role_id == 5){
-            return $next($request);
+        if(Auth::check()){
+            if(Auth::user()->role_id == 3 || Auth::user()->role_id == 4 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 7){
+                return $next($request);
+            }
+        }else{
+            abort(403,'Unauthorized action');
         }
-        return redirect('home')->with('error',"You're not AFO admin.");
+
+        return redirect()->route('home');
     }
 }

@@ -28,27 +28,11 @@ class AuthServiceProvider extends ServiceProvider
         /**
          * 
          */
-        Gate::define('LocalStudent', function($user){
-            return $user->role_id == '1' || $user->role_id == '3';
+        Gate::define('Admin', function($user){
+            return $user->role_id != 1 || $user->role_id != 2;
         });
-        Gate::define('InternationalStudent', function($user){
-            return $user->role_id == '2' || $user->role_id == '3';
+        Gate::define('Student', function($user){
+            return $user->role_id == 1 || $user->role_id == 2;
         });
-        Gate::define('Superadmin', function($user){
-            return $user->role_id == '3';
-        });
-        Gate::define('AARO', function($user){
-            return $user->role_id == '4' || $user->role_id == '3';
-        });
-        Gate::define('AFO', function($user){
-            return $user->role_id == '5' || $user->role_id == '3';
-        });
-        Gate::define('ISO', function($user){
-            return $user->role_id == '6' || $user->role_id == '3';
-        });
-        Gate::define('SRO', function($user){
-            return $user->role_id == '7' || $user->role_id == '3';
-        });
-
     }
 }

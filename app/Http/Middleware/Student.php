@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Auth;
 
-class SRO
+class Student
 {
     /**
      * Handle an incoming request.
@@ -16,9 +17,14 @@ class SRO
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role_id == 7){
-            return $next($request);
+        if(Auth::check()){
+            if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2){
+                return $next($request);
+            }
+        }else{
+            abort(403,'Unauthorized action');
         }
-        return redirect('home')->with('error',"You're not SRO admin.");
+
+        return redirect()->route('home');
     }
 }
