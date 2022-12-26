@@ -16,7 +16,7 @@
             $(function(){
                 $('#exampleModal').modal('show');
             });
-        </script>
+        </script>        
     @endif
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -71,6 +71,31 @@
         </div>
     </div>
     {{-- end guidelines --}}
+
+    {{-- show error message --}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if(Session::has('success_code') && Session::get('success_code') == 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            <li>Please fill in your personal particulars before uploading your profile picture.Click <a href="{{ route('personalParticulars.home') }}" class="alert-link">here</a>to fill in personal particulars.</li>
+                        </ul>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    {{-- end show error message --}}
 
     {{-- submit photo --}}
     <form action="{{ route('profilePicture.create') }}" method="POST" enctype="multipart/form-data">
