@@ -87,7 +87,7 @@
                         </ol>
                     </nav>
                     <div class="progress mb-2">
-                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">Step 2: Parent / Guardian Particulars</div>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Default striped example" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">Step 2: Parent / Guardian Particulars</div>
                     </div>
                 </div>
             </div>
