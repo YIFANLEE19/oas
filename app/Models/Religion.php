@@ -22,4 +22,8 @@ class Religion extends Model
         'religion_code',
         'status',
     ];
+    public function applicantProfile()
+    {
+        return $this->hasOne(ApplicantProfile::class);
+    }
 }

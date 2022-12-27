@@ -100,4 +100,25 @@ class PersonalParticularController extends Controller
         Session::flash('status_code',1);
         return back();
     }
+
+    /**
+     * view function
+     */
+    public function view()
+    {
+        // get user detail
+        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
+        $applicant_profile_id = $applicationRecord->applicant_profile_id;
+        $applicant_profile = ApplicantProfile::where('id',$applicant_profile_id)->first();
+        $user_detail_id = $applicant_profile->user_detail_id;
+        $user_detail = UserDetail::where('id',$user_detail_id)->first();
+        // end get user detail
+
+
+
+        // if user profile 
+        if($applicationRecord != null){
+            return view('oas.userProfile.viewPersonalParticulars', compact(['applicant_profile','user_detail']));
+        }   
+    }
 }

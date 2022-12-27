@@ -125,11 +125,13 @@ Route::prefix('superadmin/')->middleware('admin')->group(function(){
     });
 });
 
+// user profile 
 Route::prefix('user-profile/')->middleware('auth')->group(function(){
 
     Route::controller(PersonalParticularController::class)->prefix('personal-particulars')->name('personalParticulars.')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
+        Route::get('/view','view')->name('view');
     });
 
     Route::controller(ParentGuardianParticularController::class)->prefix('parent-guardian-particulars')->name('parentGuardianParticulars.')->group(function(){

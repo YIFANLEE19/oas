@@ -22,4 +22,8 @@ class Marital extends Model
         'marital_code',
         'status',
     ];
+    public function applicantProfile()
+    {
+        return $this->hasOne(ApplicantProfile::class);
+    }
 }

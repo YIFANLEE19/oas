@@ -22,4 +22,8 @@ class Race extends Model
         'race_code',
         'status',
     ];
+    public function applicantProfile()
+    {
+        return $this->hasOne(ApplicantProfile::class);
+    }
 }

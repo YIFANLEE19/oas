@@ -22,4 +22,8 @@ class Gender extends Model
         'gender_code',
         'status',
     ];
+    public function applicantProfile()
+    {
+        return $this->hasOne(ApplicantProfile::class);
+    }
 }

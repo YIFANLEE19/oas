@@ -110,6 +110,55 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h3>My profile</h3>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Attention!</strong> Please review your profile again before applying any programme. When you submit your application, we will read your last updated information.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mt-2 mb-2">
+                <div class="card">
+                    <div class="card-body px-4 py-4">
+                        <h1>Personal particulars</h1>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas ducimus hic, molestias officia velit aliquid alias sapiente, quidem quis asperiores tempore sunt laboriosam modi accusantium deserunt repudiandae, adipisci fuga animi?</p>
+                        <a href="{{ route('personalParticulars.view') }}" class="btn btn-primary mt-2">Preview</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mt-2 mb-2">
+                <div class="card">
+                    <div class="card-body px-4 py-4">
+                        <h1>Parent / guardian particulars</h1>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas ducimus hic, molestias officia velit aliquid alias sapiente, quidem quis asperiores tempore sunt laboriosam modi accusantium deserunt repudiandae, adipisci fuga animi?</p>
+                        <a href="" class="btn btn-primary mt-2">Preview</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mt-2 mb-2">
+                <div class="card">
+                    <div class="card-body px-4 py-4">
+                        <h1>Emergency contact</h1>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas ducimus hic, molestias officia velit aliquid alias sapiente, quidem quis asperiores tempore sunt laboriosam modi accusantium deserunt repudiandae, adipisci fuga animi?</p>
+                        <a href="" class="btn btn-primary mt-2">Preview</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mt-2 mb-2">
+                <div class="card">
+                    <div class="card-body px-4 py-4">
+                        <h1>Profile picture</h1>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas ducimus hic, molestias officia velit aliquid alias sapiente, quidem quis asperiores tempore sunt laboriosam modi accusantium deserunt repudiandae, adipisci fuga animi?</p>
+                        <a href="" class="btn btn-primary mt-2">Preview</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endif
 @endsection
