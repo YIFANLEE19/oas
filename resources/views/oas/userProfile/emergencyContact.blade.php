@@ -2,6 +2,96 @@
 
 @section('content')
     
+    {{-- modal --}}
+    <style>
+        .modal-backdrop {
+            background-color: rgb(50, 47, 47);
+        }
+    </style>
+
+    @if(Session::has('status_code') && Session::get('status_code') == 3)
+        <script>
+            $(function(){
+                $('#statusCode3Modal').modal('show');
+            });
+        </script>        
+    @endif
+
+    @if ($status_code == 0)
+        <script>
+            $(function(){
+                $('#statusCode0Modal').modal('show');
+            });
+        </script>
+    @elseif($status_code == 1)
+        <script>
+            $(function(){
+                $('#statusCode1Modal').modal('show');
+            });
+        </script>
+    @elseif($status_code == 3)
+        <script>
+            $(function(){
+                $('#statusCode3Modal').modal('show');
+            });
+        </script>
+    @endif
+    {{-- status 0 = personal particulars X --}}
+    <div class="modal fade" id="statusCode0Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode0ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="statusCode0ModalLabel">Oops!</h1>
+                </div>
+                <div class="modal-body">
+                    <p>Dear user, you haven't filled in the <span class="fw-bold">personal particulars</span>, so you can't go to the next step until you fill them in.</p>
+                    <p>If you want to go ahead and fill in the <span class="fw-bold">personal particulars</span> please click <span class="fw-bold">Continue</span></p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('home') }}" type="button" class="btn btn-secondary">Back to home page</a>
+                    <a href="{{ route('personalParticulars.home') }}" type="button" class="btn btn-primary">Continue</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- status 1 = personal particulars / AND parent guardian particulars X --}}
+    <div class="modal fade" id="statusCode1Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode1ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="statusCode1ModalLabel">Oops!</h1>
+                </div>
+                <div class="modal-body">
+                    <p>Dear user, you haven't filled in the <span class="fw-bold">parent / guardian particulars</span>, so you can't go to the next step until you fill them in.</p>
+                    <p>If you want to go ahead and fill in the <span class="fw-bold">parent / guardian particulars</span> please click <span class="fw-bold">Continue</span></p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('home') }}" type="button" class="btn btn-secondary">Back to home page</a>
+                    <a href="{{ route('parentGuardianParticulars.home') }}" type="button" class="btn btn-primary">Continue</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="statusCode3Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode3ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="statusCode3ModalLabel">Congratulations!</h1>
+                </div>
+                <div class="modal-body">
+                    <p>You have successfully submitted your <span class="fw-bold">emergency contact</span> to us. You will also need to submit a personal photo to apply for the programme.</p>
+                    <p>If you want to go ahead and upload your <span class="fw-bold">personal photo</span> please click <span class="fw-bold">Continue</span></p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('home') }}" type="button" class="btn btn-secondary">Back to home page</a>
+                    <a href="{{ route('profilePicture.home') }}" type="button" class="btn btn-primary">Continue</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end modal --}}
+
     {{-- header --}}
     <div class="container">
         <div class="row">
@@ -22,24 +112,6 @@
         </div>
     </div>
     {{-- end header --}}
-
-    {{-- success message --}}
-    @if(Session::has('success'))
-    <div class="container">
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <h4 class="alert-heading">{{ Session::get('success') }} </h4>
-                    <p>You have successfully submitted your emergency contact to us. You will also need to submit a personal photo to apply for the programme.</p>
-                    <hr>
-                    <p class="mb-0">If you want to go ahead and upload your <span class="fw-bold">personal photo</span> please click <a href="{{ route('profilePicture.home') }}" class="alert-link">here</a> </p>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
-    {{-- end success message --}}
 
     {{-- form --}}
     <div class="container">
@@ -118,14 +190,18 @@
             <div class="border-bottom mt-4 mb-4"></div>
             {{-- end person 2 --}}
             {{-- form submit --}}
-            <div class="row">
-                <div class="col-md-12 mb-2">
-                    <div class="d-flex flex-column">
-                        <p class="text-secondary"><span class="text-danger">*</span>Please reconfirm the information before submitting</p>
-                        <button type="submit" class="btn btn-primary col-md-3">Submit</button>
+            @if ($status_code == 2)
+                <div class="row">
+                    <div class="d-flex justify-content-end">
+                        <p class="text-secondary"><span class="text-danger">*</span>Please reconfirm the information before submitting</p><br>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            @endif
             {{-- end form submit --}}
         </form>
     </div>

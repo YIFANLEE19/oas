@@ -22,11 +22,30 @@ class ParentGuardianParticularController extends Controller
     //
     public function index()
     {
+        // code - 0 = personal particulars X
+        //      - 1 = personal particulars / AND parent guardian particulars X
+        //      - 2 = personal particulars / AND parent guardian particulars /
+        $status_code;
         $allRelationships = GuardianRelationship::all();
         $allNationalities = Nationality::all();
         $allIncomes = Income::all();
         $allCountries = Country::all();
-        return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes','allCountries']));
+
+        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
+        if($applicationRecord == null){
+            $status_code = 0;
+            return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes','allCountries','status_code']));
+        }else{
+            $applicant_profile_id = $applicationRecord->applicant_profile_id;
+            $applicant_guardian_list_check = ApplicantGuardianList::where('applicant_profile_id',$applicant_profile_id)->first();
+            if($applicant_guardian_list_check == null){
+                $status_code = 1;
+                return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes','allCountries','status_code']));
+            }else{
+                $status_code = 2;
+                return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes','allCountries','status_code']));
+            }
+        }
     }
 
     /**
@@ -71,7 +90,7 @@ class ParentGuardianParticularController extends Controller
             'applicant_profile_id' => $applicationRecord->applicant_profile_id,
             'guardian_detail_id' => $guardian_detail_id,
         ]);
-        Session::flash('success','Congratulations!');
+        Session::flash('status_code',2);
         return back();
     }
 }

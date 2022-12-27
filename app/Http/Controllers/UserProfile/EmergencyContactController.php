@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\GuardianRelationship;
 use App\Models\UserDetail;
 use App\Models\ApplicationRecord;
+use App\Models\ApplicantGuardianList;
 use App\Models\EmergencyContact;
 use App\Models\EmergencyContactList;
 use Auth;
@@ -18,8 +19,33 @@ class EmergencyContactController extends Controller
     //
     public function index()
     {
+        // code - 0 = personal particulars X
+        //      - 1 = personal particulars / AND parent guardian particulars X
+        //      - 2 = personal particulars / AND parent guardian particulars / AND emergency contact X
+        //      - 3 = personal particulars / AND parent guardian particulars / AND emergency contact /
+        $status_code;
+        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $allRelationships = GuardianRelationship::all();
-        return view('oas.userProfile.emergencyContact', compact(['allRelationships']));
+        if($applicationRecord == null){
+            $status_code = 0;
+            return view('oas.userProfile.emergencyContact', compact(['allRelationships','status_code']));
+        }else{  
+            $applicant_profile_id = $applicationRecord->applicant_profile_id;
+            $applicant_guardian_list_check = ApplicantGuardianList::where('applicant_profile_id',$applicant_profile_id)->first();
+            if($applicant_guardian_list_check == null){
+                $status_code = 1;
+                return view('oas.userProfile.emergencyContact', compact(['allRelationships','status_code']));
+            }else{
+                $emergency_contact_list_check = EmergencyContactList::where('applicant_profile_id',$applicant_profile_id)->first();
+                if($emergency_contact_list_check == null){
+                    $status_code = 2;
+                    return view('oas.userProfile.emergencyContact', compact(['allRelationships','status_code']));
+                }else{
+                    $status_code = 3;
+                    return view('oas.userProfile.emergencyContact', compact(['allRelationships','status_code']));
+                }
+            }
+        }
     }
     /**
      * create function
@@ -60,8 +86,7 @@ class EmergencyContactController extends Controller
                 'emergency_contact_id' => $emergency_contact_id2,
             ],
         );
-
-        Session::flash('success','Congratulations!');
+        Session::flash('status_code',3);
         return back();
     }
 }

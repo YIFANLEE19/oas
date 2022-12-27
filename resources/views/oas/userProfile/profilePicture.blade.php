@@ -1,9 +1,7 @@
 @extends('oas.layouts.app')
 
 @section('content')
-    <?php
-        $count = 1;
-    ?>
+
     {{-- modal --}}
     <style>
         .modal-backdrop {
@@ -11,20 +9,99 @@
         }
     </style>
 
-    @if(Session::has('success_code') && Session::get('success_code') == 1)
+    @if(Session::has('status_code') && Session::get('status_code') == 4)
         <script>
             $(function(){
-                $('#completeModal').modal('show');
+                $('#statusCode4Modal').modal('show');
             });
         </script>        
     @endif
 
-    <div class="modal fade" id="completeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="completeModalLabel" aria-hidden="true">
+    @if ($status_code == 0)
+        <script>
+            $(function(){
+                $('#statusCode0Modal').modal('show');
+            });
+        </script>
+    @elseif($status_code == 1)
+        <script>
+            $(function(){
+                $('#statusCode1Modal').modal('show');
+            });
+        </script>
+    @elseif($status_code == 2)
+        <script>
+            $(function(){
+                $('#statusCode2Modal').modal('show');
+            });
+        </script>
+    @elseif($status_code == 4)
+        <script>
+            $(function(){
+                $('#statusCode4Modal').modal('show');
+            });
+        </script>
+    @endif
+    {{-- status 0 = personal particulars X --}}
+    <div class="modal fade" id="statusCode0Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode0ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="completeModalLabel">Well done!</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5" id="statusCode0ModalLabel">Oops!</h1>
+                </div>
+                <div class="modal-body">
+                    <p>Dear user, you haven't filled in the <span class="fw-bold">personal particulars</span>, so you can't go to the next step until you fill them in.</p>
+                    <p>If you want to go ahead and fill in the <span class="fw-bold">personal particulars</span> please click <span class="fw-bold">Continue</span></p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('home') }}" type="button" class="btn btn-secondary">Back to home page</a>
+                    <a href="{{ route('personalParticulars.home') }}" type="button" class="btn btn-primary">Continue</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- status 1 = personal particulars / AND parent guardian particulars X --}}
+    <div class="modal fade" id="statusCode1Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode1ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="statusCode1ModalLabel">Oops!</h1>
+                </div>
+                <div class="modal-body">
+                    <p>Dear user, you haven't filled in the <span class="fw-bold">parent / guardian particulars</span>, so you can't go to the next step until you fill them in.</p>
+                    <p>If you want to go ahead and fill in the <span class="fw-bold">parent / guardian particulars</span> please click <span class="fw-bold">Continue</span></p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('home') }}" type="button" class="btn btn-secondary">Back to home page</a>
+                    <a href="{{ route('parentGuardianParticulars.home') }}" type="button" class="btn btn-primary">Continue</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- status 2 = personal particulars / AND parent guardian particulars / AND emergency contact X --}}
+    <div class="modal fade" id="statusCode2Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode2ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="statusCode2ModalLabel">Oops!</h1>
+                </div>
+                <div class="modal-body">
+                    <p>Dear user, you haven't filled in the <span class="fw-bold">emergency contact</span>, so you can't go to the next step until you fill them in.</p>
+                    <p>If you want to go ahead and fill in the <span class="fw-bold">emergency contact</span> please click <span class="fw-bold">Continue</span></p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('home') }}" type="button" class="btn btn-secondary">Back to home page</a>
+                    <a href="{{ route('emergencyContact.home') }}" type="button" class="btn btn-primary">Continue</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- status 4 = personal particulars / AND parent guardian particulars / AND emergency contact / AND profile picture / --}}
+    <div class="modal fade" id="statusCode4Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode4ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="statusCode4ModalLabel">Congratulations!</h1>
                 </div>
                 <div class="modal-body">
                     <p>Congratulations, you have filled in all your personal particulars, parent / guardian particulars, emergency contact and uploaded your profile picture. Now you can go to the home page to apply for courses.</p>
@@ -36,7 +113,6 @@
         </div>
     </div>
     {{-- end modal --}}
-
 
     {{-- header --}}
     <div class="container">
@@ -59,6 +135,57 @@
     </div>
     {{-- end header --}}
 
+    {{-- show error message --}}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    {{-- end show error message --}}
+
+    {{-- submit photo --}}
+    <form action="{{ route('profilePicture.create') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="container">
+            <div class="row mb-4 mt-4">
+                <div class="col-sm-9">
+                    <label for="picture" class="form-label">Photo (<span class="text-danger fw-bold">Accepted Format: jpg, jpeg</span>)<span class="text-danger">*</span></label>
+                    <div class="d-flex flex-column">
+                        <input class="form-control me-3 mb-4" name="picture" id="picture" type="file" accept=".jpg, .jpeg" onchange="previewPhoto(event)">
+                    </div>
+                </div>
+                <div class="col-sm-3 d-flex flex-column justify-content-end">
+                    <p class="text-secondary">Preview</p>
+                    <img id="preview_location" name="preview_location" class="img-fluid" width="150px" height="180px">
+                </div>
+            </div>
+            <hr>
+            @if ($status_code == 3)
+                <div class="row">
+                    <div class="d-flex justify-content-end">
+                        <p class="text-secondary"><span class="text-danger">*</span>Please reconfirm the information before submitting</p><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </form>
+    {{-- end submit photo --}}
+
     {{-- guidelines --}}
     <div class="container mt-2">
         <div class="row">
@@ -79,51 +206,7 @@
     </div>
     {{-- end guidelines --}}
 
-    {{-- show error message --}}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if(Session::has('success_code') && Session::get('success_code') == 0)
-                    <div class="alert alert-danger">
-                        <ul>
-                            <li>Please fill in your personal particulars before uploading your profile picture.Click <a href="{{ route('personalParticulars.home') }}" class="alert-link">here</a>to fill in personal particulars.</li>
-                        </ul>
-                    </div>
-                @endif
-            </div>
-        </div>
-    </div>
-    {{-- end show error message --}}
 
-    {{-- submit photo --}}
-    <form action="{{ route('profilePicture.create') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="container">
-            <div class="row mb-4 mt-4">
-                <div class="col-sm-6">
-                    <label for="picture" class="form-label">Photo (<span class="text-danger fw-bold">Accepted Format: jpg, jpeg</span>)<span class="text-danger">*</span></label>
-                    <div class="d-flex flex-row">
-                        <input class="form-control me-3 mb-4" name="picture" id="picture" type="file" accept=".jpg, .jpeg" onchange="previewPhoto(event)">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-                <div class="col-sm-6">
-                        <p class="text-secondary">Preview</p>
-                        <img id="preview_location" name="preview_location" class="img-fluid" width="150px" height="180px">
-                </div>
-            </div>
-        </div>
-    </form>
-    {{-- end submit photo --}}
 
     <script>
         // image preview

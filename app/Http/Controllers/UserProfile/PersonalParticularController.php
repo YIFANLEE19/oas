@@ -23,13 +23,24 @@ class PersonalParticularController extends Controller
     //    
     public function index()
     {
+        // code - 0 = new user
+        //      - 1 = submitted 
+        $status_code;
         $allRaces = Race::all();
         $allReligions = Religion::all();
         $allNationalities = Nationality::all();
         $allGenders = Gender::all();
         $allMaritals = Marital::all();
         $allCountries = Country::all();
-        return view('oas.userProfile.personalParticulars', compact(['allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries']));
+        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
+        if($applicationRecord == null){
+            $status_code = 0;
+            return view('oas.userProfile.personalParticulars', compact(['allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries','status_code']));
+        }else{
+            $status_code = 1;
+            return view('oas.userProfile.personalParticulars', compact(['allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries','status_code']));
+        }
+
     }
 
     /**
@@ -86,7 +97,7 @@ class PersonalParticularController extends Controller
             'user_detail_id' => $user_detail_id,
             'address_id' => $p_address_id,
         ]);
-        Session::flash('success','Congratulations!');
+        Session::flash('status_code',1);
         return back();
     }
 }
