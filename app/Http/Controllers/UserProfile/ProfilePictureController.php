@@ -66,7 +66,7 @@ class ProfilePictureController extends Controller
 
         $picture = $request->file('picture');
         $pictureName = date('YmdHii').$picture->getClientOriginalName();
-        $picture->move('picture',$pictureName); 
+        $picture->move('images/profile_picture',$pictureName); 
         
         ApplicantProfilePicture::create([
             'applicant_profile_id' => $applicationRecord->applicant_profile_id,
