@@ -7,8 +7,16 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="border-bottom">
-                    <h3 class="fw-bold">Emergency Contact</h3>
-                    <p class="text-secondary">Next >>> Profile Picture</p>
+                    <h1 class="fw-bold">Emergency Contact</h1>
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                          <li class="breadcrumb-item active fw-bold" aria-current="page">Emergency contact</li>
+                        </ol>
+                    </nav>
+                    <div class="progress mb-2">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Step 3: Emergency Contact</div>
+                    </div>
                 </div>
             </div>
         </div>

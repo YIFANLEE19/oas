@@ -7,13 +7,16 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="border-bottom">
-                    <h3 class="fw-bold">Parent / Guardian Particulars</h3>
+                    <h1 class="fw-bold">Parent / Guardian Particulars</h1>
                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                           <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                          <li class="breadcrumb-item active fw-bold" aria-current="page">Parent / Guardian Particulars</li>
+                          <li class="breadcrumb-item active fw-bold" aria-current="page">Parent / guardian particulars</li>
                         </ol>
                     </nav>
+                    <div class="progress mb-2">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">Step 2: Parent / Guardian Particulars</div>
+                    </div>
                 </div>
             </div>
         </div>

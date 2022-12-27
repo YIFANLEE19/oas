@@ -43,8 +43,16 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="border-bottom">
-                    <h3 class="fw-bold">Uploads profile picture {{ $count }}</h3>
-                    <p class="text-secondary">Next >>> Submit and finish setup profile</p>
+                    <h1 class="fw-bold">Uploads profile picture</h1>
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                          <li class="breadcrumb-item active fw-bold" aria-current="page">Profile picture</li>
+                        </ol>
+                    </nav>
+                    <div class="progress mb-2">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Step 4: Profile Picture</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -55,7 +63,7 @@
     <div class="container mt-2">
         <div class="row">
             <div class="col-md-12">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <div class="alert alert-warning fade show" role="alert">
                     <h4 class="alert-heading">Guidelines for submitting your photo</h4>
                     <p>1. In colour, <span class="fw-bold">NOT</span> black and white.</p>
                     <p>2. Taken against a <span class="fw-bold">WHITE</span> background.</p>
@@ -65,7 +73,6 @@
                     <hr>
                     <img src="/images/photo_correct.png" alt="" class="img-fluid me-3">
                     <img src="/images/photo_wrong.png" alt="" class="img-fluid me-3">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
         </div>
