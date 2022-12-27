@@ -91,14 +91,25 @@
             </div>
         </div>
         {{-- end profile picture --}}
-    @elseif ($status_code == 5)
-        {{-- can apply program --}}
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <button class="btn btn-primary">Apply programme</button>
-            </div>
-        </div>
     @endif
 </div>
 
+{{-- show after profile done --}}
+@if ($status_code == 5)
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body px-4 py-4">
+                        <h1>Apply programme now!</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et rem, aperiam eos quisquam accusamus voluptatibus, consequatur amet minus quas assumenda nisi, cupiditate quo libero. Illo laborum non nesciunt esse dolor?</p>
+                        <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
+                        <br>
+                        <a href="" class="btn btn-primary mt-2">Apply programme</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+@endif
 @endsection
