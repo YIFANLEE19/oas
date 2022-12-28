@@ -112,8 +112,8 @@ class PersonalParticularController extends Controller
         $applicant_profile = ApplicantProfile::where('id',$applicant_profile_id)->first();
         $user_detail_id = $applicant_profile->user_detail_id;
         $user_detail = UserDetail::where('id',$user_detail_id)->first();
-        // end get user detail
-
+        // get address mapping
+        
 
 
         // if user profile 

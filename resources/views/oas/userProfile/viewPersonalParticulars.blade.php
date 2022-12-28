@@ -7,15 +7,8 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="border-bottom">
-                <h1 class="fw-bold">Personal Particulars</h1>
                 <div class="d-flex justify-content-between mb-2">
-                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                          <li class="breadcrumb-item active fw-bold" aria-current="page">Personal particulars</li>
-                        </ol>
-                    </nav>
-                    <a href="" class="btn btn-primary">Edit</a>
+                    <h1 class="fw-bold">My profile</h1>
                 </div>
             </div>
         </div>
@@ -158,6 +151,21 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end contact --}}
+    {{-- correspondence address --}}
+    <div class="row d-flex flex-row mt-4 mb-4">
+        <div class="col-md-4">
+            <h4 class="fw-bold">Correspondence address</h4>
+        </div>
+        <div class="col-md-8">
+            <div class="row g-2">
+                <div class="col-md mb-3">
+                    <p class="text-secondary">Address</p>
+                    {{-- <h5>{{ $address->street1 }},{{ $address->street2 }},{{ $address->zipcode }},{{ $address->city }},{{ $address->state }},{{ $address->country['name'] }},</h5> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end correspondence address --}}
 </div>
 {{-- end data --}}
 

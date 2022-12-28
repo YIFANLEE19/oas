@@ -26,4 +26,9 @@ class Address extends Model
         'country_id',
         'address_type_id',
     ];
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 }

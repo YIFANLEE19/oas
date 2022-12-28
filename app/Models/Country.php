@@ -22,4 +22,9 @@ class Country extends Model
         'country_code',
         'status',
     ];
+    
+    public function address()
+    {
+        return $this->hasOne(Address::class);
+    }
 }

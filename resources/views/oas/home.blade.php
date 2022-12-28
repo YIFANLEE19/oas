@@ -96,13 +96,35 @@
 
 {{-- show after profile done --}}
 @if ($status_code == 5)
+
     <div class="container">
         <div class="row mt-4">
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <h3 class="fw-bold">My profile</h3>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Attention!</strong> Please review your profile again before applying any programme. When you submit your application, we will read your last updated information.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div class="card">
+                    <div class="card-body px-4">
+                        <h4 class="card-title">{{ Auth::user()->name }}</h4>
+                        <h6 class="card-subtitle">{{ Auth::user()->email }}</h6>
+                        <p class="badge text-bg-primary">{{ Auth::user()->role['name'] }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <a href="{{ route('personalParticulars.view') }}" class="list-group-item list-group-item-action">Personal particulars</a>
+                        <a href="" class="list-group-item list-group-item-action">Parent / guardian particulars</a>
+                        <a href="" class="list-group-item list-group-item-action">Emergency contact</a>
+                        <a href="" class="list-group-item list-group-item-action">Profile picture</a>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3 class="fw-bold">Apply programme</h3>
                 <div class="card">
                     <div class="card-body px-4 py-4">
-                        <h1>Apply programme now!</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et rem, aperiam eos quisquam accusamus voluptatibus, consequatur amet minus quas assumenda nisi, cupiditate quo libero. Illo laborum non nesciunt esse dolor?</p>
+                        <h3>Apply programme now!</h3>
+                        <p>Southern University College is now offering 58 programmes, including 44 MQA Accredited Programmes, 2 SPACE Programmes and 12 SITE Programmes.</p>
                         <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
                         <br>
                         <a href="" class="btn btn-primary mt-2">Apply programme</a>
@@ -111,54 +133,6 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <h3>My profile</h3>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Attention!</strong> Please review your profile again before applying any programme. When you submit your application, we will read your last updated information.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 mt-2 mb-2">
-                <div class="card">
-                    <div class="card-body px-4 py-4">
-                        <h1>Personal particulars</h1>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas ducimus hic, molestias officia velit aliquid alias sapiente, quidem quis asperiores tempore sunt laboriosam modi accusantium deserunt repudiandae, adipisci fuga animi?</p>
-                        <a href="{{ route('personalParticulars.view') }}" class="btn btn-primary mt-2">Preview</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mt-2 mb-2">
-                <div class="card">
-                    <div class="card-body px-4 py-4">
-                        <h1>Parent / guardian particulars</h1>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas ducimus hic, molestias officia velit aliquid alias sapiente, quidem quis asperiores tempore sunt laboriosam modi accusantium deserunt repudiandae, adipisci fuga animi?</p>
-                        <a href="" class="btn btn-primary mt-2">Preview</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mt-2 mb-2">
-                <div class="card">
-                    <div class="card-body px-4 py-4">
-                        <h1>Emergency contact</h1>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas ducimus hic, molestias officia velit aliquid alias sapiente, quidem quis asperiores tempore sunt laboriosam modi accusantium deserunt repudiandae, adipisci fuga animi?</p>
-                        <a href="" class="btn btn-primary mt-2">Preview</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mt-2 mb-2">
-                <div class="card">
-                    <div class="card-body px-4 py-4">
-                        <h1>Profile picture</h1>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas ducimus hic, molestias officia velit aliquid alias sapiente, quidem quis asperiores tempore sunt laboriosam modi accusantium deserunt repudiandae, adipisci fuga animi?</p>
-                        <a href="" class="btn btn-primary mt-2">Preview</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endif
+
 @endsection
