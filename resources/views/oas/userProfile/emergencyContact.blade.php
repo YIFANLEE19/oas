@@ -113,6 +113,20 @@
     </div>
     {{-- end header --}}
 
+    {{-- alert message --}}
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <h4 class="alert-heading">Kindly remind!</h4>
+                    <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end alert message --}}
+
     {{-- form --}}
     <div class="container">
         <form action="{{ route('emergencyContact.create') }}" method="post" enctype="multipart/form-data">

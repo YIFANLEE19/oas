@@ -57,11 +57,18 @@ class ParentGuardianParticularController extends Controller
 
         // get user applicant profile id 
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
+        // check ic or passport
+        $finalIc;
+        if($r->passport == ''){
+            $finalIc = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
+        }else{
+            $finalIc = $r->passport;
+        }
 
         $user_detail_id = UserDetail::insertGetId([
             'en_name' => $r->en_name,
             'ch_name' => $r->ch_name,
-            'ic' => $r->ic,
+            'ic' => $finalIc,
             'email' => $r->email,
             'tel_hp' => $r->tel_hp,
         ]);

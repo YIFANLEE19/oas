@@ -135,6 +135,26 @@
     </div>
     {{-- end header --}}
 
+    {{-- guidelines --}}
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warning fade show" role="alert">
+                    <h4 class="alert-heading">Guidelines for submitting your photo</h4>
+                    <p>1. In colour, <span class="fw-bold">NOT</span> black and white.</p>
+                    <p>2. Taken against a <span class="fw-bold">WHITE</span> background.</p>
+                    <p>3. The photo must be a true likeness of the person.</p>
+                    <p>4. Please do not use photos that have been cut down from larger pictures.</p>
+                    <p>5. The photo must be sent in <span class="fw-bold">(.jpg, .jpeg, .png)</span> file format and name it as your Name same as I/C.</p>
+                    <hr>
+                    <img src="/images/photo_correct.png" alt="" class="img-fluid me-3">
+                    <img src="/images/photo_wrong.png" alt="" class="img-fluid me-3">
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end guidelines --}}
+
     {{-- show error message --}}
     <div class="container mt-4">
         <div class="row">
@@ -159,14 +179,14 @@
         <div class="container">
             <div class="row mb-4 mt-4">
                 <div class="col-sm-9">
-                    <label for="picture" class="form-label">Photo (<span class="text-danger fw-bold">Accepted Format: jpg, jpeg</span>)<span class="text-danger">*</span></label>
+                    <label for="picture" class="form-label">Photo (<span class="text-danger fw-bold">Accepted Format: jpg, jpeg, png</span>) and <span class="fw-bold text-danger">Not over 5MB</span> <span class="text-danger">*</span></label>
                     <div class="d-flex flex-column">
-                        <input class="form-control me-3 mb-4" name="picture" id="picture" type="file" accept=".jpg, .jpeg" onchange="previewPhoto(event)">
+                        <input class="form-control me-3 mb-4" name="picture" id="picture" type="file" accept=".jpg, .jpeg, .png" onchange="previewPhoto(event)">
                     </div>
                 </div>
                 <div class="col-sm-3 d-flex flex-column justify-content-end">
                     <p class="text-secondary">Preview</p>
-                    <img id="preview_location" name="preview_location" class="img-fluid" width="150px" height="180px">
+                    <img id="preview_location" name="preview_location" class="img-fluid" width="217px" height="280px">
                 </div>
             </div>
             <hr>
@@ -185,28 +205,6 @@
         </div>
     </form>
     {{-- end submit photo --}}
-
-    {{-- guidelines --}}
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-warning fade show" role="alert">
-                    <h4 class="alert-heading">Guidelines for submitting your photo</h4>
-                    <p>1. In colour, <span class="fw-bold">NOT</span> black and white.</p>
-                    <p>2. Taken against a <span class="fw-bold">WHITE</span> background.</p>
-                    <p>3. The photo must be a true likeness of the person.</p>
-                    <p>4. Your photo must be <span class="fw-bold">professionally printed</span> and is <span class="fw-bold">45mm high x 35mm wide</span>. <span class="fw-bold">Please do not use photos that have been cut down from larger pictures.</span></p>
-                    <p>5. The photo must be sent in <span class="fw-bold">JPEG file (*.JPG)</span> format and name it as your Name same as I/C.</p>
-                    <hr>
-                    <img src="/images/photo_correct.png" alt="" class="img-fluid me-3">
-                    <img src="/images/photo_wrong.png" alt="" class="img-fluid me-3">
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- end guidelines --}}
-
-
 
     <script>
         // image preview

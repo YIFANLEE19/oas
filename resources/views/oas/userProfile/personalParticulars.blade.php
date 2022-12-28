@@ -28,7 +28,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="completeModalLabel">Congratulations!</h1>
+                    <h1 class="modal-title fs-5" id="completeModalLabel">Well done!</h1>
                 </div>
                 <div class="modal-body">
                     <p>You have successfully submitted your personal particulars to us. You will also need to fill in the details of your parent / guardian particulars, emergency contact and submit a personal photo to apply for the programme.</p>
@@ -103,12 +103,10 @@
                             <input type="text" name="ic1" id="ic1" class="form-control" placeholder="" maxlength="6" required>
                             <span class="ms-4">-</span>
                         </div>
-                        
                         <div class="col-md d-flex flex-row align-items-center mb-3">
                             <input type="text" name="ic2" id="ic2" class="form-control" placeholder="" maxlength="2" required>
                             <span class="ms-4">-</span>
                         </div>
-                
                         <div class="col-md mb-3">
                             <input type="text" name="ic3" id="ic3" class="form-control" placeholder="" maxlength="4" required>
                         </div>
@@ -315,7 +313,6 @@
             <div class="row d-flex flex-row mt-4 mb-4">
                 <div class="col-md-4">
                     <h4 class="fw-bold">Permanent Address</h4>
-                    <p class="text-secondary"></p>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="sameAbove" onclick="copyAddress()">
                         <label class="form-check-label" for="sameAbove">

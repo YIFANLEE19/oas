@@ -57,14 +57,14 @@ class ProfilePictureController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'picture' => 'required|image|mimes:jpeg,jpg|max:5120',
+            'picture' => 'required|image|mimes:jpeg,jpg,png|max:5120',
         ]);
 
         // get user applicant profile id 
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
 
         $picture = $request->file('picture');
-        $pictureName = date('YmdHii').$picture->getClientOriginalName();
+        $pictureName = 'profile_picture_'.Auth::user()->name.$picture->getClientOriginalName();
         $picture->move('images/profile_picture',$pictureName); 
         
         ApplicantProfilePicture::create([
