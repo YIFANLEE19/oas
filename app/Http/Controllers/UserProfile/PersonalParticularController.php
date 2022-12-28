@@ -52,7 +52,7 @@ class PersonalParticularController extends Controller
         $user_detail_id = UserDetail::insertGetId([
             'en_name' => $r->en_name,
             'ch_name' => $r->ch_name,
-            'ic' => $r->ic,
+            'ic' => $r->ic1.'-'.$r->ic2.'-'.$r->ic3,
             'email' => $r->email,
             'tel_h' => $r->tel_h,
             'tel_hp' => $r->tel_hp,

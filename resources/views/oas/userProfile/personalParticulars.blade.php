@@ -98,9 +98,19 @@
                 </div>
                 <div class="col-md-8">
                     <div class="row">
+                        <label for="ic" class="form-label">Identity card<span class="text-danger">*</span></label>
+                        <div class="col-md d-flex flex-row align-items-center mb-3">
+                            <input type="text" name="ic1" id="ic1" class="form-control" placeholder="" maxlength="6" required>
+                            <span class="ms-4">-</span>
+                        </div>
+                        
+                        <div class="col-md d-flex flex-row align-items-center mb-3">
+                            <input type="text" name="ic2" id="ic2" class="form-control" placeholder="" maxlength="2" required>
+                            <span class="ms-4">-</span>
+                        </div>
+                
                         <div class="col-md mb-3">
-                            <label for="ic" class="form-label">Identity card<span class="text-danger">*</span></label>
-                            <input type="text" name="ic" id="ic" class="form-control" placeholder="" required>
+                            <input type="text" name="ic3" id="ic3" class="form-control" placeholder="" maxlength="4" required>
                         </div>
                     </div>
                 </div>
@@ -136,10 +146,11 @@
                         <div class="col-md mb-3">
                             <label for="nationality" class="form-label">Nationality<span class="text-danger">*</span></label>
                             <select name="nationality_id" id="nationality" class="form-select" required>
-                                <option selected disabled>Choose your nationality</option>
+                                {{-- <option selected disabled>Choose your nationality</option>
                                 @foreach ($allNationalities as $nationality)
                                     <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
-                                @endforeach
+                                @endforeach --}}
+                                <option value="131" selected>Malaysia</option>
                             </select>
                         </div>
                     </div>
@@ -165,7 +176,24 @@
                         </div>
                         <div class="col-md mb-3">
                             <label for="place_of_birth" class="form-label">Place of birth<span class="text-danger">*</span></label>
-                            <input type="text" name="place_of_birth" id="place_of_birth" class="form-control" placeholder="">
+                            <select name="place_of_birth" id="place_of_birth" class="form-select" required>
+                                <option selected disabled>Choose place of birth</option>
+                                <option value="Johor">Johor</option>
+                                <option value="Kedah">Kedah</option>
+                                <option value="Kelantan">Kelantan</option>
+                                <option value="Kuala Lumpur">Kuala Lumpur</option>
+                                <option value="Labuan">Labuan</option>
+                                <option value="Malacca">Malacca</option>
+                                <option value="Negeri Sembilan">Negeri Sembilan</option>
+                                <option value="Pahang">Pahang</option>
+                                <option value="Penang">Penang</option>
+                                <option value="Perak">Perak</option>
+                                <option value="Perlis">Perlis</option>
+                                <option value="Sabah">Sabah</option>
+                                <option value="Sarawak">Sarawak</option>
+                                <option value="Selangor">Selangor</option>
+                                <option value="Terengganu">Terengganu</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -181,7 +209,7 @@
                 <div class="col-md-8">
                     <div class="row g-2">
                         <div class="col-md">
-                            <label for="gender" class="form-label text-secondary">Gender<span class="text-danger">*</span></label>
+                            <label for="gender" class="form-label">Gender<span class="text-danger">*</span></label>
                             <div class="d-flex flex-row mb-3 me-3">
                                 @foreach ($allGenders as $gender)
                                     @if ($gender->id == 1)
@@ -225,12 +253,12 @@
                             <input type="email" name="email" id="email" class="form-control" placeholder="abc@email.com" required>
                         </div>
                         <div class="col-md mb-3">
-                                <label for="tel_h" class="form-label">Tel No. (H)<span class="text-danger">*</span></label>
-                                <input type="text" name="tel_h" id="tel_h" class="form-control" placeholder="" required>
-                        </div>
-                        <div class="col-md mb-3">
                             <label for="tel_hp" class="form-label">Tel No. (H/P)<span class="text-danger">*</span></label>
                             <input type="text" name="tel_hp" id="tel_hp" class="form-control" placeholder="" required>
+                        </div>
+                        <div class="col-md mb-3">
+                                <label for="tel_h" class="form-label">Tel No. (H)</label>
+                                <input type="text" name="tel_h" id="tel_h" class="form-control" placeholder="">
                         </div>
                     </div>
                 </div>
@@ -288,6 +316,12 @@
                 <div class="col-md-4">
                     <h4 class="fw-bold">Permanent Address</h4>
                     <p class="text-secondary"></p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="sameAbove" onclick="copyAddress()">
+                        <label class="form-check-label" for="sameAbove">
+                          Same with correspondence address
+                        </label>
+                    </div>
                 </div>
                 <div class="col-md-8">
                     <div class="row g-3">
@@ -346,19 +380,6 @@
             {{-- end form submit --}}
         </form>
     </div>
-    
-    {{-- dselect --}}
-    <script>
-        const config = {
-            search: true, // Toggle search feature. Default: false
-        }
-        dselect(document.querySelector('#race'), config)
-        dselect(document.querySelector('#religion'), config)
-        dselect(document.querySelector('#nationality'), config)
-        dselect(document.querySelector('#marital'), config)
-        dselect(document.querySelector('#c_country'), config)
-        dselect(document.querySelector('#p_country'), config)
-    </script>
 
     <script>
     // age
@@ -374,6 +395,39 @@
             return document.getElementById("age").value = age;
         }else{
             return false;
+        }
+    }
+     // sameabove
+     function copyAddress(){
+        var c_street1 = document.getElementById('c_street1');
+        var c_street2 = document.getElementById('c_street2');
+        var c_zipcode = document.getElementById('c_zipcode');
+        var c_city = document.getElementById('c_city');
+        var c_state = document.getElementById('c_state');
+        var c_country = document.getElementById('c_country');
+
+        var p_street1 = document.getElementById('p_street1');
+        var p_street2 = document.getElementById('p_street2');
+        var p_zipcode = document.getElementById('p_zipcode');
+        var p_city = document.getElementById('p_city');
+        var p_state = document.getElementById('p_state');
+        var p_country = document.getElementById('p_country');
+
+        const sameAbove = document.getElementById('sameAbove');
+        if(sameAbove.checked){
+            p_street1.value = c_street1.value;
+            p_street2.value = c_street2.value;
+            p_zipcode.value = c_zipcode.value;
+            p_city.value = c_city.value;
+            p_state.value = c_state.value;
+            p_country.value = c_country.value;
+        }else if(sameAbove.checked == false){
+            p_street1.value = '';
+            p_street2.value = '';
+            p_zipcode.value = '';
+            p_city.value = '';
+            p_state.value = '';
+            p_country.value = '';
         }
     }
 </script>

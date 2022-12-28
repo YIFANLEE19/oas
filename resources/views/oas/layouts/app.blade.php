@@ -21,10 +21,6 @@
 
     <!-- Jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- dselect -->
-    <link rel="stylesheet" href="https://unpkg.com/@jarstone/dselect/dist/css/dselect.css">
-    <script src="https://unpkg.com/@jarstone/dselect/dist/js/dselect.js"></script>
     
 </head>
 <body>
@@ -56,7 +52,7 @@
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link fw-bold text-white" href="{{ route('register') }}">Register an account</a>
                                 </li>
                             @endif
                         @else
