@@ -10,6 +10,7 @@ use App\Models\EmergencyContactList;
 use Auth;
 use Illuminate\Http\Request;
 use Session;
+use Image;
 
 class ProfilePictureController extends Controller
 {
@@ -65,7 +66,9 @@ class ProfilePictureController extends Controller
 
         $picture = $request->file('picture');
         $pictureName = 'profile_picture_'.Auth::user()->name.$picture->getClientOriginalName();
-        $picture->move('images/profile_picture',$pictureName); 
+        $pictureResize = Image::make($picture->getRealPath());
+        $pictureResize->resize(210,280);
+        $pictureResize->save(public_path('images/profile_picture/'.$pictureName));
         
         ApplicantProfilePicture::create([
             'applicant_profile_id' => $applicationRecord->applicant_profile_id,
