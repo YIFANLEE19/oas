@@ -31,7 +31,7 @@
             <div class="row g-2">
                 <div class="col-md mb-3">
                     <p class="text-secondary">English Name</p>
-                    <h5>{{ $user_detail->en_name }}</h5>
+                    <h5 class="text-capitalize">{{ $user_detail->en_name }}</h5>
                 </div>
                 <div class="col-md mb-3">
                     <p class="text-secondary">Chinese Name</p>

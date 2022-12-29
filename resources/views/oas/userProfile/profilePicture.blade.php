@@ -104,7 +104,7 @@
                     <h1 class="modal-title fs-5" id="statusCode4ModalLabel">Congratulations!</h1>
                 </div>
                 <div class="modal-body">
-                    <p>Congratulations, you have filled in all your personal particulars, parent / guardian particulars, emergency contact and uploaded your profile picture. Now you can go to the home page to apply for courses.</p>
+                    <p>Well done! we have received your <span class="fw-bold">personal particulars, parent / guardian particulars, emergency contact </span>and your <span class="fw-bold">profile picture</span>. Now you can go to the home page to apply programme.</p>
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('home') }}" type="button" class="btn btn-primary">Back to home page</a>

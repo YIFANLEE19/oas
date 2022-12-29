@@ -113,8 +113,8 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <a href="{{ route('personalParticulars.view') }}" class="list-group-item list-group-item-action">Personal particulars</a>
-                        <a href="" class="list-group-item list-group-item-action">Parent / guardian particulars</a>
-                        <a href="" class="list-group-item list-group-item-action">Emergency contact</a>
+                        <a href="{{ route('parentGuardianParticulars.view') }}" class="list-group-item list-group-item-action">Parent / guardian particulars</a>
+                        <a href="{{ route('emergencyContact.view') }}" class="list-group-item list-group-item-action">Emergency contact</a>
                         <a href="" class="list-group-item list-group-item-action">Profile picture</a>
                     </ul>
                 </div>

@@ -77,14 +77,14 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="statusCode3ModalLabel">Congratulations!</h1>
+                    <h1 class="modal-title fs-5" id="statusCode3ModalLabel">Thank you!</h1>
                 </div>
                 <div class="modal-body">
-                    <p>You have successfully submitted your <span class="fw-bold">emergency contact</span> to us. You will also need to submit a personal photo to apply for the programme.</p>
-                    <p>If you want to go ahead and upload your <span class="fw-bold">personal photo</span> please click <span class="fw-bold">Continue</span></p>
+                    <p>We have received your<span class="fw-bold">emergency contact</span>. You will also need to submit a personal photo to apply for the programme.</p>
+                    <p>If you want to go ahead and upload your <span class="fw-bold">profile picture</span> please click <span class="fw-bold">Continue</span></p>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{ route('home') }}" type="button" class="btn btn-secondary">Back to home page</a>
+                    <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">Back to home page</a>
                     <a href="{{ route('profilePicture.home') }}" type="button" class="btn btn-primary">Continue</a>
                 </div>
             </div>
@@ -106,6 +106,7 @@
                     </nav>
                     <div class="progress mb-2">
                         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Default striped example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Step 3: Emergency Contact</div>
+                        <span class="ms-4">Next : Profile picture</span>
                     </div>
                 </div>
             </div>

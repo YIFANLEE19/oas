@@ -143,6 +143,7 @@ Route::prefix('user-profile/')->middleware('auth')->group(function(){
     Route::controller(EmergencyContactController::class)->prefix('emergency-contact')->name('emergencyContact.')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
+        Route::get('/view','view')->name('view');
     });
 
     Route::controller(ProfilePictureController::class)->prefix('profile-picture')->name('profilePicture.')->group(function(){

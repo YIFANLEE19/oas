@@ -108,6 +108,8 @@ class ParentGuardianParticularController extends Controller
      */
     public function view()
     {
+        $PERMANENT_ADDRESS_TYPE = 2;
+
         // get -> applicant profile id -> applicant guardian list -> guardian detail -> user detail
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $applicant_profile_id = $applicationRecord->applicant_profile_id;

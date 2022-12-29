@@ -21,4 +21,8 @@ class EmergencyContact extends Model
         'guardian_relationship_id',
         'user_detail_id',
     ];
+    public function guardianRelationship()
+    {
+        return $this->belongsTo(GuardianRelationship::class);
+    }
 }

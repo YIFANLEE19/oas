@@ -26,4 +26,8 @@ class GuardianRelationship extends Model
     {
         return $this->hasOne(GuardianDetail::class);
     }
+    public function emergencyContact()
+    {
+        return $this->hasOne(emergencyContact::class);
+    }
 }

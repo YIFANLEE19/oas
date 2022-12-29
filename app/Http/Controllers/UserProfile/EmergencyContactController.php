@@ -76,17 +76,36 @@ class EmergencyContactController extends Controller
             'user_detail_id' => $user_detail_id2,
         ]);
 
-        $emergency_contact_list1 = EmergencyContactList::create(
-            [
-                'applicant_profile_id' => $applicationRecord->applicant_profile_id,
-                'emergency_contact_id' => $emergency_contact_id1,
-            ],
-            [
-                'applicant_profile_id' => $applicationRecord->applicant_profile_id,
-                'emergency_contact_id' => $emergency_contact_id2,
-            ],
-        );
+        $emergency_contact_list1 = EmergencyContactList::create([
+            'applicant_profile_id' => $applicationRecord->applicant_profile_id,
+            'emergency_contact_id' => $emergency_contact_id1,
+        ]);
+        $emergency_contact_list2 = EmergencyContactList::create([
+            'applicant_profile_id' => $applicationRecord->applicant_profile_id,
+            'emergency_contact_id' => $emergency_contact_id2,
+        ]);
         Session::flash('status_code',3);
         return back();
+    }
+
+    /**
+     * view function
+     */
+    public function view()
+    {
+        // get user applicant profile id 
+        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
+        $applicant_profile_id = $applicationRecord->applicant_profile_id;
+        $emergency_contact_lists = EmergencyContactList::where('applicant_profile_id',$applicant_profile_id)->get();
+        $emergency_contact_id1 = $emergency_contact_lists[0]->emergency_contact_id;
+        $emergency_contact_id2 = $emergency_contact_lists[1]->emergency_contact_id;
+        $emergency_contact1 = EmergencyContact::where('id',$emergency_contact_id1)->first();
+        $emergency_contact2 = EmergencyContact::where('id',$emergency_contact_id2)->first();
+        $user_detail_id1 = $emergency_contact1->user_detail_id;
+        $user_detail_id2 = $emergency_contact2->user_detail_id;
+        $user_detail1 = UserDetail::where('id',$user_detail_id1)->first();
+        $user_detail2 = UserDetail::where('id',$user_detail_id2)->first();
+
+        return view('oas.userProfile.viewEmergencyContact', compact(['emergency_contact1','emergency_contact2','user_detail1','user_detail2']));
     }
 }
