@@ -22,4 +22,8 @@ class GuardianRelationship extends Model
         'relationship_code',
         'status',
     ];
+    public function guardianDetail()
+    {
+        return $this->hasOne(GuardianDetail::class);
+    }
 }

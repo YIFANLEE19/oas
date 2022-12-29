@@ -21,7 +21,6 @@ class CreateAddressesTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->foreignId('country_id')->constrained()->onUpdate('cascade');
-            $table->foreignId('address_type_id')->constrained()->onUpdate('cascade');
         });
     }
 

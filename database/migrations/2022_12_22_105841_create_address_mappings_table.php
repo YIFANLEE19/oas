@@ -17,6 +17,7 @@ class CreateAddressMappingsTable extends Migration
             $table->id();
             $table->foreignId('user_detail_id')->constrained()->onUpdate('cascade');
             $table->foreignId('address_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('address_type_id')->constrained()->onUpdate('cascade');
         });
     }
 

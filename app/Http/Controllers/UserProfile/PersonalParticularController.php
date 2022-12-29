@@ -40,14 +40,19 @@ class PersonalParticularController extends Controller
             $status_code = 1;
             return view('oas.userProfile.personalParticulars', compact(['allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries','status_code']));
         }
-
     }
 
     /**
      * create personal particulars profile
+     * 
+     * code     - 1 correspondence address
+     * code     - 2 permanent address
      */
     public function create()
     {
+        $CORRESPONDENCE_ADDRESS_TYPE = 1;
+        $PERMANENT_ADDRESS_TYPE = 2;
+
         $r = request();
         $user_detail_id = UserDetail::insertGetId([
             'en_name' => $r->en_name,
@@ -78,7 +83,6 @@ class PersonalParticularController extends Controller
             'city' => $r->c_city,
             'state' => $r->c_state,
             'country_id' => $r->c_country_id,
-            'address_type_id' => 1,
         ]);
         $p_address_id = Address::insertGetId([
             'street1' => $r->p_street1,
@@ -87,15 +91,16 @@ class PersonalParticularController extends Controller
             'city' => $r->p_city,
             'state' => $r->p_state,
             'country_id' => $r->p_country_id,
-            'address_type_id' => 2,
         ]);
         $c_address_mapping = AddressMapping::create([
             'user_detail_id' => $user_detail_id,
             'address_id' => $c_address_id,
+            'address_type_id' => $CORRESPONDENCE_ADDRESS_TYPE,
         ]);
         $p_address_mapping = AddressMapping::create([        
             'user_detail_id' => $user_detail_id,
             'address_id' => $p_address_id,
+            'address_type_id' => $PERMANENT_ADDRESS_TYPE,
         ]);
         Session::flash('status_code',1);
         return back();
@@ -106,6 +111,8 @@ class PersonalParticularController extends Controller
      */
     public function view()
     {
+        $CORRESPONDENCE_ADDRESS_TYPE = 1;
+        $PERMANENT_ADDRESS_TYPE = 2;
         // get user detail
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $applicant_profile_id = $applicationRecord->applicant_profile_id;
@@ -113,12 +120,16 @@ class PersonalParticularController extends Controller
         $user_detail_id = $applicant_profile->user_detail_id;
         $user_detail = UserDetail::where('id',$user_detail_id)->first();
         // get address mapping
-        
+        $c_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',$CORRESPONDENCE_ADDRESS_TYPE)->first();
+        $p_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',$PERMANENT_ADDRESS_TYPE)->first();
+        $c_address_id = $c_address_mapping->address_id;
+        $p_address_id = $p_address_mapping->address_id;
 
-
+        $c_address = Address::where('id', $c_address_id)->first();
+        $p_address = Address::where('id', $p_address_id)->first();
         // if user profile 
         if($applicationRecord != null){
-            return view('oas.userProfile.viewPersonalParticulars', compact(['applicant_profile','user_detail']));
+            return view('oas.userProfile.viewPersonalParticulars', compact(['applicant_profile','user_detail','c_address','p_address']));
         }   
     }
 }

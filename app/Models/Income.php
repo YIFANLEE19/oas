@@ -22,4 +22,8 @@ class Income extends Model
         'income_code',
         'status',
     ];
+    public function guardianDetail()
+    {
+        return $this->hasOne(GuardianDetail::class);
+    }
 }

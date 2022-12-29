@@ -65,11 +65,10 @@ class ProfilePictureController extends Controller
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
 
         $picture = $request->file('picture');
-        $pictureName = 'profile_picture_'.Auth::user()->name.$picture->getClientOriginalName();
+        $pictureName = 'profile_picture_'.Auth::user()->name.'_'.$picture->getClientOriginalName();
         $pictureResize = Image::make($picture->getRealPath());
         $pictureResize->resize(210,280);
         $pictureResize->save(public_path('images/profile_picture/'.$pictureName));
-        
         ApplicantProfilePicture::create([
             'applicant_profile_id' => $applicationRecord->applicant_profile_id,
             'path' => $pictureName

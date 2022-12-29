@@ -50,11 +50,13 @@ class ParentGuardianParticularController extends Controller
 
     /**
      * create function
+     * code     - 2 permanent address
      */
     public function create()
     {
-        $r = request();
+        $PERMANENT_ADDRESS_TYPE = 2;
 
+        $r = request();
         // get user applicant profile id 
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         // check ic or passport
@@ -87,11 +89,11 @@ class ParentGuardianParticularController extends Controller
             'city' => $r->p_city,
             'state' => $r->p_state,
             'country_id' => $r->p_country_id,
-            'address_type_id' => 2,
         ]);
         $address_mapping = AddressMapping::create([
             'user_detail_id' => $user_detail_id,
             'address_id' => $address_id,
+            'address_type_id' => $PERMANENT_ADDRESS_TYPE,
         ]);
         $applicant_guardian_list = ApplicantGuardianList::create([
             'applicant_profile_id' => $applicationRecord->applicant_profile_id,
@@ -99,5 +101,26 @@ class ParentGuardianParticularController extends Controller
         ]);
         Session::flash('status_code',2);
         return back();
+    }
+
+    /**
+     * view function
+     */
+    public function view()
+    {
+        // get -> applicant profile id -> applicant guardian list -> guardian detail -> user detail
+        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
+        $applicant_profile_id = $applicationRecord->applicant_profile_id;
+        $applicant_guardian_list = ApplicantGuardianList::where('applicant_profile_id',$applicant_profile_id)->first();
+        $guardian_detail_id = $applicant_guardian_list->guardian_detail_id;
+        $guardian_detail = GuardianDetail::where('id',$guardian_detail_id)->first();
+        $user_detail_id = $guardian_detail->user_detail_id;
+        $user_detail = UserDetail::where('id',$user_detail_id)->first();
+        // address
+        $p_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',$PERMANENT_ADDRESS_TYPE)->first();
+        $p_address_id = $p_address_mapping->address_id;
+        $p_address = Address::where('id', $p_address_id)->first();
+
+        return view('oas.userProfile.viewParentGuardianParticulars', compact(['user_detail','guardian_detail','p_address']));
     }
 }

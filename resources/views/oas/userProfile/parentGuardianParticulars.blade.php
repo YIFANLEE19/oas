@@ -102,17 +102,17 @@
             {{-- name --}}
             <div class="row d-flex flex-row mt-4">
                 <div class="col-md-4">
-                    <h4 class="fw-bold">Parent / Guardian Name</h4>
+                    <h4 class="fw-bold">Parent / guardian name</h4>
                     <p class="text-secondary">Your name must same with your Identity Card.</p>
                 </div>
                 <div class="col-md-8">
                     <div class="row g-2">
                         <div class="col-md mb-3">
-                            <label for="en_name" class="form-label">English Name<span class="text-danger">*</span></label>
+                            <label for="en_name" class="form-label">English name<span class="text-danger">*</span></label>
                             <input type="text" name="en_name" id="en_name" class="form-control" placeholder="" required>
                         </div>
                         <div class="col-md mb-3">
-                            <label for="ch_name" class="form-label">Chinese Name</label>
+                            <label for="ch_name" class="form-label">Chinese name</label>
                             <input type="text" name="ch_name" id="ch_name" class="form-control" placeholder="">
                         </div>
                     </div>
@@ -252,7 +252,7 @@
                     <div class="row">
                         <div class="col-md mb-3">
                             <label for="email" class="form-label">Email address<span class="text-danger">*</span></label>
-                            <input type="text" name="email" id="email" class="form-control" placeholder="abc@email.com" required>
+                            <input type="text" name="email" id="email" class="form-control" placeholder="abc@email.com">
                         </div>
                         <div class="col-md mb-3">
                             <label for="tel_hp" class="form-label">Tel No. (H/P)<span class="text-danger">*</span></label>

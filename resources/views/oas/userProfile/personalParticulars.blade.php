@@ -79,7 +79,7 @@
                     <div class="row g-2">
                         <div class="col-md mb-3">
                             <label for="en_name" class="form-label">English name<span class="text-danger">*</span></label>
-                            <input type="text" name="en_name" id="en_name" class="form-control" placeholder="" required>
+                            <input type="text" name="en_name" id="en_name" class="form-control text-capitalize" placeholder="" required>
                         </div>
                         <div class="col-md mb-3">
                             <label for="ch_name" class="form-label">Chinese name</label>
@@ -247,15 +247,15 @@
                 <div class="col-md-8">
                     <div class="row g-3">
                         <div class="col-md mb-3">
-                            <label for="email" class="form-label">Email Address<span class="text-danger">*</span></label>
+                            <label for="email" class="form-label">Email address<span class="text-danger">*</span></label>
                             <input type="email" name="email" id="email" class="form-control" placeholder="abc@email.com" required>
                         </div>
                         <div class="col-md mb-3">
-                            <label for="tel_hp" class="form-label">Tel No. (H/P)<span class="text-danger">*</span></label>
+                            <label for="tel_hp" class="form-label">Tel no. (H/P)<span class="text-danger">*</span></label>
                             <input type="text" name="tel_hp" id="tel_hp" class="form-control" placeholder="" required>
                         </div>
                         <div class="col-md mb-3">
-                                <label for="tel_h" class="form-label">Tel No. (H)</label>
+                                <label for="tel_h" class="form-label">Tel no. (H)</label>
                                 <input type="text" name="tel_h" id="tel_h" class="form-control" placeholder="">
                         </div>
                     </div>

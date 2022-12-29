@@ -7,11 +7,11 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="border-bottom">
-                <h1 class="fw-bold">My profile - Personal particulars</h1>
+                <h1 class="fw-bold">My profile - Parent / guardian particulars</h1>
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                      <li class="breadcrumb-item active fw-bold" aria-current="page">Personal particulars</li>
+                      <li class="breadcrumb-item active fw-bold" aria-current="page">Parent / guardian particulars</li>
                     </ol>
                 </nav>
             </div>
@@ -25,7 +25,7 @@
     {{-- name --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
-            <h4 class="fw-bold">Name</h4>
+            <h4 class="fw-bold">Parent / guardian name</h4>
         </div>
         <div class="col-md-8">
             <div class="row g-2">
@@ -35,12 +35,11 @@
                 </div>
                 <div class="col-md mb-3">
                     <p class="text-secondary">Chinese Name</p>
-                    @if ($user_detail->ch_name == null)
-                        <h5>-</h5>
-                    @else
-                        <h5>{{ $user_detail->ch_name }}</h5>
-                    @endif
-                    
+                        @if ($user_detail->ch_name == '')
+                            <h5>-</h5>
+                        @else
+                            <h5>{{ $user_detail->ch_name }}</h5>
+                        @endif
                 </div>
             </div>
         </div>
@@ -50,12 +49,12 @@
     {{-- ic --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
-            <h4 class="fw-bold">Identity card</h4>
+            <h4 class="fw-bold">Identity card / Passport</h4>
         </div>
         <div class="col-md-8">
             <div class="row g-2">
                 <div class="col-md mb-3">
-                    <p class="text-secondary">Your IC</p>
+                    <p class="text-secondary">Your IC / Passport</p>
                     <h5>{{ $user_detail->ic }}</h5>
                 </div>
             </div>
@@ -63,74 +62,46 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end ic --}}
-    {{-- race, religion, nationality --}}
+    {{-- relationship & nationality --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
-            <h4 class="fw-bold">Race, Religion, Nationality</h4>
+            <h4 class="fw-bold">Relationship & Nationality</h4>
         </div>
         <div class="col-md-8">
             <div class="row g-2">
                 <div class="col-md mb-3">
-                    <p class="text-secondary">Race</p>
-                    <h5>{{ $applicant_profile->race['name'] }}</h5>
-                </div>
-                <div class="col-md mb-3">
-                    <p class="text-secondary">Religion</p>
-                    <h5>{{ $applicant_profile->religion['name'] }}</h5>
+                    <p class="text-secondary">Relationship</p>
+                    <h5>{{ $guardian_detail->guardianRelationship['name'] }}</h5>
                 </div>
                 <div class="col-md mb-3">
                     <p class="text-secondary">Nationality</p>
-                    <h5>{{ $applicant_profile->nationality['name'] }}</h5>
+                    <h5>{{ $guardian_detail->nationality['name'] }}</h5>
                 </div>
             </div>
         </div>
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
-    {{-- end race, religion, nationality --}}
-    {{-- birth date, age, place of birth --}}
+    {{-- end relationship & nationality --}}
+    {{-- occupation, family income --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
-            <h4 class="fw-bold">Birth date, Place of Birth, Age</h4>
+            <h4 class="fw-bold">Occupation & Family income</h4>
         </div>
         <div class="col-md-8">
             <div class="row g-2">
                 <div class="col-md mb-3">
-                    <p class="text-secondary">Birth date(Y-M-D)</p>
-                    <h5>{{ $applicant_profile->birth_date }}</h5>
+                    <p class="text-secondary">Occupation</p>
+                    <h5>{{ $guardian_detail->occupation }}</h5>
                 </div>
                 <div class="col-md mb-3">
-                    <p class="text-secondary">Age</p>
-                    <h5>Do it later</h5>
-                </div>
-                <div class="col-md mb-3">
-                    <p class="text-secondary">Place of Birth</p>
-                    <h5>{{ $applicant_profile->place_of_birth }}</h5>
+                    <p class="text-secondary">Income range</p>
+                    <h5>{{ $guardian_detail->income['range'] }}</h5>
                 </div>
             </div>
         </div>
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
-    {{-- end birth date, age, place of birth --}}
-    {{-- gender marital --}}
-    <div class="row d-flex flex-row mt-4">
-        <div class="col-md-4">
-            <h4 class="fw-bold">Gender & Marital Status</h4>
-        </div>
-        <div class="col-md-8">
-            <div class="row g-2">
-                <div class="col-md mb-3">
-                    <p class="text-secondary">Gender</p>
-                    <h5>{{ $applicant_profile->gender['name'] }}</h5>
-                </div>
-                <div class="col-md mb-3">
-                    <p class="text-secondary">Marital</p>
-                    <h5>{{ $applicant_profile->marital['name'] }}</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="border-bottom mt-2 mb-4"></div>
-    {{-- end gender marital --}}
+    {{-- end occupation, family income --}}
     {{-- contact --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -143,10 +114,6 @@
                     <h5>{{ $user_detail->email }}</h5>
                 </div>
                 <div class="col-md mb-3">
-                    <p class="text-secondary">Tel No. (H)</p>
-                    <h5>{{ $user_detail->tel_h }}</h5>
-                </div>
-                <div class="col-md mb-3">
                     <p class="text-secondary">Tel No. (H/P)</p>
                     <h5>{{ $user_detail->tel_hp }}</h5>
                 </div>
@@ -155,22 +122,6 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end contact --}}
-    {{-- correspondence address --}}
-    <div class="row d-flex flex-row mt-4 mb-4">
-        <div class="col-md-4">
-            <h4 class="fw-bold">Correspondence address</h4>
-        </div>
-        <div class="col-md-8">
-            <div class="row g-2">
-                <div class="col-md mb-3">
-                    <p class="text-secondary">Address</p>
-                    <h5>{{ $c_address->street1 }},{{ $c_address->street2 }},{{ $c_address->zipcode }},{{ $c_address->city }},{{ $c_address->state }},{{ $c_address->country['name'] }}.</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="border-bottom mt-2 mb-4"></div>
-    {{-- end correspondence address --}}
     {{-- permanent address --}}
     <div class="row d-flex flex-row mt-4 mb-4">
         <div class="col-md-4">

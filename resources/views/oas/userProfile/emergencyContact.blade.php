@@ -141,7 +141,7 @@
                     <div class="row g-2">
                         <div class="col-md mb-3">
                             <label for="en_name" class="form-label">English Name<span class="text-danger">*</span></label>
-                            <input type="text" name="en_name1" id="en_name1" class="form-control" placeholder="" required>
+                            <input type="text" name="en_name1" id="en_name1" class="form-control text-capitalize" placeholder="" required>
                         </div>
                         <div class="col-md mb-3">
                             <label for="ch_name" class="form-label">Chinese Name</label>
@@ -177,7 +177,7 @@
                     <div class="row g-2">
                         <div class="col-md mb-3">
                             <label for="en_name" class="form-label">English Name<span class="text-danger">*</span></label>
-                            <input type="text" name="en_name2" id="en_name2" class="form-control" placeholder="" required>
+                            <input type="text" name="en_name2" id="en_name2" class="form-control text-capitalize" placeholder="" required>
                         </div>
                         <div class="col-md mb-3">
                             <label for="ch_name" class="form-label">Chinese Name</label>

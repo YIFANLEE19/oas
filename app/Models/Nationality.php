@@ -26,4 +26,8 @@ class Nationality extends Model
     {
         return $this->hasOne(ApplicantProfile::class);
     }
+    public function guardianDetail()
+    {
+        return $this->hasOne(GuardianDetail::class);
+    }
 }

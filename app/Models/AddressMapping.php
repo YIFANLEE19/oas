@@ -20,5 +20,6 @@ class AddressMapping extends Model
     protected $fillable = [
         'user_detail_id',
         'address_id',
+        'address_type_id',
     ];
 }
