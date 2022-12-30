@@ -105,7 +105,7 @@
                         </ol>
                     </nav>
                     <div class="progress mb-2">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Default striped example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Step 3: Emergency Contact</div>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Default striped example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Step 3: Emergency Contact</div>
                         <span class="ms-4">Next : Profile picture</span>
                     </div>
                 </div>

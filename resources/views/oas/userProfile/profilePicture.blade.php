@@ -127,7 +127,7 @@
                         </ol>
                     </nav>
                     <div class="progress mb-2">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Default striped example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Step 4: Profile Picture</div>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Default striped example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Step 4: Profile Picture</div>
                     </div>
                 </div>
             </div>

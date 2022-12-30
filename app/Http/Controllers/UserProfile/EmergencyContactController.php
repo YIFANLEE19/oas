@@ -93,6 +93,7 @@ class EmergencyContactController extends Controller
      */
     public function view()
     {
+        $allRelationships = GuardianRelationship::all();
         // get user applicant profile id 
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $applicant_profile_id = $applicationRecord->applicant_profile_id;
@@ -106,6 +107,43 @@ class EmergencyContactController extends Controller
         $user_detail1 = UserDetail::where('id',$user_detail_id1)->first();
         $user_detail2 = UserDetail::where('id',$user_detail_id2)->first();
 
-        return view('oas.userProfile.viewEmergencyContact', compact(['emergency_contact1','emergency_contact2','user_detail1','user_detail2']));
+        return view('oas.userProfile.viewEmergencyContact', compact(['emergency_contact1','emergency_contact2','user_detail1','user_detail2','allRelationships']));
+    }
+
+    /**
+     * update function
+     */
+    public function update()
+    {
+        $r = request();
+        $USER_DETAIL_ID1 = $r->user_detail_id1;
+        $USER_DETAIL_ID2 = $r->user_detail_id2;
+        $EMERGENCY_CONTACT_ID1 = $r->emergency_contact_id1;
+        $EMERGENCY_CONTACT_ID2 = $r->emergency_contact_id2;
+
+        $emergency_contact1 = EmergencyContact::find($EMERGENCY_CONTACT_ID1);
+        $emergency_contact1->guardian_relationship_id = $r->guardian_relationship_id1;
+        $emergency_contact1->user_detail_id = $USER_DETAIL_ID1;
+
+        $emergency_contact2 = EmergencyContact::find($EMERGENCY_CONTACT_ID2);
+        $emergency_contact2->guardian_relationship_id = $r->guardian_relationship_id2;
+        $emergency_contact2->user_detail_id = $USER_DETAIL_ID2;
+
+        $user_detail1 = UserDetail::find($USER_DETAIL_ID1);
+        $user_detail1->en_name = $r->en_name1;
+        $user_detail1->ch_name = $r->ch_name1;
+        $user_detail1->tel_hp = $r->tel_hp1;
+
+        $user_detail2 = UserDetail::find($USER_DETAIL_ID2);
+        $user_detail2->en_name = $r->en_name2;
+        $user_detail2->ch_name = $r->ch_name2;
+        $user_detail2->tel_hp = $r->tel_hp2;
+
+        $emergency_contact1->save();
+        $user_detail1->save();
+        $emergency_contact2->save();
+        $user_detail2->save();
+
+        return back();
     }
 }

@@ -57,7 +57,7 @@
                         </ol>
                     </nav>
                     <div class="progress mb-2">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Default striped example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Step 1: Personal Particulars</div>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Default striped example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Step 1: Personal Particulars</div>
                         <span class="ms-4">Next : Parent / guardian particulars</span>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
             {{-- birth date, age, place of birth --}}
             <div class="row d-flex flex-row mt-4">
                 <div class="col-md-4">
-                    <h4 class="fw-bold">Birth date, Place of Birth, Age</h4>
+                    <h4 class="fw-bold">Birth date, Age, Place of Birth</h4>
                     <p class="text-secondary"></p>
                 </div>
                 <div class="col-md-8">
@@ -170,7 +170,7 @@
                             <input type="date" name="birth_date" id="birth_date" class="form-control" placeholder="" onchange="ageCalculator()">
                         </div>
                         <div class="col-md mb-3">
-                            <label for="age" class="form-label">Age<span class="text-danger">*</span></label>
+                            <label for="age" class="form-label">Age</label>
                             <input type="text" name="age" id="age" value="" class="form-control" placeholder="" disabled>
                         </div>
                         <div class="col-md mb-3">

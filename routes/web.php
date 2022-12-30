@@ -132,23 +132,28 @@ Route::prefix('user-profile/')->middleware('auth')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
         Route::get('/view','view')->name('view');
+        Route::post('/update','update')->name('update');
     });
 
     Route::controller(ParentGuardianParticularController::class)->prefix('parent-guardian-particulars')->name('parentGuardianParticulars.')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
         Route::get('/view','view')->name('view');
+        Route::post('/update','update')->name('update');
     });
 
     Route::controller(EmergencyContactController::class)->prefix('emergency-contact')->name('emergencyContact.')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
         Route::get('/view','view')->name('view');
+        Route::post('/update','update')->name('update');
     });
 
     Route::controller(ProfilePictureController::class)->prefix('profile-picture')->name('profilePicture.')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
+        Route::get('/view','view')->name('view');
+        Route::post('/update','update')->name('update');
     });
 
 });

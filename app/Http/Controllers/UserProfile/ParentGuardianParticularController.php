@@ -110,6 +110,11 @@ class ParentGuardianParticularController extends Controller
     {
         $PERMANENT_ADDRESS_TYPE = 2;
 
+        $allRelationships = GuardianRelationship::all();
+        $allNationalities = Nationality::all();
+        $allIncomes = Income::all();
+        $allCountries = Country::all();
+
         // get -> applicant profile id -> applicant guardian list -> guardian detail -> user detail
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $applicant_profile_id = $applicationRecord->applicant_profile_id;
@@ -123,6 +128,51 @@ class ParentGuardianParticularController extends Controller
         $p_address_id = $p_address_mapping->address_id;
         $p_address = Address::where('id', $p_address_id)->first();
 
-        return view('oas.userProfile.viewParentGuardianParticulars', compact(['user_detail','guardian_detail','p_address']));
+        return view('oas.userProfile.viewParentGuardianParticulars', compact(['user_detail','guardian_detail','p_address','allRelationships','allNationalities','allIncomes','allCountries']));
+    }
+    /**
+     * update function
+     */
+    public function update()
+    {
+        $r = request();
+        $USER_DETAIL_ID = $r->user_detail_id;
+        $GUARDIAN_DETAIL_ID = $r->guardian_detail_id;
+        $P_ADDRESS_ID = $r->p_address_id;
+        // check ic or passport
+        $finalIc;
+        if($r->passport == ''){
+            $finalIc = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
+        }else{
+            $finalIc = $r->passport;
+        }
+
+        $user_detail = UserDetail::find($USER_DETAIL_ID);
+        $user_detail->en_name = $r->en_name;
+        $user_detail->ch_name = $r->ch_name;
+        $user_detail->ic = $finalIc;
+        $user_detail->email = $r->email;
+        $user_detail->tel_hp = $r->tel_hp;
+
+        $guardian_detail = GuardianDetail::find($GUARDIAN_DETAIL_ID);
+        $guardian_detail->occupation = $r->occupation;
+        $guardian_detail->income_id = $r->income_id;
+        $guardian_detail->guardian_relationship_id = $r->guardian_relationship_id;
+        $guardian_detail->nationality_id = $r->nationality_id;
+        $guardian_detail->user_detail_id = $USER_DETAIL_ID;
+
+        $p_address = Address::find($P_ADDRESS_ID);
+        $p_address->street1 = $r->p_street1;
+        $p_address->street2 = $r->p_street2;
+        $p_address->zipcode = $r->p_zipcode;
+        $p_address->city = $r->p_city;
+        $p_address->state = $r->p_state;
+        $p_address->country_id = $r->p_country_id;
+
+        $user_detail->save();
+        $guardian_detail->save();
+        $p_address->save();
+
+        return back();
     }
 }

@@ -113,6 +113,14 @@ class PersonalParticularController extends Controller
     {
         $CORRESPONDENCE_ADDRESS_TYPE = 1;
         $PERMANENT_ADDRESS_TYPE = 2;
+
+        $allRaces = Race::all();
+        $allReligions = Religion::all();
+        $allNationalities = Nationality::all();
+        $allGenders = Gender::all();
+        $allMaritals = Marital::all();
+        $allCountries = Country::all();
+
         // get user detail
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $applicant_profile_id = $applicationRecord->applicant_profile_id;
@@ -129,7 +137,60 @@ class PersonalParticularController extends Controller
         $p_address = Address::where('id', $p_address_id)->first();
         // if user profile 
         if($applicationRecord != null){
-            return view('oas.userProfile.viewPersonalParticulars', compact(['applicant_profile','user_detail','c_address','p_address']));
+            return view('oas.userProfile.viewPersonalParticulars', compact(['applicant_profile','user_detail','c_address','p_address','allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries']));
         }   
+    }
+    /**
+     * update function
+     */
+    public function update()
+    {
+        $r = request();
+        $USER_DETAIL_ID = $r->user_detail_id;
+        $APPLICANT_PROFILE_ID = $r->applicant_profile_id;
+        $C_ADDRESS_ID = $r->c_address_id;
+        $P_ADDRESS_ID = $r->p_address_id;
+
+
+        $user_detail = UserDetail::find($USER_DETAIL_ID);
+        $user_detail->en_name = $r->en_name;
+        $user_detail->ch_name = $r->ch_name;
+        $user_detail->ic = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
+        $user_detail->email = $r->email;
+        $user_detail->tel_h =  $r->tel_h;
+        $user_detail->tel_hp = $r->tel_hp;
+
+        $applicant_profile = ApplicantProfile::find($APPLICANT_PROFILE_ID);
+        $applicant_profile->birth_date = $r->birth_date;
+        $applicant_profile->place_of_birth = $r->place_of_birth;
+        $applicant_profile->gender_id = $r->gender_id;
+        $applicant_profile->marital_id = $r->marital_id;
+        $applicant_profile->race_id = $r->race_id;
+        $applicant_profile->nationality_id = $r->nationality_id;
+        $applicant_profile->religion_id = $r->religion_id;
+        $applicant_profile->user_detail_id = $USER_DETAIL_ID;
+
+        $c_address = Address::find($C_ADDRESS_ID);
+        $c_address->street1 = $r->c_street1;
+        $c_address->street2 = $r->c_street2;
+        $c_address->zipcode = $r->c_zipcode;
+        $c_address->city = $r->c_city;
+        $c_address->state = $r->c_state;
+        $c_address->country_id = $r->c_country_id;
+
+        $p_address = Address::find($P_ADDRESS_ID);
+        $p_address->street1 = $r->p_street1;
+        $p_address->street2 = $r->p_street2;
+        $p_address->zipcode = $r->p_zipcode;
+        $p_address->city = $r->p_city;
+        $p_address->state = $r->p_state;
+        $p_address->country_id = $r->p_country_id;
+
+        $user_detail->save();
+        $applicant_profile->save();
+        $c_address->save();
+        $p_address->save();
+
+        return back();
     }
 }
