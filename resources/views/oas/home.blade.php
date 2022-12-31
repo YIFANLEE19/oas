@@ -6,7 +6,8 @@
     <div class="row">
         <div class="col-md-8">
             <h1 class="display-5">SUC Online Admission System</h1>
-            <p class="text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, voluptatibus. Fuga est nisi enim tempora, suscipit, ipsum eligendi id tenetur earum eum laboriosam eaque et nam natus unde inventore! Reiciendis!</p>
+            {{-- description --}}
+            {{-- <p class="text-secondary"></p> --}}
         </div>
     </div>
     {{-- end header --}}

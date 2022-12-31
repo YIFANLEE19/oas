@@ -249,9 +249,16 @@
                             <div class="col-md-12">
                                 <h4 class="fw-bold">Identity card</h4>
                                 <p class="text-secondary">For Malaysian, please specify with dashed line! <br> Example: 800808-01-0088</p>
+                                <p class="text-secondary">If you are local student but don't have identity card, please click the checkbox below.</p>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="changeInput" onclick="changeInputMethod()">
+                                    <label class="form-check-label" for="changeInput">
+                                        Non-Malaysian
+                                    </label>
+                                </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="row">
+                                <div class="row" id="ic_section">
                                     <label for="ic" class="form-label">Identity card<span class="text-danger">*</span></label>
                                     <div class="col-md d-flex flex-row align-items-center mb-3">
                                         <input type="text" name="ic1" id="ic1" class="form-control" placeholder="" maxlength="6" required>
@@ -265,14 +272,60 @@
                                         <input type="text" name="ic3" id="ic3" class="form-control" placeholder="" maxlength="4" required>
                                     </div>
                                 </div>
+                                <div class="row" id="passport_section" style="display: none;">
+                                    <label for="ic" class="form-label">Passport<span class="text-danger">*</span></label>
+                                    <div class="col-md mb-3">
+                                        <input type="text" name="passport" id="passport" class="form-control" placeholder="">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <script>
+                                
                             let text = document.getElementById('read_ic').innerHTML;
                             const myArray = text.split("-");
-                            document.getElementById("ic1").value = myArray[0]; 
-                            document.getElementById("ic2").value = myArray[1]; 
-                            document.getElementById("ic3").value = myArray[2]; 
+                            const changeInput = document.getElementById('changeInput');
+                            const ic_section = document.getElementById('ic_section');
+                            const passport_section = document.getElementById('passport_section');
+                            const ic1 = document.getElementById('ic1');
+                            const ic2 = document.getElementById('ic2');
+                            const ic3 = document.getElementById('ic3');
+                            const passport = document.getElementById('passport');
+
+                            if(myArray.length != 3){
+                                document.getElementById("passport").value = myArray[0];
+                                changeInput.checked = true;
+                                ic_section.style.display = 'none';
+                                passport_section.style.display = 'block';
+                            }else{
+                                document.getElementById("ic1").value = myArray[0]; 
+                                document.getElementById("ic2").value = myArray[1]; 
+                                document.getElementById("ic3").value = myArray[2]; 
+
+                            }
+
+                            function changeInputMethod(){
+                                if(changeInput.checked){
+                                    ic_section.style.display = 'none';
+                                    passport_section.style.display = 'block';
+                                    passport.setAttribute('required','');
+                                    ic1.removeAttribute('required');
+                                    ic2.removeAttribute('required');
+                                    ic3.removeAttribute('required');
+                                    ic1.value = '';
+                                    ic2.value = '';
+                                    ic3.value = '';
+
+                                }else{
+                                    ic_section.style.removeProperty('display');
+                                    passport_section.style.display = 'none';
+                                    passport.removeAttribute('required');
+                                    ic1.setAttribute('required','');
+                                    ic2.setAttribute('required','');
+                                    ic3.setAttribute('required','');
+                                    passport.value = '';
+                                }
+                            }
                         </script>
                         <div class="border-bottom mt-4 mb-4"></div>
                         {{-- end ic --}}

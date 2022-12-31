@@ -52,12 +52,19 @@ class PersonalParticularController extends Controller
     {
         $CORRESPONDENCE_ADDRESS_TYPE = 1;
         $PERMANENT_ADDRESS_TYPE = 2;
-
         $r = request();
+        // check ic or passport
+        $finalIc;
+        if($r->passport == ''){
+            $finalIc = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
+        }else{
+            $finalIc = $r->passport;
+        }
+
         $user_detail_id = UserDetail::insertGetId([
             'en_name' => $r->en_name,
             'ch_name' => $r->ch_name,
-            'ic' => $r->ic1.'-'.$r->ic2.'-'.$r->ic3,
+            'ic' => $finalIc,
             'email' => $r->email,
             'tel_h' => $r->tel_h,
             'tel_hp' => $r->tel_hp,
@@ -150,12 +157,18 @@ class PersonalParticularController extends Controller
         $APPLICANT_PROFILE_ID = $r->applicant_profile_id;
         $C_ADDRESS_ID = $r->c_address_id;
         $P_ADDRESS_ID = $r->p_address_id;
-
+        // check ic or passport
+        $finalIc;
+        if($r->passport == ''){
+            $finalIc = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
+        }else{
+            $finalIc = $r->passport;
+        }
 
         $user_detail = UserDetail::find($USER_DETAIL_ID);
         $user_detail->en_name = $r->en_name;
         $user_detail->ch_name = $r->ch_name;
-        $user_detail->ic = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
+        $user_detail->ic = $finalIc;
         $user_detail->email = $r->email;
         $user_detail->tel_h =  $r->tel_h;
         $user_detail->tel_hp = $r->tel_hp;
