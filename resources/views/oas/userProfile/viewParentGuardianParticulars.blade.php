@@ -110,12 +110,16 @@
         <div class="col-md-8">
             <div class="row g-2">
                 <div class="col-md mb-3">
-                    <p class="text-secondary">Email Address</p>
-                    <h5>{{ $user_detail->email }}</h5>
-                </div>
-                <div class="col-md mb-3">
                     <p class="text-secondary">Tel No. (H/P)</p>
                     <h5>{{ $user_detail->tel_hp }}</h5>
+                </div>
+                <div class="col-md mb-3">
+                    <p class="text-secondary">Email Address</p>
+                    @if ($user_detail->email != null)
+                        <h5>{{ $user_detail->email }}</h5>
+                    @else
+                        <h5>-</h5>
+                    @endif
                 </div>
             </div>
         </div>

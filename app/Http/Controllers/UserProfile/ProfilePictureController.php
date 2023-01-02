@@ -60,8 +60,6 @@ class ProfilePictureController extends Controller
         $request->validate([
             'picture' => 'required|image|mimes:jpeg,jpg,png|max:5120',
         ]);
-
-        // get user applicant profile id 
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
 
         $picture = $request->file('picture');
@@ -81,11 +79,9 @@ class ProfilePictureController extends Controller
      */
     public function view()
     {
-        // get user applicant profile id 
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $applicant_profile_id = $applicationRecord->applicant_profile_id;
         $applicant_profile_picture = ApplicantProfilePicture::where('applicant_profile_id',$applicant_profile_id)->first();
-        // dd($applicant_profile_picture->path);
         return view('oas.userProfile.viewProfilePicture', compact('applicant_profile_picture'));
     }
 
@@ -97,21 +93,17 @@ class ProfilePictureController extends Controller
         $request->validate([
             'picture' => 'required|image|mimes:jpeg,jpg,png|max:5120',
         ]);
+        $APPLICANT_PROFILE_PICTURE_ID = $request->applicant_profile_picture_id;
+        $APPLICANT_PROFILE_ID = $request->applicant_profile_id;
         $picture = $request->file('picture');
         $pictureName = 'profile_picture_'.Auth::user()->name.'_'.date('YmdHii').$picture->getClientOriginalName();
         $pictureResize = Image::make($picture->getRealPath());
         $pictureResize->resize(210,280);
         $pictureResize->save(public_path('images/profile_picture/'.$pictureName));
-
-        $APPLICANT_PROFILE_PICTURE_ID = $request->applicant_profile_picture_id;
-        $APPLICANT_PROFILE_ID = $request->applicant_profile_id;
         $applicant_profile_picture = ApplicantProfilePicture::find($APPLICANT_PROFILE_PICTURE_ID);
         $applicant_profile_picture->path = $pictureName;
         $applicant_profile_picture->applicant_profile_id = $APPLICANT_PROFILE_ID;
         $applicant_profile_picture->save();
-
-
-
         return back();
     }
 }
