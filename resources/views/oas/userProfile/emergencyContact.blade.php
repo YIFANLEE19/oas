@@ -222,13 +222,4 @@
     </div>
     {{-- end form --}}
 
-    {{-- dselect --}}
-    <script>
-        const config = {
-            search: true, // Toggle search feature. Default: false
-        }
-        dselect(document.querySelector('#relationship1'), config)
-        dselect(document.querySelector('#relationship2'), config)
-    </script>
-
 @endsection
