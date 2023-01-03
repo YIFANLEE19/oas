@@ -13,7 +13,7 @@
     {{-- end header --}}
 
     {{-- alert --}}
-    @if ($status_code != 5)
+    @if ($application_status_id != 4)
         <div class="row mt-4 mb-2">
             <div class="col-xl-12">
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -28,7 +28,7 @@
     @endif
     {{-- end alert --}}
 
-    @if ($status_code == 0)
+    @if ($application_status_id == 0)
         {{-- personal profile --}}
         <div class="row mt-4">
             <div class="col-md-12">
@@ -44,7 +44,7 @@
             </div>
         </div>
         {{-- end personal profile --}}
-    @elseif ($status_code == 1 || $status_code == 2)
+    @elseif ($application_status_id == 1)
         {{-- parent / guardian profile --}}
         <div class="row mt-4">
             <div class="col-md-12">
@@ -60,7 +60,7 @@
             </div>
         </div>
         {{-- end parent / guardian profile --}}
-    @elseif ($status_code == 3)
+    @elseif ($application_status_id == 2)
         {{-- emergency contact --}}
         <div class="row mt-4">
             <div class="col-md-12">
@@ -76,7 +76,7 @@
             </div>
         </div>
         {{-- end emergency contact --}}
-    @elseif ($status_code == 4)
+    @elseif ($application_status_id == 3)
         {{-- profile picture --}}
         <div class="row mt-4">
             <div class="col-md-12">
@@ -96,7 +96,7 @@
 </div>
 
 {{-- show after profile done --}}
-@if ($status_code == 5)
+@if ($application_status_id == 4)
 
     <div class="container">
         <div class="row mt-4">

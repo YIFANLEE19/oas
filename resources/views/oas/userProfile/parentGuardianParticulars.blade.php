@@ -9,7 +9,7 @@
         }
     </style>
 
-    @if(Session::has('status_code') && Session::get('status_code') == 2)
+    @if(Session::has('application_status_id') && Session::get('application_status_id') == 2)
         <script>
             $(function(){
                 $('#statusCode2Modal').modal('show');
@@ -17,24 +17,18 @@
         </script>        
     @endif
 
-    @if ($status_code == 0)
+    @if ($application_status_id == 0)
         <script>
             $(function(){
                 $('#statusCode0Modal').modal('show');
             });
-        </script>   
-    @elseif($status_code == 1)
-        <script>
-            $(function(){
-                $('#statusCode1Modal').modal('show');
-            });
-        </script>  
-    @elseif($status_code == 2)
+        </script>
+    @elseif($application_status_id > 1 && $application_status_id <= 4)
         <script>
             $(function(){
                 $('#statusCode2Modal').modal('show');
             });
-        </script>  
+        </script> 
     @endif
     {{-- status 0 = personal particulars X --}}
     <div class="modal fade" id="statusCode0Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode0ModalLabel" aria-hidden="true">
@@ -311,7 +305,7 @@
             <div class="border-bottom mt-4 mb-4"></div>
             {{-- permanent address --}}
             {{-- form submit --}}
-            @if ($status_code == 1)
+            @if ($application_status_id == 1 || $application_status_id <= 2)
                 <div class="row">
                     <div class="d-flex justify-content-end">
                         <p class="text-secondary"><span class="text-danger">*</span>Please reconfirm the information before submitting</p><br>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2022 at 09:37 AM
+-- Generation Time: Jan 03, 2023 at 07:41 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -154,6 +154,16 @@ CREATE TABLE `application_statuses` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `application_statuses`
+--
+
+INSERT INTO `application_statuses` (`id`, `status`) VALUES
+(1, 'Complete personal particulars'),
+(2, 'Complete parent / guardian particulars'),
+(3, 'Complete emergency contact'),
+(4, 'Complete profile picture');
 
 -- --------------------------------------------------------
 
@@ -1328,7 +1338,7 @@ ALTER TABLE `application_records`
 -- AUTO_INCREMENT for table `application_statuses`
 --
 ALTER TABLE `application_statuses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `application_status_logs`

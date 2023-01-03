@@ -8,7 +8,7 @@
         }
     </style>
 
-    @if(Session::has('status_code') && Session::get('status_code') == 1)
+    @if(Session::has('application_status_id') && Session::get('application_status_id') == 1)
         <script>
             $(function(){
                 $('#completeModal').modal('show');
@@ -16,7 +16,7 @@
         </script>        
     @endif
 
-    @if ($status_code == 1)
+    @if ($application_status_id == 1 || $application_status_id >= 1)
         <script>
             $(function(){
                 $('#completeModal').modal('show');
@@ -100,7 +100,7 @@
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="changeInput" onclick="changeInputMethod()">
                         <label class="form-check-label" for="changeInput">
-                            Non-Malaysian
+                            Don't have identity card
                         </label>
                     </div>
                 </div>
@@ -128,33 +128,6 @@
                 </div>
             </div>
             <div class="border-bottom mt-4 mb-4"></div>
-            <script>
-                function changeInputMethod(){
-                    const changeInput = document.getElementById('changeInput');
-                    const ic_section = document.getElementById('ic_section');
-                    const passport_section = document.getElementById('passport_section');
-                    const ic1 = document.getElementById('ic1');
-                    const ic2 = document.getElementById('ic2');
-                    const ic3 = document.getElementById('ic3');
-                    const passport = document.getElementById('passport');
-
-                    if(changeInput.checked){
-                        ic_section.style.display = 'none';
-                        passport_section.style.display = 'block';
-                        passport.setAttribute('required','');
-                        ic1.removeAttribute('required');
-                        ic2.removeAttribute('required');
-                        ic3.removeAttribute('required');
-                    }else{
-                        ic_section.style.removeProperty('display');
-                        passport_section.style.display = 'none';
-                        passport.removeAttribute('required');
-                        ic1.setAttribute('required','');
-                        ic2.setAttribute('required','');
-                        ic3.setAttribute('required','');
-                    }
-                }
-            </script>
             {{-- end ic --}}
             {{-- race, religion, nationality --}}
             <div class="row d-flex flex-row mt-4">
@@ -190,12 +163,43 @@
                                     <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
                                 @endforeach --}}
                                 <option value="131" selected>Malaysia</option>
+                                <option value="161">Non-Malaysian</option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="border-bottom mt-4 mb-4"></div>
+            <script>
+                function changeInputMethod(){
+                    const changeInput = document.getElementById('changeInput');
+                    const ic_section = document.getElementById('ic_section');
+                    const passport_section = document.getElementById('passport_section');
+                    const ic1 = document.getElementById('ic1');
+                    const ic2 = document.getElementById('ic2');
+                    const ic3 = document.getElementById('ic3');
+                    const passport = document.getElementById('passport');
+                    const nationality = document.getElementById('nationality');
+
+                    if(changeInput.checked){
+                        ic_section.style.display = 'none';
+                        passport_section.style.display = 'block';
+                        passport.setAttribute('required','');
+                        ic1.removeAttribute('required');
+                        ic2.removeAttribute('required');
+                        ic3.removeAttribute('required');
+                        nationality.value = 161;
+                    }else{
+                        ic_section.style.removeProperty('display');
+                        passport_section.style.display = 'none';
+                        passport.removeAttribute('required');
+                        ic1.setAttribute('required','');
+                        ic2.setAttribute('required','');
+                        ic3.setAttribute('required','');
+                        nationality.value = 131;
+                    }
+                }
+            </script>
             {{-- end race, religion, nationality --}}
             {{-- birth date, age, place of birth --}}
             <div class="row d-flex flex-row mt-4">
@@ -340,7 +344,7 @@
                         <div class="col-md">
                             <label for="c_country" class="form-label">Country<span class="text-danger">*</span></label>
                             <select name="c_country_id" id="c_country" class="form-select" required>
-                                <option value="" selected disabled>Choose your country</option>
+                                <option selected disabled>Choose your country</option>
                                 @foreach ($allCountries as $country)
                                     <option value="{{ $country->id }}">{{ $country->name }}</option>
                                 @endforeach
@@ -391,7 +395,7 @@
                         <div class="col-md mb-3">
                             <label for="p_country" class="form-label">Country<span class="text-danger">*</span></label>
                             <select name="p_country_id" id="p_country" class="form-select" required>
-                                <option value="" selected disabled>Choose your country</option>
+                                <option selected disabled>Choose your country</option>
                                 @foreach ($allCountries as $country)
                                     <option value="{{ $country->id }}">{{ $country->name }}</option>
                                 @endforeach
@@ -404,7 +408,7 @@
             {{-- permanent address --}}
 
             {{-- form submit --}}
-            @if ($status_code != 1)
+            @if ($application_status_id >= 1 || $application_status_id == 0)
                 <div class="row">
                     <div class="d-flex justify-content-end">
                         <p class="text-secondary"><span class="text-danger">*</span>Please reconfirm the information before submitting</p><br>

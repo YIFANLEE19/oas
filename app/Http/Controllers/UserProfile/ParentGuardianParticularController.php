@@ -13,6 +13,7 @@ use App\Models\Address;
 use App\Models\AddressMapping;
 use App\Models\Country;
 use App\Models\ApplicantGuardianList;
+use App\Models\ApplicationStatusLog;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
@@ -31,20 +32,13 @@ class ParentGuardianParticularController extends Controller
         $allIncomes = Income::all();
         $allCountries = Country::all();
 
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
-        if($applicationRecord == null){
-            $status_code = 0;
-            return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes','allCountries','status_code']));
+        $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
+        if($application_status_log == null){
+            $application_status_id = 0;
+            return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes','allCountries','application_status_id']));
         }else{
-            $applicant_profile_id = $applicationRecord->applicant_profile_id;
-            $applicant_guardian_list_check = ApplicantGuardianList::where('applicant_profile_id',$applicant_profile_id)->first();
-            if($applicant_guardian_list_check == null){
-                $status_code = 1;
-                return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes','allCountries','status_code']));
-            }else{
-                $status_code = 2;
-                return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes','allCountries','status_code']));
-            }
+            $application_status_id = $application_status_log->application_status_id;
+            return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes','allCountries','application_status_id']));
         }
     }
 
@@ -55,6 +49,7 @@ class ParentGuardianParticularController extends Controller
     public function create()
     {
         $PERMANENT_ADDRESS_TYPE = 2;
+        $COMPLETEPARENTGUARDIANPARTICULARS = 2;
 
         $r = request();
         // get user applicant profile id 
@@ -99,7 +94,14 @@ class ParentGuardianParticularController extends Controller
             'applicant_profile_id' => $applicationRecord->applicant_profile_id,
             'guardian_detail_id' => $guardian_detail_id,
         ]);
-        Session::flash('status_code',2);
+        $find_application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
+        if($find_application_status_log != null){
+            $application_status_log_id = $find_application_status_log->id;
+            $application_status_log = ApplicationStatusLog::find($application_status_log_id);
+            $application_status_log->application_status_id = $COMPLETEPARENTGUARDIANPARTICULARS;
+            $application_status_log->save();
+        }
+        Session::flash('application_status_id',$COMPLETEPARENTGUARDIANPARTICULARS);
         return back();
     }
 

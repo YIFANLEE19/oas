@@ -14,6 +14,7 @@ use App\Models\ApplicationRecord;
 use App\Models\AddressMapping;
 use App\Models\Address;
 use App\Models\Country;
+use App\Models\ApplicationStatusLog;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
@@ -23,9 +24,7 @@ class PersonalParticularController extends Controller
     //    
     public function index()
     {
-        // code - 0 = new user
-        //      - 1 = submitted 
-        $status_code;
+        // $application_status_id 0 == new user, haven't complete personal particulars.
         $allRaces = Race::all();
         $allReligions = Religion::all();
         $allNationalities = Nationality::all();
@@ -33,13 +32,15 @@ class PersonalParticularController extends Controller
         $allMaritals = Marital::all();
         $allCountries = Country::all();
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
-        if($applicationRecord == null){
-            $status_code = 0;
-            return view('oas.userProfile.personalParticulars', compact(['allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries','status_code']));
+        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
+        if($application_status_log_id == null){
+            $application_status_id = 0;
+            return view('oas.userProfile.personalParticulars', compact(['allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries','application_status_id']));
         }else{
-            $status_code = 1;
-            return view('oas.userProfile.personalParticulars', compact(['allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries','status_code']));
+            $application_status_id = $application_status_log_id->application_status_id;
+            return view('oas.userProfile.personalParticulars', compact(['allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries','application_status_id']));
         }
+
     }
 
     /**
@@ -52,6 +53,8 @@ class PersonalParticularController extends Controller
     {
         $CORRESPONDENCE_ADDRESS_TYPE = 1;
         $PERMANENT_ADDRESS_TYPE = 2;
+        $COMPLETEPERSONALPARTICULARS = 1;
+
         $r = request();
         // check ic or passport
         $finalIc;
@@ -109,7 +112,12 @@ class PersonalParticularController extends Controller
             'address_id' => $p_address_id,
             'address_type_id' => $PERMANENT_ADDRESS_TYPE,
         ]);
-        Session::flash('status_code',1);
+        $application_status_log = ApplicationStatusLog::create([
+            'user_id' => Auth::id(),
+            'application_record_id' => $application_record_id,
+            'application_status_id' => $COMPLETEPERSONALPARTICULARS,
+        ]);
+        Session::flash('application_status_id',$COMPLETEPERSONALPARTICULARS);
         return back();
     }
 

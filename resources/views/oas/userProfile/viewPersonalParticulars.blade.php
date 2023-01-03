@@ -291,6 +291,7 @@
                             const ic2 = document.getElementById('ic2');
                             const ic3 = document.getElementById('ic3');
                             const passport = document.getElementById('passport');
+                            const nationality = document.getElementById('nationality');
 
                             if(myArray.length != 3){
                                 document.getElementById("passport").value = myArray[0];
@@ -315,7 +316,7 @@
                                     ic1.value = '';
                                     ic2.value = '';
                                     ic3.value = '';
-
+                                    nationality.value = 161;
                                 }else{
                                     ic_section.style.removeProperty('display');
                                     passport_section.style.display = 'none';
@@ -324,6 +325,7 @@
                                     ic2.setAttribute('required','');
                                     ic3.setAttribute('required','');
                                     passport.value = '';
+                                    nationality.value = 131;
                                 }
                             }
                         </script>

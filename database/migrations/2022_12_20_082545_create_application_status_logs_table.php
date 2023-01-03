@@ -16,8 +16,8 @@ class CreateApplicationStatusLogsTable extends Migration
         Schema::create('application_status_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade');
-            $table->foreignId('application_record_id')->nullable()->constrained()->onUpdate('cascade');
-            $table->foreignId('application_status_id')  ->constrained()->onUpdate('cascade');
+            $table->foreignId('application_record_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('application_status_id')->constrained()->onUpdate('cascade');
             $table->timestamps();
         });
     }

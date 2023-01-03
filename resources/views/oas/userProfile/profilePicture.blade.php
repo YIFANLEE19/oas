@@ -9,7 +9,7 @@
         }
     </style>
 
-    @if(Session::has('status_code') && Session::get('status_code') == 4)
+    @if(Session::has('application_status_id') && Session::get('application_status_id') == 4)
         <script>
             $(function(){
                 $('#statusCode4Modal').modal('show');
@@ -17,25 +17,25 @@
         </script>        
     @endif
 
-    @if ($status_code == 0)
+    @if ($application_status_id == 0)
         <script>
             $(function(){
                 $('#statusCode0Modal').modal('show');
             });
         </script>
-    @elseif($status_code == 1)
+    @elseif($application_status_id == 1)
         <script>
             $(function(){
                 $('#statusCode1Modal').modal('show');
             });
         </script>
-    @elseif($status_code == 2)
+    @elseif($application_status_id == 2)
         <script>
             $(function(){
                 $('#statusCode2Modal').modal('show');
             });
         </script>
-    @elseif($status_code == 4)
+    @elseif($application_status_id == 4)
         <script>
             $(function(){
                 $('#statusCode4Modal').modal('show');
@@ -190,7 +190,7 @@
                 </div>
             </div>
             <hr>
-            @if ($status_code == 3)
+            @if ($application_status_id == 3)
                 <div class="row">
                     <div class="d-flex justify-content-end">
                         <p class="text-secondary"><span class="text-danger">*</span>Please reconfirm the information before submitting</p><br>
