@@ -23,9 +23,6 @@ class ParentGuardianParticularController extends Controller
     //
     public function index()
     {
-        // code - 0 = personal particulars X
-        //      - 1 = personal particulars / AND parent guardian particulars X
-        //      - 2 = personal particulars / AND parent guardian particulars /
         $status_code;
         $allRelationships = GuardianRelationship::all();
         $allNationalities = Nationality::all();
@@ -44,7 +41,6 @@ class ParentGuardianParticularController extends Controller
 
     /**
      * create function
-     * code     - 2 permanent address
      */
     public function create()
     {

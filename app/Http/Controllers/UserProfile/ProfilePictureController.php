@@ -15,14 +15,14 @@ use Image;
 
 class ProfilePictureController extends Controller
 {
-    //
+    /**
+     * return to profile picture form
+     * application_status_id if = 0, personal particulars
+     * not yet submit.
+     * more application status id please refer to admin dashboard.
+     */
     public function index()
     {
-        // code - 0 = personal particulars X
-        //      - 1 = personal particulars / AND parent guardian particulars X
-        //      - 2 = personal particulars / AND parent guardian particulars / AND emergency contact X
-        //      - 3 = personal particulars / AND parent guardian particulars / AND emergency contact / AND profile picture X
-        //      - 4 = personal particulars / AND parent guardian particulars / AND emergency contact / AND profile picture /
         $status_code;
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
@@ -36,7 +36,7 @@ class ProfilePictureController extends Controller
     }
 
     /**
-     * create function
+     * create profile picture
      */
     public function create(Request $request)
     {
@@ -67,7 +67,7 @@ class ProfilePictureController extends Controller
         return back();
     }
     /**
-     * view function
+     * view profile picture function
      */
     public function view()
     {
@@ -78,7 +78,7 @@ class ProfilePictureController extends Controller
     }
 
     /**
-     * update function 
+     * update profile picture function 
      */
     public function update(Request $request)
     {

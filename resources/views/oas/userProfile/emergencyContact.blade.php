@@ -3,11 +3,7 @@
 @section('content')
     
     {{-- modal --}}
-    <style>
-        .modal-backdrop {
-            background-color: rgb(50, 47, 47);
-        }
-    </style>
+    <style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
 
     @if(Session::has('application_status_id') && Session::get('application_status_id') == 3)
         <script>
@@ -36,7 +32,7 @@
             });
         </script>
     @endif
-    {{-- status 0 = personal particulars X --}}
+
     <div class="modal fade" id="statusCode0Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode0ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -54,7 +50,7 @@
             </div>
         </div>
     </div>
-    {{-- status 1 = personal particulars / AND parent guardian particulars X --}}
+
     <div class="modal fade" id="statusCode1Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode1ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -132,6 +128,7 @@
     <div class="container">
         <form action="{{ route('emergencyContact.create') }}" method="post" enctype="multipart/form-data">
             @csrf
+
             {{-- person 1 --}}
             <div class="row d-flex flex-row mt-4">
                 <div class="col-md-4">
@@ -168,6 +165,7 @@
             </div>
             <div class="border-bottom mt-4 mb-4"></div>
             {{-- end person 1 --}}
+
             {{-- person 2 --}}
             <div class="row d-flex flex-row mt-4">
                 <div class="col-md-4">
@@ -204,6 +202,7 @@
             </div>
             <div class="border-bottom mt-4 mb-4"></div>
             {{-- end person 2 --}}
+
             {{-- form submit --}}
             @if ($application_status_id == 2 || $application_status_id <= 3)
                 <div class="row">

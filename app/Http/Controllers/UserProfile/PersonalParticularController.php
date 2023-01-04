@@ -45,9 +45,6 @@ class PersonalParticularController extends Controller
 
     /**
      * create personal particulars profile
-     * 
-     * code     - 1 correspondence address
-     * code     - 2 permanent address
      */
     public function create()
     {
