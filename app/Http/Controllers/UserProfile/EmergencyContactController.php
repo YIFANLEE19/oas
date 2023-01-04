@@ -20,10 +20,6 @@ class EmergencyContactController extends Controller
     //
     public function index()
     {
-        // code - 0 = personal particulars X
-        //      - 1 = personal particulars / AND parent guardian particulars X
-        //      - 2 = personal particulars / AND parent guardian particulars / AND emergency contact X
-        //      - 3 = personal particulars / AND parent guardian particulars / AND emergency contact /
         $status_code;
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $allRelationships = GuardianRelationship::all();

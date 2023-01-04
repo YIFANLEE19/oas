@@ -3,12 +3,7 @@
 @section('content')
     
     {{-- modal --}}
-    <style>
-        .modal-backdrop {
-            background-color: rgb(50, 47, 47);
-        }
-    </style>
-
+    <style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
     @if(Session::has('application_status_id') && Session::get('application_status_id') == 2)
         <script>
             $(function(){
@@ -16,7 +11,6 @@
             });
         </script>        
     @endif
-
     @if ($application_status_id == 0)
         <script>
             $(function(){
@@ -30,7 +24,7 @@
             });
         </script> 
     @endif
-    {{-- status 0 = personal particulars X --}}
+
     <div class="modal fade" id="statusCode0Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode0ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -48,7 +42,7 @@
             </div>
         </div>
     </div>
-    {{-- status 2 = personal particulars / AND parent guardian particulars / --}}
+
     <div class="modal fade" id="statusCode2Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode2ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -115,6 +109,7 @@
             </div>
             <div class="border-bottom mt-4 mb-4"></div>
             {{-- end name --}}
+
             {{-- ic --}}
             <div class="row d-flex flex-row mt-4">
                 <div class="col-md-4">
@@ -152,6 +147,9 @@
                 </div>
             </div>
             <div class="border-bottom mt-4 mb-4"></div>
+            {{-- end ic --}}
+
+            {{-- script --}}
             <script>
                 function changeInputMethod(){
                     const changeInput = document.getElementById('changeInput');
@@ -179,19 +177,19 @@
                     }
                 }
             </script>
-            {{-- end ic --}}
+            {{-- end script --}}
+
             {{-- relationship, nationality --}}
             <div class="row d-flex flex-row mt-4">
                 <div class="col-md-4">
                     <h4 class="fw-bold">Relationship & Nationality</h4>
-                    <p class="text-secondary"></p>
                 </div>
                 <div class="col-md-8">
                     <div class="row g-3">
                         <div class="col-md mb-3">
                             <label for="relationship" class="form-label">Relationship<span class="text-danger">*</span></label>
                             <select name="guardian_relationship_id" id="relationship" class="form-select" required>
-                                <option selected disabled>Choose relationship</option>
+                                <option disabled selected hidden>Choose relationship</option>
                                 @foreach ($allRelationships as $relationship)
                                     <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                                 @endforeach
@@ -200,7 +198,7 @@
                         <div class="col-md mb-3">
                             <label for="nationality" class="form-label">Nationality<span class="text-danger">*</span></label>
                             <select name="nationality_id" id="nationality" class="form-select" required>
-                                <option selected disabled>Choose your nationality</option>
+                                <option disabled selected hidden>Choose your nationality</option>
                                 @foreach ($allNationalities as $nationality)
                                     <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
                                 @endforeach
@@ -211,11 +209,11 @@
             </div>
             <div class="border-bottom mt-4 mb-4"></div>
             {{-- end relationship, nationality --}}
+            
             {{-- occupation, family income  --}}
             <div class="row d-flex flex-row mt-4">
                 <div class="col-md-4">
                     <h4 class="fw-bold">Occupation & Family income</h4>
-                    <p class="text-secondary"></p>
                 </div>
                 <div class="col-md-8">
                     <div class="row g-3">
@@ -226,7 +224,7 @@
                         <div class="col-md mb-3">
                             <label for="income" class="form-label">Income range<span class="text-danger">*</span></label>
                             <select name="income_id" id="income" class="form-select" required>
-                                <option selected disabled>Choose your family income range</option>
+                                <option disabled selected hiddend>Choose your family income range</option>
                                 @foreach ($allIncomes as $income)
                                     <option value="{{ $income->id }}">{{ $income->range }}</option>
                                 @endforeach
@@ -237,11 +235,11 @@
             </div>
             <div class="border-bottom mt-4 mb-4"></div>
             {{-- end occupation, family income  --}}
+
             {{-- contact --}}
             <div class="row d-flex flex-row mt-4">
                 <div class="col-md-4">
                     <h4 class="fw-bold">Contact</h4>
-                    <p class="text-secondary"></p>
                 </div>
                 <div class="col-md-8">
                     <div class="row">
@@ -258,6 +256,7 @@
             </div>
             <div class="border-bottom mt-4 mb-4"></div>
             {{-- end contact --}}
+
             {{-- permanent address --}}
             <div class="row d-flex flex-row mt-4 mb-4">
                 <div class="col-md-4">
@@ -293,7 +292,7 @@
                         <div class="col-md mb-3">
                             <label for="p_country" class="form-label">Country<span class="text-danger">*</span></label>
                             <select name="p_country_id" id="p_country" class="form-select" required>
-                                <option selected disabled>Choose your country</option>
+                                <option disabled selected hiddend>Choose your country</option>
                                 @foreach ($allCountries as $country)
                                     <option value="{{ $country->id }}">{{ $country->name }}</option>
                                 @endforeach
@@ -304,6 +303,7 @@
             </div>
             <div class="border-bottom mt-4 mb-4"></div>
             {{-- permanent address --}}
+
             {{-- form submit --}}
             @if ($application_status_id == 1 || $application_status_id <= 2)
                 <div class="row">
@@ -318,6 +318,7 @@
                 </div>
             @endif
             {{-- end form submit --}}
+            
         </form>
     </div>
     {{-- end form --}}

@@ -3,11 +3,7 @@
 @section('content')
 
     {{-- modal --}}
-    <style>
-        .modal-backdrop {
-            background-color: rgb(50, 47, 47);
-        }
-    </style>
+    <style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
 
     @if(Session::has('application_status_id') && Session::get('application_status_id') == 4)
         <script>
@@ -42,7 +38,7 @@
             });
         </script>
     @endif
-    {{-- status 0 = personal particulars X --}}
+
     <div class="modal fade" id="statusCode0Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode0ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -60,7 +56,7 @@
             </div>
         </div>
     </div>
-    {{-- status 1 = personal particulars / AND parent guardian particulars X --}}
+
     <div class="modal fade" id="statusCode1Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode1ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -78,7 +74,7 @@
             </div>
         </div>
     </div>
-    {{-- status 2 = personal particulars / AND parent guardian particulars / AND emergency contact X --}}
+
     <div class="modal fade" id="statusCode2Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode2ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -96,7 +92,7 @@
             </div>
         </div>
     </div>
-    {{-- status 4 = personal particulars / AND parent guardian particulars / AND emergency contact / AND profile picture / --}}
+
     <div class="modal fade" id="statusCode4Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode4ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
