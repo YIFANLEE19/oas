@@ -273,7 +273,7 @@
                                     </div>
                                 </div>
                                 <div class="row" id="passport_section" style="display: none;">
-                                    <label for="ic" class="form-label">Passport<span class="text-danger">*</span></label>
+                                    <label for="ic" class="form-label">Other certificate<span class="text-danger">*</span></label>
                                     <div class="col-md mb-3">
                                         <input type="text" name="passport" id="passport" class="form-control" placeholder="">
                                     </div>
