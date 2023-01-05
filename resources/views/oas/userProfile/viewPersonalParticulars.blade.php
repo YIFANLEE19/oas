@@ -359,11 +359,8 @@
                                     <div class="col-md mb-3">
                                         <label for="nationality" class="form-label">Nationality<span class="text-danger">*</span></label>
                                         <select name="nationality_id" id="nationality" class="form-select" required>
-                                            {{-- <option selected disabled>Choose your nationality</option>
-                                            @foreach ($allNationalities as $nationality)
-                                                <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
-                                            @endforeach --}}
                                             <option value="131" selected>Malaysia</option>
+                                            <option value="161" selected>Non-Malaysian</option>
                                         </select>
                                     </div>
                             </div>
