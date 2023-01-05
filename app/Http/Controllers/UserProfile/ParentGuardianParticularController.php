@@ -170,7 +170,8 @@ class ParentGuardianParticularController extends Controller
         $user_detail->save();
         $guardian_detail->save();
         $p_address->save();
-
+        
+        Session::flash('success','success');
         return back();
     }
 }

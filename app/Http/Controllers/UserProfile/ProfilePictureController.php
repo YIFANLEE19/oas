@@ -96,6 +96,7 @@ class ProfilePictureController extends Controller
         $applicant_profile_picture->path = $pictureName;
         $applicant_profile_picture->applicant_profile_id = $APPLICANT_PROFILE_ID;
         $applicant_profile_picture->save();
+        Session::flash('success','success');
         return back();
     }
 }

@@ -138,6 +138,7 @@ class EmergencyContactController extends Controller
         $emergency_contact2->save();
         $user_detail2->save();
 
+        Session::flash('success','success');
         return back();
     }
 }

@@ -20,8 +20,24 @@
 </div>
 {{-- end header --}}
 
+{{-- update success --}}
+@if(Session::has('success') && Session::get('success') == 'success')
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Personal particulars update successfully!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+{{-- end update success --}}
+
 {{-- data --}}
 <div class="container">
+
     {{-- name --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -47,6 +63,7 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end name --}}
+
     {{-- ic --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -63,6 +80,7 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end ic --}}
+
     {{-- race, religion, nationality --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -87,6 +105,7 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end race, religion, nationality --}}
+
     {{-- birth date, age, place of birth --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -111,6 +130,9 @@
         </div>
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
+    {{-- end birth date, age, place of birth --}}
+
+    {{-- script --}}
     <script>
         var readInput = document.getElementById('read_birth_date').value;
         var date_of_birth = new Date(readInput);
@@ -120,7 +142,8 @@
         var age = Math.abs(year - 1970);
         document.getElementById("read_age").innerHTML = age;
     </script>
-    {{-- end birth date, age, place of birth --}}
+    {{-- end script --}}
+
     {{-- gender marital --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -141,6 +164,7 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end gender marital --}}
+
     {{-- contact --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -165,6 +189,7 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end contact --}}
+
     {{-- correspondence address --}}
     <div class="row d-flex flex-row mt-4 mb-4">
         <div class="col-md-4">
@@ -181,6 +206,7 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end correspondence address --}}
+
     {{-- permanent address --}}
     <div class="row d-flex flex-row mt-4 mb-4">
         <div class="col-md-4">
@@ -197,6 +223,7 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end permanent address --}}
+
     {{-- edit button --}}
     <div class="row ">
         <div class="d-flex justify-content-end">
@@ -209,20 +236,18 @@
 
 <!-- modal -->
 <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <form action="{{ route('personalParticulars.update') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-primary text-white">
                     <h1 class="modal-title fs-5" id="editModalLabel">Edit personal particulars</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <input type="hidden" name="user_detail_id" value="{{ $user_detail->id }}">
-                        <input type="hidden" name="c_address_id" value="{{ $c_address->id }}">
-                        <input type="hidden" name="p_address_id" value="{{ $p_address->id }}">
-                        <input type="hidden" name="applicant_profile_id" value="{{ $applicant_profile->id }}">
+                        <input type="hidden" name="user_detail_id" value="{{ $user_detail->id }}"><input type="hidden" name="c_address_id" value="{{ $c_address->id }}"><input type="hidden" name="p_address_id" value="{{ $p_address->id }}"><input type="hidden" name="applicant_profile_id" value="{{ $applicant_profile->id }}">
+
                         {{-- name --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -244,6 +269,7 @@
                         </div>
                         <div class="border-bottom mt-4 mb-4"></div>
                         {{-- end name --}}
+
                         {{-- ic --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -280,6 +306,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="border-bottom mt-4 mb-4"></div>
+                        {{-- end ic --}}
+
+                        {{-- script --}}
                         <script>
                                 
                             let text = document.getElementById('read_ic').innerHTML;
@@ -329,8 +359,8 @@
                                 }
                             }
                         </script>
-                        <div class="border-bottom mt-4 mb-4"></div>
-                        {{-- end ic --}}
+                        {{-- end script --}}
+
                         {{-- race, religion, nationality --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -363,10 +393,12 @@
                                             <option value="161" selected>Non-Malaysian</option>
                                         </select>
                                     </div>
+                                </div> 
                             </div>
                         </div>
                         <div class="border-bottom mt-4 mb-4"></div>
                         {{-- end race, religion, nationality --}}
+
                         {{-- birth date, age, place of birth --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -407,24 +439,28 @@
                                 </div>
                             </div>
                         </div>
-                        <script>
-                                function ageCalculator(){
-                                    var user_input = document.getElementById('birth_date').value;
-                                    var date_of_birth = new Date(user_input);
-                                    
-                                    if(user_input!=null || user_input!='' || user_input!=undefined){
-                                        var month_diff = Date.now() - date_of_birth.getTime();
-                                        var age_df = new Date(month_diff);
-                                        var year = age_df.getUTCFullYear();
-                                        var age = Math.abs(year - 1970);
-                                        return document.getElementById("age").value = age;
-                                    }else{
-                                        return false;
-                                    }
-                                }
-                        </script>
                         <div class="border-bottom mt-4 mb-4"></div>
                         {{-- end birth date, age, place of birth  --}}
+
+                        {{-- script --}}
+                        <script>
+                            function ageCalculator(){
+                                var user_input = document.getElementById('birth_date').value;
+                                var date_of_birth = new Date(user_input);
+                                
+                                if(user_input!=null || user_input!='' || user_input!=undefined){
+                                    var month_diff = Date.now() - date_of_birth.getTime();
+                                    var age_df = new Date(month_diff);
+                                    var year = age_df.getUTCFullYear();
+                                    var age = Math.abs(year - 1970);
+                                    return document.getElementById("age").value = age;
+                                }else{
+                                    return false;
+                                }
+                            }
+                        </script>
+                        {{-- end script --}}
+
                         {{-- gender, marital --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -464,6 +500,7 @@
                         </div>
                         <div class="border-bottom mt-4 mb-4"></div>
                         {{-- end gender marital --}}
+
                         {{-- contact --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -480,14 +517,15 @@
                                         <input type="text" name="tel_hp" id="tel_hp" class="form-control" value="{{ $user_detail->tel_hp }}" required>
                                     </div>
                                     <div class="col-md mb-3">
-                                            <label for="tel_h" class="form-label">Tel no. (H)</label>
-                                            <input type="text" name="tel_h" id="tel_h" class="form-control" value="{{ $user_detail->tel_h }}">
+                                        <label for="tel_h" class="form-label">Tel no. (H)</label>
+                                        <input type="text" name="tel_h" id="tel_h" class="form-control" value="{{ $user_detail->tel_h }}">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="border-bottom mt-4 mb-4"></div>
                         {{-- end contact --}}
+
                         {{-- correspondence address --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -533,6 +571,7 @@
                         </div>
                         <div class="border-bottom mt-4 mb-4"></div>
                         {{-- end correspondence address --}}
+
                         {{-- permanent address --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -582,6 +621,9 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- end permanent address --}}
+
+                        {{-- script --}}
                         <script>
                             // sameabove
                             function copyAddress(){
@@ -617,11 +659,11 @@
                                 }
                             }
                         </script>
-                        {{-- end permanent address --}}
+                        {{-- end script --}}
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </div>

@@ -20,6 +20,21 @@
 </div>
 {{-- end header --}}
 
+{{-- update success --}}
+@if(Session::has('success') && Session::get('success') == 'success')
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Profile picture update successfully!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+{{-- end update success --}}
+
 {{-- data --}}
 <div class="container">
     <div class="row mt-4">
@@ -50,13 +65,13 @@
 
 <!-- modal -->
 <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <form action="{{ route('profilePicture.update') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-primary text-white">
                     <h1 class="modal-title fs-5" id="editModalLabel">Edit profile picture</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container">

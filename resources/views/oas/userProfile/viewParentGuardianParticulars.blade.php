@@ -20,8 +20,24 @@
 </div>
 {{-- end header --}}
 
+{{-- update success --}}
+@if(Session::has('success') && Session::get('success') == 'success')
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Parent/guardian particulars update successfully!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+{{-- end update success --}}
+
 {{-- data --}}
 <div class="container">
+
     {{-- name --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -35,17 +51,18 @@
                 </div>
                 <div class="col-md mb-3">
                     <p class="text-secondary">Chinese Name</p>
-                        @if ($user_detail->ch_name == '')
-                            <h5>-</h5>
-                        @else
-                            <h5>{{ $user_detail->ch_name }}</h5>
-                        @endif
+                    @if ($user_detail->ch_name == '')
+                        <h5>-</h5>
+                    @else
+                        <h5>{{ $user_detail->ch_name }}</h5>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end name --}}
+
     {{-- ic --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -62,6 +79,7 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end ic --}}
+
     {{-- relationship & nationality --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -82,6 +100,7 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end relationship & nationality --}}
+
     {{-- occupation, family income --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -102,6 +121,7 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end occupation, family income --}}
+
     {{-- contact --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -126,6 +146,7 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end contact --}}
+
     {{-- permanent address --}}
     <div class="row d-flex flex-row mt-4 mb-4">
         <div class="col-md-4">
@@ -142,6 +163,7 @@
     </div>
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end permanent address --}}
+
     {{-- edit button --}}
     <div class="row ">
         <div class="d-flex justify-content-end">
@@ -149,24 +171,27 @@
         </div>
     </div>
     {{-- end edit button --}}
+
 </div>
 {{-- end data --}}
 
-<!-- Modal -->
+<!-- modal -->
 <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <form action="{{ route('parentGuardianParticulars.update') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-primary text-white">
                     <h1 class="modal-title fs-5" id="editModalLabel">Edit parent / guardian particulars</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container">
+
                         <input type="hidden" name="guardian_detail_id" value="{{ $guardian_detail->id }}">
                         <input type="hidden" name="user_detail_id" value="{{ $user_detail->id }}">
                         <input type="hidden" name="p_address_id" value="{{ $p_address->id }}">
+
                         {{-- name --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -188,6 +213,7 @@
                         </div>
                         <div class="border-bottom mt-4 mb-4"></div>
                         {{-- end name --}}
+
                         {{-- ic / passport --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -223,56 +249,60 @@
                                     </div>
                                 </div>
                             </div>
-                            <script>
-                                
-                                let text = document.getElementById('read_ic').innerHTML;
-                                const myArray = text.split("-");
-                                const changeInput = document.getElementById('changeInput');
-                                const ic_section = document.getElementById('ic_section');
-                                const passport_section = document.getElementById('passport_section');
-                                const ic1 = document.getElementById('ic1');
-                                const ic2 = document.getElementById('ic2');
-                                const ic3 = document.getElementById('ic3');
-                                const passport = document.getElementById('passport');
-
-                                if(myArray.length != 3){
-                                    document.getElementById("passport").value = myArray[0];
-                                    changeInput.checked = true;
-                                    ic_section.style.display = 'none';
-                                    passport_section.style.display = 'block';
-                                }else{
-                                    document.getElementById("ic1").value = myArray[0]; 
-                                    document.getElementById("ic2").value = myArray[1]; 
-                                    document.getElementById("ic3").value = myArray[2]; 
-
-                                }
-
-                                function changeInputMethod(){
-                                    if(changeInput.checked){
-                                        ic_section.style.display = 'none';
-                                        passport_section.style.display = 'block';
-                                        passport.setAttribute('required','');
-                                        ic1.removeAttribute('required');
-                                        ic2.removeAttribute('required');
-                                        ic3.removeAttribute('required');
-                                        ic1.value = '';
-                                        ic2.value = '';
-                                        ic3.value = '';
-
-                                    }else{
-                                        ic_section.style.removeProperty('display');
-                                        passport_section.style.display = 'none';
-                                        passport.removeAttribute('required');
-                                        ic1.setAttribute('required','');
-                                        ic2.setAttribute('required','');
-                                        ic3.setAttribute('required','');
-                                        passport.value = '';
-                                    }
-                                }
-                            </script>
                         </div>
                         <div class="border-bottom mt-4 mb-4"></div>
                         {{-- end ic /passport --}}
+
+                        {{-- script --}}
+                        <script>
+                                
+                            let text = document.getElementById('read_ic').innerHTML;
+                            const myArray = text.split("-");
+                            const changeInput = document.getElementById('changeInput');
+                            const ic_section = document.getElementById('ic_section');
+                            const passport_section = document.getElementById('passport_section');
+                            const ic1 = document.getElementById('ic1');
+                            const ic2 = document.getElementById('ic2');
+                            const ic3 = document.getElementById('ic3');
+                            const passport = document.getElementById('passport');
+
+                            if(myArray.length != 3){
+                                document.getElementById("passport").value = myArray[0];
+                                changeInput.checked = true;
+                                ic_section.style.display = 'none';
+                                passport_section.style.display = 'block';
+                            }else{
+                                document.getElementById("ic1").value = myArray[0]; 
+                                document.getElementById("ic2").value = myArray[1]; 
+                                document.getElementById("ic3").value = myArray[2]; 
+
+                            }
+
+                            function changeInputMethod(){
+                                if(changeInput.checked){
+                                    ic_section.style.display = 'none';
+                                    passport_section.style.display = 'block';
+                                    passport.setAttribute('required','');
+                                    ic1.removeAttribute('required');
+                                    ic2.removeAttribute('required');
+                                    ic3.removeAttribute('required');
+                                    ic1.value = '';
+                                    ic2.value = '';
+                                    ic3.value = '';
+
+                                }else{
+                                    ic_section.style.removeProperty('display');
+                                    passport_section.style.display = 'none';
+                                    passport.removeAttribute('required');
+                                    ic1.setAttribute('required','');
+                                    ic2.setAttribute('required','');
+                                    ic3.setAttribute('required','');
+                                    passport.value = '';
+                                }
+                            }
+                        </script>
+                        {{-- end script --}}
+
                         {{-- relationship, nationality --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -303,6 +333,7 @@
                         </div>
                         <div class="border-bottom mt-4 mb-4"></div>
                         {{-- end relationship, nationality --}}
+
                         {{-- occupation, family income --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -328,6 +359,7 @@
                         </div>
                         <div class="border-bottom mt-4 mb-4"></div>
                         {{-- end occupation, family income --}}
+
                         {{-- contact --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -348,6 +380,7 @@
                         </div>
                         <div class="border-bottom mt-4 mb-4"></div>
                         {{-- end contact --}}
+
                         {{-- permanent address --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -392,6 +425,7 @@
                             </div>
                         </div>
                         {{-- end permanent address --}}
+
                     </div>
                 </div>
                 <div class="modal-footer">
