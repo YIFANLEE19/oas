@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 03, 2023 at 03:41 PM
+-- Generation Time: Jan 05, 2023 at 03:40 PM
 -- Server version: 5.5.45
 -- PHP Version: 7.4.13
 
@@ -20,20 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `oas`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `academic_details`
---
-
-CREATE TABLE `academic_details` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `school_level_id` bigint(20) UNSIGNED NOT NULL,
-  `school_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `school_graduation` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -192,7 +178,13 @@ INSERT INTO `application_statuses` (`id`, `status`) VALUES
 (1, 'Complete personal particulars'),
 (2, 'Complete parent / guardian particulars'),
 (3, 'Complete emergency contact'),
-(4, 'Complete profile picture');
+(4, 'Complete profile picture'),
+(5, 'Complete program selection'),
+(6, 'Complete academic record'),
+(7, 'Complete status of health'),
+(8, 'Complete agreement'),
+(9, 'Complete draft'),
+(10, 'Complete payment');
 
 -- --------------------------------------------------------
 
@@ -669,7 +661,7 @@ INSERT INTO `maritals` (`id`, `name`, `marital_code`, `status`) VALUES
 (2, 'Married', '2', 1),
 (3, 'Widow', '3', 1),
 (4, 'Divorce', '4', 1),
-(5, 'Break up', '5', 1);
+(5, 'Marital seperation', '5', 1);
 
 -- --------------------------------------------------------
 
@@ -715,15 +707,17 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (25, '2022_12_20_082427_create_application_statuses_table', 1),
 (26, '2022_12_20_082545_create_application_status_logs_table', 1),
 (27, '2022_12_21_003299_create_payments_table', 1),
-(28, '2022_12_21_003300_create_academic_details_table', 1),
-(29, '2022_12_21_010641_create_academic_records_table', 1),
-(30, '2022_12_21_010952_create_status_of_healths_table', 1),
-(31, '2022_12_22_105839_create_address_types_table', 1),
-(34, '2022_12_27_063148_create_programme_level_table', 1),
-(35, '2022_12_27_063208_create_programme_type_table', 1),
-(36, '2022_12_27_063220_create_programme_table', 1),
-(37, '2022_12_22_105841_create_address_mappings_table', 2),
-(38, '2022_12_22_105840_create_addresses_table', 3);
+(28, '2022_12_21_010641_create_academic_records_table', 1),
+(29, '2022_12_21_010952_create_status_of_healths_table', 1),
+(30, '2022_12_22_105839_create_address_types_table', 1),
+(31, '2022_12_22_105840_create_addresses_table', 1),
+(32, '2022_12_22_105841_create_address_mappings_table', 1),
+(33, '2022_12_27_063148_create_programme_level_table', 1),
+(34, '2022_12_27_063208_create_programme_type_table', 1),
+(35, '2022_12_27_063220_create_programme_table', 1),
+(36, '2023_01_04_153004_create_semester_table', 1),
+(37, '2023_01_04_153027_create_semester_year_mapping_table', 1),
+(38, '2023_01_04_153050_create_programme_record_table', 1);
 
 -- --------------------------------------------------------
 
@@ -1070,6 +1064,18 @@ CREATE TABLE `programme_level` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `programme_record`
+--
+
+CREATE TABLE `programme_record` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `programme_type`
 --
 
@@ -1185,6 +1191,27 @@ INSERT INTO `school_levels` (`id`, `name`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `semester`
+--
+
+CREATE TABLE `semester` (
+  `semester_id` bigint(20) UNSIGNED NOT NULL,
+  `semester` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `semester_year_mapping`
+--
+
+CREATE TABLE `semester_year_mapping` (
+  `semester_year_mapping_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `status_of_healths`
 --
 
@@ -1220,9 +1247,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `role_id`, `acc_status_id`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Superadmin', 3, 1, 'superadmin@email.com', NULL, '$2y$10$KyPAVgKo8JnI0RnN/j5FbOifVyRubyOXGo262NAIBa7ozerkwbYdu', NULL, '2022-12-21 21:34:16', '2022-12-21 21:34:16'),
-(2, 'Local Student', 1, 1, 'localstudent@email.com', NULL, '$2y$10$GFOUzFNaOwfPvsFti6vcOOvW5Zjf6jc1Hm61hSbbVjXUJ8dA00.Z2', NULL, '2022-12-21 21:34:37', '2022-12-21 21:34:37'),
-(3, 'International Student', 2, 1, 'internationalstudent@email.com', NULL, '$2y$10$IC.aTO6X.hKqSP4Sqitc5enoHl0oPqFJP4XcqtzWJgWn9.NREj6ES', NULL, '2022-12-21 21:34:51', '2022-12-21 21:34:51');
+(1, 'Superadmin', 3, 1, 'superadmin@email.com', NULL, '$2y$10$v.Vu8Thay4FsuMgqCsHU8OY7/LBAngr522t38EOViqWo9VrcIxNXO', NULL, '2023-01-05 07:16:56', '2023-01-05 07:16:56'),
+(2, 'Local Student', 1, 1, 'localstudent@email.com', NULL, '$2y$10$.QcHWlPbZwagZ7uUUEj7seLYT17bmIHpSz5GJl9DJfbl0nUBihPGm', NULL, '2023-01-05 07:35:55', '2023-01-05 07:35:55');
 
 -- --------------------------------------------------------
 
@@ -1243,13 +1269,6 @@ CREATE TABLE `user_details` (
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `academic_details`
---
-ALTER TABLE `academic_details`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `academic_details_school_level_id_foreign` (`school_level_id`);
 
 --
 -- Indexes for table `academic_records`
@@ -1456,6 +1475,12 @@ ALTER TABLE `programme_level`
   ADD UNIQUE KEY `programme_level_programme_level_unique` (`programme_level`);
 
 --
+-- Indexes for table `programme_record`
+--
+ALTER TABLE `programme_record`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `programme_type`
 --
 ALTER TABLE `programme_type`
@@ -1489,6 +1514,18 @@ ALTER TABLE `school_levels`
   ADD UNIQUE KEY `school_levels_name_unique` (`name`);
 
 --
+-- Indexes for table `semester`
+--
+ALTER TABLE `semester`
+  ADD PRIMARY KEY (`semester_id`);
+
+--
+-- Indexes for table `semester_year_mapping`
+--
+ALTER TABLE `semester_year_mapping`
+  ADD PRIMARY KEY (`semester_year_mapping_id`);
+
+--
 -- Indexes for table `status_of_healths`
 --
 ALTER TABLE `status_of_healths`
@@ -1514,12 +1551,6 @@ ALTER TABLE `user_details`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `academic_details`
---
-ALTER TABLE `academic_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `academic_records`
@@ -1579,7 +1610,7 @@ ALTER TABLE `application_records`
 -- AUTO_INCREMENT for table `application_statuses`
 --
 ALTER TABLE `application_statuses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `application_status_logs`
@@ -1684,6 +1715,12 @@ ALTER TABLE `programme_level`
   MODIFY `programme_level_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `programme_record`
+--
+ALTER TABLE `programme_record`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `programme_type`
 --
 ALTER TABLE `programme_type`
@@ -1714,6 +1751,18 @@ ALTER TABLE `school_levels`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `semester`
+--
+ALTER TABLE `semester`
+  MODIFY `semester_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `semester_year_mapping`
+--
+ALTER TABLE `semester_year_mapping`
+  MODIFY `semester_year_mapping_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `status_of_healths`
 --
 ALTER TABLE `status_of_healths`
@@ -1723,7 +1772,7 @@ ALTER TABLE `status_of_healths`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_details`
@@ -1734,12 +1783,6 @@ ALTER TABLE `user_details`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `academic_details`
---
-ALTER TABLE `academic_details`
-  ADD CONSTRAINT `academic_details_school_level_id_foreign` FOREIGN KEY (`school_level_id`) REFERENCES `school_levels` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `academic_records`
