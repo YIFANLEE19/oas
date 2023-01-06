@@ -31,7 +31,8 @@ class HomeController extends Controller
     public function index()
     {
         $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($application_status_log == null){
+        $application_record = ApplicationRecord::where('user_id',Auth::id())->first();
+        if($application_record == null ||$application_status_log == null){
             $application_status_id = 0;
             return view('oas.home', compact('application_status_id'));
         }else{

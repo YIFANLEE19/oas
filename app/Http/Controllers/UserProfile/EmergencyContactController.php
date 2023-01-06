@@ -90,6 +90,15 @@ class EmergencyContactController extends Controller
         $allRelationships = GuardianRelationship::all();
         // get user applicant profile id 
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
+        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
+        if($applicationRecord == null || $application_status_log_id == null){
+            return redirect()->route('home');
+        }else{
+            $application_status_id = $application_status_log_id->application_status_id;
+            if($application_status_id != 4 && $application_status_id < 4){
+                return redirect()->route('home');
+            }
+        }
         $applicant_profile_id = $applicationRecord->applicant_profile_id;
         $emergency_contact_lists = EmergencyContactList::where('applicant_profile_id',$applicant_profile_id)->get();
         $emergency_contact_id1 = $emergency_contact_lists[0]->emergency_contact_id;

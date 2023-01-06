@@ -115,6 +115,15 @@ class ParentGuardianParticularController extends Controller
 
         // get -> applicant profile id -> applicant guardian list -> guardian detail -> user detail
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
+        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
+        if($applicationRecord == null || $application_status_log_id == null){
+            return redirect()->route('home');
+        }else{
+            $application_status_id = $application_status_log_id->application_status_id;
+            if($application_status_id != 4 && $application_status_id < 4){
+                return redirect()->route('home');
+            }
+        }
         $applicant_profile_id = $applicationRecord->applicant_profile_id;
         $applicant_guardian_list = ApplicantGuardianList::where('applicant_profile_id',$applicant_profile_id)->first();
         $guardian_detail_id = $applicant_guardian_list->guardian_detail_id;
