@@ -1,19 +1,29 @@
 @extends('oas.layouts.app')
-
 @section('content')
+
+{{-- 
+    header here. If want to add some description below the heading,
+    please use <p class="text-secondary">content here</p>
+--}}
 <div class="container">
-    {{-- header --}}
     <div class="row">
         <div class="col-md-8">
             <h1 class="display-5">SUC Online Admission System</h1>
-            {{-- description --}}
-            {{-- <p class="text-secondary"></p> --}}
         </div>
     </div>
-    {{-- end header --}}
+</div>
+{{-- end header --}}
 
-    {{-- alert --}}
-    @if ($application_status_id != 4)
+{{--
+    alert - show when applicant not yet finish fill in user profile
+    This alert message is talking about what applicant need to do
+    This alert message will show when application_status_id not equal 4
+    
+    TODO：
+    1. Decide remove or keep the close button.
+--}}
+@if ($application_status_id != 4)
+    <div class="container">
         <div class="row mt-4 mb-2">
             <div class="col-xl-12">
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -25,79 +35,103 @@
                 </div>
             </div>
         </div>
-    @endif
-    {{-- end alert --}}
+    </div>
+@endif
+{{-- end alert --}}
 
-    @if ($application_status_id == 0)
-        {{-- personal profile --}}
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body px-4 py-4">
-                        <h1>Setup your personal particulars</h1>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
-                        <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
-                        <br>
-                        <a href="{{ route('personalParticulars.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
-                    </div>
+{{--    
+    card - show the current step and CTA button to the form
+
+    No.    |  Step                          | application_status_id
+    ------ |  ----------------------------- | ---------------------
+    card 1 |  personal particulars          |         0
+    card 2 |  parent/ guardian particulars  |         1
+    card 3 |  emergency contact             |         2
+    card 4 |  profile picture               |         3
+
+    *if user finish setup user profile then application_status_id is = 4
+--}}
+@if($application_status_id == 0)
+{{-- personal particulars --}}
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body px-4 py-4">
+                    <h1>Setup your personal particulars</h1>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
+                    <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
+                    <br>
+                    <a href="{{ route('personalParticulars.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
                 </div>
             </div>
         </div>
-        {{-- end personal profile --}}
-    @elseif ($application_status_id == 1)
-        {{-- parent / guardian profile --}}
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body px-4 py-4">
-                        <h1>Setup your parent / guardian particulars</h1>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
-                        <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
-                        <br>
-                        <a href="{{ route('parentGuardianParticulars.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- end parent / guardian profile --}}
-    @elseif ($application_status_id == 2)
-        {{-- emergency contact --}}
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body px-4 py-4">
-                        <h1>Setup your emergency contact</h1>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
-                        <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
-                        <br>
-                        <a href="{{ route('emergencyContact.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- end emergency contact --}}
-    @elseif ($application_status_id == 3)
-        {{-- profile picture --}}
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body px-4 py-4">
-                        <h1>Setup your profile picture</h1>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
-                        <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
-                        <br>
-                        <a href="{{ route('profilePicture.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- end profile picture --}}
-    @endif
+    </div>
 </div>
+{{-- end personal particulars --}}
+@elseif ($application_status_id == 1)
+{{-- parent/guardian particulars --}}
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body px-4 py-4">
+                    <h1>Setup your parent / guardian particulars</h1>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
+                    <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
+                    <br>
+                    <a href="{{ route('parentGuardianParticulars.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- end parent/guardian particulars --}}
+@elseif ($application_status_id == 2)
+{{-- emergency contact --}}
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body px-4 py-4">
+                    <h1>Setup your emergency contact</h1>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
+                    <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
+                    <br>
+                    <a href="{{ route('emergencyContact.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>        
+{{-- end emergency contact --}}
+@elseif ($application_status_id == 3)
+{{-- profile picture --}}
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body px-4 py-4">
+                    <h1>Setup your profile picture</h1>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione magni, consequatur at tempore repellendus eaque dignissimos nostrum quaerat excepturi quibusdam id numquam similique deserunt iste quae adipisci nesciunt eos iure?</p>
+                    <small class="text-secondary"><span class="text-danger">*</span>All information will be treated as private and confidential.</small>
+                    <br>
+                    <a href="{{ route('profilePicture.home') }}" class="btn btn-primary mt-2">Click here to setup</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- end profile picture --}}
+@endif
+{{-- end card --}}
 
-{{-- show after profile done --}}
+{{-- 
+    My profile & apply programme - show when user finish setup user profile
+    application_status_id is 4 when user finish setup personal particulars,
+    parent/guardian particulars, emergency contact and profile picture
+--}}
 @if ($application_status_id == 4)
-
     <div class="container">
         <div class="row mt-4">
             <div class="col-md-6">
@@ -135,5 +169,9 @@
         </div>
     </div>
 @endif
+{{-- end my profile & apply programme --}}
 
+{{-- process --}}
+
+{{-- end process --}}
 @endsection
