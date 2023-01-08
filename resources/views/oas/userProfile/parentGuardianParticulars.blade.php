@@ -29,7 +29,7 @@
                 <p>If you want to go ahead and fill in the <span class="fw-bold">personal particulars</span> please click <span class="fw-bold">Continue</span></p>
             </div>
             <div class="modal-footer">
-                <a href="{{ route('home') }}" type="button" class="btn btn-secondary">Back to home page</a>
+                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">Back to home page</a>
                 <a href="{{ route('personalParticulars.home') }}" type="button" class="btn btn-primary">Continue</a>
             </div>
         </div>
