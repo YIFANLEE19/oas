@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Race extends Model
 {
     use HasFactory;
-
+    protected $connection = "mysql";
+    
     /**
      * timestamps false
      */

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class GuardianDetail extends Model
 {
     use HasFactory;
+    protected $connection = "mysql";
 
     /**
      * timestamps false

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicantGuardianList extends Model
 {
     use HasFactory;
+    protected $connection = "mysql";
 
     /**
      * timestamps false

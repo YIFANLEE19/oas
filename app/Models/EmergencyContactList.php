@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class EmergencyContactList extends Model
 {
     use HasFactory;
+    protected $connection = "mysql";
 
     /**
      * timestamps false

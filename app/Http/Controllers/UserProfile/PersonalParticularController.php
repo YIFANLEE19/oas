@@ -18,6 +18,7 @@ use App\Models\ApplicationStatusLog;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
+use DB;
 
 class PersonalParticularController extends Controller
 {
@@ -60,6 +61,8 @@ class PersonalParticularController extends Controller
         }else{
             $finalIc = $r->passport;
         }
+        $gender;if($r->gender_id = 1){$gender = 'M';}else{$gender = 'F';}
+        $nationality;if($r->nationality_id = 131){$nationality = 131;}else{$nationality=null;}
 
         $user_detail_id = UserDetail::insertGetId([
             'en_name' => $r->en_name,
@@ -114,6 +117,17 @@ class PersonalParticularController extends Controller
             'application_record_id' => $application_record_id,
             'application_status_id' => $COMPLETEPERSONALPARTICULARS,
         ]);
+        // old db connection
+        // $sendToOld = DB::connection('mysql2')->table('person')->insertGetId([
+        //     'IC' => $finalIc,
+        //     'EnglishName' =>$r->en_name,
+        //     'Gender'=> $gender,
+        //     'BirthDate' => $r->birth_date,
+        //     'BirthPlace' => $r->place_of_birth,
+        //     'Nationality' => $nationality,
+        // ]);
+        // $personCode = $sendToOld;
+        dd($personCode);
         Session::flash('application_status_id',$COMPLETEPERSONALPARTICULARS);
         return back();
     }
