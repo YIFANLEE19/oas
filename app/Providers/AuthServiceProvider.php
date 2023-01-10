@@ -23,16 +23,18 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $LOCALSTUDENTCODE = 1;
+        $INTERNATIONALSTUDENTCODE = 2;
         $this->registerPolicies();
 
         /**
          * 
          */
         Gate::define('Admin', function($user){
-            return $user->role_id != 1 || $user->role_id != 2;
+            return $user->role_id != $LOCALSTUDENTCODE || $user->role_id != $INTERNATIONALSTUDENTCODE;
         });
         Gate::define('Student', function($user){
-            return $user->role_id == 1 || $user->role_id == 2;
+            return $user->role_id == $LOCALSTUDENTCODE || $user->role_id == $INTERNATIONALSTUDENTCODE;
         });
     }
 }

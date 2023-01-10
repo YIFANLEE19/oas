@@ -14,11 +14,11 @@ class CreateCountriesTable extends Migration
     public function up()
     {
         Schema::create('countries', function (Blueprint $table) {
+            $ACTIVECODE = 1;
             $table->id();
             $table->string('name');
             $table->string('country_code');
-            // 0 = deactived, 1 = active
-            $table->integer('status')->default(1);
+            $table->integer('status')->default($ACTIVECODE);
         });
     }
 

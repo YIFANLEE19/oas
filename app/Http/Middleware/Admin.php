@@ -17,12 +17,13 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
+        $UNAUTHORIZEDCODE = 403;
         if(Auth::check()){
             if(Auth::user()->role_id == 3 || Auth::user()->role_id == 4 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 7){
                 return $next($request);
             }
         }else{
-            abort(403,'Unauthorized action');
+            abort($UNAUTHORIZEDCODE,'Unauthorized action');
         }
 
         return redirect()->route('home');

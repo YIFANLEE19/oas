@@ -14,10 +14,10 @@ class CreateRolesTable extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
+            $ACTIVECODE = 1;
             $table->id();
             $table->string('name')->unique();
-            // 0 = deactived, 1 = active
-            $table->integer('status')->default(1);
+            $table->integer('status')->default($ACTIVECODE);
         });
     }
 

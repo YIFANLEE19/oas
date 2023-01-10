@@ -17,12 +17,13 @@ class Student
      */
     public function handle(Request $request, Closure $next)
     {
+        $UNAUTHORIZEDCODE = 403;
         if(Auth::check()){
             if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2){
                 return $next($request);
             }
         }else{
-            abort(403,'Unauthorized action');
+            abort($UNAUTHORIZEDCODE,'Unauthorized action');
         }
 
         return redirect()->route('home');
