@@ -34,7 +34,7 @@ class RoleController extends Controller
     {
         $r = request();
         $role = Role::find($r->id);
-        if($r->role_name != ''){
+        if($r->role_name != null){
             $role->name = $r->role_name;
             $role->status = $r->role_status;
         }else{

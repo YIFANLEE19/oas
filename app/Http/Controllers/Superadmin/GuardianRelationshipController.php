@@ -35,30 +35,30 @@ class GuardianRelationshipController extends Controller
     {
         $r = request();
         $relationship = GuardianRelationship::find($r->id);
-        if($r->relationship_code != '' && $r->relationship_name != '' && $r->relationship_status != ''){
+        if($r->relationship_code != null && $r->relationship_name != null && $r->relationship_status != null){
             $relationship->relationship_code = $r->relationship_code;
             $relationship->name = $r->relationship_name;
             $relationship->status = $r->relationship_status;
         }
-        else if($r->relationship_code != '' && $r->relationship_name != '' && $r->relationship_status == ''){
+        else if($r->relationship_code != null && $r->relationship_name != null && $r->relationship_status == null){
             $relationship->relationship_code = $r->relationship_code;
             $relationship->name = $r->relationship_name;
         }
-        else if($r->relationship_code == '' && $r->relationship_name != '' && $r->relationship_status != ''){
+        else if($r->relationship_code == null && $r->relationship_name != null && $r->relationship_status != null){
             $relationship->name = $r->relationship_name;
             $relationship->status = $r->relationship_status;
         }
-        else if($r->relationship_code != '' && $r->relationship_name == '' && $r->relationship_status != ''){
+        else if($r->relationship_code != null && $r->relationship_name == null && $r->relationship_status != null){
             $relationship->relationship_code = $r->relationship_code;
             $relationship->status = $r->relationship_status;
         }
-        else if($r->relationship_code != '' && $r->relationship_name == '' && $r->relationship_status == ''){
+        else if($r->relationship_code != null && $r->relationship_name == null && $r->relationship_status == null){
             $relationship->relationship_code = $r->relationship_code;
         }
-        else if($r->relationship_code == '' && $r->relationship_name !='' && $r->relationship_status == ''){
+        else if($r->relationship_code == null && $r->relationship_name !=null && $r->relationship_status == null){
             $relationship->name = $r->relationship_name;
         }
-        else if($r->relationship_code == '' && $r->relationship_name =='' && $r->relationship_status != ''){
+        else if($r->relationship_code == null && $r->relationship_name ==null && $r->relationship_status != null){
             $relationship->status = $r->relationship_status;
         }
         $relationship->save();

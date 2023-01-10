@@ -35,30 +35,30 @@ class RaceController extends Controller
     {
         $r = request();
         $race = Race::find($r->id);
-        if($r->race_code != '' && $r->race_name != '' && $r->race_status != ''){
+        if($r->race_code != null && $r->race_name != null && $r->race_status != null){
             $race->race_code = $r->race_code;
             $race->name = $r->race_name;
             $race->status = $r->race_status;
         }
-        else if($r->race_code != '' && $r->race_name != '' && $r->race_status == ''){
+        else if($r->race_code != null && $r->race_name != null && $r->race_status == null){
             $race->race_code = $r->race_code;
             $race->name = $r->race_name;
         }
-        else if($r->race_code == '' && $r->race_name != '' && $r->race_status != ''){
+        else if($r->race_code == null && $r->race_name != null && $r->race_status != null){
             $race->name = $r->race_name;
             $race->status = $r->race_status;
         }
-        else if($r->race_code != '' && $r->race_name == '' && $r->race_status != ''){
+        else if($r->race_code != null && $r->race_name == null && $r->race_status != null){
             $race->race_code = $r->race_code;
             $race->status = $r->race_status;
         }
-        else if($r->race_code != '' && $r->race_name == '' && $r->race_status == ''){
+        else if($r->race_code != null && $r->race_name == null && $r->race_status == null){
             $race->race_code = $r->race_code;
         }
-        else if($r->race_code == '' && $r->race_name !='' && $r->race_status == ''){
+        else if($r->race_code == null && $r->race_name !=null && $r->race_status == null){
             $race->name = $r->race_name;
         }
-        else if($r->race_code == '' && $r->race_name =='' && $r->race_status != ''){
+        else if($r->race_code == null && $r->race_name ==null && $r->race_status != null){
             $race->status = $r->race_status;
         }
         $race->save();
