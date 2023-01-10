@@ -117,17 +117,6 @@ class PersonalParticularController extends Controller
             'application_record_id' => $application_record_id,
             'application_status_id' => $COMPLETEPERSONALPARTICULARS,
         ]);
-        // old db connection
-        // $sendToOld = DB::connection('mysql2')->table('person')->insertGetId([
-        //     'IC' => $finalIc,
-        //     'EnglishName' =>$r->en_name,
-        //     'Gender'=> $gender,
-        //     'BirthDate' => $r->birth_date,
-        //     'BirthPlace' => $r->place_of_birth,
-        //     'Nationality' => $nationality,
-        // ]);
-        // $personCode = $sendToOld;
-        dd($personCode);
         Session::flash('application_status_id',$COMPLETEPERSONALPARTICULARS);
         return back();
     }
