@@ -27,14 +27,14 @@
 <div class="modal fade" id="statusCode0Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode0ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode0ModalLabel">Oops!</h1></div>
+            <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode0ModalLabel">{{ __('modal.kindly_reminder') }}</h1></div>
             <div class="modal-body">
-                <p>Dear user, you haven't filled in the <span class="fw-bold">personal particulars</span>, so you can't go to the next step until you fill them in.</p>
-                <p>If you want to go ahead and fill in the <span class="fw-bold">personal particulars</span> please click <span class="fw-bold">Continue</span></p>
+                <p>{{ __('modal.pp_description1') }}</p>
+                <p>{{ __('modal.pp_description2') }}</p>
             </div>
             <div class="modal-footer">
-                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">Back to home page</a>
-                <a href="{{ route('personalParticulars.home') }}" type="button" class="btn btn-primary">Continue</a>
+                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('modal.back_to_home_button') }}</a>
+                <a href="{{ route('personalParticulars.home') }}" type="button" class="btn btn-primary">{{ __('modal.continue') }}</a>
             </div>
         </div>
     </div>
@@ -45,14 +45,14 @@
 <div class="modal fade" id="statusCode1Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode1ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode1ModalLabel">Oops!</h1></div>
+            <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode1ModalLabel">{{ __('modal.kindly_reminder') }}</h1></div>
             <div class="modal-body">
-                <p>Dear user, you haven't filled in the <span class="fw-bold">parent / guardian particulars</span>, so you can't go to the next step until you fill them in.</p>
-                <p>If you want to go ahead and fill in the <span class="fw-bold">parent / guardian particulars</span> please click <span class="fw-bold">Continue</span></p>
+                <p>{{ __('modal.pg_description1') }}</p>
+                <p>{{ __('modal.pg_description2') }}</p>
             </div>
             <div class="modal-footer">
-                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">Back to home page</a>
-                <a href="{{ route('parentGuardianParticulars.home') }}" type="button" class="btn btn-primary">Continue</a>
+                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('modal.back_to_home_button') }}</a>
+                <a href="{{ route('parentGuardianParticulars.home') }}" type="button" class="btn btn-primary">{{ __('modal.continue') }}</a>
             </div>
         </div>
     </div>
@@ -63,14 +63,14 @@
 <div class="modal fade" id="statusCode3Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode3ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode3ModalLabel">Thank you!</h1></div>
+            <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode3ModalLabel">{{ __('modal.thank_you') }}</h1></div>
             <div class="modal-body">
-                <p>We have received your<span class="fw-bold">emergency contact</span>. You will also need to submit a personal photo to apply for the programme.</p>
-                <p>If you want to go ahead and upload your <span class="fw-bold">profile picture</span> please click <span class="fw-bold">Continue</span></p>
+                <p>{{ __('modal.complete_ec_modal_description1') }}</p>
+                <p>{{ __('modal.complete_ec_modal_description2') }}</p>
             </div>
             <div class="modal-footer">
-                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">Back to home page</a>
-                <a href="{{ route('profilePicture.home') }}" type="button" class="btn btn-primary">Continue</a>
+                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('modal.back_to_home_button') }}</a>
+                <a href="{{ route('profilePicture.home') }}" type="button" class="btn btn-primary">{{ __('modal.continue') }}</a>
             </div>
         </div>
     </div>
@@ -82,16 +82,16 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="border-bottom">
-                <h1 class="fw-bold">Emergency Contact</h1>
+                <h1 class="fw-bold">{{ __('emergencyContact.pageTitle') }}</h1>
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item active fw-bold" aria-current="page">Emergency contact</li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('emergencyContact.home') }}</a></li>
+                        <li class="breadcrumb-item active fw-bold" aria-current="page">{{ __('emergencyContact.pageTitle') }}</li>
                     </ol>
                 </nav>
                 <div class="progress mb-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Default striped example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Step 3: Emergency Contact</div>
-                    <span class="ms-4">Next : Profile picture</span>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Default striped example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{ __('emergencyContact.current_step') }}</div>
+                    <span class="ms-4">{{ __('emergencyContact.next_step') }}</span>
                 </div>
             </div>
         </div>
@@ -104,8 +104,8 @@
     <div class="row mt-4">
         <div class="col-md-12">
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <h4 class="alert-heading">Kindly remind!</h4>
-                <p>In order to effectively contact your emergency contact person, please do not enter the same information twice in the parent / guardian particulars and emergency contact.</p>
+                <h4 class="alert-heading">{{ __('emergencyContact.kindly_remind') }}</h4>
+                <p>{{ __('emergencyContact.alert_msg1') }}</p>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
@@ -120,31 +120,31 @@
         {{-- person 1 --}}
         <div class="row d-flex flex-row mt-4">
             <div class="col-md-4">
-                <h4 class="fw-bold">Person 1</h4>
+                <h4 class="fw-bold">{{ __('emergencyContact.person1') }}</h4>
             </div>
             <div class="col-md-8">
                 <div class="row g-2">
                     <div class="col-md mb-3">
-                        <label for="en_name" class="form-label">English Name<span class="text-danger">*</span></label>
+                        <label for="en_name" class="form-label">{{ __('emergencyContact.en_name') }}<span class="text-danger">*</span></label>
                         <input type="text" name="en_name1" id="en_name1" class="form-control text-capitalize" placeholder="" required>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="ch_name" class="form-label">Chinese Name</label>
+                        <label for="ch_name" class="form-label">{{ __('emergencyContact.ch_name') }}</label>
                         <input type="text" name="ch_name1" id="ch_name1" class="form-control" placeholder="">
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="col-md mb-3">
-                        <label for="relationship" class="form-label">Relationship</label>
+                        <label for="relationship" class="form-label">{{ __('emergencyContact.relationship') }}</label>
                         <select name="guardian_relationship_id1" id="relationship1" class="form-select" required>
-                            <option selected disabled>Choose relationship</option>
+                            <option selected disabled>{{ __('emergencyContact.relationship_placeholder') }}</option>
                             @foreach ($allRelationships as $relationship)
                                 <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="tel_hp" class="form-label">Tel No. (H/P)<span class="text-danger">*</span></label>
+                        <label for="tel_hp" class="form-label">{{ __('emergencyContact.tel_hp') }}<span class="text-danger">*</span></label>
                         <input type="text" name="tel_hp1" id="tel_hp1" class="form-control" placeholder="" required>
                     </div>
                 </div>
@@ -155,32 +155,32 @@
         {{-- person 2 --}}
         <div class="row d-flex flex-row mt-4">
             <div class="col-md-4">
-                <h4 class="fw-bold">Person 2</h4>
+                <h4 class="fw-bold">{{ __('emergencyContact.person2') }}</h4>
                 <p class="text-secondary"></p>
             </div>
             <div class="col-md-8">
                 <div class="row g-2">
                     <div class="col-md mb-3">
-                        <label for="en_name" class="form-label">English Name<span class="text-danger">*</span></label>
+                        <label for="en_name" class="form-label">{{ __('emergencyContact.en_name') }}<span class="text-danger">*</span></label>
                         <input type="text" name="en_name2" id="en_name2" class="form-control text-capitalize" placeholder="" required>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="ch_name" class="form-label">Chinese Name</label>
+                        <label for="ch_name" class="form-label">{{ __('emergencyContact.ch_name') }}</label>
                         <input type="text" name="ch_name2" id="ch_name2" class="form-control" placeholder="">
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="col-md mb-3">
-                        <label for="relationship" class="form-label">Relationship</label>
+                        <label for="relationship" class="form-label">{{ __('emergencyContact.relationship') }}</label>
                         <select name="guardian_relationship_id2" id="relationship2" class="form-select" required>
-                            <option selected disabled>Choose relationship</option>
+                            <option selected disabled>{{ __('emergencyContact.relationship_placeholder') }}</option>
                             @foreach ($allRelationships as $relationship)
                                 <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="tel_hp" class="form-label">Tel No. (H/P)<span class="text-danger">*</span></label>
+                        <label for="tel_hp" class="form-label">{{ __('emergencyContact.tel_hp') }}<span class="text-danger">*</span></label>
                         <input type="text" name="tel_hp2" id="tel_hp2" class="form-control" placeholder="" required>
                     </div>
                 </div>
@@ -192,12 +192,12 @@
         @if ($application_status_id == 2 || $application_status_id <= 3)
             <div class="row">
                 <div class="d-flex justify-content-end">
-                    <p class="text-secondary"><span class="text-danger">*</span>Please reconfirm the information before submitting</p><br>
+                    <p class="text-secondary"><span class="text-danger">*</span>{{ __('emergencyContact.reminder_msg1') }}</p><br>
                 </div>
             </div>
             <div class="row">
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">{{ __('emergencyContact.submit_button') }}</button>
                 </div>
             </div>
         @endif
