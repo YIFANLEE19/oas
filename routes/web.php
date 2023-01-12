@@ -20,6 +20,8 @@ use App\Http\Controllers\UserProfile\ParentGuardianParticularController;
 use App\Http\Controllers\UserProfile\EmergencyContactController;
 use App\Http\Controllers\UserProfile\ProfilePictureController;
 
+use App\Http\Controllers\DataFlow\TestController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +32,10 @@ use App\Http\Controllers\UserProfile\ProfilePictureController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::controller(TestController::class)->group(function(){
+    Route::get('/test','index');
+});
 
 Route::get('/', function () {
     return view('oas.welcome');
