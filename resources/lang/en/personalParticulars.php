@@ -21,7 +21,7 @@ return [
     'ic' => 'Identity card',
     'other_certificate' => 'Other certificate',
     'ic_description1' => "If you are local student but don't have identity card, please click the checkbox below.",
-    'ic_checkbox' => "Don't have identity card",
+    'ic_checkbox' => "Don't have Identity card",
     'race_religion_nationality' => 'Race, Religion, Nationality',
     'race' => 'Race',
     'religion' => 'Religion',
@@ -34,7 +34,7 @@ return [
     'place_of_birth' => 'Place of birth',
     'place_of_birth_placeholder' => 'Choose place of birth',
     'gender_marital_status' => 'Gender & Marital Status',
-    'gender' => 'gender',
+    'gender' => 'Gender',
     'marital' => 'Marital',
     'marital_placeholder' => 'Choose your marital',
     'contact' => 'Contact',
@@ -53,5 +53,9 @@ return [
     'country_placeholder' => 'Choose your country',
     'reminder_msg1' => 'Please reconfirm the information before submitting',
     'submit_button' => 'Submit',
-    
+    'address' => 'Address',
+    'update_success' => 'Personal particulars update successfully',
+    'edit_button' => 'Edit personal particulars',
+    'close_button' => 'Close',
+    'save_button' => 'Save changes',
 ];

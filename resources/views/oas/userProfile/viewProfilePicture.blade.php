@@ -7,11 +7,11 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="border-bottom">
-                <h1 class="fw-bold">My profile - Profile picture</h1>
+                <h1 class="fw-bold">My profile - {{ __('profilePicture.title') }}</h1>
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                      <li class="breadcrumb-item active fw-bold" aria-current="page">Profile picture</li>
+                      <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('profilePicture.home') }}</a></li>
+                      <li class="breadcrumb-item active fw-bold" aria-current="page">{{ __('profilePicture.title') }}</li>
                     </ol>
                 </nav>
             </div>
@@ -26,7 +26,7 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                Profile picture update successfully!
+                {{ __('profilePicture.update_success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
@@ -40,7 +40,7 @@
     <div class="row mt-4">
         <div class="col-md-8">
             <div class="alert alert-warning fade show" role="alert">
-                <h4 class="alert-heading">Guidelines for submitting your photo</h4>
+                <h4 class="alert-heading">{{ __('profilePicture.guidelines_heading') }}</h4>
                 <p>1. In colour, <span class="fw-bold">NOT</span> black and white.</p>
                 <p>2. Taken against a <span class="fw-bold">WHITE</span> background.</p>
                 <p>3. The photo must be a true likeness of the person.</p>
@@ -53,10 +53,10 @@
         </div>
         <div class="col-md-4">
             <div class="d-flex flex-column">
-                <h4 class="fw-bold">Your profile picture</h4>
+                <h4 class="fw-bold">Your {{ __('profilePicture.title') }}</h4>
                 <img src="/images/profile_picture/{{ $applicant_profile_picture->path }}" class="img-fluid" width="217px" height="280px">
             </div>
-            <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#editModal">Edit profile picture</button>
+            <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#editModal">{{ __('profilePicture.edit_button') }}</button>
 
         </div>
     </div>
@@ -70,7 +70,7 @@
             @csrf
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h1 class="modal-title fs-5" id="editModalLabel">Edit profile picture</h1>
+                    <h1 class="modal-title fs-5" id="editModalLabel">{{ __('profilePicture.edit_button') }}</h1>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -79,7 +79,7 @@
                         <input type="hidden" name="applicant_profile_id" value="{{ $applicant_profile_picture->applicant_profile_id }}">
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="picture" class="form-label">Photo (<span class="text-danger fw-bold">Accepted Format: jpg, jpeg, png</span>) and <span class="fw-bold text-danger">Not over 5MB</span> <span class="text-danger">*</span></label>
+                                <label for="picture" class="form-label">Photo (<span class="text-danger fw-bold">{{ __('profilePicture.format1') }}</span>) and <span class="fw-bold text-danger">{{ __('profilePicture.format2') }}</span> <span class="text-danger">*</span></label>
                                 <div class="d-flex flex-column">
                                     <input class="form-control me-3 mb-4" name="picture" id="picture" type="file" accept=".jpg, .jpeg, .png" onchange="previewPhoto(event)">
                                 </div>
@@ -102,8 +102,8 @@
                     </script>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('profilePicture.close_button') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('profilePicture.save_button') }}</button>
                 </div>
             </div>
         </form>

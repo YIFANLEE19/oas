@@ -11,6 +11,7 @@ return [
     */
 
     'pageTitle' => 'Uploads profile picture',
+    'title' => 'Profile picture',
     'home' => 'Home',
     'current_step' => 'Step 4: Profile Picture',
     'guidelines_heading' => 'Guidelines for submitting your photo',
@@ -18,5 +19,10 @@ return [
     'format2' => 'Not over 5MB',
     'reminder_msg1' => 'Please reconfirm the information before submitting',
     'submit_button' => 'Submit',
+
+    'update_success' => 'Profile picture update successfully!',
+    'edit_button' => 'Edit profile picture',
+    'close_button' => 'Close',
+    'save_button' => 'Save changes',
     
 ];

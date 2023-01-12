@@ -21,7 +21,7 @@ return [
     'identity_card_passport' => 'Identity card/Passport',
     'ic' => 'Identity card',
     'passport' => 'Passport',
-    'ic_description1' => "If you are local student but don't have identity card, please click the checkbox below.",
+    'ic_description1' => "If you are not a Malaysian citizen please click on the checkbox below in order to enter passport.",
     'ic_checkbox' => 'Use Passport',
     'relationship_nationality' => 'Relationship & Nationality',
     'relationship' => 'Relationship',
@@ -36,6 +36,7 @@ return [
     'email_address' => 'Email address',
     'tel_hp' => 'Tel no. (H/P)',
     'permanent_address' => 'Permanent Address',
+    'address' => 'Address',
     'address_line1' => 'Address line 1',
     'address_line2' => 'Address line 2',
     'zipcode' => 'Zipcode',
@@ -47,5 +48,8 @@ return [
     'address_line2_placeholder' => 'Input unit/floor',
     'reminder_msg1' => 'Please reconfirm the information before submitting',
     'submit_button' => 'Submit',
-    
+    'update_success' => 'Parent/guardian particulars update successfully!',
+    'edit_button' => 'Edit personal particulars',
+    'close_button' => 'Close',
+    'save_button' => 'Save changes',
 ];

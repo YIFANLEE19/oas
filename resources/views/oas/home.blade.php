@@ -112,8 +112,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body px-4 py-4">
-                    <h1>{{ __('home.step3_heading') }}</h1>
-                    <p>{{ __('home.step3_description') }}</p>
+                    <h1>{{ __('home.step4_heading') }}</h1>
+                    <p>{{ __('home.step4_description') }}</p>
                     <small class="text-secondary"><span class="text-danger">*</span>{{ __('home.clauses_msg1') }}</small>
                     <br>
                     <a href="{{ route('profilePicture.home') }}" class="btn btn-primary mt-2">{{ __('home.step_button') }}</a>

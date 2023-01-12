@@ -16,8 +16,10 @@ return [
     'next_step' => 'Next : Profile picture',
     'kindly_remind' => 'Kindly remind!',
     'alert_msg1' => 'In order to effectively contact your emergency contact person, please do not enter the same information twice in the parent / guardian particulars and emergency contact.',
+    'name' => 'Name',
     'en_name' => 'English name',
     'ch_name' => 'Chinese name',
+    'relationship_contact' => 'Relationship & Contact',
     'relationship' => 'Relationship',
     'relationship_placeholder' => 'Chooose your relationship',
     'tel_hp' => 'Tel no. (H/P)',
@@ -25,4 +27,9 @@ return [
     'person2' => 'Person 2',
     'reminder_msg1' => 'Please reconfirm the information before submitting',
     'submit_button' => 'Submit',
+
+    'updateSuccess' => 'Emergency contact update successfully!',
+    'edit_button' => 'Edit emergency contact',
+    'close_button' => 'Close',
+    'save_button' => 'Save changes',
 ];
