@@ -34,7 +34,7 @@ return [
     |
     */
     'pp_description1' => "Dear user, you haven't filled in the personal particulars, so you can't go to the next step until you fill them in.",
-    'pp_dedscription2' => 'If you want to go ahead and fill in the personal particulars please click Continue',
+    'pp_description2' => 'If you want to go ahead and fill in the personal particulars please click Continue',
 
     /*
     |
