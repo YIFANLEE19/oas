@@ -23,7 +23,7 @@
     <script>$(function(){$('#statusCode1Modal').modal('show');});</script>
 @elseif($application_status_id == 2)
     <script>$(function(){$('#statusCode2Modal').modal('show');});</script>
-@elseif($application_status_id == 4)
+@elseif($application_status_id >= 4)
     <script>$(function(){$('#statusCode4Modal').modal('show');});</script>
 @endif
 

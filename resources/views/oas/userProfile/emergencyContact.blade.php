@@ -19,7 +19,7 @@
     <script>$(function(){$('#statusCode0Modal').modal('show');});</script>
 @elseif($application_status_id == 1)
     <script>$(function(){$('#statusCode1Modal').modal('show');});</script>
-@elseif($application_status_id == 3)
+@elseif($application_status_id >= 3)
     <script>$(function(){$('#statusCode3Modal').modal('show');});</script>
 @endif
 

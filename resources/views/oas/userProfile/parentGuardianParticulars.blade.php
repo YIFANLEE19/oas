@@ -15,7 +15,7 @@
 @endif
 @if ($application_status_id == 0)
         <script>$(function(){$('#statusCode0Modal').modal('show');});</script>
-@elseif($application_status_id > 1 && $application_status_id <= 4)
+@elseif($application_status_id >=2)
     <script>$(function(){$('#statusCode2Modal').modal('show');});</script> 
 @endif
 

@@ -12,7 +12,7 @@
 @if(Session::has('application_status_id') && Session::get('application_status_id') == 1)
     <script>$(function(){$('#completeModal').modal('show');});</script>        
 @endif
-@if ($application_status_id == 1 || $application_status_id >= 1)
+@if ($application_status_id >= 1)
     <script>$(function(){$('#completeModal').modal('show');});</script>   
 @endif
 
