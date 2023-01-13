@@ -14,10 +14,18 @@ class DataFlowController extends Controller
     |
     | $country_code = $this->getOldCountryCode[$r->HtmlInputFieldNameAttribute];
     | 
+    | 'new country code' => 'old country code',
+    | 
     |-----------------------------------------------------------
     |
     */
 
+    /* this array performs mapping for the OAS's 
+     * country code -> CMS's country code. The complete
+     * listing is available at: ____ 
+     * whereas the old CMS code aren't documented so one will
+     * have to refer to the raw tables.
+     */
     public  $getOldCountryCode = [
         '131' => '060',
         '200' => '065',
@@ -86,10 +94,4 @@ class DataFlowController extends Controller
         '1' => 'M',
         '2' => 'F',
     ];
-
-    public function index(){
-        $country_code = $this->getOldCountryCode[131];
-        dd($country_code);
-        return view('oas.test', compact('$country_code'));
-    }
 }
