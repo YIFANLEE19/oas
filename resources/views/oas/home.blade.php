@@ -131,7 +131,7 @@
     application_status_id is 4 when user finish setup personal particulars,
     parent/guardian particulars, emergency contact and profile picture
 --}}
-@if ($application_status_id == 4)
+@if ($application_status_id >= 4)
     <div class="container">
         <div class="row mt-4">
             <div class="col-md-6">
