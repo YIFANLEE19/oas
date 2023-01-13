@@ -20,7 +20,7 @@ use App\Http\Controllers\UserProfile\ParentGuardianParticularController;
 use App\Http\Controllers\UserProfile\EmergencyContactController;
 use App\Http\Controllers\UserProfile\ProfilePictureController;
 
-use App\Http\Controllers\DataFlow\TestController;
+use App\Http\Controllers\DataFlow\DataFlowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ use App\Http\Controllers\DataFlow\TestController;
 |
 */
 
-Route::controller(TestController::class)->group(function(){
+Route::controller(DataFlowController::class)->group(function(){
     Route::get('/test','index');
 });
 

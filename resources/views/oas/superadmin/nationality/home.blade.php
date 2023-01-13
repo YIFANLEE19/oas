@@ -86,7 +86,7 @@
                         @if(count($nationalities))
                             @foreach ($nationalities as $nationality)
                                 <tr>
-                                    <th scope="row">{{ $nationality->nationality_code }}</th>
+                                    <th scope="row">{{ $nationality->id }}</th>
                                     <td>{{ $nationality->name }}</td>
                                     <td>
                                         @if ($nationality->status == '0')

@@ -35,32 +35,9 @@ class GenderController extends Controller
     {
         $r = request();
         $gender = Gender::find($r->id);
-        if($r->gender_code != null && $r->gender_name != null && $r->gender_status != null){
-            $gender->gender_code = $r->gender_code;
-            $gender->name = $r->gender_name;
-            $gender->status = $r->gender_status;
-        }
-        else if($r->gender_code != null && $r->gender_name != null && $r->gender_status == null){
-            $gender->gender_code = $r->gender_code;
-            $gender->name = $r->gender_name;
-        }
-        else if($r->gender_code == null && $r->gender_name != null && $r->gender_status != null){
-            $gender->name = $r->gender_name;
-            $gender->status = $r->gender_status;
-        }
-        else if($r->gender_code != null && $r->gender_name == null && $r->gender_status != null){
-            $gender->gender_code = $r->gender_code;
-            $gender->status = $r->gender_status;
-        }
-        else if($r->gender_code != null && $r->gender_name == null && $r->gender_status == null){
-            $gender->gender_code = $r->gender_code;
-        }
-        else if($r->gender_code == null && $r->gender_name !=null && $r->gender_status == null){
-            $gender->name = $r->gender_name;
-        }
-        else if($r->gender_code == null && $r->gender_name ==null && $r->gender_status != null){
-            $gender->status = $r->gender_status;
-        }
+        ($r->gender_code != null) ? $gender->gender_code = $r->gender_code : '';
+        ($r->gender_name != null) ? $gender->gender_name = $r->gender_name : '';
+        ($r->gender_status != null) ? $gender->status = $r->gender_status : '';
         $gender->save();
         Session::flash('success','Gender updated successfully.');
         return back();
