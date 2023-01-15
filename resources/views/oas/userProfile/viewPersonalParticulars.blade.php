@@ -246,8 +246,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <input type="hidden" name="user_detail_id" value="{{ $user_detail->id }}"><input type="hidden" name="c_address_id" value="{{ $c_address->id }}"><input type="hidden" name="p_address_id" value="{{ $p_address->id }}"><input type="hidden" name="applicant_profile_id" value="{{ $applicant_profile->id }}">
-
+                        <input type="hidden" name="user_detail_id" value="{{ $user_detail->id }}">
+                        <input type="hidden" name="c_address_id" value="{{ $c_address->id }}">
+                        <input type="hidden" name="p_address_id" value="{{ $p_address->id }}">
+                        <input type="hidden" name="applicant_profile_id" value="{{ $applicant_profile->id }}">
                         {{-- name --}}
                         <div class="row">
                             <div class="col-md-12">
@@ -371,7 +373,7 @@
                                         <label for="race" class="form-label">{{ __('personalParticulars.race') }}<span class="text-danger">*</span></label>
                                         <select name="race_id" id="race" class="form-select" required>
                                             <option value="{{ $applicant_profile->race_id }}" selected>{{ $applicant_profile->race['name'] }}</option>
-                                            @foreach ($allRaces as $race)
+                                            @foreach ($data['races'] as $race)
                                                 <option value="{{ $race->id }}">{{ $race->name }}</option>
                                             @endforeach
                                         </select>
@@ -380,7 +382,7 @@
                                         <label for="religion" class="form-label">{{ __('personalParticulars.religion') }}<span class="text-danger">*</span></label>
                                         <select name="religion_id" id="religion" class="form-select" required>
                                             <option value="{{ $applicant_profile->religion_id }}" selected>{{ $applicant_profile->religion['name'] }}</option>
-                                            @foreach ($allReligions as $religion)
+                                            @foreach ($data['religion'] as $religion)
                                                 <option value="{{ $religion->id }}">{{ $religion->name }}</option>
                                             @endforeach
                                         </select>
@@ -470,7 +472,7 @@
                                     <div class="col-md">
                                         <label for="gender" class="form-label">{{ __('personalParticulars.gender') }}<span class="text-danger">*</span></label>
                                         <div class="d-flex flex-row mb-3 me-3">
-                                            @foreach ($allGenders as $gender)
+                                            @foreach ($data['gender'] as $gender)
                                                 @if ($gender->id == 1)
                                                     <div class="form-check-label me-4" for="gender">
                                                         <input type="radio" name="gender_id" id="gender1" class="form-check-input" value="{{ $gender->id }}" {{ $applicant_profile->gender_id == '1' ? 'checked' : ''}}>
@@ -489,7 +491,7 @@
                                         <label for="marital" class="form-label">{{ __('personalParticulars.marital') }}<span class="text-danger">*</span></label>
                                         <select name="marital_id" id="marital" class="form-select" required>
                                             <option value="{{ $applicant_profile->marital_id }}" disabled>{{ $applicant_profile->marital['name'] }}</option>
-                                            @foreach ($allMaritals as $marital)
+                                            @foreach ($data['maritals'] as $marital)
                                                 <option value="{{ $marital->id }}">{{ $marital->name }}</option>
                                             @endforeach
                                         </select>
@@ -560,7 +562,7 @@
                                         <label for="c_country" class="form-label">{{ __('personalParticulars.country') }}<span class="text-danger">*</span></label>
                                         <select name="c_country_id" id="c_country" class="form-select" required>
                                             <option value="{{ $c_address->country_id }}" selected>{{ $c_address->country['name'] }}</option>
-                                            @foreach ($allCountries as $country)
+                                            @foreach ($data['countries'] as $country)
                                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                                             @endforeach
                                         </select>
@@ -612,7 +614,7 @@
                                         <label for="p_country" class="form-label">{{ __('personalParticulars.country') }}<span class="text-danger">*</span></label>
                                         <select name="p_country_id" id="p_country" class="form-select" required>
                                             <option value="{{ $p_address->country_id }}" selected>{{ $p_address->country['name'] }}</option>
-                                            @foreach ($allCountries as $country)
+                                            @foreach ($data['countries'] as $country)
                                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                                             @endforeach
                                         </select>

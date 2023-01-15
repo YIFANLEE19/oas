@@ -313,7 +313,7 @@
                                         <label for="relationship" class="form-label">{{ __('parentGuardianParticulars.realtionship') }}<span class="text-danger">*</span></label>
                                         <select name="guardian_relationship_id" id="relationship" class="form-select" required>
                                             <option value="{{ $guardian_detail->guardian_relationship_id }}" selected>{{ $guardian_detail->guardianRelationship['name'] }}</option>
-                                            @foreach ($allRelationships as $relationship)
+                                            @foreach ($data['relationships'] as $relationship)
                                                 <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                                             @endforeach
                                         </select>
@@ -322,7 +322,7 @@
                                         <label for="nationality" class="form-label">{{ __('parentGuardianParticulars.nationality') }}<span class="text-danger">*</span></label>
                                         <select name="nationality_id" id="nationality" class="form-select" required>
                                             <option value="{{ $guardian_detail->nationality_id }}" selected>{{ $guardian_detail->nationality['name'] }}</option>
-                                            @foreach ($allNationalities as $nationality)
+                                            @foreach ($data['nationalities'] as $nationality)
                                                 <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
                                             @endforeach
                                         </select>
@@ -348,7 +348,7 @@
                                         <label for="income" class="form-label">{{ __('parentGuardianParticulars.income_range') }}<span class="text-danger">*</span></label>
                                         <select name="income_id" id="income" class="form-select" required>
                                             <option value="{{ $guardian_detail->income_id }}" selected>{{ $guardian_detail->income['range'] }}</option>
-                                            @foreach ($allIncomes as $income)
+                                            @foreach ($data['incomes'] as $income)
                                                 <option value="{{ $income->id }}">{{ $income->range }}</option>
                                             @endforeach
                                         </select>
@@ -415,7 +415,7 @@
                                         <label for="p_country" class="form-label">{{ __('parentGuardianParticulars.country') }}<span class="text-danger">*</span></label>
                                         <select name="p_country_id" id="p_country" class="form-select" required>
                                             <option value="{{ $p_address->country_id }}" selected>{{ $p_address->country['name'] }}</option>
-                                            @foreach ($allCountries as $country)
+                                            @foreach ($data['countries'] as $country)
                                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                                             @endforeach
                                         </select>

@@ -22,52 +22,86 @@ use DB;
 
 class PersonalParticularController extends Controller
 {
-    //    
+    /*
+    |-----------------------------------------------------------
+    | const variable
+    |-----------------------------------------------------------
+    */
+    private $STATUS_ACTIVE = 1;
+    private $NEW_USER_CODE = 0;
+    private $CORRESPONDENCE_ADDRESS_TYPE = 1;
+    private $PERMANENT_ADDRESS_TYPE = 2;
+    private $COMPLETEPERSONALPARTICULARS = 1;
+
+    /*
+    |-----------------------------------------------------------
+    | undefined variable
+    |-----------------------------------------------------------
+    */
+    private $finalIC;
+
+    /*
+    |-----------------------------------------------------------
+    | Return step 1 personal particulars(form)
+    | To get the active value in db, the status code is 1.
+    | application_status_id = 0, means it is personal particulars
+    | not yet finish to fill in.
+    |
+    | if application_status_log equal null then   
+    |   return application_status_id = 0, means new user
+    | else 
+    |   return application_status_id
+    |
+    |-----------------------------------------------------------
+    */
     public function index()
     {
-        // $application_status_id 0 == new user, haven't complete personal particulars.
-        $allRaces = Race::all();
-        $allReligions = Religion::all();
-        $allNationalities = Nationality::all();
-        $allGenders = Gender::all();
-        $allMaritals = Marital::all();
-        $allCountries = Country::all();
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
-        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($application_status_log_id == null){
-            $application_status_id = 0;
-            return view('oas.userProfile.personalParticulars', compact(['allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries','application_status_id']));
-        }else{
-            $application_status_id = $application_status_log_id->application_status_id;
-            return view('oas.userProfile.personalParticulars', compact(['allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries','application_status_id']));
+        $getRaces = Race::where('status',$this->STATUS_ACTIVE)->get();
+        $getReligions = Religion::where('status',$this->STATUS_ACTIVE)->get();
+        $getNationalities = Nationality::where('status',$this->STATUS_ACTIVE)->get();
+        $getGenders = Gender::where('status',$this->STATUS_ACTIVE)->get();
+        $getMaritals = Marital::where('status',$this->STATUS_ACTIVE)->get();
+        $getCountries = Country::where('status',$this->STATUS_ACTIVE)->get();
+        $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
+
+        $data = [
+            'races' => $getRaces,
+            'religions' => $getReligions,
+            'nationalities' => $getNationalities,
+            'genders' => $getGenders,
+            'maritals' => $getMaritals,
+            'countries' => $getCountries,
+        ];
+
+        if($application_status_log == null){
+            $application_status_id = $this->NEW_USER_CODE;
+            return view('oas.userProfile.personalParticulars', compact(['data','application_status_id']));
         }
 
+        $application_status_id = $application_status_log->application_status_id;
+        return view('oas.userProfile.personalParticulars', compact(['data','application_status_id']));
     }
 
-    /**
-     * create personal particulars profile
-     */
+    /*
+    |-----------------------------------------------------------
+    | The create function is store the data to database.
+    | $finalIC is use to checking user input is passport or 
+    | identiy card
+    |-----------------------------------------------------------
+    */
     public function create()
     {
-        $CORRESPONDENCE_ADDRESS_TYPE = 1;
-        $PERMANENT_ADDRESS_TYPE = 2;
-        $COMPLETEPERSONALPARTICULARS = 1;
-
         $r = request();
-        // check ic or passport
-        $finalIc;
+
         if($r->passport == ''){
-            $finalIc = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
-        }else{
-            $finalIc = $r->passport;
+            $this->finalIC = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
         }
-        $gender;if($r->gender_id = 1){$gender = 'M';}else{$gender = 'F';}
-        $nationality;if($r->nationality_id = 131){$nationality = 131;}else{$nationality=null;}
+        $this->finalIC = $r->passport;
 
         $user_detail_id = UserDetail::insertGetId([
             'en_name' => $r->en_name,
             'ch_name' => $r->ch_name,
-            'ic' => $finalIc,
+            'ic' => $this->finalIC,
             'email' => $r->email,
             'tel_h' => $r->tel_h,
             'tel_hp' => $r->tel_hp,
@@ -105,82 +139,91 @@ class PersonalParticularController extends Controller
         $c_address_mapping = AddressMapping::create([
             'user_detail_id' => $user_detail_id,
             'address_id' => $c_address_id,
-            'address_type_id' => $CORRESPONDENCE_ADDRESS_TYPE,
+            'address_type_id' => $this->CORRESPONDENCE_ADDRESS_TYPE,
         ]);
         $p_address_mapping = AddressMapping::create([        
             'user_detail_id' => $user_detail_id,
             'address_id' => $p_address_id,
-            'address_type_id' => $PERMANENT_ADDRESS_TYPE,
+            'address_type_id' => $this->PERMANENT_ADDRESS_TYPE,
         ]);
         $application_status_log = ApplicationStatusLog::create([
             'user_id' => Auth::id(),
             'application_record_id' => $application_record_id,
-            'application_status_id' => $COMPLETEPERSONALPARTICULARS,
+            'application_status_id' => $this->COMPLETEPERSONALPARTICULARS,
         ]);
-        Session::flash('application_status_id',$COMPLETEPERSONALPARTICULARS);
+        Session::flash('application_status_id',$this->COMPLETEPERSONALPARTICULARS);
         return back();
     }
 
-    /**
-     * view function
-     */
+    /*
+    |-----------------------------------------------------------
+    | View function
+    |-----------------------------------------------------------
+    */
     public function view()
-    {
-        $CORRESPONDENCE_ADDRESS_TYPE = 1;
-        $PERMANENT_ADDRESS_TYPE = 2;
-
-        $allRaces = Race::all();
-        $allReligions = Religion::all();
-        $allNationalities = Nationality::all();
-        $allGenders = Gender::all();
-        $allMaritals = Marital::all();
-        $allCountries = Country::all();
-
-        // get user detail
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
+    {        
+        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first();
         $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
         if($applicationRecord == null || $application_status_log_id == null){
             return redirect()->route('home');
-        }else{
-            $application_status_id = $application_status_log_id->application_status_id;
-            if($application_status_id != 4 && $application_status_id < 4){
-                return redirect()->route('home');
-            }
         }
+        $application_status_id = $application_status_log_id->application_status_id;
+        if($application_status_id != 4 && $application_status_id < 4){
+            return redirect()->route('home');
+        }
+
+        $getRaces = Race::where('status',$this->STATUS_ACTIVE)->get();
+        $getReligions = Religion::where('status',$this->STATUS_ACTIVE)->get();
+        $getNationalities = Nationality::where('status',$this->STATUS_ACTIVE)->get();
+        $getGenders = Gender::where('status',$this->STATUS_ACTIVE)->get();
+        $getMaritals = Marital::where('status',$this->STATUS_ACTIVE)->get();
+        $getCountries = Country::where('status',$this->STATUS_ACTIVE)->get();
+
+        $data = [
+            'races' => $getRaces,
+            'religions' => $getReligions,
+            'nationalities' => $getNationalities,
+            'genders' => $getGenders,
+            'maritals' => $getMaritals,
+            'countries' => $getCountries,
+        ];
+        // get applicant profile
         $applicant_profile_id = $applicationRecord->applicant_profile_id;
         $applicant_profile = ApplicantProfile::where('id',$applicant_profile_id)->first();
+
+        // get user detail
         $user_detail_id = $applicant_profile->user_detail_id;
         $user_detail = UserDetail::where('id',$user_detail_id)->first();
-        // get address mapping
-        $c_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',$CORRESPONDENCE_ADDRESS_TYPE)->first();
-        $p_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',$PERMANENT_ADDRESS_TYPE)->first();
+
+        // get address
+        $c_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',$this->CORRESPONDENCE_ADDRESS_TYPE)->first();
+        $p_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',$this->PERMANENT_ADDRESS_TYPE)->first();
         $c_address_id = $c_address_mapping->address_id;
         $p_address_id = $p_address_mapping->address_id;
-
         $c_address = Address::where('id', $c_address_id)->first();
         $p_address = Address::where('id', $p_address_id)->first();
-        // if user profile 
-        if($applicationRecord != null){
-            return view('oas.userProfile.viewPersonalParticulars', compact(['applicant_profile','user_detail','c_address','p_address','allRaces','allReligions','allNationalities','allGenders','allMaritals','allCountries']));
-        }   
+        
+        return view('oas.userProfile.viewPersonalParticulars', compact(['applicant_profile','user_detail','c_address','p_address','data']));
     }
-    /**
-     * update function
-     */
+
+    /*
+    |-----------------------------------------------------------
+    | Update function
+    |-----------------------------------------------------------
+    */
     public function update()
     {
         $r = request();
+
         $USER_DETAIL_ID = $r->user_detail_id;
         $APPLICANT_PROFILE_ID = $r->applicant_profile_id;
         $C_ADDRESS_ID = $r->c_address_id;
         $P_ADDRESS_ID = $r->p_address_id;
-        // check ic or passport
-        $finalIc;
+
         if($r->passport == ''){
-            $finalIc = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
-        }else{
-            $finalIc = $r->passport;
+            $this->finalIC = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
         }
+        $this->finalIC = $r->passport;
 
         $user_detail = UserDetail::find($USER_DETAIL_ID);
         $user_detail->en_name = $r->en_name;

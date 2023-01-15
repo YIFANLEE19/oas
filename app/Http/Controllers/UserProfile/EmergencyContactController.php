@@ -17,10 +17,28 @@ use DB;
 
 class EmergencyContactController extends Controller
 {
-    //
+    /*
+    |-----------------------------------------------------------
+    | const variable
+    |-----------------------------------------------------------
+    */
+    private $COMPLETEEMERGENCYCONTACT = 3;
+
+    /*
+    |-----------------------------------------------------------
+    | Return step 1 emergency contact(form)
+    | application_status_id = 0, means it is personal particulars
+    | not yet finish to fill in.
+    |
+    | if application_status_log equal null then   
+    |   return application_status_id = 0, means new user
+    | else 
+    |   return application_status_id
+    |
+    |-----------------------------------------------------------
+    */
     public function index()
     {
-        $status_code;
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $allRelationships = GuardianRelationship::all();
         $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
@@ -32,13 +50,14 @@ class EmergencyContactController extends Controller
             return view('oas.userProfile.emergencyContact', compact(['allRelationships','application_status_id']));
         }
     }
-    /**
-     * create function
-     */
+
+    /*
+    |-----------------------------------------------------------
+    | Create function
+    |-----------------------------------------------------------
+    */
     public function create()
     {
-
-        $COMPLETEEMERGENCYCONTACT = 3;
         $r = request();
 
         // get user applicant profile id 
@@ -75,10 +94,10 @@ class EmergencyContactController extends Controller
         if($find_application_status_log != null){
             $application_status_log_id = $find_application_status_log->id;
             $application_status_log = ApplicationStatusLog::find($application_status_log_id);
-            $application_status_log->application_status_id = $COMPLETEEMERGENCYCONTACT;
+            $application_status_log->application_status_id = $this->COMPLETEEMERGENCYCONTACT;
             $application_status_log->save();
         }
-        Session::flash('application_status_id',$COMPLETEEMERGENCYCONTACT);
+        Session::flash('application_status_id',$this->COMPLETEEMERGENCYCONTACT);
         return back();
     }
 
@@ -88,7 +107,7 @@ class EmergencyContactController extends Controller
     public function view()
     {
         $allRelationships = GuardianRelationship::all();
-        // get user applicant profile id 
+        
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
         if($applicationRecord == null || $application_status_log_id == null){

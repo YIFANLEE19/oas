@@ -15,19 +15,32 @@ use Image;
 
 class ProfilePictureController extends Controller
 {
-    /**
-     * return to profile picture form
-     * application_status_id if = 0, personal particulars
-     * not yet submit.
-     * more application status id please refer to admin dashboard.
-     */
+    /*
+    |-----------------------------------------------------------
+    | const variable
+    |-----------------------------------------------------------
+    */
+    private $NEW_USER_CODE = 0;
+    private $COMPLETEPROFILEPICTURE = 4;
+
+    /*
+    |-----------------------------------------------------------
+    | Return step 1 profile picture(form)
+    | application_status_id = 0, means it is personal particulars
+    | not yet finish to fill in.
+    |
+    | if application_status_log equal null then   
+    |   return application_status_id = 0, means new user
+    | else 
+    |   return application_status_id
+    |-----------------------------------------------------------
+    */
     public function index()
     {
-        $status_code;
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
         if($application_status_log == null){
-            $application_status_id = 0;
+            $application_status_id = $this->NEW_USER_CODE;
             return view('oas.userProfile.profilePicture',compact('application_status_id'));
         }else{
             $application_status_id = $application_status_log->application_status_id;
@@ -35,16 +48,19 @@ class ProfilePictureController extends Controller
         }
     }
 
-    /**
-     * create profile picture
-     */
+    /*
+    |-----------------------------------------------------------
+    | Create function
+    | Format: only Accepted ('jpeg','jpg','png')
+    | Size: maximum 5MB
+    |-----------------------------------------------------------
+    */
     public function create(Request $request)
     {
-        $COMPLETEPROFILEPICTURE = 4;
-
         $request->validate([
             'picture' => 'required|image|mimes:jpeg,jpg,png|max:5120',
         ]);
+
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
 
         $picture = $request->file('picture');
@@ -52,23 +68,28 @@ class ProfilePictureController extends Controller
         $pictureResize = Image::make($picture->getRealPath());
         $pictureResize->resize(210,280);
         $pictureResize->save(public_path('images/profile_picture/'.$pictureName));
+
         ApplicantProfilePicture::create([
             'applicant_profile_id' => $applicationRecord->applicant_profile_id,
             'path' => $pictureName
         ]);
+
         $find_application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
         if($find_application_status_log != null){
             $application_status_log_id = $find_application_status_log->id;
             $application_status_log = ApplicationStatusLog::find($application_status_log_id);
-            $application_status_log->application_status_id = $COMPLETEPROFILEPICTURE;
+            $application_status_log->application_status_id = $this->COMPLETEPROFILEPICTURE;
             $application_status_log->save();
         }
         Session::flash('application_status_id',4);
         return back();
     }
-    /**
-     * view profile picture function
-     */
+
+    /*
+    |-----------------------------------------------------------
+    | View function
+    |-----------------------------------------------------------
+    */
     public function view()
     {
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
@@ -86,9 +107,11 @@ class ProfilePictureController extends Controller
         return view('oas.userProfile.viewProfilePicture', compact('applicant_profile_picture'));
     }
 
-    /**
-     * update profile picture function 
-     */
+    /*
+    |-----------------------------------------------------------
+    | Update function
+    |-----------------------------------------------------------
+    */
     public function update(Request $request)
     {
         $request->validate([

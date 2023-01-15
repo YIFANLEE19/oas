@@ -174,7 +174,7 @@
                         <p>{{ __('home.apply_programme_description2') }}</p>
                         <small class="text-secondary"><span class="text-danger">*</span>{{ __('home.clauses_msg1') }}</small>
                         <br>
-                        <a href="" class="btn btn-primary mt-2">{{ __('apply_programme_button') }}</a>
+                        <a href="" class="btn btn-primary mt-2">{{ __('home.apply_programme_button') }}</a>
                     </div>
                 </div>
             </div>

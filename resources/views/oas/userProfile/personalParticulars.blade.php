@@ -130,7 +130,7 @@
                         <label for="race" class="form-label">{{ __('personalParticulars.race') }}<span class="text-danger">*</span></label>
                         <select name="race_id" id="race" class="form-select" required>
                             <option disabled selected hidden value="">{{ __('personalParticulars.race_placeholder') }}</option>
-                            @foreach ($allRaces as $race)
+                            @foreach ($data['races'] as $race)
                                 <option value="{{ $race->id }}">{{ $race->name }}</option>
                             @endforeach
                         </select>
@@ -139,7 +139,7 @@
                         <label for="religion" class="form-label">{{ __('personalParticulars.religion') }}<span class="text-danger">*</span></label>
                         <select name="religion_id" id="religion" class="form-select" required>
                             <option disabled selected hidden value="">{{ __('personalParticulars.religion_placeholder') }}</option>
-                            @foreach ($allReligions as $religion)
+                            @foreach ($data['religions'] as $religion)
                                 <option value="{{ $religion->id }}">{{ $religion->name }}</option>
                             @endforeach
                         </select>
@@ -257,7 +257,7 @@
                     <div class="col-md">
                         <label for="gender" class="form-label">{{ __('personalParticulars.gender') }}<span class="text-danger">*</span></label>
                         <div class="d-flex flex-row mb-3 me-3">
-                            @foreach ($allGenders as $gender)
+                            @foreach ($data['genders'] as $gender)
                                 @if ($gender->id == 1)
                                     <div class="form-check-label me-4" for="gender">
                                         <input type="radio" name="gender_id" id="gender1" class="form-check-input" value="{{ $gender->id }}" checked>
@@ -276,7 +276,7 @@
                         <label for="marital" class="form-label">{{ __('personalParticulars.marital') }}<span class="text-danger">*</span></label>
                         <select name="marital_id" id="marital" class="form-select" required>
                             <option disabled selected hidden value="">{{ __('personalParticulars.marital_placeholder') }}</option>
-                            @foreach ($allMaritals as $marital)
+                            @foreach ($data['maritals'] as $marital)
                                 <option value="{{ $marital->id }}">{{ $marital->name }}</option>
                             @endforeach
                         </select>
@@ -345,7 +345,7 @@
                         <label for="c_country" class="form-label">{{ __('personalParticulars.country') }}<span class="text-danger">*</span></label>
                         <select name="c_country_id" id="c_country" class="form-select" required>
                             <option disabled selected hidden value="">{{ __('personalParticulars.country_placeholder') }}</option>
-                            @foreach ($allCountries as $country)
+                            @foreach ($data['countries'] as $country)
                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
@@ -394,7 +394,7 @@
                         <label for="p_country" class="form-label">{{ __('personalParticulars.country') }}<span class="text-danger">*</span></label>
                         <select name="p_country_id" id="p_country" class="form-select" required>
                             <option disabled selected hidden value="">{{ __('personalParticulars.country_placeholder') }}</option>
-                            @foreach ($allCountries as $country)
+                            @foreach ($data['countries'] as $country)
                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
@@ -406,22 +406,22 @@
         {{-- end permanent address --}}
         {{-- script --}}
         <script>
+            const c_street1 = document.getElementById('c_street1');
+            const c_street2 = document.getElementById('c_street2');
+            const c_zipcode = document.getElementById('c_zipcode');
+            const c_city = document.getElementById('c_city');
+            const c_state = document.getElementById('c_state');
+            const c_country = document.getElementById('c_country');
+            const p_street1 = document.getElementById('p_street1');
+            const p_street2 = document.getElementById('p_street2');
+            const p_zipcode = document.getElementById('p_zipcode');
+            const p_city = document.getElementById('p_city');
+            const p_state = document.getElementById('p_state');
+            const p_country = document.getElementById('p_country');
+            const sameAbove = document.getElementById('sameAbove');
+
             function copyAddress(){
-                var c_street1 = document.getElementById('c_street1');
-                var c_street2 = document.getElementById('c_street2');
-                var c_zipcode = document.getElementById('c_zipcode');
-                var c_city = document.getElementById('c_city');
-                var c_state = document.getElementById('c_state');
-                var c_country = document.getElementById('c_country');
 
-                var p_street1 = document.getElementById('p_street1');
-                var p_street2 = document.getElementById('p_street2');
-                var p_zipcode = document.getElementById('p_zipcode');
-                var p_city = document.getElementById('p_city');
-                var p_state = document.getElementById('p_state');
-                var p_country = document.getElementById('p_country');
-
-                const sameAbove = document.getElementById('sameAbove');
                 if(sameAbove.checked){
                     p_street1.value = c_street1.value;
                     p_street2.value = c_street2.value;

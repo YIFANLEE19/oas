@@ -20,48 +20,83 @@ use Session;
 
 class ParentGuardianParticularController extends Controller
 {
-    //
+    /*
+    |-----------------------------------------------------------
+    | const variable
+    |-----------------------------------------------------------
+    */
+    private $STATUS_ACTIVE = 1;
+    private $NEW_USER_CODE = 0;
+    private $PERMANENT_ADDRESS_TYPE = 2;
+    private $COMPLETEPARENTGUARDIANPARTICULARS = 2;
+    
+    /*
+    |-----------------------------------------------------------
+    | undefined variable
+    |-----------------------------------------------------------
+    */
+    private $finalIC;
+
+    /*
+    |-----------------------------------------------------------
+    | Return step 2 parent/guardian particulars(form)
+    | To get the active value in db, the status code is 1.
+    | application_status_id = 0, means it is personal particulars
+    | not yet finish to fill in.
+    |
+    | if application_status_log equal null then   
+    |   return application_status_id = 0, means new user
+    | else 
+    |   return application_status_id
+    |
+    |-----------------------------------------------------------
+    */
     public function index()
     {
-        $status_code;
-        $allRelationships = GuardianRelationship::all();
-        $allNationalities = Nationality::all();
-        $allIncomes = Income::all();
-        $allCountries = Country::all();
+        $getRelationships = GuardianRelationship::where('status',$this->STATUS_ACTIVE)->get();
+        $getNationalities = Nationality::where('status',$this->STATUS_ACTIVE)->get();
+        $getIncomes = Income::where('status',$this->STATUS_ACTIVE)->get();
+        $getCountries = Country::where('status',$this->STATUS_ACTIVE)->get();
+
+        $data = [
+            'relationships' => $getRelationships,
+            'nationalities' => $getNationalities,
+            'incomes' => $getIncomes,
+            'countries' => $getCountries,
+        ];
 
         $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
         if($application_status_log == null){
-            $application_status_id = 0;
-            return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes','allCountries','application_status_id']));
+            $application_status_id = $this->NEW_USER_CODE;
+            return view('oas.userProfile.parentGuardianParticulars', compact(['data','application_status_id']));
         }else{
             $application_status_id = $application_status_log->application_status_id;
-            return view('oas.userProfile.parentGuardianParticulars', compact(['allRelationships','allNationalities','allIncomes','allCountries','application_status_id']));
+            return view('oas.userProfile.parentGuardianParticulars', compact(['data','application_status_id']));
         }
     }
 
-    /**
-     * create function
-     */
+    /*
+    |-----------------------------------------------------------
+    | The create function is store the data to database.
+    | $finalIC is use to checking user input is passport or 
+    | identiy card
+    |-----------------------------------------------------------
+    */
     public function create()
     {
-        $PERMANENT_ADDRESS_TYPE = 2;
-        $COMPLETEPARENTGUARDIANPARTICULARS = 2;
-
         $r = request();
-        // get user applicant profile id 
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
-        // check ic or passport
-        $finalIc;
+
         if($r->passport == ''){
-            $finalIc = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
+            $finalIC = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
         }else{
-            $finalIc = $r->passport;
+            $finalIC = $r->passport;
         }
 
         $user_detail_id = UserDetail::insertGetId([
             'en_name' => $r->en_name,
             'ch_name' => $r->ch_name,
-            'ic' => $finalIc,
+            'ic' => $finalIC,
             'email' => $r->email,
             'tel_hp' => $r->tel_hp,
         ]);
@@ -84,7 +119,7 @@ class ParentGuardianParticularController extends Controller
         $address_mapping = AddressMapping::create([
             'user_detail_id' => $user_detail_id,
             'address_id' => $address_id,
-            'address_type_id' => $PERMANENT_ADDRESS_TYPE,
+            'address_type_id' => $this->PERMANENT_ADDRESS_TYPE,
         ]);
         $applicant_guardian_list = ApplicantGuardianList::create([
             'applicant_profile_id' => $applicationRecord->applicant_profile_id,
@@ -94,26 +129,33 @@ class ParentGuardianParticularController extends Controller
         if($find_application_status_log != null){
             $application_status_log_id = $find_application_status_log->id;
             $application_status_log = ApplicationStatusLog::find($application_status_log_id);
-            $application_status_log->application_status_id = $COMPLETEPARENTGUARDIANPARTICULARS;
+            $application_status_log->application_status_id = $this->COMPLETEPARENTGUARDIANPARTICULARS;
             $application_status_log->save();
         }
-        Session::flash('application_status_id',$COMPLETEPARENTGUARDIANPARTICULARS);
+        Session::flash('application_status_id',$this->COMPLETEPARENTGUARDIANPARTICULARS);
         return back();
     }
 
-    /**
-     * view function
-     */
+    /*
+    |-----------------------------------------------------------
+    | View function
+    |-----------------------------------------------------------
+    */
     public function view()
     {
-        $PERMANENT_ADDRESS_TYPE = 2;
 
-        $allRelationships = GuardianRelationship::all();
-        $allNationalities = Nationality::all();
-        $allIncomes = Income::all();
-        $allCountries = Country::all();
+        $getRelationships = GuardianRelationship::where('status',$this->STATUS_ACTIVE)->get();
+        $getNationalities = Nationality::where('status',$this->STATUS_ACTIVE)->get();
+        $getIncomes = Income::where('status',$this->STATUS_ACTIVE)->get();
+        $getCountries = Country::where('status',$this->STATUS_ACTIVE)->get();
 
-        // get -> applicant profile id -> applicant guardian list -> guardian detail -> user detail
+        $data = [
+            'relationships' => $getRelationships,
+            'nationalities' => $getNationalities,
+            'incomes' => $getIncomes,
+            'countries' => $getCountries,
+        ];
+
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
         if($applicationRecord == null || $application_status_log_id == null){
@@ -131,33 +173,35 @@ class ParentGuardianParticularController extends Controller
         $user_detail_id = $guardian_detail->user_detail_id;
         $user_detail = UserDetail::where('id',$user_detail_id)->first();
         // address
-        $p_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',$PERMANENT_ADDRESS_TYPE)->first();
+        $p_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',$this->PERMANENT_ADDRESS_TYPE)->first();
         $p_address_id = $p_address_mapping->address_id;
         $p_address = Address::where('id', $p_address_id)->first();
 
-        return view('oas.userProfile.viewParentGuardianParticulars', compact(['user_detail','guardian_detail','p_address','allRelationships','allNationalities','allIncomes','allCountries']));
+        return view('oas.userProfile.viewParentGuardianParticulars', compact(['user_detail','guardian_detail','p_address','data']));
     }
-    /**
-     * update function
-     */
+
+    /*
+    |-----------------------------------------------------------
+    | Update function
+    |-----------------------------------------------------------
+    */
     public function update()
     {
         $r = request();
         $USER_DETAIL_ID = $r->user_detail_id;
         $GUARDIAN_DETAIL_ID = $r->guardian_detail_id;
         $P_ADDRESS_ID = $r->p_address_id;
-        // check ic or passport
-        $finalIc;
+        
         if($r->passport == ''){
-            $finalIc = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
+            $finalIC = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
         }else{
-            $finalIc = $r->passport;
+            $finalIC = $r->passport;
         }
 
         $user_detail = UserDetail::find($USER_DETAIL_ID);
         $user_detail->en_name = $r->en_name;
         $user_detail->ch_name = $r->ch_name;
-        $user_detail->ic = $finalIc;
+        $user_detail->ic = $finalIC;
         $user_detail->email = $r->email;
         $user_detail->tel_hp = $r->tel_hp;
 
