@@ -95,8 +95,9 @@ class PersonalParticularController extends Controller
 
         if($r->passport == ''){
             $this->finalIC = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
+        }else{
+            $this->finalIC = $r->passport;
         }
-        $this->finalIC = $r->passport;
 
         $user_detail_id = UserDetail::insertGetId([
             'en_name' => $r->en_name,
@@ -222,13 +223,14 @@ class PersonalParticularController extends Controller
 
         if($r->passport == ''){
             $this->finalIC = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
+        }else{
+            $this->finalIC = $r->passport;
         }
-        $this->finalIC = $r->passport;
 
         $user_detail = UserDetail::find($USER_DETAIL_ID);
         $user_detail->en_name = $r->en_name;
         $user_detail->ch_name = $r->ch_name;
-        $user_detail->ic = $finalIc;
+        $user_detail->ic = $this->finalIC;
         $user_detail->email = $r->email;
         $user_detail->tel_h =  $r->tel_h;
         $user_detail->tel_hp = $r->tel_hp;

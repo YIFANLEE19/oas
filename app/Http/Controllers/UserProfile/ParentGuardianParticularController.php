@@ -48,7 +48,6 @@ class ParentGuardianParticularController extends Controller
     |   return application_status_id = 0, means new user
     | else 
     |   return application_status_id
-    |
     |-----------------------------------------------------------
     */
     public function index()
@@ -77,9 +76,7 @@ class ParentGuardianParticularController extends Controller
 
     /*
     |-----------------------------------------------------------
-    | The create function is store the data to database.
-    | $finalIC is use to checking user input is passport or 
-    | identiy card
+    | Create function
     |-----------------------------------------------------------
     */
     public function create()
@@ -88,15 +85,15 @@ class ParentGuardianParticularController extends Controller
         $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
 
         if($r->passport == ''){
-            $finalIC = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
+            $this->finalIC = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
         }else{
-            $finalIC = $r->passport;
+            $this->finalIC = $r->passport;
         }
 
         $user_detail_id = UserDetail::insertGetId([
             'en_name' => $r->en_name,
             'ch_name' => $r->ch_name,
-            'ic' => $finalIC,
+            'ic' => $this->finalIC,
             'email' => $r->email,
             'tel_hp' => $r->tel_hp,
         ]);
@@ -193,15 +190,15 @@ class ParentGuardianParticularController extends Controller
         $P_ADDRESS_ID = $r->p_address_id;
         
         if($r->passport == ''){
-            $finalIC = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
+            $this->finalIC = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
         }else{
-            $finalIC = $r->passport;
+            $this->finalIC = $r->passport;
         }
 
         $user_detail = UserDetail::find($USER_DETAIL_ID);
         $user_detail->en_name = $r->en_name;
         $user_detail->ch_name = $r->ch_name;
-        $user_detail->ic = $finalIC;
+        $user_detail->ic = $this->finalIC;
         $user_detail->email = $r->email;
         $user_detail->tel_hp = $r->tel_hp;
 
