@@ -260,7 +260,7 @@
                                 <div class="row g-2">
                                     <div class="col-md mb-3">
                                         <label for="en_name" class="form-label">{{ __('personalParticulars.en_name') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="en_name" id="en_name" class="form-control text-capitalize" value="{{ $user_detail->en_name }}" required>
+                                        <input type="text" name="en_name" id="en_name" class="form-control text-capitalize" value="{{ $user_detail->en_name }}" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="ch_name" class="form-label">{{ __('personalParticulars.ch_name') }}</label>
@@ -288,21 +288,21 @@
                                 <div class="row" id="ic_section">
                                     <label for="ic" class="form-label">{{ __('personalParticulars.ic') }}<span class="text-danger">*</span></label>
                                     <div class="col-md d-flex flex-row align-items-center mb-3">
-                                        <input type="text" name="ic1" id="ic1" class="form-control" placeholder="" maxlength="6" required>
+                                        <input type="text" name="ic1" id="ic1" class="form-control" placeholder="" minlength="6" maxlength="6" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                                         <span class="ms-4">-</span>
                                     </div>
                                     <div class="col-md d-flex flex-row align-items-center mb-3">
-                                        <input type="text" name="ic2" id="ic2" class="form-control" placeholder="" maxlength="2" required>
+                                        <input type="text" name="ic2" id="ic2" class="form-control" placeholder="" minlength="2" maxlength="2" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                                         <span class="ms-4">-</span>
                                     </div>
                                     <div class="col-md mb-3">
-                                        <input type="text" name="ic3" id="ic3" class="form-control" placeholder="" maxlength="4" required>
+                                        <input type="text" name="ic3" id="ic3" class="form-control" placeholder="" minlength="4" maxlength="4" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                                     </div>
                                 </div>
                                 <div class="row" id="passport_section" style="display: none;">
                                     <label for="ic" class="form-label">{{ __('personalParticulars.other_certificate') }}<span class="text-danger">*</span></label>
                                     <div class="col-md mb-3">
-                                        <input type="text" name="passport" id="passport" class="form-control" placeholder="">
+                                        <input type="text" name="passport" id="passport" class="form-control" placeholder="" onkeyup="if (/[^|A-Za-z0-9-]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9-]+/g,'')">
                                     </div>
                                 </div>
                             </div>
@@ -382,7 +382,7 @@
                                         <label for="religion" class="form-label">{{ __('personalParticulars.religion') }}<span class="text-danger">*</span></label>
                                         <select name="religion_id" id="religion" class="form-select" required>
                                             <option value="{{ $applicant_profile->religion_id }}" selected>{{ $applicant_profile->religion['name'] }}</option>
-                                            @foreach ($data['religion'] as $religion)
+                                            @foreach ($data['religions'] as $religion)
                                                 <option value="{{ $religion->id }}">{{ $religion->name }}</option>
                                             @endforeach
                                         </select>
@@ -472,7 +472,7 @@
                                     <div class="col-md">
                                         <label for="gender" class="form-label">{{ __('personalParticulars.gender') }}<span class="text-danger">*</span></label>
                                         <div class="d-flex flex-row mb-3 me-3">
-                                            @foreach ($data['gender'] as $gender)
+                                            @foreach ($data['genders'] as $gender)
                                                 @if ($gender->id == 1)
                                                     <div class="form-check-label me-4" for="gender">
                                                         <input type="radio" name="gender_id" id="gender1" class="form-check-input" value="{{ $gender->id }}" {{ $applicant_profile->gender_id == '1' ? 'checked' : ''}}>
@@ -515,11 +515,11 @@
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="tel_hp" class="form-label">{{ __('personalParticulars.tel_hp') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="tel_hp" id="tel_hp" class="form-control" value="{{ $user_detail->tel_hp }}" required>
+                                        <input type="text" name="tel_hp" id="tel_hp" class="form-control" value="{{ $user_detail->tel_hp }}" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="tel_h" class="form-label">{{ __('personalParticulars.tel_h') }}</label>
-                                        <input type="text" name="tel_h" id="tel_h" class="form-control" value="{{ $user_detail->tel_h }}">
+                                        <input type="text" name="tel_h" id="tel_h" class="form-control" value="{{ $user_detail->tel_h }}" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')">
                                     </div>
                                 </div>
                             </div>
@@ -536,27 +536,27 @@
                                 <div class="row g-3">
                                     <div class="col-md mb-3">
                                         <label for="c_street1" class="form-label">{{ __('personalParticulars.address_line1') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="c_street1" id="c_street1" class="form-control" value="{{ $c_address->street1 }}" required>
+                                        <input type="text" name="c_street1" id="c_street1" class="form-control" value="{{ $c_address->street1 }}" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" required>
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="c_street2" class="form-label">{{ __('personalParticulars.address_line2') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="c_street2" id="c_street2" class="form-control" value="{{ $c_address->street2 }}" required>
+                                        <input type="text" name="c_street2" id="c_street2" class="form-control" value="{{ $c_address->street2 }}" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" required>
                                     </div>
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-md mb-3">
                                         <label for="c_zipcode" class="form-label">{{ __('personalParticulars.zipcode') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="c_zipcode" id="c_zipcode" class="form-control" value="{{ $c_address->zipcode }}" required>
+                                        <input type="text" name="c_zipcode" id="c_zipcode" class="form-control" value="{{ $c_address->zipcode }}" minlength="5" maxlength="5" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="c_city" class="form-label">{{ __('personalParticulars.city') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="c_city" id="c_city" class="form-control" value="{{ $c_address->city }}" required>
+                                        <input type="text" name="c_city" id="c_city" class="form-control" value="{{ $c_address->city }}" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
                                     </div>
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-md mb-3">
                                         <label for="c_state" class="form-label">{{ __('personalParticulars.state') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="c_state" id="c_state" class="form-control" value="{{ $c_address->state }}" required>
+                                        <input type="text" name="c_state" id="c_state" class="form-control" value="{{ $c_address->state }}" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
                                     </div>
                                     <div class="col-md">
                                         <label for="c_country" class="form-label">{{ __('personalParticulars.country') }}<span class="text-danger">*</span></label>
@@ -588,27 +588,27 @@
                                 <div class="row g-3">
                                     <div class="col-md mb-3">
                                         <label for="p_street1" class="form-label">{{ __('personalParticulars.address_line1') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="p_street1" id="p_street1" class="form-control" value="{{ $c_address->street1 }}" required>
+                                        <input type="text" name="p_street1" id="p_street1" class="form-control" value="{{ $c_address->street1 }}" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" required>
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="p_street2" class="form-label">{{ __('personalParticulars.address_line2') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="p_street2" id="p_street2" class="form-control" value="{{ $c_address->street2 }}" required>
+                                        <input type="text" name="p_street2" id="p_street2" class="form-control" value="{{ $c_address->street2 }}" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" required>
                                     </div>
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-md mb-3">
                                         <label for="p_zipcode" class="form-label">{{ __('personalParticulars.zipcode') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="p_zipcode" id="p_zipcode" class="form-control" value="{{ $p_address->zipcode }}" required>
+                                        <input type="text" name="p_zipcode" id="p_zipcode" class="form-control" value="{{ $p_address->zipcode }}" minlength="5" maxlength="5" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="p_city" class="form-label">{{ __('personalParticulars.city') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="p_city" id="p_city" class="form-control" value="{{ $p_address->city }}" required>
+                                        <input type="text" name="p_city" id="p_city" class="form-control" value="{{ $p_address->city }}" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
                                     </div>
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-md mb-3">
                                         <label for="p_state" class="form-label">{{ __('personalParticulars.state') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="p_state" id="p_state" class="form-control" value="{{ $p_address->state }}" required>
+                                        <input type="text" name="p_state" id="p_state" class="form-control" value="{{ $p_address->state }}" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="p_country" class="form-label">{{ __('personalParticulars.country') }}<span class="text-danger">*</span></label>

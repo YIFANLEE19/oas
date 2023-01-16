@@ -179,7 +179,7 @@
                                 <div class="row g-2">
                                     <div class="col-md mb-3">
                                         <label for="en_name" class="form-label">{{ __('emergencyContact.en_name') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="en_name1" id="en_name1" class="form-control text-capitalize" value="{{ $user_detail1->en_name }}" required>
+                                        <input type="text" name="en_name1" id="en_name1" class="form-control text-capitalize" value="{{ $user_detail1->en_name }}" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="ch_name" class="form-label">{{ __('emergencyContact.ch_name') }}</label>
@@ -198,7 +198,7 @@
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="tel_hp" class="form-label">{{ __('emergencyContact.tel_hp') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="tel_hp1" id="tel_hp1" class="form-control" value="{{ $user_detail1->tel_hp }}" required>
+                                        <input type="text" name="tel_hp1" id="tel_hp1" class="form-control" value="{{ $user_detail1->tel_hp }}" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                                     </div>
                                 </div>
                             </div>
@@ -215,7 +215,7 @@
                                 <div class="row g-2">
                                     <div class="col-md mb-3">
                                         <label for="en_name" class="form-label">{{ __('emergencyContact.en_name') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="en_name2" id="en_name2" class="form-control text-capitalize" value="{{ $user_detail2->en_name }}" required>
+                                        <input type="text" name="en_name2" id="en_name2" class="form-control text-capitalize" value="{{ $user_detail2->en_name }}" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="ch_name" class="form-label">{{ __('emergencyContact.ch_name') }}</label>
@@ -234,7 +234,7 @@
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="tel_hp" class="form-label">{{ __('emergencyContact.tel_hp') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="tel_hp2" id="tel_hp2" class="form-control" value="{{ $user_detail2->tel_hp }}" required>
+                                        <input type="text" name="tel_hp2" id="tel_hp2" class="form-control" value="{{ $user_detail2->tel_hp }}" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                                     </div>
                                 </div>
                             </div>
