@@ -190,7 +190,7 @@
         <div class="border-bottom mt-4 mb-4"></div>
         {{-- end person 2 --}}
         {{-- form submit --}}
-        @if ($application_status_id == 2 || $application_status_id <= 3)
+        @if ($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PARENT_GUARDIAN_PARTICULARS'))
             <div class="row">
                 <div class="d-flex justify-content-end">
                     <p class="text-secondary"><span class="text-danger">*</span>{{ __('inputFields.reminder_msg1') }}</p><br>

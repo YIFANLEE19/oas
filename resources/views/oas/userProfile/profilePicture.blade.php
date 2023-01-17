@@ -175,7 +175,7 @@
             </div>
         </div>
         <hr>
-        @if ($application_status_id == 3)
+        @if ($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_EMERGENCY_CONTACT'))
             <div class="row">
                 <div class="d-flex justify-content-end">
                     <p class="text-secondary"><span class="text-danger">*</span>{{ __('inputFields.reminder_msg1') }}</p><br>

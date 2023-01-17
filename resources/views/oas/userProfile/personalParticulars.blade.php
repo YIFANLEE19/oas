@@ -444,7 +444,7 @@
         </script>
         {{-- end script --}} 
         {{-- form submit --}}
-        @if ($application_status_id < config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))
+        @if ($application_status_id == config('constants.APPLICATION_STATUS_CODE.NEW_USER'))
             <div class="row">
                 <div class="d-flex justify-content-end">
                     <p class="text-secondary"><span class="text-danger">*</span>{{ __('inputFields.reminder_msg1') }}</p><br>
