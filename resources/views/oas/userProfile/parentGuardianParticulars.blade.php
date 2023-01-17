@@ -10,12 +10,12 @@
     statusCode2Modal  | finish personal particulars         | 2
 --}}
 <style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
-@if(Session::has('application_status_id') && Session::get('application_status_id') == 2)
+@if(Session::has('application_status_id') && Session::get('application_status_id') == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PARENT_GUARDIAN_PARTICULARS'))
     <script>$(function(){$('#statusCode2Modal').modal('show');});</script>        
 @endif
-@if ($application_status_id == 0)
+@if ($application_status_id == config('constants.APPLICATION_STATUS_CODE.NEW_USER'))
         <script>$(function(){$('#statusCode0Modal').modal('show');});</script>
-@elseif($application_status_id >=2)
+@elseif($application_status_id >= config('constants.APPLICATION_STATUS_CODE.COMPLETE_PARENT_GUARDIAN_PARTICULARS'))
     <script>$(function(){$('#statusCode2Modal').modal('show');});</script> 
 @endif
 
@@ -60,16 +60,18 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="border-bottom">
-                <h1 class="fw-bold">{{ __('parentGuardianParticulars.pageTitle') }}</h1>
+                <h1 class="fw-bold">{{ __('userProfile.title2') }}</h1>
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('parentGuardianParticulars.home') }}</a></li>
-                      <li class="breadcrumb-item active fw-bold" aria-current="page">{{ __('parentGuardianParticulars.pageTitle') }}</li>
+                      <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('button.home') }}</a></li>
+                      <li class="breadcrumb-item active fw-bold" aria-current="page">{{ __('userProfile.title2') }}</li>
                     </ol>
                 </nav>
-                <div class="progress mb-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Default striped example" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{ __('parentGuardianParticulars.current_step') }}</div>
-                    <span class="ms-4">{{ __('parentGuardianParticulars.next_step') }}</span>
+                <div class="progress mb-2" style="height: 30px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary opacity-75" role="progressbar" aria-label="Default striped example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ __('userProfile.step1') }}</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Segment two" style="width: 25%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{ __('userProfile.step2') }}</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary opacity-25" role="progressbar" aria-label="Segment two" style="width: 25%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{ __('userProfile.step3') }}</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary opacity-25" role="progressbar" aria-label="Segment two" style="width: 25%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ __('userProfile.step4') }}</div>
                 </div>
             </div>
         </div>
@@ -84,17 +86,17 @@
         {{-- name --}}
         <div class="row d-flex flex-row mt-4">
             <div class="col-md-4">
-                <h4 class="fw-bold">{{ __('parentGuardianParticulars.name') }}</h4>
-                <p class="text-secondary">{{ __('parentGuardianParticulars.name_description') }}</p>
+                <h4 class="fw-bold">{{ __('inputFields.pg_name') }}</h4>
+                <p class="text-secondary">{{ __('inputFields.hint_for_pg_name') }}</p>
             </div>
             <div class="col-md-8">
                 <div class="row g-2">
                     <div class="col-md mb-3">
-                        <label for="en_name" class="form-label">{{ __('parentGuardianParticulars.en_name') }}<span class="text-danger">*</span></label>
+                        <label for="en_name" class="form-label">{{ __('inputFields.en_name') }}<span class="text-danger">*</span></label>
                         <input type="text" name="en_name" id="en_name" class="form-control text-capitalize" placeholder="" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="ch_name" class="form-label">{{ __('parentGuardianParticulars.ch_name') }}</label>
+                        <label for="ch_name" class="form-label">{{ __('inputFields.ch_name') }}</label>
                         <input type="text" name="ch_name" id="ch_name" class="form-control" placeholder="">
                     </div>
                 </div>
@@ -108,16 +110,16 @@
         --}}
         <div class="row d-flex flex-row mt-4">
             <div class="col-md-4">
-                <h4 class="fw-bold">{{ __('parentGuardianParticulars.identity_card_passport') }}</h4>
-                <p class="text-secondary">{{ __('parentGuardianParticulars.ic_description1') }}</p>
+                <h4 class="fw-bold">{{ __('inputFields.ic_or_passport') }}</h4>
+                <p class="text-secondary">{{ __('inputFields.hint_for_ic_or_passport') }}</p>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="changeInput" onclick="changeInputMethod()">
-                    <label class="form-check-label" for="changeInput">{{ __('parentGuardianParticulars.ic_checkbox') }}</label>
+                    <label class="form-check-label" for="changeInput">{{ __('inputFields.ic_or_passport_checkbox') }}</label>
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="row" id="ic_section">
-                    <label for="ic" class="form-label">{{ __('parentGuardianParticulars.ic') }}<span class="text-danger">*</span></label>
+                    <label for="ic" class="form-label">{{ __('inputFields.ic') }}<span class="text-danger">*</span></label>
                     <div class="col-md d-flex flex-row align-items-center mb-3">
                         <input type="text" name="ic1" id="ic1" class="form-control" placeholder="" minlength="6" maxlength="6" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                         <span class="ms-4">-</span>
@@ -131,7 +133,7 @@
                     </div>
                 </div>
                 <div class="row" id="passport_section" style="display: none;">
-                    <label for="ic" class="form-label">{{ __('parentGuardianParticulars.passport') }}<span class="text-danger">*</span></label>
+                    <label for="ic" class="form-label">{{ __('inputFields.passport') }}<span class="text-danger">*</span></label>
                     <div class="col-md mb-3">
                         <input type="text" name="passport" id="passport" class="form-control" placeholder="" onkeyup="if (/[^|A-Za-z0-9-]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9-]+/g,'')">
                     </div>
@@ -171,23 +173,23 @@
         {{-- relationship, nationality --}}
         <div class="row d-flex flex-row mt-4">
             <div class="col-md-4">
-                <h4 class="fw-bold">{{ __('parentGuardianParticulars.relationship_nationality') }}</h4>
+                <h4 class="fw-bold">{{ __('inputFields.relationship') }} & {{ __('inputFields.nationality') }}</h4>
             </div>
             <div class="col-md-8">
                 <div class="row g-3">
                     <div class="col-md mb-3">
-                        <label for="relationship" class="form-label">{{ __('parentGuardianParticulars.relationship') }}<span class="text-danger">*</span></label>
+                        <label for="relationship" class="form-label">{{ __('inputFields.relationship') }}<span class="text-danger">*</span></label>
                         <select name="guardian_relationship_id" id="relationship" class="form-select" required>
-                            <option disabled selected hidden>{{ __('parentGuardianParticulars.relationship_placeholder') }}</option>
+                            <option disabled selected hidden>{{ __('inputFields.relationship_placeholder') }}</option>
                             @foreach ($data['relationships'] as $relationship)
                                 <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="nationality" class="form-label">{{ __('parentGuardianParticulars.nationality') }}<span class="text-danger">*</span></label>
+                        <label for="nationality" class="form-label">{{ __('inputFields.nationality') }}<span class="text-danger">*</span></label>
                         <select name="nationality_id" id="nationality" class="form-select" required>
-                            <option disabled selected hidden>{{ __('parentGuardianParticulars.nationality_placeholder') }}</option>
+                            <option disabled selected hidden>{{ __('inputFields.nationality_placeholder') }}</option>
                             @foreach ($data['nationalities'] as $nationality)
                                 <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
                             @endforeach
@@ -201,18 +203,18 @@
         {{-- occupation, family income  --}}
         <div class="row d-flex flex-row mt-4">
             <div class="col-md-4">
-                <h4 class="fw-bold">{{ __('parentGuardianParticulars.occupation_family_income') }}</h4>
+                <h4 class="fw-bold">{{ __('inputFields.occupation') }} & {{ __('inputFields.income') }}</h4>
             </div>
             <div class="col-md-8">
                 <div class="row g-3">
                     <div class="col-md mb-3">
-                        <label for="occupation" class="form-label">{{ __('parentGuardianParticulars.occupation') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="occupation" id="occupation" class="form-control" placeholder="Occupation" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
+                        <label for="occupation" class="form-label">{{ __('inputFields.occupation') }}<span class="text-danger">*</span></label>
+                        <input type="text" name="occupation" id="occupation" class="form-control" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="income" class="form-label">{{ __('parentGuardianParticulars.income_range') }}<span class="text-danger">*</span></label>
+                        <label for="income" class="form-label">{{ __('inputFields.income_range') }}<span class="text-danger">*</span></label>
                         <select name="income_id" id="income" class="form-select" required>
-                            <option disabled selected hiddend>{{ __('parentGuardianParticulars.income_range_placeholder') }}</option>
+                            <option disabled selected hiddend>{{ __('inputFields.income_placeholder') }}</option>
                             @foreach ($data['incomes'] as $income)
                                 <option value="{{ $income->id }}">{{ $income->range }}</option>
                             @endforeach
@@ -226,16 +228,16 @@
         {{-- contact --}}
         <div class="row d-flex flex-row mt-4">
             <div class="col-md-4">
-                <h4 class="fw-bold">{{ __('parentGuardianParticulars.contact') }}</h4>
+                <h4 class="fw-bold">{{ __('inputFields.contact') }}</h4>
             </div>
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md mb-3">
-                        <label for="tel_hp" class="form-label">{{ __('parentGuardianParticulars.tel_hp') }}<span class="text-danger">*</span></label>
+                        <label for="tel_hp" class="form-label">{{ __('inputFields.tel_hp') }}<span class="text-danger">*</span></label>
                         <input type="text" name="tel_hp" id="tel_hp" class="form-control" placeholder="" maxlength="13" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="email" class="form-label">{{ __('parentGuardianParticulars.email_address') }}</label>
+                        <label for="email" class="form-label">{{ __('inputFields.email') }}</label>
                         <input type="text" name="email" id="email" class="form-control" placeholder="abc@email.com">
                     </div>
                 </div>
@@ -246,38 +248,38 @@
         {{-- permanent address --}}
         <div class="row d-flex flex-row mt-4 mb-4">
             <div class="col-md-4">
-                <h4 class="fw-bold">{{ __('parentGuardianParticulars.permanent_address') }}</h4>
+                <h4 class="fw-bold">{{ __('inputFields.p_address') }}</h4>
             </div>
             <div class="col-md-8">
                 <div class="row g-3">
                     <div class="col-md mb-3">
-                        <label for="p_street1" class="form-label">{{ __('parentGuardianParticulars.address_line1') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="p_street1" id="p_street1" class="form-control" placeholder="{{ __('parentGuardianParticulars.address_line1_placeholder') }}" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" required>
+                        <label for="p_street1" class="form-label">{{ __('inputFields.address1') }}<span class="text-danger">*</span></label>
+                        <input type="text" name="p_street1" id="p_street1" class="form-control" placeholder="{{ __('inputFields.address1_placeholder') }}" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" required>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="p_street2" class="form-label">{{ __('parentGuardianParticulars.address_line2') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="p_street2" id="p_street2" class="form-control" placeholder="{{ __('parentGuardianParticulars.address_line2_placeholder') }}" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" required>
-                    </div>
-                </div>
-                <div class="row g-3">
-                    <div class="col-md mb-3">
-                        <label for="p_zipcode" class="form-label">{{ __('parentGuardianParticulars.zipcode') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="p_zipcode" id="p_zipcode" class="form-control" placeholder="Zipcode" minlength="5" maxlength="5" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
-                    </div>
-                    <div class="col-md mb-3">
-                        <label for="p_city" class="form-label">{{ __('parentGuardianParticulars.city') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="p_city" id="p_city" class="form-control" placeholder="City" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
+                        <label for="p_street2" class="form-label">{{ __('inputFields.address2') }}<span class="text-danger">*</span></label>
+                        <input type="text" name="p_street2" id="p_street2" class="form-control" placeholder="{{ __('inputFields.address2_placeholder') }}" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" required>
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md mb-3">
-                        <label for="p_state" class="form-label">{{ __('parentGuardianParticulars.state') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="p_state" id="p_state" class="form-control" placeholder="State" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
+                        <label for="p_zipcode" class="form-label">{{ __('inputFields.zipcode') }}<span class="text-danger">*</span></label>
+                        <input type="text" name="p_zipcode" id="p_zipcode" class="form-control" minlength="5" maxlength="5" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="p_country" class="form-label">{{ __('parentGuardianParticulars.country') }}<span class="text-danger">*</span></label>
+                        <label for="p_city" class="form-label">{{ __('inputFields.city') }}<span class="text-danger">*</span></label>
+                        <input type="text" name="p_city" id="p_city" class="form-control" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md mb-3">
+                        <label for="p_state" class="form-label">{{ __('inputFields.state') }}<span class="text-danger">*</span></label>
+                        <input type="text" name="p_state" id="p_state" class="form-control" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
+                    </div>
+                    <div class="col-md mb-3">
+                        <label for="p_country" class="form-label">{{ __('inputFields.country') }}<span class="text-danger">*</span></label>
                         <select name="p_country_id" id="p_country" class="form-select" required>
-                            <option disabled selected hiddend>{{ __('parentGuardianParticulars.country_placeholder') }}</option>
+                            <option disabled selected hiddend>{{ __('inputFields.country_placeholder') }}</option>
                             @foreach ($data['countries'] as $country)
                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
@@ -292,12 +294,12 @@
         @if ($application_status_id == 1 || $application_status_id <= 2)
             <div class="row">
                 <div class="d-flex justify-content-end">
-                    <p class="text-secondary"><span class="text-danger">*</span>{{ __('parentGuardianParticulars.reminder_msg1') }}</p><br>
+                    <p class="text-secondary"><span class="text-danger">*</span>{{ __('inputFields.reminder_msg1') }}</p><br>
                 </div>
             </div>
             <div class="row">
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">{{ __('parentGuardianParticulars.submit_button') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('button.submit_button') }}</button>
                 </div>
             </div>
         @endif

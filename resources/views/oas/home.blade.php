@@ -22,7 +22,7 @@
     TODO：
     1. Decide remove or keep the close button.
 --}}
-@if ($application_status_id != 4)
+@if ($application_status_id < 4)
     <div class="container">
         <div class="row mt-4 mb-2">
             <div class="col-xl-12">

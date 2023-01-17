@@ -12,14 +12,14 @@
     statusCode3Modal  | finish emergency contact            | 3
 --}}
 <style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
-@if(Session::has('application_status_id') && Session::get('application_status_id') == 3)
+@if(Session::has('application_status_id') && Session::get('application_status_id') == config('constants.APPLICATION_STATUS_CODE.COMPLETE_EMERGENCY_CONTACT'))
     <script>$(function(){$('#statusCode3Modal').modal('show');});</script>        
 @endif
-@if ($application_status_id == 0)
+@if ($application_status_id == config('constants.APPLICATION_STATUS_CODE.NEW_USER'))
     <script>$(function(){$('#statusCode0Modal').modal('show');});</script>
-@elseif($application_status_id == 1)
+@elseif($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))
     <script>$(function(){$('#statusCode1Modal').modal('show');});</script>
-@elseif($application_status_id >= 3)
+@elseif($application_status_id >= config('constants.APPLICATION_STATUS_CODE.COMPLETE_EMERGENCY_CONTACT'))
     <script>$(function(){$('#statusCode3Modal').modal('show');});</script>
 @endif
 
@@ -82,16 +82,18 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="border-bottom">
-                <h1 class="fw-bold">{{ __('emergencyContact.pageTitle') }}</h1>
+                <h1 class="fw-bold">{{ __('userProfile.title3') }}</h1>
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('emergencyContact.home') }}</a></li>
-                        <li class="breadcrumb-item active fw-bold" aria-current="page">{{ __('emergencyContact.pageTitle') }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('button.home') }}</a></li>
+                        <li class="breadcrumb-item active fw-bold" aria-current="page">{{ __('userProfile.title3') }}</li>
                     </ol>
                 </nav>
-                <div class="progress mb-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Default striped example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{ __('emergencyContact.current_step') }}</div>
-                    <span class="ms-4">{{ __('emergencyContact.next_step') }}</span>
+                <div class="progress mb-2" style="height: 30px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary opacity-75" role="progressbar" aria-label="Default striped example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ __('userProfile.step1') }}</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary opacity-75" role="progressbar" aria-label="Segment two" style="width: 25%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{ __('userProfile.step2') }}</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Segment two" style="width: 25%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{ __('userProfile.step3') }}</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary opacity-25" role="progressbar" aria-label="Segment two" style="width: 25%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ __('userProfile.step4') }}</div>
                 </div>
             </div>
         </div>
@@ -120,31 +122,31 @@
         {{-- person 1 --}}
         <div class="row d-flex flex-row mt-4">
             <div class="col-md-4">
-                <h4 class="fw-bold">{{ __('emergencyContact.person1') }}</h4>
+                <h4 class="fw-bold">{{ __('inputFields.p1') }}</h4>
             </div>
             <div class="col-md-8">
                 <div class="row g-2">
                     <div class="col-md mb-3">
-                        <label for="en_name" class="form-label">{{ __('emergencyContact.en_name') }}<span class="text-danger">*</span></label>
+                        <label for="en_name" class="form-label">{{ __('inputFields.en_name') }}<span class="text-danger">*</span></label>
                         <input type="text" name="en_name1" id="en_name1" class="form-control text-capitalize" placeholder="" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="ch_name" class="form-label">{{ __('emergencyContact.ch_name') }}</label>
+                        <label for="ch_name" class="form-label">{{ __('inputFields.ch_name') }}</label>
                         <input type="text" name="ch_name1" id="ch_name1" class="form-control" placeholder="">
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="col-md mb-3">
-                        <label for="relationship" class="form-label">{{ __('emergencyContact.relationship') }}</label>
+                        <label for="relationship" class="form-label">{{ __('inputFields.relationship') }}</label>
                         <select name="guardian_relationship_id1" id="relationship1" class="form-select" required>
-                            <option selected disabled>{{ __('emergencyContact.relationship_placeholder') }}</option>
+                            <option selected disabled>{{ __('inputFields.relationship_placeholder') }}</option>
                             @foreach ($allRelationships as $relationship)
                                 <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="tel_hp" class="form-label">{{ __('emergencyContact.tel_hp') }}<span class="text-danger">*</span></label>
+                        <label for="tel_hp" class="form-label">{{ __('inputFields.tel_hp') }}<span class="text-danger">*</span></label>
                         <input type="text" name="tel_hp1" id="tel_hp1" class="form-control" placeholder="" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                     </div>
                 </div>
@@ -155,32 +157,32 @@
         {{-- person 2 --}}
         <div class="row d-flex flex-row mt-4">
             <div class="col-md-4">
-                <h4 class="fw-bold">{{ __('emergencyContact.person2') }}</h4>
+                <h4 class="fw-bold">{{ __('inputFields.p2') }}</h4>
                 <p class="text-secondary"></p>
             </div>
             <div class="col-md-8">
                 <div class="row g-2">
                     <div class="col-md mb-3">
-                        <label for="en_name" class="form-label">{{ __('emergencyContact.en_name') }}<span class="text-danger">*</span></label>
+                        <label for="en_name" class="form-label">{{ __('inputFields.en_name') }}<span class="text-danger">*</span></label>
                         <input type="text" name="en_name2" id="en_name2" class="form-control text-capitalize" placeholder="" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="ch_name" class="form-label">{{ __('emergencyContact.ch_name') }}</label>
+                        <label for="ch_name" class="form-label">{{ __('inputFields.ch_name') }}</label>
                         <input type="text" name="ch_name2" id="ch_name2" class="form-control" placeholder="">
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="col-md mb-3">
-                        <label for="relationship" class="form-label">{{ __('emergencyContact.relationship') }}</label>
+                        <label for="relationship" class="form-label">{{ __('inputFields.relationship') }}</label>
                         <select name="guardian_relationship_id2" id="relationship2" class="form-select" required>
-                            <option selected disabled>{{ __('emergencyContact.relationship_placeholder') }}</option>
+                            <option selected disabled>{{ __('inputFields.relationship_placeholder') }}</option>
                             @foreach ($allRelationships as $relationship)
                                 <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md mb-3">
-                        <label for="tel_hp" class="form-label">{{ __('emergencyContact.tel_hp') }}<span class="text-danger">*</span></label>
+                        <label for="tel_hp" class="form-label">{{ __('inputFields.tel_hp') }}<span class="text-danger">*</span></label>
                         <input type="text" name="tel_hp2" id="tel_hp2" class="form-control" placeholder="" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                     </div>
                 </div>
@@ -192,12 +194,12 @@
         @if ($application_status_id == 2 || $application_status_id <= 3)
             <div class="row">
                 <div class="d-flex justify-content-end">
-                    <p class="text-secondary"><span class="text-danger">*</span>{{ __('emergencyContact.reminder_msg1') }}</p><br>
+                    <p class="text-secondary"><span class="text-danger">*</span>{{ __('inputFields.reminder_msg1') }}</p><br>
                 </div>
             </div>
             <div class="row">
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">{{ __('emergencyContact.submit_button') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('button.submit_button') }}</button>
                 </div>
             </div>
         @endif

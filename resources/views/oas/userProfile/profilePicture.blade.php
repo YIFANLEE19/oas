@@ -14,16 +14,16 @@
 --}}
 <style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
 
-@if(Session::has('application_status_id') && Session::get('application_status_id') == 4)
+@if(Session::has('application_status_id') && Session::get('application_status_id') == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROFILE_PICTURE'))
     <script>$(function(){$('#statusCode4Modal').modal('show');});</script>        
 @endif
-@if ($application_status_id == 0)
+@if ($application_status_id == config('constants.APPLICATION_STATUS_CODE.NEW_USER'))
     <script>$(function(){$('#statusCode0Modal').modal('show');});</script>
-@elseif($application_status_id == 1)
+@elseif($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))
     <script>$(function(){$('#statusCode1Modal').modal('show');});</script>
-@elseif($application_status_id == 2)
+@elseif($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PARENT_GUARDIAN_PARTICULARS'))
     <script>$(function(){$('#statusCode2Modal').modal('show');});</script>
-@elseif($application_status_id >= 4)
+@elseif($application_status_id >= config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROFILE_PICTURE'))
     <script>$(function(){$('#statusCode4Modal').modal('show');});</script>
 @endif
 
@@ -102,15 +102,18 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="border-bottom">
-                <h1 class="fw-bold">{{ __('profilePicture.pageTitle') }}</h1>
+                <h1 class="fw-bold">{{ __('userProfile.title4') }}</h1>
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('profilePicture.home') }}</a></li>
-                        <li class="breadcrumb-item active fw-bold" aria-current="page">{{ __('profilePicture.pageTitle') }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('button.home') }}</a></li>
+                        <li class="breadcrumb-item active fw-bold" aria-current="page">{{ __('userProfile.title4') }}</li>
                     </ol>
                 </nav>
-                <div class="progress mb-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Default striped example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ __('profilePicture.current_step') }}</div>
+                <div class="progress mb-2" style="height: 30px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary opacity-75" role="progressbar" aria-label="Default striped example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ __('userProfile.step1') }}</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary opacity-75" role="progressbar" aria-label="Segment two" style="width: 25%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{ __('userProfile.step2') }}</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary opacity-75" role="progressbar" aria-label="Segment two" style="width: 25%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{ __('userProfile.step3') }}</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Segment two" style="width: 25%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ __('userProfile.step4') }}</div>
                 </div>
             </div>
         </div>

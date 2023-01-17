@@ -24,17 +24,6 @@ class PersonalParticularController extends Controller
 {
     /*
     |-----------------------------------------------------------
-    | const variable
-    |-----------------------------------------------------------
-    */
-    private $STATUS_ACTIVE = 1;
-    private $NEW_USER_CODE = 0;
-    private $CORRESPONDENCE_ADDRESS_TYPE = 1;
-    private $PERMANENT_ADDRESS_TYPE = 2;
-    private $COMPLETEPERSONALPARTICULARS = 1;
-
-    /*
-    |-----------------------------------------------------------
     | undefined variable
     |-----------------------------------------------------------
     */
@@ -56,12 +45,12 @@ class PersonalParticularController extends Controller
     */
     public function index()
     {
-        $getRaces = Race::where('status',$this->STATUS_ACTIVE)->get();
-        $getReligions = Religion::where('status',$this->STATUS_ACTIVE)->get();
-        $getNationalities = Nationality::where('status',$this->STATUS_ACTIVE)->get();
-        $getGenders = Gender::where('status',$this->STATUS_ACTIVE)->get();
-        $getMaritals = Marital::where('status',$this->STATUS_ACTIVE)->get();
-        $getCountries = Country::where('status',$this->STATUS_ACTIVE)->get();
+        $getRaces = Race::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getReligions = Religion::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getNationalities = Nationality::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getGenders = Gender::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getMaritals = Marital::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getCountries = Country::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
 
         $data = [
@@ -74,7 +63,7 @@ class PersonalParticularController extends Controller
         ];
 
         if($application_status_log == null){
-            $application_status_id = $this->NEW_USER_CODE;
+            $application_status_id = config('constants.APPLICATION_STATUS_CODE.NEW_USER');
             return view('oas.userProfile.personalParticulars', compact(['data','application_status_id']));
         }
 
@@ -140,19 +129,19 @@ class PersonalParticularController extends Controller
         $c_address_mapping = AddressMapping::create([
             'user_detail_id' => $user_detail_id,
             'address_id' => $c_address_id,
-            'address_type_id' => $this->CORRESPONDENCE_ADDRESS_TYPE,
+            'address_type_id' => config('constants.ADDRESS_TYPE.CORRESPONDENCE'),
         ]);
         $p_address_mapping = AddressMapping::create([        
             'user_detail_id' => $user_detail_id,
             'address_id' => $p_address_id,
-            'address_type_id' => $this->PERMANENT_ADDRESS_TYPE,
+            'address_type_id' => config('constants.ADDRESS_TYPE.PERMANENT'),
         ]);
         $application_status_log = ApplicationStatusLog::create([
             'user_id' => Auth::id(),
             'application_record_id' => $application_record_id,
-            'application_status_id' => $this->COMPLETEPERSONALPARTICULARS,
+            'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'),
         ]);
-        Session::flash('application_status_id',$this->COMPLETEPERSONALPARTICULARS);
+        Session::flash('application_status_id',config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'));
         return back();
     }
 
@@ -173,12 +162,12 @@ class PersonalParticularController extends Controller
             return redirect()->route('home');
         }
 
-        $getRaces = Race::where('status',$this->STATUS_ACTIVE)->get();
-        $getReligions = Religion::where('status',$this->STATUS_ACTIVE)->get();
-        $getNationalities = Nationality::where('status',$this->STATUS_ACTIVE)->get();
-        $getGenders = Gender::where('status',$this->STATUS_ACTIVE)->get();
-        $getMaritals = Marital::where('status',$this->STATUS_ACTIVE)->get();
-        $getCountries = Country::where('status',$this->STATUS_ACTIVE)->get();
+        $getRaces = Race::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getReligions = Religion::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getNationalities = Nationality::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getGenders = Gender::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getMaritals = Marital::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getCountries = Country::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
 
         $data = [
             'races' => $getRaces,
@@ -197,8 +186,8 @@ class PersonalParticularController extends Controller
         $user_detail = UserDetail::where('id',$user_detail_id)->first();
 
         // get address
-        $c_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',$this->CORRESPONDENCE_ADDRESS_TYPE)->first();
-        $p_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',$this->PERMANENT_ADDRESS_TYPE)->first();
+        $c_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',config('constants.ADDRESS_TYPE.CORRESPONDENCE'))->first();
+        $p_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',config('constants.ADDRESS_TYPE.PERMANENT'))->first();
         $c_address_id = $c_address_mapping->address_id;
         $p_address_id = $p_address_mapping->address_id;
         $c_address = Address::where('id', $c_address_id)->first();
