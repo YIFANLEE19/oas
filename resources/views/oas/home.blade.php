@@ -22,7 +22,7 @@
     TODO：
     1. Decide remove or keep the close button.
 --}}
-@if ($application_status_id < 4)
+@if ($application_status_id < config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROFILE_PICTURE'))
     <div class="container">
         <div class="row mt-4 mb-2">
             <div class="col-xl-12">
@@ -51,7 +51,7 @@
 
     *if user finish setup user profile then application_status_id is = 4
 --}}
-@if($application_status_id == 0)
+@if($application_status_id == config('constants.APPLICATION_STATUS_CODE.NEW_USER'))
 {{-- personal particulars --}}
 <div class="container">
     <div class="row mt-4">
@@ -69,7 +69,7 @@
     </div>
 </div>
 {{-- end personal particulars --}}
-@elseif ($application_status_id == 1)
+@elseif ($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))
 {{-- parent/guardian particulars --}}
 <div class="container">
     <div class="row mt-4">
@@ -87,7 +87,7 @@
     </div>
 </div>
 {{-- end parent/guardian particulars --}}
-@elseif ($application_status_id == 2)
+@elseif ($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PARENT_GUARDIAN_PARTICULARS'))
 {{-- emergency contact --}}
 <div class="container">
     <div class="row mt-4">
@@ -105,7 +105,7 @@
     </div>
 </div>        
 {{-- end emergency contact --}}
-@elseif ($application_status_id == 3)
+@elseif ($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_EMERGENCY_CONTACT'))
 {{-- profile picture --}}
 <div class="container">
     <div class="row mt-4">
@@ -131,7 +131,7 @@
     application_status_id is 4 when user finish setup personal particulars,
     parent/guardian particulars, emergency contact and profile picture
 --}}
-@if ($application_status_id >= 4)
+@if ($application_status_id >= config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROFILE_PICTURE'))
     <div class="container">
         <div class="row mt-4">
             <div class="col-md-6">
