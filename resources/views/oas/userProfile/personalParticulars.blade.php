@@ -42,7 +42,7 @@
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('button.home') }}</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">{{ __('userProfile.title1') }}</li>
+                      <li class="breadcrumb-item active fw-bold" aria-current="page">{{ __('userProfile.title1') }}</li>
                     </ol>
                 </nav>
                 <h1 class="fw-bold">{{ __('userProfile.title1') }}</h1>
