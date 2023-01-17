@@ -26,7 +26,7 @@
                 <p>{{ __('modal.complete_pp_modal_description2') }}</p>
             </div>
             <div class="modal-footer">
-                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_button') }}</a>
+                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
                 <a href="{{ route('parentGuardianParticulars.home') }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
             </div>
         </div>

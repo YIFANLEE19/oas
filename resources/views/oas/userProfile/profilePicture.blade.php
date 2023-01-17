@@ -37,8 +37,8 @@
                 <p>{{ __('modal.pp_description2') }}</p>
             </div>
             <div class="modal-footer">
-                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('modal.back_to_home_button') }}</a>
-                <a href="{{ route('personalParticulars.home') }}" type="button" class="btn btn-primary">{{ __('modal.continue') }}</a>
+                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
+                <a href="{{ route('personalParticulars.home') }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
             </div>
         </div>
     </div>
@@ -55,8 +55,8 @@
                 <p>{{ __('modal.pg_description2') }}</p>
             </div>
             <div class="modal-footer">
-                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('modal.back_to_home_button') }}</a>
-                <a href="{{ route('parentGuardianParticulars.home') }}" type="button" class="btn btn-primary">{{ __('modal.continue') }}</a>
+                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
+                <a href="{{ route('parentGuardianParticulars.home') }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
             </div>
         </div>
     </div>
@@ -73,8 +73,8 @@
                 <p>{{ __('modal.ec_description2') }}</p>
             </div>
             <div class="modal-footer">
-                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('modal.back_to_home_button') }}</a>
-                <a href="{{ route('emergencyContact.home') }}" type="button" class="btn btn-primary">{{ __('modal.continue') }}</a>
+                <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
+                <a href="{{ route('emergencyContact.home') }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@
                 <p>{{ __('modal.complete_ppic_modal_description1') }}</p>
             </div>
             <div class="modal-footer">
-                <a href="{{ route('home') }}" type="button" class="btn btn-primary">{{ __('modal.back_to_home_button') }}</a>
+                <a href="{{ route('home') }}" type="button" class="btn btn-primary">{{ __('button.back_to_home_page') }}</a>
             </div>
         </div>
     </div>
