@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jan 05, 2023 at 03:39 PM
--- Server version: 5.5.45
--- PHP Version: 7.4.13
+-- Host: 127.0.0.1
+-- Generation Time: Jan 03, 2023 at 07:41 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,27 +24,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `academic_records`
---
-
-CREATE TABLE `academic_records` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `application_record_id` bigint(20) UNSIGNED NOT NULL,
-  `school_level_id` bigint(20) UNSIGNED NOT NULL,
-  `school_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `school_graduation` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `acc_statuses`
 --
 
 CREATE TABLE `acc_statuses` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -63,11 +48,11 @@ INSERT INTO `acc_statuses` (`id`, `status`) VALUES
 
 CREATE TABLE `addresses` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `street1` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `street2` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `zipcode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `state` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `street1` text NOT NULL,
+  `street2` text NOT NULL,
+  `zipcode` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(255) NOT NULL,
   `country_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -92,7 +77,7 @@ CREATE TABLE `address_mappings` (
 
 CREATE TABLE `address_types` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -123,8 +108,8 @@ CREATE TABLE `applicant_guardian_lists` (
 
 CREATE TABLE `applicant_profiles` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `birth_date` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `place_of_birth` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `birth_date` varchar(255) NOT NULL,
+  `place_of_birth` varchar(255) NOT NULL,
   `gender_id` bigint(20) UNSIGNED NOT NULL,
   `marital_id` bigint(20) UNSIGNED NOT NULL,
   `race_id` bigint(20) UNSIGNED NOT NULL,
@@ -142,7 +127,7 @@ CREATE TABLE `applicant_profiles` (
 CREATE TABLE `applicant_profile_pictures` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `applicant_profile_id` bigint(20) UNSIGNED NOT NULL,
-  `path` text COLLATE utf8mb4_unicode_ci
+  `path` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -167,7 +152,7 @@ CREATE TABLE `application_records` (
 
 CREATE TABLE `application_statuses` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -178,13 +163,7 @@ INSERT INTO `application_statuses` (`id`, `status`) VALUES
 (1, 'Complete personal particulars'),
 (2, 'Complete parent / guardian particulars'),
 (3, 'Complete emergency contact'),
-(4, 'Complete profile picture'),
-(5, 'Complete program selection'),
-(6, 'Complete academic record'),
-(7, 'Complete status of health'),
-(8, 'Complete agreement'),
-(9, 'Complete draft'),
-(10, 'Complete payment');
+(4, 'Complete profile picture');
 
 -- --------------------------------------------------------
 
@@ -209,9 +188,9 @@ CREATE TABLE `application_status_logs` (
 
 CREATE TABLE `countries` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
+  `name` varchar(255) NOT NULL,
+  `country_code` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -471,41 +450,6 @@ INSERT INTO `countries` (`id`, `name`, `country_code`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `diseases`
---
-
-CREATE TABLE `diseases` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `diseases`
---
-
-INSERT INTO `diseases` (`id`, `name`, `status`) VALUES
-(1, 'OKU', 1),
-(2, 'Color Blindness', 1),
-(3, 'Congenital or Inherited Disorder', 1),
-(4, 'Allergy', 1),
-(5, 'Mental Health disorders', 1),
-(6, 'Fits, stroke, other neurological disease', 1),
-(7, 'Cardiovascular or heart disease', 1),
-(8, 'Asthma', 1),
-(9, 'Tuberculosis', 1),
-(10, 'Drug Addition', 1),
-(11, 'AIDS or HIV', 1),
-(12, 'Hepatitis B', 1),
-(13, 'Hepatitis C', 1),
-(14, 'Sexually Transmitted Diseases', 1),
-(15, 'Cancer', 1),
-(16, 'Psychiatric Illness', 1),
-(17, 'Other Illness', 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `emergency_contacts`
 --
 
@@ -535,12 +479,12 @@ CREATE TABLE `emergency_contact_lists` (
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -551,9 +495,9 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `genders` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gender_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
+  `name` varchar(255) NOT NULL,
+  `gender_code` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -572,7 +516,7 @@ INSERT INTO `genders` (`id`, `name`, `gender_code`, `status`) VALUES
 
 CREATE TABLE `guardian_details` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `occupation` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `occupation` varchar(255) DEFAULT NULL,
   `income_id` bigint(20) UNSIGNED NOT NULL,
   `guardian_relationship_id` bigint(20) UNSIGNED NOT NULL,
   `nationality_id` bigint(20) UNSIGNED NOT NULL,
@@ -587,9 +531,9 @@ CREATE TABLE `guardian_details` (
 
 CREATE TABLE `guardian_relationships` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `relationship_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
+  `name` varchar(255) NOT NULL,
+  `relationship_code` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -618,9 +562,9 @@ INSERT INTO `guardian_relationships` (`id`, `name`, `relationship_code`, `status
 
 CREATE TABLE `incomes` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `range` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `income_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
+  `range` varchar(255) NOT NULL,
+  `income_code` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -647,9 +591,9 @@ INSERT INTO `incomes` (`id`, `range`, `income_code`, `status`) VALUES
 
 CREATE TABLE `maritals` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `marital_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
+  `name` varchar(255) NOT NULL,
+  `marital_code` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -661,7 +605,7 @@ INSERT INTO `maritals` (`id`, `name`, `marital_code`, `status`) VALUES
 (2, 'Married', '2', 1),
 (3, 'Widow', '3', 1),
 (4, 'Divorce', '4', 1),
-(5, 'Marital seperation', '5', 1);
+(5, 'Marital separation', '5', 1);
 
 -- --------------------------------------------------------
 
@@ -671,7 +615,7 @@ INSERT INTO `maritals` (`id`, `name`, `marital_code`, `status`) VALUES
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -680,44 +624,33 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_100000_create_password_resets_table', 1),
-(2, '2019_08_19_000000_create_failed_jobs_table', 1),
-(3, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(4, '2022_12_18_111400_create_roles_table', 1),
-(5, '2022_12_19_064952_create_acc_statuses_table', 1),
-(6, '2022_12_19_064953_create_users_table', 1),
-(7, '2022_12_19_113607_create_incomes_table', 1),
-(8, '2022_12_19_125144_create_genders_table', 1),
-(9, '2022_12_19_130804_create_maritals_table', 1),
-(10, '2022_12_19_133427_create_nationalities_table', 1),
-(11, '2022_12_19_135524_create_religions_table', 1),
-(12, '2022_12_19_141056_create_guardian_relationships_table', 1),
-(13, '2022_12_19_142851_create_races_table', 1),
-(14, '2022_12_19_142852_create_school_levels_table', 1),
-(15, '2022_12_19_142853_create_user_details_table', 1),
-(16, '2022_12_19_142854_create_diseases_table', 1),
-(17, '2022_12_19_142855_create_countries_table', 1),
-(18, '2022_12_20_074652_create_applicant_profiles_table', 1),
-(19, '2022_12_20_075119_create_application_records_table', 1),
-(20, '2022_12_20_075334_create_applicant_profile_pictures_table', 1),
-(21, '2022_12_20_075550_create_guardian_details_table', 1),
-(22, '2022_12_20_075839_create_applicant_guardian_lists_table', 1),
-(23, '2022_12_20_082058_create_emergency_contacts_table', 1),
-(24, '2022_12_20_082238_create_emergency_contact_lists_table', 1),
-(25, '2022_12_20_082427_create_application_statuses_table', 1),
-(26, '2022_12_20_082545_create_application_status_logs_table', 1),
-(27, '2022_12_21_003299_create_payments_table', 1),
-(28, '2022_12_21_010641_create_academic_records_table', 1),
-(29, '2022_12_21_010952_create_status_of_healths_table', 1),
-(30, '2022_12_22_105839_create_address_types_table', 1),
-(31, '2022_12_22_105840_create_addresses_table', 1),
-(32, '2022_12_22_105841_create_address_mappings_table', 1),
-(33, '2022_12_27_063148_create_programme_level_table', 1),
-(34, '2022_12_27_063208_create_programme_type_table', 1),
-(35, '2022_12_27_063220_create_programme_table', 1),
-(36, '2023_01_04_153004_create_semester_table', 1),
-(37, '2023_01_04_153027_create_semester_year_mapping_table', 1),
-(38, '2023_01_04_153050_create_programme_record_table', 1);
+(42, '2014_10_12_100000_create_password_resets_table', 1),
+(43, '2019_08_19_000000_create_failed_jobs_table', 1),
+(44, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(45, '2022_12_18_111400_create_roles_table', 1),
+(46, '2022_12_19_064952_create_acc_statuses_table', 1),
+(47, '2022_12_19_064953_create_users_table', 1),
+(48, '2022_12_19_113607_create_incomes_table', 1),
+(49, '2022_12_19_125144_create_genders_table', 1),
+(50, '2022_12_19_130804_create_maritals_table', 1),
+(51, '2022_12_19_133427_create_nationalities_table', 1),
+(52, '2022_12_19_135524_create_religions_table', 1),
+(53, '2022_12_19_141056_create_guardian_relationships_table', 1),
+(54, '2022_12_19_142851_create_races_table', 1),
+(55, '2022_12_20_074244_create_user_details_table', 1),
+(56, '2022_12_20_074652_create_applicant_profiles_table', 2),
+(57, '2022_12_20_075119_create_application_records_table', 2),
+(58, '2022_12_20_075334_create_applicant_profile_pictures_table', 3),
+(59, '2022_12_20_075550_create_guardian_details_table', 4),
+(60, '2022_12_20_075839_create_applicant_guardian_lists_table', 4),
+(61, '2022_12_20_082058_create_emergency_contacts_table', 5),
+(62, '2022_12_20_082238_create_emergency_contact_lists_table', 5),
+(69, '2022_12_20_082427_create_application_statuses_table', 6),
+(70, '2022_12_20_082545_create_application_status_logs_table', 6),
+(71, '2022_12_22_105838_create_countries_table', 6),
+(72, '2022_12_22_105839_create_address_types_table', 6),
+(73, '2022_12_22_105840_create_addresses_table', 6),
+(74, '2022_12_22_105841_create_address_mappings_table', 6);
 
 -- --------------------------------------------------------
 
@@ -727,9 +660,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `nationalities` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nationality_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
+  `name` varchar(255) NOT NULL,
+  `nationality_code` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -999,23 +932,9 @@ INSERT INTO `nationalities` (`id`, `name`, `nationality_code`, `status`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `payments`
---
-
-CREATE TABLE `payments` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `application_record_id` bigint(20) UNSIGNED NOT NULL,
-  `payment_slip` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1026,62 +945,14 @@ CREATE TABLE `payments` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `programme`
---
-
-CREATE TABLE `programme` (
-  `programme_id` bigint(20) UNSIGNED NOT NULL,
-  `EnglishName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `programme_level_id` bigint(20) UNSIGNED NOT NULL,
-  `programme_type_id` bigint(20) UNSIGNED NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `programme_level`
---
-
-CREATE TABLE `programme_level` (
-  `programme_level_id` bigint(20) UNSIGNED NOT NULL,
-  `programme_level` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `programme_record`
---
-
-CREATE TABLE `programme_record` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `programme_type`
---
-
-CREATE TABLE `programme_type` (
-  `programme_type_id` bigint(20) UNSIGNED NOT NULL,
-  `programme_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1092,9 +963,9 @@ CREATE TABLE `programme_type` (
 
 CREATE TABLE `races` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `race_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
+  `name` varchar(255) NOT NULL,
+  `race_code` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1115,9 +986,9 @@ INSERT INTO `races` (`id`, `name`, `race_code`, `status`) VALUES
 
 CREATE TABLE `religions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `religion_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
+  `name` varchar(255) NOT NULL,
+  `religion_code` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1145,8 +1016,8 @@ INSERT INTO `religions` (`id`, `name`, `religion_code`, `status`) VALUES
 
 CREATE TABLE `roles` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
+  `name` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1165,79 +1036,18 @@ INSERT INTO `roles` (`id`, `name`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `school_levels`
---
-
-CREATE TABLE `school_levels` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `school_levels`
---
-
-INSERT INTO `school_levels` (`id`, `name`, `status`) VALUES
-(1, 'Secondary', 1),
-(2, 'Foundation', 1),
-(3, 'Diploma', 1),
-(4, 'Degree', 1),
-(5, 'PhD', 1),
-(6, 'Master', 1),
-(7, 'Upper Secondary School (for STPM, A Level or other equivalent holders)', 1),
-(8, 'Other', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `semester`
---
-
-CREATE TABLE `semester` (
-  `semester_id` bigint(20) UNSIGNED NOT NULL,
-  `semester` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `semester_year_mapping`
---
-
-CREATE TABLE `semester_year_mapping` (
-  `semester_year_mapping_id` bigint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `status_of_healths`
---
-
-CREATE TABLE `status_of_healths` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `application_record_id` bigint(20) UNSIGNED NOT NULL,
-  `disease_id` bigint(20) UNSIGNED NOT NULL,
-  `disease_remark` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `disease_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
   `role_id` bigint(20) UNSIGNED NOT NULL,
-  `acc_status_id` bigint(20) UNSIGNED NOT NULL DEFAULT '1',
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `acc_status_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1247,8 +1057,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `role_id`, `acc_status_id`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Superadmin', 3, 1, 'superadmin@email.com', NULL, '$2y$10$v.Vu8Thay4FsuMgqCsHU8OY7/LBAngr522t38EOViqWo9VrcIxNXO', NULL, '2023-01-05 07:16:56', '2023-01-05 07:16:56'),
-(2, 'Local Student', 1, 1, 'localstudent@email.com', NULL, '$2y$10$.QcHWlPbZwagZ7uUUEj7seLYT17bmIHpSz5GJl9DJfbl0nUBihPGm', NULL, '2023-01-05 07:35:55', '2023-01-05 07:35:55');
+(1, 'Superadmin', 3, 1, 'superadmin@email.com', NULL, '$2y$10$KyPAVgKo8JnI0RnN/j5FbOifVyRubyOXGo262NAIBa7ozerkwbYdu', NULL, '2022-12-22 05:34:16', '2022-12-22 05:34:16'),
+(2, 'Local Student', 1, 1, 'localstudent@email.com', NULL, '$2y$10$GFOUzFNaOwfPvsFti6vcOOvW5Zjf6jc1Hm61hSbbVjXUJ8dA00.Z2', NULL, '2022-12-22 05:34:37', '2022-12-22 05:34:37'),
+(3, 'International Student', 2, 1, 'internationalstudent@email.com', NULL, '$2y$10$IC.aTO6X.hKqSP4Sqitc5enoHl0oPqFJP4XcqtzWJgWn9.NREj6ES', NULL, '2022-12-22 05:34:51', '2022-12-22 05:34:51');
 
 -- --------------------------------------------------------
 
@@ -1258,25 +1069,17 @@ INSERT INTO `users` (`id`, `name`, `role_id`, `acc_status_id`, `email`, `email_v
 
 CREATE TABLE `user_details` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `en_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ch_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ic` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tel_h` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tel_hp` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `en_name` varchar(255) NOT NULL,
+  `ch_name` varchar(255) DEFAULT NULL,
+  `ic` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `tel_h` varchar(255) DEFAULT NULL,
+  `tel_hp` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `academic_records`
---
-ALTER TABLE `academic_records`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `academic_records_application_record_id_foreign` (`application_record_id`),
-  ADD KEY `academic_records_school_level_id_foreign` (`school_level_id`);
 
 --
 -- Indexes for table `acc_statuses`
@@ -1363,13 +1166,6 @@ ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `diseases`
---
-ALTER TABLE `diseases`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `diseases_name_unique` (`name`);
-
---
 -- Indexes for table `emergency_contacts`
 --
 ALTER TABLE `emergency_contacts`
@@ -1445,47 +1241,12 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indexes for table `payments`
---
-ALTER TABLE `payments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `payments_application_record_id_foreign` (`application_record_id`);
-
---
 -- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
-
---
--- Indexes for table `programme`
---
-ALTER TABLE `programme`
-  ADD PRIMARY KEY (`programme_id`),
-  ADD KEY `programme_programme_level_id_foreign` (`programme_level_id`),
-  ADD KEY `programme_programme_type_id_foreign` (`programme_type_id`);
-
---
--- Indexes for table `programme_level`
---
-ALTER TABLE `programme_level`
-  ADD PRIMARY KEY (`programme_level_id`),
-  ADD UNIQUE KEY `programme_level_programme_level_unique` (`programme_level`);
-
---
--- Indexes for table `programme_record`
---
-ALTER TABLE `programme_record`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `programme_type`
---
-ALTER TABLE `programme_type`
-  ADD PRIMARY KEY (`programme_type_id`),
-  ADD UNIQUE KEY `programme_type_programme_type_unique` (`programme_type`);
 
 --
 -- Indexes for table `races`
@@ -1507,33 +1268,6 @@ ALTER TABLE `roles`
   ADD UNIQUE KEY `roles_name_unique` (`name`);
 
 --
--- Indexes for table `school_levels`
---
-ALTER TABLE `school_levels`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `school_levels_name_unique` (`name`);
-
---
--- Indexes for table `semester`
---
-ALTER TABLE `semester`
-  ADD PRIMARY KEY (`semester_id`);
-
---
--- Indexes for table `semester_year_mapping`
---
-ALTER TABLE `semester_year_mapping`
-  ADD PRIMARY KEY (`semester_year_mapping_id`);
-
---
--- Indexes for table `status_of_healths`
---
-ALTER TABLE `status_of_healths`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `status_of_healths_application_record_id_foreign` (`application_record_id`),
-  ADD KEY `status_of_healths_disease_id_foreign` (`disease_id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -1551,12 +1285,6 @@ ALTER TABLE `user_details`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `academic_records`
---
-ALTER TABLE `academic_records`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `acc_statuses`
@@ -1610,7 +1338,7 @@ ALTER TABLE `application_records`
 -- AUTO_INCREMENT for table `application_statuses`
 --
 ALTER TABLE `application_statuses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `application_status_logs`
@@ -1623,12 +1351,6 @@ ALTER TABLE `application_status_logs`
 --
 ALTER TABLE `countries`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
-
---
--- AUTO_INCREMENT for table `diseases`
---
-ALTER TABLE `diseases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `emergency_contacts`
@@ -1682,7 +1404,7 @@ ALTER TABLE `maritals`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `nationalities`
@@ -1691,40 +1413,10 @@ ALTER TABLE `nationalities`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=255;
 
 --
--- AUTO_INCREMENT for table `payments`
---
-ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `programme`
---
-ALTER TABLE `programme`
-  MODIFY `programme_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `programme_level`
---
-ALTER TABLE `programme_level`
-  MODIFY `programme_level_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `programme_record`
---
-ALTER TABLE `programme_record`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `programme_type`
---
-ALTER TABLE `programme_type`
-  MODIFY `programme_type_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `races`
@@ -1745,34 +1437,10 @@ ALTER TABLE `roles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `school_levels`
---
-ALTER TABLE `school_levels`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `semester`
---
-ALTER TABLE `semester`
-  MODIFY `semester_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `semester_year_mapping`
---
-ALTER TABLE `semester_year_mapping`
-  MODIFY `semester_year_mapping_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `status_of_healths`
---
-ALTER TABLE `status_of_healths`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user_details`
@@ -1785,13 +1453,6 @@ ALTER TABLE `user_details`
 --
 
 --
--- Constraints for table `academic_records`
---
-ALTER TABLE `academic_records`
-  ADD CONSTRAINT `academic_records_school_level_id_foreign` FOREIGN KEY (`school_level_id`) REFERENCES `school_levels` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `academic_records_application_record_id_foreign` FOREIGN KEY (`application_record_id`) REFERENCES `application_records` (`id`) ON UPDATE CASCADE;
-
---
 -- Constraints for table `addresses`
 --
 ALTER TABLE `addresses`
@@ -1801,27 +1462,27 @@ ALTER TABLE `addresses`
 -- Constraints for table `address_mappings`
 --
 ALTER TABLE `address_mappings`
-  ADD CONSTRAINT `address_mappings_address_type_id_foreign` FOREIGN KEY (`address_type_id`) REFERENCES `address_types` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `address_mappings_address_id_foreign` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `address_mappings_address_type_id_foreign` FOREIGN KEY (`address_type_id`) REFERENCES `address_types` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `address_mappings_user_detail_id_foreign` FOREIGN KEY (`user_detail_id`) REFERENCES `user_details` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `applicant_guardian_lists`
 --
 ALTER TABLE `applicant_guardian_lists`
-  ADD CONSTRAINT `applicant_guardian_lists_guardian_detail_id_foreign` FOREIGN KEY (`guardian_detail_id`) REFERENCES `guardian_details` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `applicant_guardian_lists_applicant_profile_id_foreign` FOREIGN KEY (`applicant_profile_id`) REFERENCES `applicant_profiles` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `applicant_guardian_lists_applicant_profile_id_foreign` FOREIGN KEY (`applicant_profile_id`) REFERENCES `applicant_profiles` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `applicant_guardian_lists_guardian_detail_id_foreign` FOREIGN KEY (`guardian_detail_id`) REFERENCES `guardian_details` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `applicant_profiles`
 --
 ALTER TABLE `applicant_profiles`
-  ADD CONSTRAINT `applicant_profiles_user_detail_id_foreign` FOREIGN KEY (`user_detail_id`) REFERENCES `user_details` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `applicant_profiles_gender_id_foreign` FOREIGN KEY (`gender_id`) REFERENCES `genders` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `applicant_profiles_marital_id_foreign` FOREIGN KEY (`marital_id`) REFERENCES `maritals` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `applicant_profiles_nationality_id_foreign` FOREIGN KEY (`nationality_id`) REFERENCES `nationalities` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `applicant_profiles_race_id_foreign` FOREIGN KEY (`race_id`) REFERENCES `races` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `applicant_profiles_religion_id_foreign` FOREIGN KEY (`religion_id`) REFERENCES `religions` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `applicant_profiles_religion_id_foreign` FOREIGN KEY (`religion_id`) REFERENCES `religions` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `applicant_profiles_user_detail_id_foreign` FOREIGN KEY (`user_detail_id`) REFERENCES `user_details` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `applicant_profile_pictures`
@@ -1840,52 +1501,32 @@ ALTER TABLE `application_records`
 -- Constraints for table `application_status_logs`
 --
 ALTER TABLE `application_status_logs`
-  ADD CONSTRAINT `application_status_logs_application_status_id_foreign` FOREIGN KEY (`application_status_id`) REFERENCES `application_statuses` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `application_status_logs_application_record_id_foreign` FOREIGN KEY (`application_record_id`) REFERENCES `application_records` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `application_status_logs_application_status_id_foreign` FOREIGN KEY (`application_status_id`) REFERENCES `application_statuses` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `application_status_logs_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `emergency_contacts`
 --
 ALTER TABLE `emergency_contacts`
-  ADD CONSTRAINT `emergency_contacts_user_detail_id_foreign` FOREIGN KEY (`user_detail_id`) REFERENCES `user_details` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `emergency_contacts_guardian_relationship_id_foreign` FOREIGN KEY (`guardian_relationship_id`) REFERENCES `guardian_relationships` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `emergency_contacts_guardian_relationship_id_foreign` FOREIGN KEY (`guardian_relationship_id`) REFERENCES `guardian_relationships` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `emergency_contacts_user_detail_id_foreign` FOREIGN KEY (`user_detail_id`) REFERENCES `user_details` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `emergency_contact_lists`
 --
 ALTER TABLE `emergency_contact_lists`
-  ADD CONSTRAINT `emergency_contact_lists_emergency_contact_id_foreign` FOREIGN KEY (`emergency_contact_id`) REFERENCES `emergency_contacts` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `emergency_contact_lists_applicant_profile_id_foreign` FOREIGN KEY (`applicant_profile_id`) REFERENCES `applicant_profiles` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `emergency_contact_lists_applicant_profile_id_foreign` FOREIGN KEY (`applicant_profile_id`) REFERENCES `applicant_profiles` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `emergency_contact_lists_emergency_contact_id_foreign` FOREIGN KEY (`emergency_contact_id`) REFERENCES `emergency_contacts` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `guardian_details`
 --
 ALTER TABLE `guardian_details`
-  ADD CONSTRAINT `guardian_details_user_detail_id_foreign` FOREIGN KEY (`user_detail_id`) REFERENCES `user_details` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `guardian_details_guardian_relationship_id_foreign` FOREIGN KEY (`guardian_relationship_id`) REFERENCES `guardian_relationships` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `guardian_details_income_id_foreign` FOREIGN KEY (`income_id`) REFERENCES `incomes` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `guardian_details_nationality_id_foreign` FOREIGN KEY (`nationality_id`) REFERENCES `nationalities` (`id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `payments`
---
-ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_application_record_id_foreign` FOREIGN KEY (`application_record_id`) REFERENCES `application_records` (`id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `programme`
---
-ALTER TABLE `programme`
-  ADD CONSTRAINT `programme_programme_type_id_foreign` FOREIGN KEY (`programme_type_id`) REFERENCES `programme_type` (`programme_type_id`),
-  ADD CONSTRAINT `programme_programme_level_id_foreign` FOREIGN KEY (`programme_level_id`) REFERENCES `programme_level` (`programme_level_id`);
-
---
--- Constraints for table `status_of_healths`
---
-ALTER TABLE `status_of_healths`
-  ADD CONSTRAINT `status_of_healths_disease_id_foreign` FOREIGN KEY (`disease_id`) REFERENCES `diseases` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `status_of_healths_application_record_id_foreign` FOREIGN KEY (`application_record_id`) REFERENCES `application_records` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `guardian_details_nationality_id_foreign` FOREIGN KEY (`nationality_id`) REFERENCES `nationalities` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `guardian_details_user_detail_id_foreign` FOREIGN KEY (`user_detail_id`) REFERENCES `user_details` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
