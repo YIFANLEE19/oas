@@ -61,6 +61,8 @@ return [
 
     'p1' => 'Person 1',
     'p2' => 'Person 2',
+    'ec_alert_msg1' => 'In order to effectively contact your emergency contact person, please do not enter the same information twice in the parent / guardian particulars and emergency contact.',
+    'kindly_remind' => 'Kindly remind',
 
     'photo' => 'Photo',
     'photo_format1' => 'Accepted Formats: jpg, jpeg, png',

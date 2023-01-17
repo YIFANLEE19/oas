@@ -165,7 +165,7 @@
     <div class="container">
         <div class="row mb-4 mt-4">
             <div class="col-sm-9">
-                <label for="picture" class="form-label">Photo (<span class="text-danger fw-bold">{{ __('profilePicture.format1') }}</span>) and <span class="fw-bold text-danger">{{ __('profilePicture.format2') }}</span> <span class="text-danger">*</span></label>
+                <label for="picture" class="form-label">Photo (<span class="text-danger fw-bold">{{ __('inputFields.photo_format1') }}</span>) and <span class="fw-bold text-danger">{{ __('inputFields.photo_format2') }}</span> <span class="text-danger">*</span></label>
                 <div class="d-flex flex-column">
                     <input class="form-control me-3 mb-4" name="picture" id="picture" type="file" accept=".jpg, .jpeg, .png" onchange="previewPhoto(event)">
                 </div>
@@ -179,12 +179,12 @@
         @if ($application_status_id == 3)
             <div class="row">
                 <div class="d-flex justify-content-end">
-                    <p class="text-secondary"><span class="text-danger">*</span>{{ __('profilePicture.reminder_msg1') }}</p><br>
+                    <p class="text-secondary"><span class="text-danger">*</span>{{ __('inputFields.reminder_msg1') }}</p><br>
                 </div>
             </div>
             <div class="row">
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">{{ __('profilePicture.submit_button') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('button.submit_button') }}</button>
                 </div>
             </div>
         @endif

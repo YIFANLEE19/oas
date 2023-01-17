@@ -106,8 +106,8 @@
     <div class="row mt-4">
         <div class="col-md-12">
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <h4 class="alert-heading">{{ __('emergencyContact.kindly_remind') }}</h4>
-                <p>{{ __('emergencyContact.alert_msg1') }}</p>
+                <h4 class="alert-heading">{{ __('inputFields.kindly_remind') }}</h4>
+                <p>{{ __('inputFields.ec_alert_msg1') }}</p>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
