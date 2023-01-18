@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
+
+    protected $connection = "mysql";
+    
+    protected $fillable = [
+        'application_record_id',
+        'payment_slip'
+    ];
 }
