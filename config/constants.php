@@ -21,21 +21,21 @@
     |-----------------------------------------------------------
     | application status code
     |-----------------------------------------------------------
-    |
-    | application status                   | code
-    | new user                             |  0
-    | complete personal particulars        |  1
-    | complete parent/guardian particulars |  2
-    | complete emergency contact           |  3
-    | complete profile picture             |  4
-    |
     */
         'APPLICATION_STATUS_CODE' => [
-            'NEW_USER' => 0,
+            'NEW_USER' => 0, // unused in database
             'COMPLETE_PERSONAL_PARTICULARS' => 1,
             'COMPLETE_PARENT_GUARDIAN_PARTICULARS' => 2,
             'COMPLETE_EMERGENCY_CONTACT' => 3,
             'COMPLETE_PROFILE_PICTURE' => 4,
+            'COMPLETE_PROGRAM_SELECTION' => 5,
+            'COMEPLTE_ACADEMIC_RECORD' => 6,
+            'COMPLETE_STATUS_OF_HEALTH' => 7,
+            'COMPLETE_AGREEMENT' => 8,
+            'COMPLETE_DRAFT' => 9,
+            'COMPLETE_SUPPORTING_DOCUEMENT' => 10,
+            'COMPLETE_PAYMENT' => 11,
+
         ],
 
     /*

@@ -63,6 +63,16 @@
                 </div>
             </div>
             {{-- end country --}}
+            {{-- Disease --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Health of Condition</h5>
+                        <a href="{{ route('disease.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end Disease --}}
             {{-- gender --}}
             <div class="col-md-3 mb-3">
                 <div class="card shadow">
@@ -143,7 +153,16 @@
                 </div>
             </div>
             {{-- end role --}}
-
+            {{-- school level --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">School Level</h5>
+                        <a href="{{ route('school_level.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end school level --}}
         </div>
     </div>
 

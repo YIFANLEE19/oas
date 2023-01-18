@@ -174,7 +174,11 @@
                         <p>{{ __('home.apply_programme_description2') }}</p>
                         <small class="text-secondary"><span class="text-danger">*</span>{{ __('home.clauses_msg1') }}</small>
                         <br>
-                        <a href="" class="btn btn-primary mt-2">{{ __('home.apply_programme_button') }}</a>
+                        @if ($application_status_id <= 4)
+                            <a href="/" class="btn btn-primary mt-2">{{ __('home.apply_programme_button') }}</a>
+                        @else
+                            <a href="{{ route('test.home') }}" class="btn btn-primary mt-2">Apply new programme</a>
+                        @endif
                     </div>
                 </div>
             </div>

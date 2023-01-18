@@ -35,9 +35,32 @@ class IncomeController extends Controller
     {
         $r = request();
         $income = Income::find($r->id);
-        ($r->income_code != null) ? $income->income_code = $r->income_code :'';
-        ($r->income_range != null) ? $income->range = $r->income_range :'';
-        ($r->income_status != null) ? $income->status = $r->income_status :'';
+        if($r->income_code != null && $r->income_range != null && $r->income_status != null){
+            $income->income_code = $r->income_code;
+            $income->range = $r->income_range;
+            $income->status = $r->income_status;
+        }
+        else if($r->income_code != null && $r->income_range != null && $r->income_status == null){
+            $income->income_code = $r->income_code;
+            $income->range = $r->income_range;
+        }
+        else if($r->income_code == null && $r->income_range != null && $r->income_status != null){
+            $income->range = $r->income_range;
+            $income->status = $r->income_status;
+        }
+        else if($r->income_code != null && $r->income_range == null && $r->income_status != null){
+            $income->income_code = $r->income_code;
+            $income->status = $r->income_status;
+        }
+        else if($r->income_code != null && $r->income_range == null && $r->income_status == null){
+            $income->income_code = $r->income_code;
+        }
+        else if($r->income_code == null && $r->income_range !=null && $r->income_status == null){
+            $income->range = $r->income_range;
+        }
+        else if($r->income_code == null && $r->income_range ==null && $r->income_status != null){
+            $income->status = $r->income_status;
+        }
         $income->save();
         Session::flash('success','Income range updated successfully.');
         return back();

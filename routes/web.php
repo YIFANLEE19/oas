@@ -15,12 +15,19 @@ use App\Http\Controllers\Superadmin\SuperadminController;
 use App\Http\Controllers\Superadmin\AddressTypeController;
 use App\Http\Controllers\Superadmin\ApplicationStatusController;
 use App\Http\Controllers\Superadmin\CountryController;
+use App\Http\Controllers\Superadmin\SchoolLevelController;
+use App\Http\Controllers\Superadmin\DiseaseController;
 use App\Http\Controllers\UserProfile\PersonalParticularController;
 use App\Http\Controllers\UserProfile\ParentGuardianParticularController;
 use App\Http\Controllers\UserProfile\EmergencyContactController;
 use App\Http\Controllers\UserProfile\ProfilePictureController;
-
+use App\Http\Controllers\ApplyProgram\ApplyProgramController;
 use App\Http\Controllers\DataFlow\DataFlowController;
+use App\Http\Controllers\AcademicDetail\AcademicDetailController;
+use App\Http\Controllers\StatusOfHealth\StatusOfHealthController;
+use App\Http\Controllers\Payment\PaymentController;
+use App\Http\Controllers\Agreement\AgreementController;
+use App\Http\Controllers\Draft\DraftController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +42,9 @@ use App\Http\Controllers\DataFlow\DataFlowController;
 
 Route::controller(DataFlowController::class)->group(function(){
     Route::get('/test','index');
+});
+Route::controller(ApplyProgramController::class)->prefix('test/')->middleware('auth')->name('test.')->group(function (){
+    Route::get('/','index')->name('home');
 });
 
 Route::get('/', function () {
@@ -129,6 +139,18 @@ Route::prefix('superadmin/')->middleware('admin')->group(function(){
         Route::post('/create','create')->name('create');
         Route::post('/update','update')->name('update');
     });
+
+    Route::controller(DiseaseController::class)->prefix('disease/')->name('disease.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/create', 'create')->name('create');
+        Route::post('/update', 'update')->name('update');
+    });
+
+    Route::controller(SchoolLevelController::class)->prefix('school_level/')->name('school_level.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/create', 'create')->name('create');
+        Route::post('/update', 'update')->name('update');
+    });
 });
 
 // user profile 
@@ -162,6 +184,38 @@ Route::prefix('user-profile/')->middleware('auth')->group(function(){
         Route::post('/update','update')->name('update');
     });
 
+});
+
+Route::prefix('user/')->middleware('auth')->group(function () {
+
+    Route::controller(AcademicDetailController::class)->prefix('academicDetail/')->name('academicDetail.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/create', 'create')->name('create');
+        Route::get('/view', 'view')->name('view');
+        Route::post('/update', 'update')->name('update');
+    });
+
+    Route::controller(AgreementController::class)->prefix('agreements/')->name('agreements.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/submit', 'submit')->name('submit');
+    });
+
+    Route::controller(DraftController::class)->prefix('draft/')->name('draft.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/submit', 'submit')->name('submit');
+    });
+
+    Route::controller(StatusOfHealthController::class)->prefix('statusOfHealth/')->name('statusOfHealth.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/create', 'create')->name('create');
+        Route::get('/view', 'view')->name('view');
+        Route::post('/update', 'update')->name('update');
+    });
+
+    Route::controller(PaymentController::class)->prefix('payment/')->name('payment.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/create', 'create')->name('create');
+    });
 });
 
 
