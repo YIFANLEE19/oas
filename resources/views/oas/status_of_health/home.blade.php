@@ -117,7 +117,7 @@
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
-                    <a href="{{ route('academicDetail.home') }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
+                    <a href="{{ route('academicDetail.home',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
                 </div>
             </div>
         </div>
@@ -134,7 +134,7 @@
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
-                    <a href="{{ route('agreements.home') }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
+                    <a href="{{ route('agreements.home',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
                 </div>
             </div>
         </div>
@@ -183,10 +183,8 @@
                                     </thead>
                                 <tbody>
                                         <!-- form -->
-                                        <form action="{{route('statusOfHealth.create')}}" method="POST" enctype="multipart/form-data" >
+                                        <form action="{{route('statusOfHealth.create',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)])}}" method="POST" enctype="multipart/form-data" >
                                         @csrf
-                                        
-
                                         <tr>
                                             <td><input type="hidden" name="disease_id[1]" value="1">{{ $diseases[0]->name }}</td>
                                             <td>
@@ -398,10 +396,10 @@
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-end mb-3 mt-3">
-                        <a href="{{ route('academicDetail.home') }}" class="btn btn-outline-secondary me-3">{{ __('statusOfHealth.back_button') }}</a>
-                        <button type="submit" class="btn btn-primary">{{ __('statusOfHealth.next_button') }}</button>
-                    </div>
-                </div>
+                         <a href="{{ route('academicDetail.home',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" class="btn btn-outline-secondary me-3">{{ __('statusOfHealth.back_button') }}</a>
+                         <button type="submit" class="btn btn-primary me-3" onClick="check()">{{ __('statusOfHealth.next_button') }}</button>
+                     </div>
+                 </div>
                 </form>
             </div>
         </div>

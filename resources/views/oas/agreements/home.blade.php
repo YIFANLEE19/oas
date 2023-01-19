@@ -119,7 +119,7 @@
                     </div>
                     <div class="modal-footer">
                         <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
-                        <a href="{{ route('academicDetail.home') }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
+                        <a href="{{ route('academicDetail.home',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
                     </div>
                 </div>
             </div>
@@ -136,7 +136,7 @@
                     </div>
                     <div class="modal-footer">
                         <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
-                        <a href="{{ route('statusOfHealth.home') }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
+                        <a href="{{ route('statusOfHealth.home',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
                     </div>
                 </div>
             </div>
@@ -184,7 +184,7 @@
 {{-- end header --}}
 
 <div class="container mt-2">
-    <form action="{{ route('agreements.submit') }}" method="POST">
+    <form action="{{ route('agreements.submit',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="POST">
         @csrf
         <div class="row">
             <div class="col-md-12">
@@ -253,7 +253,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="d-flex justify-content-end mb-3 mt-3">
-                                    <a href="{{ route('statusOfHealth.home') }}" class="btn btn-outline-secondary me-3">{{ __('agreements.back_button') }}</a>
+                                    <a href="{{ route('statusOfHealth.home',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" class="btn btn-outline-secondary me-3">{{ __('agreements.back_button') }}</a>
                                     <button class="btn btn-primary">{{ __('agreements.next_button') }}</button>
                                 </div>
                             </div>

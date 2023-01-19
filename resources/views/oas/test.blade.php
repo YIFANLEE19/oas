@@ -24,7 +24,7 @@
                         <tr>
                             <td scope="row">{{ $asl->application_record_id }}</td>
                             <td>{{ $asl->application_status_id }}</td>
-                            <td><a href="">Here</a></td>
+                            <td><a href="{{ route('academicDetail.home', ['id' => Crypt::encrypt($asl->application_record_id) ]) }}">Here</a></td>
                             <td>{{ $asl->created_at }}</td>
                         </tr>
                     @endforeach

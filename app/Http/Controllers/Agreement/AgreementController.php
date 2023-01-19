@@ -12,40 +12,37 @@ use App\Models\ApplicationStatusLog;
 use Auth;
 use Session;
 use DB;
+use Illuminate\Support\Facades\Crypt;
 
 class AgreementController extends Controller
 {
     //
-    public function index(){
+    public function index($id){
 
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first();
-        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
-
-        if($applicationRecord == null ){
-            return redirect()->route('home');
-        }
+        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        session(['key'=>$APPLICATION_RECORD_ID]);
+        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
         
         if($application_status_log_id == null){
             $application_status_id = 0;
-            return view('oas.agreements.home',compact('application_status_id'));
+            return view('oas.agreements.home',compact('application_status_id','APPLICATION_RECORD_ID'));
         }else{
             $application_status_id = $application_status_log_id->application_status_id;
-            return view('oas.agreements.home',compact('application_status_id'));
+            return view('oas.agreements.home',compact('application_status_id','APPLICATION_RECORD_ID'));
         }
     }
 
-    public function submit(){
+    public function submit($id){
+        // dd(session('key'));
         $COMPLETEAGREEMENT = 8;
-       
-       
-        $find_application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
+        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        $find_application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
         if($find_application_status_log != null){
             $application_status_log_id = $find_application_status_log->id;
             $application_status_log = ApplicationStatusLog::find($application_status_log_id);
             $application_status_log->application_status_id = $COMPLETEAGREEMENT;
             $application_status_log->save();
         }
- 
         Session::flash('application_status_id',$COMPLETEAGREEMENT);
         return back();
     }

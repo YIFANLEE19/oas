@@ -107,14 +107,14 @@
     <div class="modal fade" id="statusCode6Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode4ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode6ModalLabel">{{ __('modal.congratulations') }}</h1></div>
+                <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode6ModalLabel">{{ __('modal.thank_you') }}</h1></div>
                 <div class="modal-body">
                     <p>{{ __('modal.complete_ar_modal_description1') }}</p>
                     <p>{{ __('modal.complete_ar_modal_description2') }}</p>
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
-                    <a href="{{ route('statusOfHealth.home') }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
+                    <a href="{{ route('statusOfHealth.home',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
                 </div>
             </div>
         </div>
@@ -166,7 +166,7 @@
                 <div class="card-header bg-primary text-white">{{ __('academicRecord.header') }}</div>
                 <div class="card-body">
                     <div class="row">
-                        <form action="{{ route('academicDetail.create') }}" method="POST">
+                        <form action="{{ route('academicDetail.create', ['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="table-responsive">
@@ -262,7 +262,7 @@
                 <div class="col-md-12">
                     <div class="card-footer">
                        <div class="d-flex justify-content-end mb-3 mt-3">
-                            <a href="/program_selection" class="btn btn-secondary me-3">{{ __('academicRecord.back_button') }}</a>
+                            <a href="/program_selection" class="btn btn-outline-secondary me-3">{{ __('academicRecord.back_button') }}</a>
                             <button type="submit" class="btn btn-primary me-3" onClick="check()">{{ __('academicRecord.next_button') }}</button>
                         </div>
                     </div>
