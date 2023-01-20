@@ -3,21 +3,27 @@
 namespace App\Http\Controllers\Superadmin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AccStatus;
 use Illuminate\Http\Request;
+use App\Models\AccStatus;
 use Session;
 
 class AccStatusController extends Controller
 {
-    //
+    /*
+    |-----------------------------------------------------------
+    | Return home page
+    |-----------------------------------------------------------
+    */
     public function index()
     {
         $accStatuses = AccStatus::all();
         return view('oas.superadmin.accStatus.home', compact('accStatuses'));
     }
-    /**
-     * create new account status function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Create function
+    |-----------------------------------------------------------
+    */
     public function create()
     {
         $r = request();
@@ -27,9 +33,11 @@ class AccStatusController extends Controller
         Session::flash('success','New account status created successfully.');
         return back();
     }
-    /**
-     * update account status function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Update function
+    |-----------------------------------------------------------
+    */
     public function update()
     {
         $r = request();

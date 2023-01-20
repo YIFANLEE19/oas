@@ -17,6 +17,17 @@ class Programme extends Model
         'en_name',
         'programme_level_id',
         'programme_type_id',
+        'programme_code',
         'status',
     ];
+
+    public function programmeLevel()
+    {
+        return $this->belongsTo(ProgrammeLevel::class);
+    }
+
+    public function programmeType()
+    {
+        return $this->belongsTo(ProgrammeType::class);
+    }
 }

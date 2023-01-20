@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Superadmin;
 
 use App\Http\Controllers\Controller;
-use App\Models\ApplicationStatus;
+use App\Models\ProgrammeType;
 use Illuminate\Http\Request;
 use Session;
 
-class ApplicationStatusController extends Controller
+class ProgrammeTypeController extends Controller
 {
     /*
     |-----------------------------------------------------------
@@ -16,8 +16,8 @@ class ApplicationStatusController extends Controller
     */
     public function index()
     {
-        $applicationStatuses = ApplicationStatus::all();
-        return view('oas.superadmin.applicationStatus.home', compact('applicationStatuses'));
+        $programmeTypes = ProgrammeType::all();
+        return view('oas.superadmin.programmeType.home', compact('programmeTypes'));
     }
     /*
     |-----------------------------------------------------------
@@ -27,10 +27,10 @@ class ApplicationStatusController extends Controller
     public function create()
     {
         $r = request();
-        $createApplicationStatus = ApplicationStatus::create([
-            'status' => $r->status_name,
+        $createProgrammeType = ProgrammeType::create([
+            'type' => $r->type_name,
         ]);
-        Session::flash('success','New application status created successfully.');
+        Session::flash('success','New programme type created successfully.');
         return back();
     }
     /*
@@ -41,10 +41,10 @@ class ApplicationStatusController extends Controller
     public function update()
     {
         $r = request();
-        $applicationStatus = ApplicationStatus::find($r->id);
-        $applicationStatus->status = $r->status_name;
-        $applicationStatus->save();
-        Session::flash('success','Application status updated successfully');
+        $programmeType = ProgrammeType::find($r->id);
+        $programmeType->type = $r->type_name;
+        $programmeType->save();
+        Session::flash('success','Programme type updated successfully');
         return back();
     }
 }

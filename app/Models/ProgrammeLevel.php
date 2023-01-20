@@ -21,4 +21,9 @@ class ProgrammeLevel extends Model
     protected $fillable = [
         'level',
     ];
+
+    public function programme()
+    {
+        return $this->hasOne(Programme::class);
+    }
 }

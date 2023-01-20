@@ -17,6 +17,12 @@ use App\Http\Controllers\Superadmin\ApplicationStatusController;
 use App\Http\Controllers\Superadmin\CountryController;
 use App\Http\Controllers\Superadmin\SchoolLevelController;
 use App\Http\Controllers\Superadmin\DiseaseController;
+use App\Http\Controllers\Superadmin\ProgrammeLevelController;
+use App\Http\Controllers\Superadmin\ProgrammeTypeController;
+use App\Http\Controllers\Superadmin\ApplicantProfileStatusController;
+use App\Http\Controllers\Superadmin\SemesterController;
+use App\Http\Controllers\Superadmin\ProgrammeController;
+
 use App\Http\Controllers\UserProfile\PersonalParticularController;
 use App\Http\Controllers\UserProfile\ParentGuardianParticularController;
 use App\Http\Controllers\UserProfile\EmergencyContactController;
@@ -68,13 +74,13 @@ Route::prefix('superadmin/')->middleware('admin')->group(function(){
         Route::post('/update','update')->name('update');
     });
 
-    Route::controller(AdminAccountController::class)->prefix('adminAccount/')->name('adminAccount.')->group(function(){
+    Route::controller(AdminAccountController::class)->prefix('admin-account/')->name('adminAccount.')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
         Route::post('/update','update')->name('update');
     });
     
-    Route::controller(AccStatusController::class)->prefix('accStatus/')->name('accStatus.')->group(function(){
+    Route::controller(AccStatusController::class)->prefix('account-status/')->name('accStatus.')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
         Route::post('/update','update')->name('update');
@@ -116,19 +122,19 @@ Route::prefix('superadmin/')->middleware('admin')->group(function(){
         Route::post('/update','update')->name('update');
     });
     
-    Route::controller(GuardianRelationshipController::class)->prefix('guardian-relationship/')->name('guardian_relationship.')->group(function(){
+    Route::controller(GuardianRelationshipController::class)->prefix('guardian-relationship/')->name('guardianRelationship.')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
         Route::post('/update','update')->name('update');
     });
 
-    Route::controller(AddressTypeController::class)->prefix('addressType/')->name('addressType.')->group(function(){
+    Route::controller(AddressTypeController::class)->prefix('address-type/')->name('addressType.')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
         Route::post('/update','update')->name('update');
     });
 
-    Route::controller(ApplicationStatusController::class)->prefix('applicationStatus/')->name('applicationStatus.')->group(function(){
+    Route::controller(ApplicationStatusController::class)->prefix('application-status/')->name('applicationStatus.')->group(function(){
         Route::get('/','index')->name('home');
         Route::post('/create','create')->name('create');
         Route::post('/update','update')->name('update');
@@ -146,7 +152,37 @@ Route::prefix('superadmin/')->middleware('admin')->group(function(){
         Route::post('/update', 'update')->name('update');
     });
 
-    Route::controller(SchoolLevelController::class)->prefix('school_level/')->name('school_level.')->group(function () {
+    Route::controller(SchoolLevelController::class)->prefix('school-level/')->name('schoolLevel.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/create', 'create')->name('create');
+        Route::post('/update', 'update')->name('update');
+    });
+
+    Route::controller(ProgrammeLevelController::class)->prefix('programme-level/')->name('programmeLevel.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/create', 'create')->name('create');
+        Route::post('/update', 'update')->name('update');
+    });
+
+    Route::controller(ProgrammeTypeController::class)->prefix('programme-type/')->name('programmeType.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/create', 'create')->name('create');
+        Route::post('/update', 'update')->name('update');
+    });
+
+    Route::controller(ApplicantProfileStatusController::class)->prefix('applicant-profile-status/')->name('applicantProfileStatus.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/create', 'create')->name('create');
+        Route::post('/update', 'update')->name('update');
+    });
+
+    Route::controller(SemesterController::class)->prefix('semester/')->name('semester.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/create', 'create')->name('create');
+        Route::post('/update', 'update')->name('update');
+    });
+
+    Route::controller(ProgrammeController::class)->prefix('programme/')->name('programme.')->group(function () {
         Route::get('/', 'index')->name('home');
         Route::post('/create', 'create')->name('create');
         Route::post('/update', 'update')->name('update');

@@ -9,15 +9,21 @@ use Session;
 
 class ReligionController extends Controller
 {
-    //
+    /*
+    |-----------------------------------------------------------
+    | Return home page
+    |-----------------------------------------------------------
+    */
     public function index()
     {
         $religions = Religion::all();
         return view('oas.superadmin.religion.home', compact('religions'));
     }
-    /**
-     * create new religion function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Create function
+    |-----------------------------------------------------------
+    */
     public function create()
     {
         $r = request();
@@ -28,39 +34,18 @@ class ReligionController extends Controller
         Session::flash('success','New religion created successfully.');
         return back();
     }
-    /**
-     * update religion function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Update function
+    |-----------------------------------------------------------
+    */
     public function update()
     {
         $r = request();
         $religion = Religion::find($r->id);
-        if($r->religion_code != null && $r->religion_name != null && $r->religion_status != null){
-            $religion->religion_code = $r->religion_code;
-            $religion->name = $r->religion_name;
-            $religion->status = $r->religion_status;
-        }
-        else if($r->religion_code != null && $r->religion_name != null && $r->religion_status == null){
-            $religion->religion_code = $r->religion_code;
-            $religion->name = $r->religion_name;
-        }
-        else if($r->religion_code == null && $r->religion_name != null && $r->religion_status != null){
-            $religion->name = $r->religion_name;
-            $religion->status = $r->religion_status;
-        }
-        else if($r->religion_code != null && $r->religion_name == null && $r->religion_status != null){
-            $religion->religion_code = $r->religion_code;
-            $religion->status = $r->religion_status;
-        }
-        else if($r->religion_code != null && $r->religion_name == null && $r->religion_status == null){
-            $religion->religion_code = $r->religion_code;
-        }
-        else if($r->religion_code == null && $r->religion_name !=null && $r->religion_status == null){
-            $religion->name = $r->religion_name;
-        }
-        else if($r->religion_code == null && $r->religion_name ==null && $r->religion_status != null){
-            $religion->status = $r->religion_status;
-        }
+        ($r->religion_code != null) ? $religion->religion_code = $r->religion_code :'';
+        ($r->religion_name != null) ? $religion->name = $r->religion_name :'';
+        ($r->religion_status != null) ? $religion->status = $r->religion_status :'';
         $religion->save();
         Session::flash('success','Religion updated successfully.');
         return back();

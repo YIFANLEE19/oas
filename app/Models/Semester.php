@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Semester extends Model
 {
     use HasFactory;
+    protected $connection = "mysql";
+
+    /**
+     * timestamps false
+     */
+    public $timestamps = false;
+
+    /**
+     *  The attributes that are mass assignable.
+     */
+    protected $fillable = [
+        'semester',
+    ];
 }

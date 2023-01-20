@@ -19,6 +19,7 @@ class CreateProgrammesTable extends Migration
             $table->string('en_name');
             $table->foreignId('programme_level_id')->constrained()->onUpdate('cascade');
             $table->foreignId('programme_type_id')->constrained()->onUpdate('cascade');
+            $table->string('programme_code')->nullable();
             $table->integer('status')->default($ACTIVECODE);
             $table->timestamps();
         });

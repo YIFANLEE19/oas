@@ -10,15 +10,21 @@ use Session;
 
 class DiseaseController extends Controller
 {
-    //
+    /*
+    |-----------------------------------------------------------
+    | Return home page
+    |-----------------------------------------------------------
+    */
     public function index()
     {
         $diseases = Disease::all();
         return view('oas.superadmin.disease.home', compact('diseases'));
     }
-    /**
-     * create new disease function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Create function
+    |-----------------------------------------------------------
+    */
     public function create()
     {
         $r = request();
@@ -28,9 +34,11 @@ class DiseaseController extends Controller
         Session::flash('success','New Disease created successfully.');
         return back();
     }
-    /**
-     * update disease function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Update function
+    |-----------------------------------------------------------
+    */
     public function update()
     {
         $r = request();

@@ -5,7 +5,7 @@
     <div class="modal fade" id="newGuardianRelationship" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newGuardianRelationshipLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('guardian_relationship.create') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('guardianRelationship.create') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="newGuardianRelationshipLabel">Create New Relationship</h1>
@@ -109,7 +109,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <form action="{{ route('guardian_relationship.update') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('guardianRelationship.update') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header bg-primary text-white">Edit relationship</div>
                         <div class="card-body">

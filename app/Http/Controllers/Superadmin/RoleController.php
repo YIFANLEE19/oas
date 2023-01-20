@@ -9,15 +9,21 @@ use Session;
 
 class RoleController extends Controller
 {
-    // 
+    /*
+    |-----------------------------------------------------------
+    | Return home page
+    |-----------------------------------------------------------
+    */
     public function index()
     {
         $roles = Role::all();
         return view('oas.superadmin.role.home', compact('roles'));
     }
-    /**
-     * create new role function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Create function
+    |-----------------------------------------------------------
+    */
     public function create()
     {
         $r = request();
@@ -27,9 +33,11 @@ class RoleController extends Controller
         Session::flash('success','New role created successfully.');
         return back();
     }
-    /**
-     * update role function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Update function
+    |-----------------------------------------------------------
+    */
     public function update()
     {
         $r = request();

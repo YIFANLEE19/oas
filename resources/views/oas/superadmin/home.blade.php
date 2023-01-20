@@ -88,7 +88,7 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h5 class="card-title">Relationship</h5>
-                        <a href="{{ route('guardian_relationship.home') }}" class="btn btn-primary">Go</a>
+                        <a href="{{ route('guardianRelationship.home') }}" class="btn btn-primary">Go</a>
                     </div>
                 </div>
             </div>
@@ -158,11 +158,61 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h5 class="card-title">School Level</h5>
-                        <a href="{{ route('school_level.home') }}" class="btn btn-primary">Go</a>
+                        <a href="{{ route('schoolLevel.home') }}" class="btn btn-primary">Go</a>
                     </div>
                 </div>
             </div>
             {{-- end school level --}}
+            {{-- programme level --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Programme Level</h5>
+                        <a href="{{ route('programmeLevel.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end programme level --}}
+            {{-- programme type --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Programme Type</h5>
+                        <a href="{{ route('programmeType.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end programme type --}}
+            {{-- applicantProfileStatus --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Applicant Profile Status</h5>
+                        <a href="{{ route('applicantProfileStatus.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end applicantProfileStatus --}}
+            {{-- semester --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Semester</h5>
+                        <a href="{{ route('semester.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end semester --}}
+            {{-- programme --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Programme</h5>
+                        <a href="{{ route('programme.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end programme --}}
         </div>
     </div>
 

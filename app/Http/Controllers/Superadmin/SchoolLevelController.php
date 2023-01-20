@@ -9,15 +9,21 @@ use Session;
 
 class SchoolLevelController extends Controller
 {
-    // 
+    /*
+    |-----------------------------------------------------------
+    | Return home page
+    |-----------------------------------------------------------
+    */
     public function index()
     {
         $school_levels = SchoolLevel::all();
-        return view('oas.superadmin.school_Level.home', compact('school_levels'));
+        return view('oas.superadmin.schoolLevel.home', compact('school_levels'));
     }
-    /**
-     * create new SchoolLevel function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Create function
+    |-----------------------------------------------------------
+    */
     public function create()
     {
         $r = request();
@@ -27,9 +33,11 @@ class SchoolLevelController extends Controller
         Session::flash('success','New School Level created successfully.');
         return back();
     }
-    /**
-     * update SchoolLevel function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Update function
+    |-----------------------------------------------------------
+    */
     public function update()
     {
         $r = request();

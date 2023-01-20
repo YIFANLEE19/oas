@@ -16,16 +16,22 @@ use Session;
 
 class AdminAccountController extends Controller
 {
-    //
+    /*
+    |-----------------------------------------------------------
+    | Return home page
+    |-----------------------------------------------------------
+    */
     public function index()
     {
         $roles = Role::all();
         $users = User::all();
         return view('oas.superadmin.adminAcc.home', compact(['roles','users']));
     }
-    /**
-     * create admin account
-     */
+    /*
+    |-----------------------------------------------------------
+    | Create function
+    |-----------------------------------------------------------
+    */
     public function create()
     {
         $r = request();
@@ -43,9 +49,11 @@ class AdminAccountController extends Controller
         Session::flash('success','New admin account created successfully.');
         return back();
     }
-    /**
-     * update admin account
-     */
+    /*
+    |-----------------------------------------------------------
+    | Update function
+    |-----------------------------------------------------------
+    */
     public function update()
     {
         $r = request();

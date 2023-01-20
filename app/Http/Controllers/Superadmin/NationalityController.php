@@ -9,15 +9,21 @@ use Session;
 
 class NationalityController extends Controller
 {
-    //
+    /*
+    |-----------------------------------------------------------
+    | Return home page
+    |-----------------------------------------------------------
+    */
     public function index()
     {
         $nationalities = Nationality::all();
         return view('oas.superadmin.nationality.home', compact('nationalities'));
     }
-    /**
-     * create new nationality function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Create function
+    |-----------------------------------------------------------
+    */
     public function create()
     {
         $r = request();
@@ -28,39 +34,18 @@ class NationalityController extends Controller
         Session::flash('success','New nationality created successfully.');
         return back();
     }
-    /**
-     * update nationality function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Update function
+    |-----------------------------------------------------------
+    */
     public function update()
     {
         $r = request();
         $nationality = Nationality::find($r->id);
-        if($r->nationality_code != null && $r->nationality_name != null && $r->nationality_status != null){
-            $nationality->nationality_code = $r->nationality_code;
-            $nationality->name = $r->nationality_name;
-            $nationality->status = $r->nationality_status;
-        }
-        else if($r->nationality_code != null && $r->nationality_name != null && $r->nationality_status == null){
-            $nationality->nationality_code = $r->nationality_code;
-            $nationality->name = $r->nationality_name;
-        }
-        else if($r->nationality_code == null && $r->nationality_name != null && $r->nationality_status != null){
-            $nationality->name = $r->nationality_name;
-            $nationality->status = $r->nationality_status;
-        }
-        else if($r->nationality_code != null && $r->nationality_name == null && $r->nationality_status != null){
-            $nationality->nationality_code = $r->nationality_code;
-            $nationality->status = $r->nationality_status;
-        }
-        else if($r->nationality_code != null && $r->nationality_name == null && $r->nationality_status == null){
-            $nationality->nationality_code = $r->nationality_code;
-        }
-        else if($r->nationality_code == null && $r->nationality_name !=null && $r->nationality_status == null){
-            $nationality->name = $r->nationality_name;
-        }
-        else if($r->nationality_code == null && $r->nationality_name ==null && $r->nationality_status != null){
-            $nationality->status = $r->nationality_status;
-        }
+        ($r->nationality_code != null) ? $nationality->nationality_code = $r->nationality_code :'';
+        ($r->nationality_name != null) ? $nationality->name = $r->nationality_name :'';
+        ($r->nationality_status != null) ? $nationality->status = $r->nationality_status :'';
         $nationality->save();
         Session::flash('success','Nationality updated successfully.');
         return back();

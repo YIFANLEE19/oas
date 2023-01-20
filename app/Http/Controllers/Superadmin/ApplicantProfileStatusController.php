@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Superadmin;
 
 use App\Http\Controllers\Controller;
-use App\Models\ApplicationStatus;
+use App\Models\ApplicantProfileStatus;
 use Illuminate\Http\Request;
 use Session;
 
-class ApplicationStatusController extends Controller
+class ApplicantProfileStatusController extends Controller
 {
     /*
     |-----------------------------------------------------------
@@ -16,8 +16,8 @@ class ApplicationStatusController extends Controller
     */
     public function index()
     {
-        $applicationStatuses = ApplicationStatus::all();
-        return view('oas.superadmin.applicationStatus.home', compact('applicationStatuses'));
+        $applicantProfileStatuses = ApplicantProfileStatus::all();
+        return view('oas.superadmin.applicantProfileStatus.home', compact('applicantProfileStatuses'));
     }
     /*
     |-----------------------------------------------------------
@@ -27,10 +27,10 @@ class ApplicationStatusController extends Controller
     public function create()
     {
         $r = request();
-        $createApplicationStatus = ApplicationStatus::create([
+        $createApplicantProfileStatus = ApplicantProfileStatus::create([
             'status' => $r->status_name,
         ]);
-        Session::flash('success','New application status created successfully.');
+        Session::flash('success','New applicant profile status created successfully.');
         return back();
     }
     /*
@@ -41,10 +41,10 @@ class ApplicationStatusController extends Controller
     public function update()
     {
         $r = request();
-        $applicationStatus = ApplicationStatus::find($r->id);
-        $applicationStatus->status = $r->status_name;
-        $applicationStatus->save();
-        Session::flash('success','Application status updated successfully');
+        $applicantProfileStatus = ApplicantProfileStatus::find($r->id);
+        $applicantProfileStatus->status = $r->status_name;
+        $applicantProfileStatus->save();
+        Session::flash('success','Applicant profile status updated successfully');
         return back();
     }
 }

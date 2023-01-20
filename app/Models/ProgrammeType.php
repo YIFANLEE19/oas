@@ -21,4 +21,9 @@ class ProgrammeType extends Model
     protected $fillable = [
         'type',
     ];
+    
+    public function programme()
+    {
+        return $this->hasOne(Programme::class);
+    }
 }

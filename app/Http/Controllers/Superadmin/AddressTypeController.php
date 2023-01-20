@@ -3,21 +3,27 @@
 namespace App\Http\Controllers\Superadmin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AddressType;
 use Illuminate\Http\Request;
+use App\Models\AddressType;
 use Session;
 
 class AddressTypeController extends Controller
 {
-    //
+    /*
+    |-----------------------------------------------------------
+    | Return home page
+    |-----------------------------------------------------------
+    */
     public function index()
     {
         $addressTypes = AddressType::all();
         return view('oas.superadmin.addressType.home', compact('addressTypes'));
     }
-    /**
-     * create new address type function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Create function
+    |-----------------------------------------------------------
+    */
     public function create()
     {
         $r = request();
@@ -27,9 +33,11 @@ class AddressTypeController extends Controller
         Session::flash('success','New address type created successfully.');
         return back();
     }
-    /**
-     * update address type function
-     */
+    /*
+    |-----------------------------------------------------------
+    | Update function
+    |-----------------------------------------------------------
+    */
     public function update()
     {
         $r = request();
