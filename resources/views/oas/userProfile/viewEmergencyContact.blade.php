@@ -139,7 +139,7 @@
                 </div>
                 <div class="col-md mb-3">
                     <p class="text-secondary">{{ __('inputFields.tel_hp') }}</p>
-                    <h5>{{ $user_detail1->tel_hp }}</h5>
+                    <h5>{{ $user_detail2->tel_hp }}</h5>
                 </div>
             </div>
         </div>

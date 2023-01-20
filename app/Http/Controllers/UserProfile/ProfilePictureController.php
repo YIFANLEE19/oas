@@ -7,7 +7,7 @@ use App\Models\ApplicantProfilePicture;
 use App\Models\ApplicationRecord;
 use App\Models\ApplicantGuardianList;
 use App\Models\EmergencyContactList;
-use App\Models\ApplicationStatusLog;
+use App\Models\ApplicantStatusLog;
 use Auth;
 use Illuminate\Http\Request;
 use Session;
@@ -29,15 +29,11 @@ class ProfilePictureController extends Controller
     */
     public function index()
     {
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
-        $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($application_status_log == null){
-            $application_status_id = config('constants.APPLICATION_STATUS_CODE.NEW_USER');
-            return view('oas.userProfile.profilePicture',compact('application_status_id'));
-        }else{
-            $application_status_id = $application_status_log->application_status_id;
-            return view('oas.userProfile.profilePicture',compact('application_status_id'));
+        $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
+        if($applicant_status_log != null && $applicant_status_log->applicant_profile_status_id == config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')){
+            return redirect()->route('home');
         }
+        return view('oas.userProfile.profilePicture',compact('applicant_status_log'));
     }
 
     /*
@@ -53,7 +49,7 @@ class ProfilePictureController extends Controller
             'picture' => 'required|image|mimes:jpeg,jpg,png|max:'.config('constants.PROFILE_PICTURE.MAXSIZE_KB'),
         ]);
 
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
+        $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
 
         $picture = $request->file('picture');
         $pictureName = 'profile_picture_'.Auth::user()->name.'_'.date('YmdHii').$picture->getClientOriginalName();
@@ -62,18 +58,11 @@ class ProfilePictureController extends Controller
         $pictureResize->save(public_path('images/profile_picture/'.$pictureName));
 
         ApplicantProfilePicture::create([
-            'applicant_profile_id' => $applicationRecord->applicant_profile_id,
+            'applicant_profile_id' => $applicant_status_log->applicant_profile_id,
             'path' => $pictureName
         ]);
-
-        $find_application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($find_application_status_log != null){
-            $application_status_log_id = $find_application_status_log->id;
-            $application_status_log = ApplicationStatusLog::find($application_status_log_id);
-            $application_status_log->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROFILE_PICTURE');
-            $application_status_log->save();
-        }
-        Session::flash('application_status_id',4);
+        $applicant_status_log->applicant_profile_status_id = config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE');
+        $applicant_status_log->save();
         return back();
     }
 
@@ -84,18 +73,15 @@ class ProfilePictureController extends Controller
     */
     public function view()
     {
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
-        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($applicationRecord == null || $application_status_log_id == null){
+        $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
+        if($applicant_status_log == null){
             return redirect()->route('home');
         }else{
-            $application_status_id = $application_status_log_id->application_status_id;
-            if($application_status_id < config('application_status_code.complete_profile_picture')){
+            if($applicant_status_log->applicant_profile_status_id != config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')){
                 return redirect()->route('home');
             }
         }
-        $applicant_profile_id = $applicationRecord->applicant_profile_id;
-        $applicant_profile_picture = ApplicantProfilePicture::where('applicant_profile_id',$applicant_profile_id)->first();
+        $applicant_profile_picture = ApplicantProfilePicture::where('applicant_profile_id',$applicant_status_log->applicant_profile_id)->first();
         return view('oas.userProfile.viewProfilePicture', compact('applicant_profile_picture'));
     }
 

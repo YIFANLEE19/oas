@@ -14,44 +14,26 @@
 </div>
 {{-- end header --}}
 
-{{--
-    alert - show when applicant not yet finish fill in user profile
-    This alert message is talking about what applicant need to do
-    This alert message will show when application_status_id not equal 4
-    
-    TODO：
-    1. Decide remove or keep the close button.
---}}
-@if ($application_status_id < config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROFILE_PICTURE'))
-    <div class="container">
-        <div class="row mt-4 mb-2">
-            <div class="col-xl-12">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <h4 class="alert-heading fw-bold">{{ __('home.alert_msg1_heading') }}</h4>
-                    <p>{{ __('home.alert_msg1_text1') }}</p>
-                    <hr>
-                    <p class="mb-0">{{ __('home.alert_msg1_text2') }}</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+{{-- alert --}}
+@if (($applicant_status_log == null) || ($applicant_status_log->applicant_profile_status_id != 4))
+<div class="container">
+    <div class="row mt-4 mb-2">
+        <div class="col-xl-12">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading fw-bold">{{ __('home.alert_msg1_heading') }}</h4>
+                <p>{{ __('home.alert_msg1_text1') }}</p>
+                <hr>
+                <p class="mb-0">{{ __('home.alert_msg1_text2') }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
     </div>
+</div>
 @endif
 {{-- end alert --}}
 
-{{--    
-    card - show the current step and CTA button to the form
-
-    No.    |  Step                          | application_status_id
-    ------ |  ----------------------------- | ---------------------
-    card 1 |  personal particulars          |         0
-    card 2 |  parent/ guardian particulars  |         1
-    card 3 |  emergency contact             |         2
-    card 4 |  profile picture               |         3
-
-    *if user finish setup user profile then application_status_id is = 4
---}}
-@if($application_status_id == config('constants.APPLICATION_STATUS_CODE.NEW_USER'))
+{{-- card --}}
+@if($applicant_status_log == null)
 {{-- personal particulars --}}
 <div class="container">
     <div class="row mt-4">
@@ -69,7 +51,7 @@
     </div>
 </div>
 {{-- end personal particulars --}}
-@elseif ($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))
+@elseif ($applicant_status_log->applicant_profile_status_id == config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))
 {{-- parent/guardian particulars --}}
 <div class="container">
     <div class="row mt-4">
@@ -87,7 +69,7 @@
     </div>
 </div>
 {{-- end parent/guardian particulars --}}
-@elseif ($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PARENT_GUARDIAN_PARTICULARS'))
+@elseif ($applicant_status_log->applicant_profile_status_id == config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PARENT_GUARDIAN_PARTICULARS'))
 {{-- emergency contact --}}
 <div class="container">
     <div class="row mt-4">
@@ -105,7 +87,7 @@
     </div>
 </div>        
 {{-- end emergency contact --}}
-@elseif ($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_EMERGENCY_CONTACT'))
+@elseif ($applicant_status_log->applicant_profile_status_id == config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_EMERGENCY_CONTACT'))
 {{-- profile picture --}}
 <div class="container">
     <div class="row mt-4">

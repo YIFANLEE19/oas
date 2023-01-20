@@ -17,7 +17,7 @@ class CreateApplicantStatusLogsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade');
             $table->foreignId('applicant_profile_id')->constrained()->onUpdate('cascade');
-            $table->foreignId('application_status_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('applicant_profile_status_id')->constrained()->onUpdate('cascade');
             $table->timestamps();
         });
     }

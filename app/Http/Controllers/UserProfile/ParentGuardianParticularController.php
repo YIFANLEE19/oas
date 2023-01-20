@@ -13,23 +13,13 @@ use App\Models\Address;
 use App\Models\AddressMapping;
 use App\Models\Country;
 use App\Models\ApplicantGuardianList;
-use App\Models\ApplicationStatusLog;
+use App\Models\ApplicantStatusLog;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
 
 class ParentGuardianParticularController extends Controller
-{
-    /*
-    |-----------------------------------------------------------
-    | const variable
-    |-----------------------------------------------------------
-    */
-    private $STATUS_ACTIVE = 1;
-    private $NEW_USER_CODE = 0;
-    private $PERMANENT_ADDRESS_TYPE = 2;
-    private $COMPLETEPARENTGUARDIANPARTICULARS = 2;
-    
+{    
     /*
     |-----------------------------------------------------------
     | undefined variable
@@ -52,10 +42,10 @@ class ParentGuardianParticularController extends Controller
     */
     public function index()
     {
-        $getRelationships = GuardianRelationship::where('status',$this->STATUS_ACTIVE)->get();
-        $getNationalities = Nationality::where('status',$this->STATUS_ACTIVE)->get();
-        $getIncomes = Income::where('status',$this->STATUS_ACTIVE)->get();
-        $getCountries = Country::where('status',$this->STATUS_ACTIVE)->get();
+        $getRelationships = GuardianRelationship::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getNationalities = Nationality::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getIncomes = Income::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getCountries = Country::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
 
         $data = [
             'relationships' => $getRelationships,
@@ -64,14 +54,13 @@ class ParentGuardianParticularController extends Controller
             'countries' => $getCountries,
         ];
 
-        $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($application_status_log == null){
-            $application_status_id = $this->NEW_USER_CODE;
-            return view('oas.userProfile.parentGuardianParticulars', compact(['data','application_status_id']));
-        }else{
-            $application_status_id = $application_status_log->application_status_id;
-            return view('oas.userProfile.parentGuardianParticulars', compact(['data','application_status_id']));
+        // if finish user profile return home
+        // if applicant_status_log is null return to personal particulars
+        $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
+        if($applicant_status_log != null && $applicant_status_log->applicant_profile_status_id == config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')){
+            return redirect()->route('home');
         }
+        return view('oas.userProfile.parentGuardianParticulars', compact(['data','applicant_status_log']));
     }
 
     /*
@@ -82,7 +71,7 @@ class ParentGuardianParticularController extends Controller
     public function create()
     {
         $r = request();
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
+        $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
 
         if($r->passport == ''){
             $this->finalIC = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
@@ -116,20 +105,14 @@ class ParentGuardianParticularController extends Controller
         $address_mapping = AddressMapping::create([
             'user_detail_id' => $user_detail_id,
             'address_id' => $address_id,
-            'address_type_id' => $this->PERMANENT_ADDRESS_TYPE,
+            'address_type_id' => config('constants.ADDRESS_TYPE.PERMANENT'),
         ]);
         $applicant_guardian_list = ApplicantGuardianList::create([
-            'applicant_profile_id' => $applicationRecord->applicant_profile_id,
+            'applicant_profile_id' => $applicant_status_log->applicant_profile_id,
             'guardian_detail_id' => $guardian_detail_id,
         ]);
-        $find_application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($find_application_status_log != null){
-            $application_status_log_id = $find_application_status_log->id;
-            $application_status_log = ApplicationStatusLog::find($application_status_log_id);
-            $application_status_log->application_status_id = $this->COMPLETEPARENTGUARDIANPARTICULARS;
-            $application_status_log->save();
-        }
-        Session::flash('application_status_id',$this->COMPLETEPARENTGUARDIANPARTICULARS);
+        $applicant_status_log->applicant_profile_status_id = config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PARENT_GUARDIAN_PARTICULARS');
+        $applicant_status_log->save();
         return back();
     }
 
@@ -141,10 +124,10 @@ class ParentGuardianParticularController extends Controller
     public function view()
     {
 
-        $getRelationships = GuardianRelationship::where('status',$this->STATUS_ACTIVE)->get();
-        $getNationalities = Nationality::where('status',$this->STATUS_ACTIVE)->get();
-        $getIncomes = Income::where('status',$this->STATUS_ACTIVE)->get();
-        $getCountries = Country::where('status',$this->STATUS_ACTIVE)->get();
+        $getRelationships = GuardianRelationship::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getNationalities = Nationality::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getIncomes = Income::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getCountries = Country::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
 
         $data = [
             'relationships' => $getRelationships,
@@ -152,25 +135,21 @@ class ParentGuardianParticularController extends Controller
             'incomes' => $getIncomes,
             'countries' => $getCountries,
         ];
-
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
-        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($applicationRecord == null || $application_status_log_id == null){
+        $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
+        if($applicant_status_log == null){
             return redirect()->route('home');
         }else{
-            $application_status_id = $application_status_log_id->application_status_id;
-            if($application_status_id != 4 && $application_status_id < 4){
+            if($applicant_status_log->applicant_profile_status_id != config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')){
                 return redirect()->route('home');
             }
         }
-        $applicant_profile_id = $applicationRecord->applicant_profile_id;
-        $applicant_guardian_list = ApplicantGuardianList::where('applicant_profile_id',$applicant_profile_id)->first();
+        $applicant_guardian_list = ApplicantGuardianList::where('applicant_profile_id',$applicant_status_log->applicant_profile_id)->first();
         $guardian_detail_id = $applicant_guardian_list->guardian_detail_id;
         $guardian_detail = GuardianDetail::where('id',$guardian_detail_id)->first();
         $user_detail_id = $guardian_detail->user_detail_id;
         $user_detail = UserDetail::where('id',$user_detail_id)->first();
         // address
-        $p_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',$this->PERMANENT_ADDRESS_TYPE)->first();
+        $p_address_mapping = AddressMapping::where('user_detail_id',$user_detail_id)->where('address_type_id',config('constants.ADDRESS_TYPE.PERMANENT'))->first();
         $p_address_id = $p_address_mapping->address_id;
         $p_address = Address::where('id', $p_address_id)->first();
 

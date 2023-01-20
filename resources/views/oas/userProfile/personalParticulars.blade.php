@@ -9,11 +9,15 @@
     completeModal |  complete personal particulars | 1
 --}}
 <style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
-@if(Session::has('application_status_id') && Session::get('application_status_id') == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))
+{{-- @if(Session::has('application_status_id') && Session::get('application_status_id') == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))
     <script>$(function(){$('#completeModal').modal('show');});</script>        
 @endif
 @if ($application_status_id >= config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))
     <script>$(function(){$('#completeModal').modal('show');});</script>   
+@endif --}}
+
+@if ($applicant_status_log != null && $applicant_status_log->applicant_profile_status_id >= config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))
+    <script>$(function(){$('#completeModal').modal('show');});</script> 
 @endif
 
 {{-- completeModal --}}
@@ -444,7 +448,7 @@
         </script>
         {{-- end script --}} 
         {{-- form submit --}}
-        @if ($application_status_id == config('constants.APPLICATION_STATUS_CODE.NEW_USER'))
+        @if ($applicant_status_log == null)
             <div class="row">
                 <div class="d-flex justify-content-end">
                     <p class="text-secondary"><span class="text-danger">*</span>{{ __('inputFields.reminder_msg1') }}</p><br>

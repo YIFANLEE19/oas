@@ -12,14 +12,11 @@
     statusCode3Modal  | finish emergency contact            | 3
 --}}
 <style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
-@if(Session::has('application_status_id') && Session::get('application_status_id') == config('constants.APPLICATION_STATUS_CODE.COMPLETE_EMERGENCY_CONTACT'))
-    <script>$(function(){$('#statusCode3Modal').modal('show');});</script>        
-@endif
-@if ($application_status_id == config('constants.APPLICATION_STATUS_CODE.NEW_USER'))
+@if ($applicant_status_log == null)
     <script>$(function(){$('#statusCode0Modal').modal('show');});</script>
-@elseif($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))
+@elseif($applicant_status_log->applicant_profile_status_id == config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))
     <script>$(function(){$('#statusCode1Modal').modal('show');});</script>
-@elseif($application_status_id >= config('constants.APPLICATION_STATUS_CODE.COMPLETE_EMERGENCY_CONTACT'))
+@elseif($applicant_status_log->applicant_profile_status_id >= config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_EMERGENCY_CONTACT'))
     <script>$(function(){$('#statusCode3Modal').modal('show');});</script>
 @endif
 
@@ -190,7 +187,7 @@
         <div class="border-bottom mt-4 mb-4"></div>
         {{-- end person 2 --}}
         {{-- form submit --}}
-        @if ($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PARENT_GUARDIAN_PARTICULARS'))
+        @if ($applicant_status_log != null && $applicant_status_log->applicant_profile_status_id == config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PARENT_GUARDIAN_PARTICULARS'))
             <div class="row">
                 <div class="d-flex justify-content-end">
                     <p class="text-secondary"><span class="text-danger">*</span>{{ __('inputFields.reminder_msg1') }}</p><br>

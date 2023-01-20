@@ -14,7 +14,7 @@ use App\Models\ApplicationRecord;
 use App\Models\AddressMapping;
 use App\Models\Address;
 use App\Models\Country;
-use App\Models\ApplicationStatusLog;
+use App\Models\ApplicantStatusLog;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
@@ -51,8 +51,8 @@ class PersonalParticularController extends Controller
         $getGenders = Gender::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         $getMaritals = Marital::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         $getCountries = Country::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
-        $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
-
+        $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
+        
         $data = [
             'races' => $getRaces,
             'religions' => $getReligions,
@@ -61,14 +61,11 @@ class PersonalParticularController extends Controller
             'maritals' => $getMaritals,
             'countries' => $getCountries,
         ];
-
-        if($application_status_log == null){
-            $application_status_id = config('constants.APPLICATION_STATUS_CODE.NEW_USER');
-            return view('oas.userProfile.personalParticulars', compact(['data','application_status_id']));
+        
+        if($applicant_status_log != null && $applicant_status_log->applicant_profile_status_id == config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')){
+            return redirect()->route('home');
         }
-
-        $application_status_id = $application_status_log->application_status_id;
-        return view('oas.userProfile.personalParticulars', compact(['data','application_status_id']));
+        return view('oas.userProfile.personalParticulars', compact(['data','applicant_status_log']));
     }
 
     /*
@@ -106,10 +103,6 @@ class PersonalParticularController extends Controller
             'religion_id' => $r->religion_id,
             'user_detail_id' => $user_detail_id,
         ]);
-        $application_record_id = ApplicationRecord::insertGetId([
-            'user_id' => Auth::id(),
-            'applicant_profile_id' => $applicant_profile_id,
-        ]);
         $c_address_id = Address::insertGetId([
             'street1' => $r->c_street1,
             'street2' => $r->c_street2,
@@ -136,12 +129,12 @@ class PersonalParticularController extends Controller
             'address_id' => $p_address_id,
             'address_type_id' => config('constants.ADDRESS_TYPE.PERMANENT'),
         ]);
-        $application_status_log = ApplicationStatusLog::create([
+        $applicant_status_log = ApplicantStatusLog::create([
             'user_id' => Auth::id(),
-            'application_record_id' => $application_record_id,
-            'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'),
+            'applicant_profile_id' => $applicant_profile_id,
+            'applicant_profile_status_id' => config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'),
         ]);
-        Session::flash('application_status_id',config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'));
+        // Session::flash('applicant_profile_status_code',config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'));
         return back();
     }
 
@@ -152,14 +145,13 @@ class PersonalParticularController extends Controller
     */
     public function view()
     {        
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first();
-        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($applicationRecord == null || $application_status_log_id == null){
+        $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
+        if($applicant_status_log == null){
             return redirect()->route('home');
-        }
-        $application_status_id = $application_status_log_id->application_status_id;
-        if($application_status_id != 4 && $application_status_id < 4){
-            return redirect()->route('home');
+        }else{
+            if($applicant_status_log->applicant_profile_status_id != config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')){
+                return redirect()->route('home');
+            }
         }
 
         $getRaces = Race::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
@@ -178,7 +170,7 @@ class PersonalParticularController extends Controller
             'countries' => $getCountries,
         ];
         // get applicant profile
-        $applicant_profile_id = $applicationRecord->applicant_profile_id;
+        $applicant_profile_id = $applicant_status_log->applicant_profile_id;
         $applicant_profile = ApplicantProfile::where('id',$applicant_profile_id)->first();
 
         // get user detail

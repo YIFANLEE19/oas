@@ -10,20 +10,13 @@ use App\Models\ApplicationRecord;
 use App\Models\ApplicantGuardianList;
 use App\Models\EmergencyContact;
 use App\Models\EmergencyContactList;
-use App\Models\ApplicationStatusLog;
+use App\Models\ApplicantStatusLog;
 use Auth;
 use Session;
 use DB;
 
 class EmergencyContactController extends Controller
 {
-    /*
-    |-----------------------------------------------------------
-    | const variable
-    |-----------------------------------------------------------
-    */
-    private $COMPLETEEMERGENCYCONTACT = 3;
-
     /*
     |-----------------------------------------------------------
     | Return step 1 emergency contact(form)
@@ -39,16 +32,12 @@ class EmergencyContactController extends Controller
     */
     public function index()
     {
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
         $allRelationships = GuardianRelationship::all();
-        $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($application_status_log == null){
-            $application_status_id = 0;
-            return view('oas.userProfile.emergencyContact', compact(['allRelationships','application_status_id']));
-        }else{
-            $application_status_id = $application_status_log->application_status_id;
-            return view('oas.userProfile.emergencyContact', compact(['allRelationships','application_status_id']));
+        $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
+        if($applicant_status_log != null && $applicant_status_log->applicant_profile_status_id == config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')){
+            return redirect()->route('home');
         }
+        return view('oas.userProfile.emergencyContact', compact(['allRelationships','applicant_status_log']));
     }
 
     /*
@@ -60,8 +49,7 @@ class EmergencyContactController extends Controller
     {
         $r = request();
 
-        // get user applicant profile id 
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
+        $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
 
         $user_detail_id1 = UserDetail::insertGetId([
             'en_name' => $r->en_name1,
@@ -83,21 +71,15 @@ class EmergencyContactController extends Controller
         ]);
 
         $emergency_contact_list1 = EmergencyContactList::create([
-            'applicant_profile_id' => $applicationRecord->applicant_profile_id,
+            'applicant_profile_id' => $applicant_status_log->applicant_profile_id,
             'emergency_contact_id' => $emergency_contact_id1,
         ]);
         $emergency_contact_list2 = EmergencyContactList::create([
-            'applicant_profile_id' => $applicationRecord->applicant_profile_id,
+            'applicant_profile_id' => $applicant_status_log->applicant_profile_id,
             'emergency_contact_id' => $emergency_contact_id2,
         ]);
-        $find_application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($find_application_status_log != null){
-            $application_status_log_id = $find_application_status_log->id;
-            $application_status_log = ApplicationStatusLog::find($application_status_log_id);
-            $application_status_log->application_status_id = $this->COMPLETEEMERGENCYCONTACT;
-            $application_status_log->save();
-        }
-        Session::flash('application_status_id',$this->COMPLETEEMERGENCYCONTACT);
+        $applicant_status_log->applicant_profile_status_id = config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_EMERGENCY_CONTACT');
+        $applicant_status_log->save();
         return back();
     }
 
@@ -107,19 +89,15 @@ class EmergencyContactController extends Controller
     public function view()
     {
         $allRelationships = GuardianRelationship::all();
-        
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('applicant_profile_id');
-        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($applicationRecord == null || $application_status_log_id == null){
+        $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
+        if($applicant_status_log == null){
             return redirect()->route('home');
         }else{
-            $application_status_id = $application_status_log_id->application_status_id;
-            if($application_status_id != 4 && $application_status_id < 4){
+            if($applicant_status_log->applicant_profile_status_id != config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')){
                 return redirect()->route('home');
             }
         }
-        $applicant_profile_id = $applicationRecord->applicant_profile_id;
-        $emergency_contact_lists = EmergencyContactList::where('applicant_profile_id',$applicant_profile_id)->get();
+        $emergency_contact_lists = EmergencyContactList::where('applicant_profile_id',$applicant_status_log->applicant_profile_id)->get();
         $emergency_contact_id1 = $emergency_contact_lists[0]->emergency_contact_id;
         $emergency_contact_id2 = $emergency_contact_lists[1]->emergency_contact_id;
         $emergency_contact1 = EmergencyContact::where('id',$emergency_contact_id1)->first();
