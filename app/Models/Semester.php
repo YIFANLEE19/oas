@@ -21,4 +21,9 @@ class Semester extends Model
     protected $fillable = [
         'semester',
     ];
+
+    public function semesterYearMapping()
+    {
+        return $this->hasOne(SemesterYearMapping::class);
+    }
 }

@@ -22,4 +22,5 @@ class ProgrammeRecord extends Model
         'semester_year_mapping_id',
         'programme_id',
     ];
+    
 }

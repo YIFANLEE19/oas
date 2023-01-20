@@ -17,4 +17,9 @@ class SemesterYearMapping extends Model
         'semester_id',
         'year',
     ];
+
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
 }

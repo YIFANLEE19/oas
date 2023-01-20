@@ -22,6 +22,8 @@ use App\Http\Controllers\Superadmin\ProgrammeTypeController;
 use App\Http\Controllers\Superadmin\ApplicantProfileStatusController;
 use App\Http\Controllers\Superadmin\SemesterController;
 use App\Http\Controllers\Superadmin\ProgrammeController;
+use App\Http\Controllers\Superadmin\ProgrammeOfferController;
+use App\Http\Controllers\Superadmin\SemesterYearMappingController;
 
 use App\Http\Controllers\UserProfile\PersonalParticularController;
 use App\Http\Controllers\UserProfile\ParentGuardianParticularController;
@@ -183,6 +185,19 @@ Route::prefix('superadmin/')->middleware('admin')->group(function(){
     });
 
     Route::controller(ProgrammeController::class)->prefix('programme/')->name('programme.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/create', 'create')->name('create');
+        Route::post('/update', 'update')->name('update');
+    });
+
+    Route::controller(ProgrammeOfferController::class)->prefix('programme-offer/')->name('programmeOffer.')->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::post('/select-semester-year-mapping')->name('selectSemesterYearMapping');
+        Route::post('/create', 'create')->name('create');
+        Route::post('/update', 'update')->name('update');
+    });
+
+    Route::controller(SemesterYearMappingController::class)->prefix('semester-year-mapping/')->name('semesterYearMapping.')->group(function () {
         Route::get('/', 'index')->name('home');
         Route::post('/create', 'create')->name('create');
         Route::post('/update', 'update')->name('update');

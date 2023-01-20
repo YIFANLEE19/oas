@@ -203,6 +203,16 @@
                 </div>
             </div>
             {{-- end semester --}}
+            {{-- semester year mapping --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Semester Year Mapping</h5>
+                        <a href="{{ route('semesterYearMapping.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end semester year mapping --}}
             {{-- programme --}}
             <div class="col-md-3 mb-3">
                 <div class="card shadow">
@@ -213,6 +223,16 @@
                 </div>
             </div>
             {{-- end programme --}}
+            {{-- programme offered --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Programme offer</h5>
+                        <a href="{{ route('programmeOffer.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end programme offered --}}
         </div>
     </div>
 
