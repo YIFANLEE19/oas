@@ -30,4 +30,9 @@ class Programme extends Model
     {
         return $this->belongsTo(ProgrammeType::class);
     }
+
+    public function programmeRecord()
+    {
+        return $this->hasOne(ProgrammeRecord::class);
+    }
 }

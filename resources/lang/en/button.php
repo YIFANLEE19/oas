@@ -2,6 +2,7 @@
 
 return [
     'submit_button' => 'Submit',
+    'back' => 'Back',
     'back_to_home_page' => 'Back to home page',
     'continue' => 'Continue',
     'home' => 'Home',

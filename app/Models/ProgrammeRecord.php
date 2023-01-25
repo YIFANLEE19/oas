@@ -23,4 +23,13 @@ class ProgrammeRecord extends Model
         'programme_id',
     ];
     
+    public function semesterYearMapping()
+    {
+        return $this->belongsTo(SemesterYearMapping::class);
+    }
+
+    public function programme()
+    {
+        return $this->belongsTo(Programme::class);
+    }
 }

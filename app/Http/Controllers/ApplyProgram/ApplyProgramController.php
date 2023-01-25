@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ApplicationRecord;
 use App\Models\ApplicationStatusLog;
+use App\Models\ApplicantStatusLog;
+use App\Models\SemesterYearMapping;
+use App\Models\ProgrammeRecord;
+
 use Auth;
 
 class ApplyProgramController extends Controller
@@ -31,13 +35,31 @@ class ApplyProgramController extends Controller
         //     'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROFILE_PICTURE'),
         // ]);
 
-        /*
-        |-----------------------------------
-        | get latest one
-        |-----------------------------------
-        */
-        $latest_asls = ApplicationStatusLog::where('user_id',Auth::id())->get();
+        // $getApplicantProfileId = ApplicantStatusLog::where('user_id',Auth::id())->get();
+        // $getApplicationRecordId = ApplicationRecord::insertGetId([
+        //     'user_id' => Auth::id(),
+        //     'applicant_profile_id' => $getApplicantProfileId->applicant_profile_id,
+        // ]);
+        // $createApplicationStatusLog = ApplicationStatusLog::create([
+        //     'user_id' => Auth::id(),
+        //     'application_record_id' => $getApplicationRecordId,
+        //     'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROGRAM_SELECTION'),
+        // ]);
 
-        return view('oas.test', compact('latest_asls'));
+        //get intake semester year mapping
+        // dd(date('n'));
+        $semester_id;
+        if(date('n') < 3){
+            $semester_id =1;
+        }elseif(date('n') >= 3 && date('n') < 6){
+            $semester_id =2;
+        }elseif(date('n') >= 6 && date('n') < 10){
+            $semester_id =3;
+        }
+        $getSemesterYearMappings = SemesterYearMapping::where('year','>=',date('Y'))->where('semester_id',$semester_id)->get();
+
+        $getOfferProgrammes = ProgrammeRecord::where('semester_year_mapping_id',$getSemesterYearMappings[0]->id)->get();
+
+        return view('oas.programme_selection.home', compact('getSemesterYearMappings','getOfferProgrammes'));
     }
 }

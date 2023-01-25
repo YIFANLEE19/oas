@@ -2,12 +2,8 @@
 
 @section('content')
 
-    {{-- modal --}}
-    <style>
-        .modal-backdrop {
-            background-color: rgb(50, 47, 47);
-        }
-    </style>
+{{-- modal --}}
+<style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
 @if ($application_status_id == config('constants.APPLICATION_STATUS_CODE.NEW_USER'))
     <script>$(function(){$('#statusCode0Modal').modal('show');});</script>
 @elseif($application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'))

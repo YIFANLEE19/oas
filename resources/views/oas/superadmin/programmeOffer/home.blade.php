@@ -29,7 +29,7 @@
                                         @if ($programme->programme_level_id == 1)
                                         <div class="col-md-4">
                                             <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" id="{{ $programme->id }}" name="{{ $programme->id }}" checked>
+                                                <input class="form-check-input" type="checkbox" value="{{ $programme->id }}" id="programme[{{ $programme->id }}]" name="programme_id[]" checked>
                                                 <label class="form-check-label" for="flexCheckChecked">
                                                 {{ $programme->en_name }}
                                                 </label>
@@ -44,7 +44,7 @@
                                         @if ($programme->programme_level_id == 2)
                                         <div class="col-md-4">
                                             <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" id="{{ $programme->id }}" name="{{ $programme->id }}" checked>
+                                                <input class="form-check-input" type="checkbox" value="{{ $programme->id }}" id="programme[{{ $programme->id }}" name="programme_id[]" checked>
                                                 <label class="form-check-label" for="flexCheckChecked">
                                                 {{ $programme->en_name }}
                                                 </label>
@@ -59,7 +59,7 @@
                                         @if ($programme->programme_level_id == 3)
                                         <div class="col-md-4">
                                             <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" id="{{ $programme->id }}" name="{{ $programme->id }}" checked>
+                                                <input class="form-check-input" type="checkbox" value="{{ $programme->id }}" id="programme[{{ $programme->id }}" name="programme_id[]" checked>
                                                 <label class="form-check-label" for="flexCheckChecked">
                                                 {{ $programme->en_name }}
                                                 </label>
@@ -74,7 +74,7 @@
                                         @if ($programme->programme_level_id == 4)
                                         <div class="col-md-4">
                                             <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" id="{{ $programme->id }}" name="{{ $programme->id }}" checked>
+                                                <input class="form-check-input" type="checkbox" value="{{ $programme->id }}" id="programme[{{ $programme->id }}" name="programme_id[]" checked>
                                                 <label class="form-check-label" for="flexCheckChecked">
                                                 {{ $programme->en_name }}
                                                 </label>
@@ -89,7 +89,7 @@
                                         @if ($programme->programme_level_id == 5)
                                         <div class="col-md-4">
                                             <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" id="{{ $programme->id }}" name="{{ $programme->id }}" checked>
+                                                <input class="form-check-input" type="checkbox" value="{{ $programme->id }}" id="programme[{{ $programme->id }}" name="programme_id[]" checked>
                                                 <label class="form-check-label" for="flexCheckChecked">
                                                 {{ $programme->en_name }}
                                                 </label>
@@ -104,7 +104,7 @@
                                         @if ($programme->programme_level_id == 6)
                                         <div class="col-md-4">
                                             <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" id="{{ $programme->id }}" name="{{ $programme->id }}" checked>
+                                                <input class="form-check-input" type="checkbox" value="{{ $programme->id }}" id="programme[{{ $programme->id }}" name="programme_id[]" checked>
                                                 <label class="form-check-label" for="flexCheckChecked">
                                                 {{ $programme->en_name }}
                                                 </label>
@@ -119,7 +119,7 @@
                                         @if ($programme->programme_level_id == 7)
                                         <div class="col-md-4">
                                             <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" id="{{ $programme->id }}" name="{{ $programme->id }}" checked>
+                                                <input class="form-check-input" type="checkbox" value="{{ $programme->id }}" id="programme[{{ $programme->id }}" name="programme_id[]" checked>
                                                 <label class="form-check-label" for="flexCheckChecked">
                                                 {{ $programme->en_name }}
                                                 </label>
@@ -161,11 +161,59 @@
                 <h1 class="fw-bold">Programme Offered</h1>
                 <div class="d-flex justify-content-between">
                     <p class="text-secondary">Manage programme offered here.</p>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newProgrammeOffer">Select semester & year</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newProgrammeOffer">Create</button>
                 </div>
             </div>
         </div>
         {{-- end header --}}
     </div>
+
+    {{-- show all offered programme --}}
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-8 mb-4">
+                <table class="table align-middle" id="programmeOfferedTable">
+                    <thead class="table-primary">
+                        <tr>
+                            <th scope="col" class="col-md-4">Programme name</th>
+                            <th scope="col" class="col-md-2">Semester&Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($getProgrammeOffers as $programmeOffer)
+                            <tr>
+                                <td>{{ $programmeOffer->programme['en_name'] }}</td>
+                                <td>Semester: {{ $programmeOffer->semesterYearMapping['semester']->semester }}, Year: {{ $programmeOffer->semesterYearMapping['year'] }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">Edit</div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <label for="id" class="form-label">Semester & year</label>
+                            <select name="" id="" class="form-select mb-2">
+                                @foreach ($getDifferentSemesterYearMappings as $getDifferentSemesterYearMapping)
+                                    <option value="">Semester: {{ $getDifferentSemesterYearMapping->semesterYearMapping['semester']->semester }}, Year: {{ $getDifferentSemesterYearMapping->semesterYearMapping['year'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end show all offered programme --}}
+
+    {{-- datatables --}}
+    <script>
+        $(document).ready(function () {
+            $('#programmeOfferedTable').DataTable();
+        });
+    </script>
+    {{-- end datatables --}}
 
 @endsection

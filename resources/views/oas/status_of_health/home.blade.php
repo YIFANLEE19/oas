@@ -183,7 +183,7 @@
                                     </thead>
                                 <tbody>
                                         <!-- form -->
-                                        <form action="{{route('statusOfHealth.create',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)])}}" method="POST" enctype="multipart/form-data" >
+                                        <form action="{{route('statusOfHealth.create',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)])}}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <tr>
                                             <td><input type="hidden" name="disease_id[1]" value="1">{{ $diseases[0]->name }}</td>

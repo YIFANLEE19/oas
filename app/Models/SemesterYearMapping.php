@@ -22,4 +22,9 @@ class SemesterYearMapping extends Model
     {
         return $this->belongsTo(Semester::class);
     }
+
+    public function programmeRecord()
+    {
+        return $this->hasOne(ProgrammeRecord::class);
+    }
 }

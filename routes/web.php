@@ -51,9 +51,6 @@ use App\Http\Controllers\Draft\DraftController;
 Route::controller(DataFlowController::class)->group(function(){
     Route::get('/test','index');
 });
-Route::controller(ApplyProgramController::class)->prefix('test/')->middleware('auth')->name('test.')->group(function (){
-    Route::get('/','index')->name('home');
-});
 
 Route::get('/', function () {
     return view('oas.welcome');
@@ -239,7 +236,11 @@ Route::prefix('user-profile/')->middleware('auth')->group(function(){
 
 Route::prefix('user/')->middleware('auth')->group(function () {
 
-    Route::controller(AcademicDetailController::class)->prefix('academicDetail/')->name('academicDetail.')->group(function () {
+    Route::controller(ApplyProgramController::class)->prefix('programme-select/')->name('programmeSelect.')->group(function() {
+        Route::get('/', 'index')->name('home');
+    });
+
+    Route::controller(AcademicDetailController::class)->prefix('academic-detail/')->name('academicDetail.')->group(function () {
         Route::get('/{id}', 'index')->name('home');
         Route::post('/create/{id}', 'create')->name('create');
         Route::get('/view', 'view')->name('view');
@@ -256,7 +257,7 @@ Route::prefix('user/')->middleware('auth')->group(function () {
         Route::post('/submit', 'submit')->name('submit');
     });
 
-    Route::controller(StatusOfHealthController::class)->prefix('statusOfHealth/')->name('statusOfHealth.')->group(function () {
+    Route::controller(StatusOfHealthController::class)->prefix('status-of-health/')->name('statusOfHealth.')->group(function () {
         Route::get('/{id}', 'index')->name('home');
         Route::post('/create/{id}', 'create')->name('create');
         Route::get('/view', 'view')->name('view');
