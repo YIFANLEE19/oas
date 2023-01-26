@@ -248,6 +248,13 @@ Route::prefix('user/')->middleware('auth')->group(function () {
         Route::post('/update', 'update')->name('update');
     });
 
+    Route::controller(StatusOfHealthController::class)->prefix('status-of-health/')->name('statusOfHealth.')->group(function () {
+        Route::get('/{id}', 'index')->name('home');
+        Route::post('/create/{id}', 'create')->name('create');
+        Route::get('/view', 'view')->name('view');
+        Route::post('/update', 'update')->name('update');
+    });
+
     Route::controller(AgreementController::class)->prefix('agreements/')->name('agreements.')->group(function () {
         Route::get('/{id}', 'index')->name('home');
         Route::post('/submit/{id}', 'submit')->name('submit');
@@ -256,13 +263,6 @@ Route::prefix('user/')->middleware('auth')->group(function () {
     Route::controller(DraftController::class)->prefix('draft/')->name('draft.')->group(function () {
         Route::get('/', 'index')->name('home');
         Route::post('/submit', 'submit')->name('submit');
-    });
-
-    Route::controller(StatusOfHealthController::class)->prefix('status-of-health/')->name('statusOfHealth.')->group(function () {
-        Route::get('/{id}', 'index')->name('home');
-        Route::post('/create/{id}', 'create')->name('create');
-        Route::get('/view', 'view')->name('view');
-        Route::post('/update', 'update')->name('update');
     });
 
     Route::controller(PaymentController::class)->prefix('payment/')->name('payment.')->group(function () {

@@ -177,7 +177,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-12 table-responsive">
-                <table class="table">
+                <table class="table align-middle">
                     <thead class="table-primary">
                         <tr>
                             <th scope="col">Programme</th>
@@ -196,7 +196,19 @@
                                     @endfor
                                 </th>
                                 <td>{{ $application_status_log->applicationStatus['status'] }}</td>
-                                <td><a href="{{ route('academicDetail.home', ['id' => Crypt::encrypt($application_status_log->application_record_id) ]) }}" class="btn btn-primary">Continue</a></td>
+                                <td>
+                                    @if ($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROGRAM_SELECTION'))
+                                    <a href="{{ route('academicDetail.home', ['id' => Crypt::encrypt($application_status_log->application_record_id) ]) }}" class="btn btn-primary">Continue academic detail</a>
+                                    @elseif($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_ACADEMIC_DETAIL'))
+                                    <a href="{{ route('statusOfHealth.home', ['id' => Crypt::encrypt($application_status_log->application_record_id) ]) }}" class="btn btn-primary">Continue status of health</a>
+                                    @elseif($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_STATUS_OF_HEALTH'))
+                                    <a href="{{ route('agreements.home', ['id' => Crypt::encrypt($application_status_log->application_record_id) ]) }}" class="btn btn-primary">Continue agreements</a>
+                                    @elseif($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_AGREEMENT'))
+                                    <a href="{{ route('draft.home', ['id' => Crypt::encrypt($application_status_log->application_record_id) ]) }}" class="btn btn-primary">Continue draft</a>
+                                    @elseif($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_DRAFT'))
+                                    <a href="#" class="btn btn-primary">Continue supporting document</a>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

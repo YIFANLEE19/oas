@@ -23,15 +23,10 @@ class StatusOfHealthController extends Controller
     public function index($id)
     {
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
-        $diseases = Disease::all();
+        $diseases = Disease::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();;
         $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
-        if($application_status_log_id == null){
-            $application_status_id = 0;
-            return view('oas.status_of_health.home', compact(['diseases','application_status_id','APPLICATION_RECORD_ID']));
-        }else{
-            $application_status_id = $application_status_log_id->application_status_id;
-            return view('oas.status_of_health.home', compact(['diseases','application_status_id','APPLICATION_RECORD_ID']));
-        }
+        return view('oas.status_of_health.home', compact(['diseases','APPLICATION_RECORD_ID','application_status_log_id']));
+
     }
 
     public function create($id)
@@ -40,135 +35,29 @@ class StatusOfHealthController extends Controller
         $COMPLETESTATUSOFHEALTH = 7;
         $r = request();
 
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[1],
-            'disease_remark' => $r->h_remark[1],
-            'disease_status' => $r->h_status[1],
-        ]);
+        $getAllDiseaseId = $r->disease_id;
+        $getAllDiseaseStatus = $r->disease_status;
+        $getAllDiseaseRemark = $r->disease_remark;
 
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[2],
-            'disease_remark' => $r->h_remark[2],
-            'disease_status' => $r->h_status[2],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[3],
-            'disease_remark' => $r->h_remark[3],
-            'disease_status' => $r->h_status[3],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[4],
-            'disease_remark' => $r->h_remark[4],
-            'disease_status' => $r->h_status[4],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[5],
-            'disease_remark' => $r->h_remark[5],
-            'disease_status' => $r->h_status[5],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[6],
-            'disease_remark' => $r->h_remark[6],
-            'disease_status' => $r->h_status[6],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[7],
-            'disease_remark' => $r->h_remark[7],
-            'disease_status' => $r->h_status[7],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[8],
-            'disease_remark' => $r->h_remark[8],
-            'disease_status' => $r->h_status[8],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[9],
-            'disease_remark' => $r->h_remark[9],
-            'disease_status' => $r->h_status[9],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[10],
-            'disease_remark' => $r->h_remark[10],
-            'disease_status' => $r->h_status[10],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[11],
-            'disease_remark' => $r->h_remark[11],
-            'disease_status' => $r->h_status[11],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[12],
-            'disease_remark' => $r->h_remark[12],
-            'disease_status' => $r->h_status[12],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[13],
-            'disease_remark' => $r->h_remark[13],
-            'disease_status' => $r->h_status[13],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[14],
-            'disease_remark' => $r->h_remark[14],
-            'disease_status' => $r->h_status[14],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[15],
-            'disease_remark' => $r->h_remark[15],
-            'disease_status' => $r->h_status[15],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[16],
-            'disease_remark' => $r->h_remark[16],
-            'disease_status' => $r->h_status[16],
-        ]);
-
-        StatusOfHealth::create([
-            'application_record_id' => $APPLICATION_RECORD_ID,
-            'disease_id' => $r->disease_id[17],
-            'disease_remark' => $r->h_remark[17],
-            'disease_status' => $r->h_status[17],
-        ]);
-
-                
-        $find_application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
-        if($find_application_status_log != null){
-            $application_status_log_id = $find_application_status_log->id;
-            $application_status_log = ApplicationStatusLog::find($application_status_log_id);
-            $application_status_log->application_status_id = $COMPLETESTATUSOFHEALTH;
-            $application_status_log->save();
+        for ($i=0; $i < count($getAllDiseaseId); $i++) { 
+            StatusOfHealth::create([
+                'application_record_id' => $APPLICATION_RECORD_ID,
+                'disease_id' => $getAllDiseaseId[$i],
+                'disease_remark' => $getAllDiseaseRemark[$i],
+                'disease_status' => $getAllDiseaseStatus[$i],
+            ]);
         }
+
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_STATUS_OF_HEALTH');
+        $getApplicationStatusLog->save();
         
-        Session::flash('application_status_id',$COMPLETESTATUSOFHEALTH);
+        $data = [
+            'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_STATUS_OF_HEALTH'),
+            'application_record_id' => Crypt::encrypt($APPLICATION_RECORD_ID),
+        ];
+
+        Session::flash('data', $data);
         return back();
     }
 

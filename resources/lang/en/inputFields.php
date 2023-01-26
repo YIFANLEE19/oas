@@ -70,4 +70,5 @@ return [
     'reminder_msg1' => 'Please reconfirm the information before submitting',
 
     'preview' => 'Preview',
+    
 ];

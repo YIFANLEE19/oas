@@ -96,6 +96,15 @@ return [
     /*
     |
     |--------------------------------------------------------------------------
+    | Program Selection - complete modal
+    |--------------------------------------------------------------------------
+    |
+    */
+    'complete_program_selection' => 'Well done! we have received your programme selection. Now you can go to the home page to apply programme.',
+
+    /*
+    |
+    |--------------------------------------------------------------------------
     | Program Selection - not yet finish modal
     |--------------------------------------------------------------------------
     |

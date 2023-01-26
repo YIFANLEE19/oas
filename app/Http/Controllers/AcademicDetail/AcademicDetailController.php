@@ -22,46 +22,21 @@ class AcademicDetailController extends Controller
     public function index($id)
     {
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
-        $schoolLevel = SchoolLevel::all();
+        $school_level = SchoolLevel::all();
         $application_status_log_id = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
-        return view('oas.academic_detail.home', compact('schoolLevel','APPLICATION_RECORD_ID'));
-        // if ($application_status_log_id == null) {
-        //     return redirect()->route('home');
-        // } else {
-        //     $application_status_id = $application_status_log_id->application_status_id;
-        //     return view('oas.academic_detail.home', compact('application_status_id', 'schoolLevel','APPLICATION_RECORD_ID'));
-        // }
+        return view('oas.academic_detail.home', compact('school_level','APPLICATION_RECORD_ID','application_status_log_id'));
     }
     /**
      * create new SchoolLevel function
      */
     public function create($id)
     {
-        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
-        $COMPLETEACADEMICRECORD = 6;
-        $SECONDARY = 1;
-        $UPPERSECONDARY = 2;
-        $FOUNDATION = 3;
-        $DIPLOMA = 4;
-        $DEGREE = 5;
-        $PHD = 6;
-        $MASTER = 7;
-        $OTHER = 8;
-
         $r = request();
 
-        // if (
-        //     $r->s_school_name == null && $r->s_school_graduation == null && $r->us_school_name == null
-        //     && $r->us_school_graduation == null && $r->f_school_name == null && $r->f_school_graduation == null
-        //     && $r->di_school_name == null && $r->di_school_graduation == null && $r->de_school_name == null
-        //     && $r->de_school_graduation == null && $r->m_school_name == null && $r->m_school_graduation == null
-        //     && $r->p_school_name == null && $r->p_school_graduation == null && $r->o_school_name == null
-        //     && $r->o_school_graduation == null
-        // ){
-        //     Session::flash('error', 'Please key in at least one school level information.');
-        //     return back();
-        // }
+        // get application record id
+        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
 
+        // validation
         if( ($r->s_school_name == null || $r->s_school_graduation == null) &&
             ($r->f_school_name == null || $r->f_school_graduation == null) && 
             ($r->di_school_name == null || $r->di_school_graduation == null) &&
@@ -69,78 +44,77 @@ class AcademicDetailController extends Controller
             ($r->p_school_name == null || $r->p_school_graduation == null) &&
             ($r->us_school_name == null || $r->us_school_graduation == null) &&
             ($r->o_school_name == null || $r->o_school_graduation == null)
-            )
-        {
+        ){
             Session::flash('error', 'Please key in at least one school level information.');
             return back();
         }
 
-        $createSecondary = AcademicRecord::create([
-            'school_level_id' => $SECONDARY,
+        $createSecondaryAcademicRecord = AcademicRecord::create([
+            'school_level_id' => config('constants.SCHOOL_LEVEL.SECONDARY'),
             'school_name' => $r->s_school_name,
             'school_graduation' => $r->s_school_graduation,
             'application_record_id' => $APPLICATION_RECORD_ID,
         ]);
 
-        $createUpperSecondary = AcademicRecord::create([
-            'school_level_id' => $UPPERSECONDARY,
+        $createUpperSecondaryAcademicRecord = AcademicRecord::create([
+            'school_level_id' => config('constants.SCHOOL_LEVEL.UPPERSECONDARY'),
             'school_name' => $r->us_school_name,
             'school_graduation' => $r->us_school_graduation,
             'application_record_id' => $APPLICATION_RECORD_ID,
         ]);
 
-        $createFoundation = AcademicRecord::create([
-            'school_level_id' => $FOUNDATION,
+        $createFoundationAcademicRecord = AcademicRecord::create([
+            'school_level_id' => config('constants.SCHOOL_LEVEL.FOUNDATION'),
             'school_name' => $r->f_school_name,
             'school_graduation' => $r->f_school_graduation,
             'application_record_id' => $APPLICATION_RECORD_ID,
         ]);
 
-        $createDiploma = AcademicRecord::create([
-            'school_level_id' => $DIPLOMA,
+        $createDiplomaAcademicRecord = AcademicRecord::create([
+            'school_level_id' => config('constants.SCHOOL_LEVEL.DIPLOMA'),
             'school_name' => $r->di_school_name,
             'school_graduation' => $r->di_school_graduation,
             'application_record_id' => $APPLICATION_RECORD_ID,
         ]);
 
-        $createDegree = AcademicRecord::create([
-            'school_level_id' => $DEGREE,
+        $createDegreeAcademicRecord = AcademicRecord::create([
+            'school_level_id' => config('constants.SCHOOL_LEVEL.DEGREE'),
             'school_name' => $r->de_school_name,
             'school_graduation' => $r->de_school_graduation,
             'application_record_id' => $APPLICATION_RECORD_ID,
         ]);
 
-        $createPhd = AcademicRecord::create([
-            'school_level_id' => $PHD,
+        $createPhdAcademicRecord = AcademicRecord::create([
+            'school_level_id' => config('constants.SCHOOL_LEVEL.PHD'),
             'school_name' => $r->p_school_name,
             'school_graduation' => $r->p_school_graduation,
             'application_record_id' => $APPLICATION_RECORD_ID,
         ]);
 
-        $createMaster = AcademicRecord::create([
-            'school_level_id' => $MASTER,
+        $createMasterAcademicRecord = AcademicRecord::create([
+            'school_level_id' => config('constants.SCHOOL_LEVEL.MASTER'),
             'school_name' => $r->m_school_name,
             'school_graduation' => $r->m_school_graduation,
             'application_record_id' => $APPLICATION_RECORD_ID,
         ]);
 
-
-        $createOther = AcademicRecord::create([
-            'school_level_id' => $OTHER,
+        $createOtherAcademicRecord = AcademicRecord::create([
+            'school_level_id' => config('constants.SCHOOL_LEVEL.OTHER'),
             'school_name' => $r->o_school_name,
             'school_graduation' => $r->o_school_graduation,
             'application_record_id' => $APPLICATION_RECORD_ID,
         ]);
 
-        $find_application_status_log = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
-        if ($find_application_status_log != null) {
-            $application_status_log_id = $find_application_status_log->id;
-            $application_status_log = ApplicationStatusLog::find($application_status_log_id);
-            $application_status_log->application_status_id = $COMPLETEACADEMICRECORD;
-            $application_status_log->save();
-        }
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_ACADEMIC_DETAIL');
+        $getApplicationStatusLog->save();
 
-        Session::flash('application_status_id', $COMPLETEACADEMICRECORD);
+        $data = [
+            'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_ACADEMIC_DETAIL'),
+            'application_record_id' => Crypt::encrypt($APPLICATION_RECORD_ID),
+        ];
+
+        Session::flash('data', $data);
         return back();
 
     }

@@ -9,9 +9,9 @@
     <div class="modal fade" id="statusCode0Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode0ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode0ModalLabel">Thank you!</h1></div>
+                <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode0ModalLabel">{{ __('modal.thank_you') }}</h1></div>
                 <div class="modal-body">
-                    <p>complete</p>
+                    <p>{{ __('modal.complete_program_selection') }}</p>
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
@@ -21,9 +21,6 @@
         </div>
     </div>
 @endif
-
-
-
 
 {{-- header --}}
 <div class="container">
@@ -363,54 +360,5 @@
             programmeLevelDropdown.value = '';
         }
     }
-
-
-
-
-
 </script>
-{{-- <script>
-    jQuery(function($) {
-        var backups = {};
-        $("select[id^=undergraduateProgramme]").change(function() {
-            var v = $(this).val();
-            var f = false;
-            $("select[id^=undergraduateProgramme]").not(this).each(function() {
-                if($(this).val() == v) {
-                    f = true;
-                    return;                
-                }
-            });
-            if(f) {
-                $(this).val(backups[$(this).attr("id")]);
-                alert("Please do not choose the same programme!");
-            }
-            else {
-                backups[$(this).attr("id")] = v;
-            }
-        }).val(null);
-    });
-</script> --}}
-{{-- <script>
-    jQuery(function($) {
-        var backups = {};
-        $("select[id^=postgraduateProgramme]").change(function() {
-            var v = $(this).val();
-            var f = false;
-            $("select[id^=postgraduateProgramme]").not(this).each(function() {
-                if($(this).val() == v) {
-                    f = true;
-                    return;                
-                }
-            });
-            if(f) {
-                $(this).val(backups[$(this).attr("id")]);
-                alert("Please do not choose the same programme!");
-            }
-            else {
-                backups[$(this).attr("id")] = v;
-            }
-        }).val(null);
-    });
-</script> --}}
 @endsection

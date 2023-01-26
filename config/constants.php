@@ -34,7 +34,7 @@
     */
         'APPLICATION_STATUS_CODE' => [
             'COMPLETE_PROGRAM_SELECTION' => 1,
-            'COMEPLTE_ACADEMIC_RECORD' => 2,
+            'COMPLETE_ACADEMIC_DETAIL' => 2,
             'COMPLETE_STATUS_OF_HEALTH' => 3,
             'COMPLETE_AGREEMENT' => 4,
             'COMPLETE_DRAFT' => 5,
@@ -70,6 +70,21 @@
         'ADDRESS_TYPE' => [
             'CORRESPONDENCE' => 1,
             'PERMANENT' => 2,
+        ],
+    /*
+    |-----------------------------------------------------------
+    | school level
+    |-----------------------------------------------------------
+    */
+        'SCHOOL_LEVEL' => [
+            'SECONDARY' => 1,
+            'UPPERSECONDARY' => 2,
+            'FOUNDATION' => 3,
+            'DIPLOMA' => 4,
+            'DEGREE' => 5,
+            'PHD' => 6,
+            'MASTER' =>7,
+            'OTHER' => 8,
         ],
     ];
 
