@@ -15,7 +15,7 @@
 {{-- end header --}}
 
 {{-- alert --}}
-@if (($applicant_status_log == null) || ($applicant_status_log->applicant_profile_status_id != 4))
+@if (($applicant_status_log == null) || ($applicant_status_log->applicant_profile_status_id != config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')))
 <div class="container">
     <div class="row mt-4 mb-2">
         <div class="col-xl-12">
@@ -113,7 +113,7 @@
     application_status_id is 4 when user finish setup personal particulars,
     parent/guardian particulars, emergency contact and profile picture
 --}}
-@if ($application_status_id >= config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROFILE_PICTURE'))
+@if($applicant_status_log != null && $applicant_status_log->applicant_profile_status_id == 4)
     <div class="container">
         <div class="row mt-4">
             <div class="col-md-6">
@@ -156,9 +156,9 @@
                         <p>{{ __('home.apply_programme_description2') }}</p>
                         <small class="text-secondary"><span class="text-danger">*</span>{{ __('home.clauses_msg1') }}</small>
                         <br>
-                        @if ($application_status_id <= 4)
+                        
                             <a href="{{ route('programmeSelect.home') }}" class="btn btn-primary mt-2">{{ __('home.apply_programme_button') }}</a>
-                        @endif
+                        
                     </div>
                 </div>
             </div>
@@ -168,6 +168,43 @@
 {{-- end my profile & apply programme --}}
 
 {{-- process --}}
+@if(count($application_status_logs) == true)
+    <div class="container">
+        <div class="row mb-3 mt-4">
+            <div class="col-md-12">
+                <h3 class="fw-bold">Application In progress</h3>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12 table-responsive">
+                <table class="table">
+                    <thead class="table-primary">
+                        <tr>
+                            <th scope="col">Programme</th>
+                            <th scope="col">Current Stage</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($application_status_logs as $application_status_log)
+                            <tr>
+                                <th scope="row">
+                                    @for ($i = 0; $i < count($getProgrammePickeds); $i++)
+                                        @if ($getProgrammePickeds[$i]->application_record_id == $application_status_log->application_record_id)
+                                        Choice {{ $i % 3 + 1 }}: {{ $getProgrammePickeds[$i]->programmeRecord['programme']->en_name }} <br>
+                                        @endif                           
+                                    @endfor
+                                </th>
+                                <td>{{ $application_status_log->applicationStatus['status'] }}</td>
+                                <td><a href="{{ route('academicDetail.home', ['id' => Crypt::encrypt($application_status_log->application_record_id) ]) }}" class="btn btn-primary">Continue</a></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+@endif
 
 {{-- end process --}}
 @endsection

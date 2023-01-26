@@ -18,4 +18,9 @@ class ApplicationStatusLog extends Model
         'application_record_id',
         'application_status_id',
     ];
+
+    public function applicationStatus()
+    {
+        return $this->belongsTo(ApplicationStatus::class);
+    }
 }

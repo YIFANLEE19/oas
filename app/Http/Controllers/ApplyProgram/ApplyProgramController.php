@@ -9,19 +9,22 @@ use App\Models\ApplicationStatusLog;
 use App\Models\ApplicantStatusLog;
 use App\Models\SemesterYearMapping;
 use App\Models\ProgrammeRecord;
+use App\Models\ProgrammePicked;
+use DB;
+use Session;
+use Illuminate\Support\Facades\Crypt;
 
 use Auth;
 
 class ApplyProgramController extends Controller
 {
-    //
+    /*
+    |-----------------------------------
+    | Return home page
+    |-----------------------------------
+    */
     public function index()
     {
-        /*
-        |-----------------------------------
-        | create new application record and application status log
-        |-----------------------------------
-        */
         // $get_old_application_record = ApplicationRecord::where('user_id',Auth::id())->get();
         // $old_applicant_profile_id = $get_old_application_record[0]->applicant_profile_id;
 
@@ -48,6 +51,7 @@ class ApplyProgramController extends Controller
 
         //get intake semester year mapping
         // dd(date('n'));
+        
         $semester_id;
         if(date('n') < 3){
             $semester_id =1;
@@ -56,10 +60,67 @@ class ApplyProgramController extends Controller
         }elseif(date('n') >= 6 && date('n') < 10){
             $semester_id =3;
         }
+        $getApplicantStatusLog = ApplicantStatusLog::where('user_id',Auth::id())->first();
         $getSemesterYearMappings = SemesterYearMapping::where('year','>=',date('Y'))->where('semester_id',$semester_id)->get();
-
         $getOfferProgrammes = ProgrammeRecord::where('semester_year_mapping_id',$getSemesterYearMappings[0]->id)->get();
-
-        return view('oas.programme_selection.home', compact('getSemesterYearMappings','getOfferProgrammes'));
+        if($getApplicantStatusLog->applicant_profile_status_id == config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')){
+            return view('oas.programme_selection.home', compact('getSemesterYearMappings','getOfferProgrammes'));
+        }else{
+            return redirect()->route('home');
+        }
     }
+    /*
+    |-----------------------------------
+    | Create function
+    |-----------------------------------
+    */
+    public function create()
+    {
+        $r = request();
+        $getApplicantStatusLog = ApplicantStatusLog::where('user_id',Auth::id())->first();
+        $getApplicantProfileId = $getApplicantStatusLog->applicant_profile_id;
+        $choicePriorities = array(config('constants.CHOICE_PRIORITY.FIRST_CHOICE'),config('constants.CHOICE_PRIORITY.SECOND_CHOICE'),config('constants.CHOICE_PRIORITY.THIRD_CHOICE'));
+        $now = DB::raw('CURRENT_TIMESTAMP');
+        $getAllPostgraduateProgrammeId = $r->postgraduate_programme_id;
+        $getAllUndergraduateProgrammeId = $r->undergraduate_programme_id;
+
+        $getApplicationRecordId = ApplicationRecord::insertGetId([
+            'user_id' => Auth::id(),
+            'applicant_profile_id' => $getApplicantProfileId,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+
+        if($getAllUndergraduateProgrammeId == null){
+            for($i=0; $i<sizeof($choicePriorities); $i++){
+                ProgrammePicked::create([
+                    'application_record_id' => $getApplicationRecordId,
+                    'programme_record_id' => $getAllPostgraduateProgrammeId[$i],
+                    'choice_priority_id' => $choicePriorities[$i],
+                ]);
+            }
+        }elseif($getAllPostgraduateProgrammeId == null){
+            for($i=0; $i<sizeof($choicePriorities); $i++){
+                ProgrammePicked::create([
+                    'application_record_id' => $getApplicationRecordId,
+                    'programme_record_id' => $getAllUndergraduateProgrammeId[$i],
+                    'choice_priority_id' => $choicePriorities[$i],
+                ]);
+            }
+        }
+
+        $getApplicationStatusLogId = ApplicationStatusLog::create([
+            'user_id' => Auth::id(),
+            'application_record_id' => $getApplicationRecordId,
+            'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROGRAM_SELECTION'),
+        ]);
+        $data = [
+            'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROGRAM_SELECTION'),
+            'application_record_id' => Crypt::encrypt($getApplicationRecordId),
+        ];
+
+        Session::flash('data', $data);
+        return back();
+    }
+
 }

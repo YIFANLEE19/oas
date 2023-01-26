@@ -32,4 +32,9 @@ class ProgrammeRecord extends Model
     {
         return $this->belongsTo(Programme::class);
     }
+
+    public function programmePicked()
+    {
+        return $this->hasOne(ProgrammePicked::class);
+    }
 }

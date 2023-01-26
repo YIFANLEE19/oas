@@ -238,6 +238,7 @@ Route::prefix('user/')->middleware('auth')->group(function () {
 
     Route::controller(ApplyProgramController::class)->prefix('programme-select/')->name('programmeSelect.')->group(function() {
         Route::get('/', 'index')->name('home');
+        Route::post('/create','create')->name('create');
     });
 
     Route::controller(AcademicDetailController::class)->prefix('academic-detail/')->name('academicDetail.')->group(function () {

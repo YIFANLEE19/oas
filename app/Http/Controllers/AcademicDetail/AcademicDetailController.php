@@ -22,20 +22,15 @@ class AcademicDetailController extends Controller
     public function index($id)
     {
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
-        
         $schoolLevel = SchoolLevel::all();
-        //$applicationRecord = ApplicationRecord::where('user_id', Auth::id())->first();
         $application_status_log_id = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
-        if ($application_status_log_id == null) {
-            $application_status_id = 0;
-            return view('oas.academic_detail.home', compact('application_status_id', 'schoolLevel','APPLICATION_RECORD_ID'));
-        } else {
-            $application_status_id = $application_status_log_id->application_status_id;
-            return view('oas.academic_detail.home', compact('application_status_id', 'schoolLevel','APPLICATION_RECORD_ID'));
-        }
-
-        // $schools = School::all();
-        // return view('oas.academic_detail.home',compact('schools'));
+        return view('oas.academic_detail.home', compact('schoolLevel','APPLICATION_RECORD_ID'));
+        // if ($application_status_log_id == null) {
+        //     return redirect()->route('home');
+        // } else {
+        //     $application_status_id = $application_status_log_id->application_status_id;
+        //     return view('oas.academic_detail.home', compact('application_status_id', 'schoolLevel','APPLICATION_RECORD_ID'));
+        // }
     }
     /**
      * create new SchoolLevel function
@@ -67,13 +62,14 @@ class AcademicDetailController extends Controller
         //     return back();
         // }
 
-        if( ($r->s_school_name == null && $r->s_school_graduation ==null) || 
-            ($r->f_school_name == null && $r->f_school_graduation ==null) || 
-            ($r->di_school_name == null && $r->di_school_graduation ==null) ||
-            ($r->de_school_name == null && $r->de_school_graduation ==null) ||
-            ($r->p_school_name == null && $r->p_school_graduation ==null) ||
-            ($r->us_school_name == null && $r->us_school_graduation ==null) ||
-            ($r->o_school_name == null && $r->o_school_graduation ==null))
+        if( ($r->s_school_name == null || $r->s_school_graduation == null) &&
+            ($r->f_school_name == null || $r->f_school_graduation == null) && 
+            ($r->di_school_name == null || $r->di_school_graduation == null) &&
+            ($r->de_school_name == null || $r->de_school_graduation == null) &&
+            ($r->p_school_name == null || $r->p_school_graduation == null) &&
+            ($r->us_school_name == null || $r->us_school_graduation == null) &&
+            ($r->o_school_name == null || $r->o_school_graduation == null)
+            )
         {
             Session::flash('error', 'Please key in at least one school level information.');
             return back();

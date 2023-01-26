@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 20, 2023 at 01:03 PM
+-- Generation Time: Jan 26, 2023 at 06:37 AM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -1224,7 +1224,7 @@ INSERT INTO `programmes` (`id`, `en_name`, `programme_level_id`, `programme_type
 (23, 'Bachelor of Business Administration (Honours)', 3, 1, 'R/340/6/0466', 1, '2023-01-18 21:35:00', '2023-01-19 18:57:34'),
 (24, 'Master of Business Administration', 2, 1, 'R/340/7/0467', 1, '2023-01-18 21:35:00', '2023-01-19 18:58:00'),
 (25, 'Bachelor of Business Administration (Honours) in Tourism Management', 3, 1, 'R/340/6/0585', 1, '2023-01-18 21:35:00', '2023-01-19 18:57:50'),
-(26, 'Bachelor of Business Administration (Honours) in H', 3, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
+(26, 'Bachelor of Business Administration (Honours) in Human Resource Management', 3, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
 (27, 'Master of Arts in Chinese Studies', 2, 1, 'R/224/7/0058', 1, '2023-01-18 21:35:00', '2023-01-19 18:56:14'),
 (28, 'Bachelor of Traditional Chinese Medicine (Honours)', 3, 1, 'N/721/6/0061', 1, '2023-01-18 21:35:00', '2023-01-19 18:53:31'),
 (29, 'Bachelor of Psychology (Honours)', 3, 1, 'R/311/6/0083', 1, '2023-01-18 21:35:00', '2023-01-19 18:56:28'),

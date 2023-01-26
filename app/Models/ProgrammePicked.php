@@ -22,5 +22,13 @@ class ProgrammePicked extends Model
         'application_record_id',
         'programme_record_id',
         'choice_priority_id',
+        'created_at',
+        'updated_at',
     ];
+
+    public function programmeRecord()
+    {
+        return $this->belongsTo(ProgrammeRecord::class);
+    }
+
 }

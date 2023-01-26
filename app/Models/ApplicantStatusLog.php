@@ -18,4 +18,6 @@ class ApplicantStatusLog extends Model
         'applicant_profile_id',
         'applicant_profile_status_id',
     ];
+
+    
 }

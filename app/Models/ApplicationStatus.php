@@ -21,4 +21,9 @@ class ApplicationStatus extends Model
     protected $fillable = [
         'status',
     ];
+
+    public function applicationStatusLog()
+    {
+        return $this->hasOne(ApplicationStatusLog::class);
+    }
 }

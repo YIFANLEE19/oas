@@ -9,6 +9,7 @@ use App\Models\EmergencyContactList;
 use App\Models\ApplicantProfilePicture;
 use App\Models\ApplicationStatusLog;
 use App\Models\ApplicantStatusLog;
+use App\Models\ProgrammePicked;
 use Auth;
 
 
@@ -32,14 +33,14 @@ class HomeController extends Controller
     public function index()
     {
         $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
-        $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        $application_record = ApplicationRecord::where('user_id',Auth::id())->first();
-        if($application_record == null ||$application_status_log == null){
-            $application_status_id = 0;
-            return view('oas.home', compact('application_status_id','applicant_status_log'));
-        }else{
-            $application_status_id = $application_status_log->application_status_id;
-            return view('oas.home', compact('application_status_id','applicant_status_log'));
+        $application_status_logs = ApplicationStatusLog::where('user_id',Auth::id())->get();
+        // dd($application_status_logs[0]->application_record_id);
+        $testingarray = array();
+        foreach($application_status_logs as $item){
+            $testingarray[] = $item->application_record_id;
         }
+        $getProgrammePickeds = ProgrammePicked::whereIn('application_record_id',$testingarray)->get();
+        //$getProgrammePickeds = ProgrammePicked::whereIn('application_record_id');
+        return view('oas.home', compact('applicant_status_log','application_status_logs','getProgrammePickeds'));
     }
 }
