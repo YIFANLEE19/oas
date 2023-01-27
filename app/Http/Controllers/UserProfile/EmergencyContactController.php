@@ -32,7 +32,7 @@ class EmergencyContactController extends Controller
     */
     public function index()
     {
-        $allRelationships = GuardianRelationship::all();
+        $allRelationships = GuardianRelationship::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
         if($applicant_status_log != null && $applicant_status_log->applicant_profile_status_id == config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')){
             return redirect()->route('home');
@@ -88,7 +88,7 @@ class EmergencyContactController extends Controller
      */
     public function view()
     {
-        $allRelationships = GuardianRelationship::all();
+        $allRelationships = GuardianRelationship::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
         if($applicant_status_log == null){
             return redirect()->route('home');

@@ -44,38 +44,41 @@ class DraftController extends Controller
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         session(['key'=>$APPLICATION_RECORD_ID]);
 
+        //
+        $allRelationships = GuardianRelationship::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        //ApplicantStatusLog
+        $getApplicantStatusLog = ApplicantStatusLog::where('user_id',Auth::id())->first();
         //programme selection
         $getSelectedCourses = ProgrammePicked::where('application_record_id',$APPLICATION_RECORD_ID)->get();
         // personal particulars
-        $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
-        $applicantProfile = ApplicantProfile::where('id',$applicant_status_log->applicant_profile_id)->first();
+        $applicantProfile = ApplicantProfile::where('id',$getApplicantStatusLog->applicant_profile_id)->first();
         $userDetail = UserDetail::where('id',$applicantProfile->user_detail_id)->first();
         $getCorrespondenceAddressMapping = AddressMapping::where('user_detail_id',$userDetail->id)->where('address_type_id',config('constants.ADDRESS_TYPE.CORRESPONDENCE'))->first();
         $getCorrespondenceAddress = Address::where('id',$getCorrespondenceAddressMapping->address_id)->first();
         $getPermanentAddressMapping = AddressMapping::where('user_detail_id',$userDetail->id)->where('address_type_id',config('constants.ADDRESS_TYPE.PERMANENT'))->first();
         $getPermanentAddress = Address::where('id',$getPermanentAddressMapping->address_id)->first();
         // parent/guardian particulars
-        $getApplicantGuardianList = ApplicantGuardianList::where('applicant_profile_id',$applicant_status_log->applicant_profile_id)->first();
+        $getApplicantGuardianList = ApplicantGuardianList::where('applicant_profile_id',$getApplicantStatusLog->applicant_profile_id)->first();
         $getGuardianDetail = GuardianDetail::where('id',$getApplicantGuardianList->guardian_detail_id)->first();
         $getGuardianUserDetail = UserDetail::where('id',$getGuardianDetail->user_detail_id)->first();
         $getGuardianPermanentAddressMapping = AddressMapping::where('user_detail_id',$getGuardianDetail->user_detail_id)->where('address_type_id',config('constants.ADDRESS_TYPE.PERMANENT'))->first();
         $getGuardianPermanentAddress = Address::where('id',$getGuardianPermanentAddressMapping->address_id)->first();
         //emergency contact
-        $getEmergencyContactLists = EmergencyContactList::where('applicant_profile_id',$applicant_status_log->applicant_profile_id)->get();
+        $getEmergencyContactLists = EmergencyContactList::where('applicant_profile_id',$getApplicantStatusLog->applicant_profile_id)->get();
         $getEmergencyContact1 = EmergencyContact::where('id',$getEmergencyContactLists[0]->emergency_contact_id)->first();
         $getEmergencyContact2 = EmergencyContact::where('id',$getEmergencyContactLists[1]->emergency_contact_id)->first();
         $getEmergencyContactUserDetail1 = UserDetail::where('id',$getEmergencyContact1->user_detail_id)->first();
         $getEmergencyContactUserDetail2 = UserDetail::where('id',$getEmergencyContact2->user_detail_id)->first();
         //profile picture
-        $applicant_profile_picture = ApplicantProfilePicture::where('applicant_profile_id',$applicant_status_log->applicant_profile_id)->first();
+        $applicant_profile_picture = ApplicantProfilePicture::where('applicant_profile_id',$getApplicantStatusLog->applicant_profile_id)->first();
         //academic record
         $getAcademicRecord = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('status',1)->get();
         // status of health
         $getStatusOfHealth = StatusOfHealth::where('application_record_id',$APPLICATION_RECORD_ID)->get();
 
-
-
         $data = [
+            'allRelationships' => $allRelationships,
+            'getSelectedCourses' => $getSelectedCourses,
             'applicant_profile' => $applicantProfile,
             'user_detail' => $userDetail,
             'c_address' => $getCorrespondenceAddress,
@@ -92,6 +95,11 @@ class DraftController extends Controller
             'status_of_health' => $getStatusOfHealth,
         ];
 
-        return view('oas.draft.home', compact('getSelectedCourses','data'));
+        return view('oas.draft.home', compact('data','APPLICATION_RECORD_ID'));
+    }
+
+    public function updateProgrammeSelection($id)
+    {
+
     }
 }

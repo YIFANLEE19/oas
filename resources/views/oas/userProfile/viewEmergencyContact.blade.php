@@ -182,7 +182,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="row g-2">
-                                    <div class="col-md mb-3">
+                                    <div class="col-md-6 mb-3">
                                         <label for="en_name" class="form-label">{{ __('inputFields.en_name') }}<span class="text-danger">*</span></label>
                                         <input type="text" name="en_name1" id="en_name1" class="form-control text-capitalize" value="{{ $user_detail1->en_name }}" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
                                     </div>
@@ -192,7 +192,7 @@
                                     </div>
                                 </div>
                                 <div class="row g-2">
-                                    <div class="col-md mb-3">
+                                    <div class="col-md-6 mb-3">
                                         <label for="relationship" class="form-label">{{ __('inputFields.relationship') }}</label>
                                         <select name="guardian_relationship_id1" id="relationship1" class="form-select" required>
                                             <option value="{{ $emergency_contact1->guardian_relationship_id }}" selected>{{ $emergency_contact1->guardianRelationship['name'] }}</option>
@@ -201,7 +201,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md mb-3">
+                                    <div class="col-md-6 mb-3">
                                         <label for="tel_hp" class="form-label">{{ __('inputFields.tel_hp') }}<span class="text-danger">*</span></label>
                                         <input type="text" name="tel_hp1" id="tel_hp1" class="form-control" value="{{ $user_detail1->tel_hp }}" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                                     </div>

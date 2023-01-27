@@ -50,7 +50,7 @@
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h1 class="fw-bold">Course Selection</h1>
-                                    <a data-bs-toggle="modal" data-bs-target="#editprogramselectionmodal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#editCourseSelectionModal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                 <p class="lead">Intake Month & Year:</p>
                             </div>
                             <div class="col-md-6 col-12">
-                                <p class="fw-bold">Month: {{ $getSelectedCourses[0]->programmeRecord['semesterYearMapping']->semester['semester'] }} ,Year: {{ $getSelectedCourses[0]->programmeRecord['semesterYearMapping']->year }}</p>  
+                                <p class="fw-bold">Month: {{ $data['getSelectedCourses'][0]->programmeRecord['semesterYearMapping']->semester['semester'] }} ,Year: {{ $data['getSelectedCourses'][0]->programmeRecord['semesterYearMapping']->year }}</p>  
                             </div>
                         </div>
                         <div class="row">
@@ -67,20 +67,20 @@
                                 <p class="lead">Course Selected:</p>
                             </div>
                             <div class="col-md-6 col-12">
-                                @if ($getSelectedCourses[0]->programmeRecord['programme']->programme_level_id == 1 || $getSelectedCourses[0]->programmeRecord['programme']->programme_level_id == 2)
+                                @if ($data['getSelectedCourses'][0]->programmeRecord['programme']->programme_level_id == 1 || $data['getSelectedCourses'][0]->programmeRecord['programme']->programme_level_id == 2)
                                     <p class="fw-bold">Postgraduate</p>
                                 @else
                                     <p class="fw-bold">Undergraduate</p>
                                 @endif
                             </div>
                         </div>
-                        @for ($i = 0; $i < count($getSelectedCourses); $i++)
+                        @for ($i = 0; $i < count($data['getSelectedCourses']); $i++)
                             <div class="row">
                                 <div class="col-md-6 col-12">
                                     <p class="lead">Choice {{ $i % 3 + 1 }}:</p>
                                 </div>
                                 <div class="col-md-6 col-12">
-                                    <p class="fw-bold">{{ $getSelectedCourses[$i]->programmeRecord['programme']->en_name }}</p>
+                                    <p class="fw-bold">{{ $data['getSelectedCourses'][$i]->programmeRecord['programme']->en_name }}</p>
                                 </div>
                             </div>
                         @endfor
@@ -228,10 +228,22 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Parent/Guardian name:</p>
+                                <p class="lead">English name:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['guardian_user_detail']->en_name }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <p class="lead">Chinese name:</p>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                @if ($data['guardian_user_detail']->ch_name == null)
+                                    <p class="fw-bold">-</p>
+                                @else
+                                    <p class="fw-bold">{{ $data['guardian_user_detail']->ch_name }}</p>
+                                @endif
                             </div>
                         </div>
                         <div class="row">
@@ -305,7 +317,7 @@
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h1 class="fw-bold">Emergency contact</h1>
-                                    <a data-bs-toggle="modal" data-bs-target="#editprogramselectionmodal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#editEmergencyContactModal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -398,7 +410,7 @@
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h1 class="fw-bold">Profile picture</h1>
-                                    <a data-bs-toggle="modal" data-bs-target="#editprogramselectionmodal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
+                                    <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editProfilePictureModal"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -500,4 +512,153 @@
     </div>
 </div>
 
+{{-- edit parent/guardian particulars modal --}}
+
+{{-- end edit parent/guardian particulars modal --}}
+
+{{-- edit emergency contact modal --}}
+<div class="modal fade" id="editEmergencyContactModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editEmergencyContactModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <form action="{{ route('emergencyContact.update') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header bg-primary text-white">
+                    <h1 class="modal-title fs-5" id="editEmergencyContactModalLabel">Edit emergency contact</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <input type="hidden" name="emergency_contact_id1" value="{{ $data['emergency_contact1']->id }}">
+                        <input type="hidden" name="emergency_contact_id2" value="{{ $data['emergency_contact2']->id }}">
+                        <input type="hidden" name="user_detail_id1" value="{{ $data['emergency_contact_user_detail1']->id }}">
+                        <input type="hidden" name="user_detail_id2" value="{{ $data['emergency_contact_user_detail2']->id }}">
+                        {{-- person 1 --}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="fw-bold">Person 1</h4>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row g-2">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="en_name" class="form-label">{{ __('inputFields.en_name') }}<span class="text-danger">*</span></label>
+                                        <input type="text" name="en_name1" id="en_name1" class="form-control text-capitalize" value="{{ $data['emergency_contact_user_detail1']->en_name }}" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="ch_name" class="form-label">{{ __('inputFields.ch_name') }}</label>
+                                        <input type="text" name="ch_name1" id="ch_name1" class="form-control" value="{{ $data['emergency_contact_user_detail1']->ch_name }}">
+                                    </div>
+                                </div>
+                                <div class="row g-2">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="relationship" class="form-label">{{ __('inputFields.relationship') }}</label>
+                                        <select name="guardian_relationship_id1" id="relationship1" class="form-select" required>
+                                            <option value="{{ $data['emergency_contact1']->guardian_relationship_id }}" selected hidden>{{ $data['emergency_contact1']->guardianRelationship['name'] }}</option>
+                                            @foreach ($data['allRelationships'] as $relationship)
+                                                <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="tel_hp" class="form-label">{{ __('inputFields.tel_hp') }}<span class="text-danger">*</span></label>
+                                        <input type="text" name="tel_hp1" id="tel_hp1" class="form-control" value="{{ $data['emergency_contact_user_detail1']->tel_hp }}" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-bottom mt-4 mb-4"></div>
+                        {{-- end person 1 --}}
+                        {{-- person 2 --}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="fw-bold">Person 2</h4>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row g-2">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="en_name2" class="form-label">{{ __('inputFields.en_name') }}<span class="text-danger">*</span></label>
+                                        <input type="text" name="en_name2" id="en_name2" class="form-control text-capitalize" value="{{ $data['emergency_contact_user_detail2']->en_name }}" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="ch_name2" class="form-label">{{ __('inputFields.ch_name') }}</label>
+                                        <input type="text" name="ch_name2" id="ch_name2" class="form-control" value="{{ $data['emergency_contact_user_detail2']->ch_name }}">
+                                    </div>
+                                </div>
+                                <div class="row g-2">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="relationship2" class="form-label">{{ __('inputFields.relationship') }}</label>
+                                        <select name="guardian_relationship_id2" id="relationship2" class="form-select" required>
+                                            <option value="{{ $data['emergency_contact2']->guardian_relationship_id }}" selected hidden>{{ $data['emergency_contact2']->guardianRelationship['name'] }}</option>
+                                            @foreach ($data['allRelationships'] as $relationship)
+                                                <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="tel_hp2" class="form-label">{{ __('inputFields.tel_hp') }}<span class="text-danger">*</span></label>
+                                        <input type="text" name="tel_hp2" id="tel_hp2" class="form-control" value="{{ $data['emergency_contact_user_detail2']->tel_hp }}" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-bottom mt-4 mb-4"></div>
+                        {{-- end person 2 --}}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- end edit emergency contact modal --}}
+
+{{-- edit profile picture modal --}}
+<div class="modal fade" id="editProfilePictureModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editProfilePictureModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <form action="{{ route('profilePicture.update') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header bg-primary text-white">
+                    <h1 class="modal-title fs-5" id="editProfilePictureModalLabel">Edit profile picture</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <input type="hidden" name="applicant_profile_picture_id" value="{{ $data['profile_picture']->id }}">
+                        <input type="hidden" name="applicant_profile_id" value="{{ $data['applicant_profile']->id }}">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="picture" class="form-label">Photo (<span class="text-danger fw-bold">{{ __('inputFields.photo_format1') }}</span>) and <span class="fw-bold text-danger">{{ __('inputFields.photo_format2') }}</span> <span class="text-danger">*</span></label>
+                                <div class="d-flex flex-column">
+                                    <input class="form-control me-3 mb-4" name="picture" id="picture" type="file" accept=".jpg, .jpeg, .png" onchange="previewPhoto(event)">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p class="text-secondary">{{ __('inputFields.preview') }}</p>
+                                <img id="preview_location" name="preview_location" class="img-fluid" width="217px" height="280px">
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        // image preview
+                        var previewPhoto = function(event){
+                            var previewLocation = document.getElementById('preview_location');
+                            previewLocation.src = URL.createObjectURL(event.target.files[0]);
+                            previewLocation.onload = function(){
+                                URL.revokeObjectURL(previewLocation.src);
+                            }
+                        }
+                    </script>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- end edit profile picture modal --}}
 @endsection
