@@ -82,113 +82,47 @@
 <div class="container mt-2">
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header bg-primary text-white">{{ __('academicRecord.header') }}</div>
-                <div class="card-body">
-                    <div class="row">
-                        <form action="{{ route('academicDetail.create', ['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="POST">
-                            @csrf
-                            <div class="row">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead class="bg-primary text-white">
-                                            <tr>
-                                                <th scope="col">{{ __('academicRecord.table_title1') }}</th>
-                                                <th scope="col">{{ __('academicRecord.table_title2') }}</th>
-                                                <th scope="col">{{ __('academicRecord.table_title3') }}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p name="school_level" id="school_level">{{ $school_level[0]->name }}<span></p>
-                                                </td>
-                                                <td>
-                                                    <input onkeyup="if (/[^|A-Za-z0-9\s/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/]+/g,'')"  maxlength="50" type="text" class="form-control" name="s_school_name" id="s_school_name">
-                                                </td>
-                                                <td><input onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" maxlength="10" type="text" name="s_school_graduation" id="s_school_graduation" class="form-control"></td>
-                                            </tr>   
-                                            <tr>
-                                                <td>
-                                                    <p name="school_level" id="school_level">{{ $school_level[1]->name }}</p>
-                                                </td>
-                                                <td>
-                                                    <input onkeyup="if (/[^|A-Za-z0-9\s/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/]+/g,'')" maxlength="50" type="text" class="form-control" name="us_school_name" id="us_school_name">
-                                                </td>
-                                                <td><input onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" maxlength="10" type="text" name="us_school_graduation" id="us_school_graduation" class="form-control"></td>
-                                            </tr>                                   
-                                            <tr>
-                                                <td>
-                                                    <p name="school_level" id="school_level">{{ $school_level[2]->name }}</p>
-                                                </td>
-                                                <td>
-                                                    <input onkeyup="if (/[^|A-Za-z0-9\s/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/]+/g,'')" maxlength="50" type="text" class="form-control" name="f_school_name" id="f_school_name">
-                                                </td>
-                                                <td><input onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" maxlength="10" type="text" name="f_school_graduation" id="f_school_graduation" class="form-control"></td>
-                                            </tr>            
-
-                                            <tr>
-                                                <td>
-                                                    <p name="school_level" id="school_level">{{ $school_level[3]->name }}</p>
-                                                </td>
-                                                <td>
-                                                    <input onkeyup="if (/[^|A-Za-z0-9\s/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/]+/g,'')" maxlength="50" type="text" class="form-control" name="di_school_name" id="di_school_name">
-                                                </td>
-                                                <td><input onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" maxlength="10" type="text" name="di_school_graduation" id="di_school_graduation" class="form-control"></td>
-                                            </tr> 
-
-                                            <tr>
-                                                <td>
-                                                    <p name="school_level" id="school_level">{{ $school_level[4]->name }}</p>
-                                                </td>
-                                                <td>
-                                                    <input onkeyup="if (/[^|A-Za-z0-9\s/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/]+/g,'')" maxlength="50" type="text" class="form-control" name="de_school_name" id="de_school_name">
-                                                </td>
-                                                <td><input onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" maxlength="10" type="text" name="de_school_graduation" id="de_school_graduation" class="form-control"></td>
-                                            </tr> 
-                                            <tr>
-                                                <td>
-                                                    <p name="school_level" id="school_level">{{ $school_level[5]->name }}</p>
-                                                </td>
-                                                <td>
-                                                    <input onkeyup="if (/[^|A-Za-z0-9\s/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/]+/g,'')" maxlength="50" type="text" class="form-control" name="p_school_name" id="p_school_name">
-                                                </td>
-                                                <td><input onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" maxlength="10" type="text" name="p_school_graduation" id="p_school_graduation" class="form-control"></td>
-                                            </tr> 
-                                            <tr>
-                                                <td>
-                                                    <p name="school_level" id="school_level">{{ $school_level[6]->name }}</p>
-                                                </td>
-                                                <td>
-                                                    <input onkeyup="if (/[^|A-Za-z0-9\s/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/]+/g,'')" maxlength="50" type="text" class="form-control" name="m_school_name" id="m_school_name">
-                                                </td>
-                                                <td><input onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" maxlength="10" type="text" name="m_school_graduation" id="m_school_graduation" class="form-control"></td>
-                                            </tr> 
-                                            <tr>
-                                                <td>
-                                                    <p name="school_level" id="school_level">{{ $school_level[7]->name }}</p>
-                                                </td>
-                                                <td>
-                                                    <input onkeyup="if (/[^|A-Za-z0-9\s/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/]+/g,'')" maxlength="50" type="text" class="form-control" name="o_school_name" id="o_school_name">
-                                                </td>
-                                                <td><input onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" maxlength="10" type="text" name="o_school_graduation" id="o_school_graduation" class="form-control"></td>
-                                            </tr> 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+            <form action="{{ route('academicDetail.create',['id'=>Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+                <div class="card">
+                    <div class="card-header bg-primary text-white">Academic Record</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th scope="col">School Level</th>
+                                        <th scope="col">School Name</th>
+                                        <th scope="col">Year Graduation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for ($i = 0; $i < count($school_level); $i++)
+                                        <tr>
+                                            <th scope="row">
+                                                {{ $school_level[$i]->name }}
+                                                <input type="hidden" name="school_level_id[]" value="{{ $school_level[$i]->id }}">
+                                            </th>
+                                            <td>
+                                                <input onkeyup="if (/[^|A-Za-z0-9\s/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/]+/g,'')"  maxlength="50" type="text" name="school_name[]" id="school_name[{{ $school_level[$i]->id }}]" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" maxlength="4" type="text" name="school_graduation[]" id="school_graduation[{{ $school_level[$i]->id }}]" class="form-control">
+                                            </td>
+                                        </tr>
+                                    @endfor
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-12">
                     <div class="card-footer">
-                       <div class="d-flex justify-content-end mb-3 mt-3">
+                        <div class="d-flex justify-content-end">
                             <a href="/program_selection" class="btn btn-outline-secondary me-3">{{ __('academicRecord.back_button') }}</a>
-                            <button type="submit" class="btn btn-primary me-3" onClick="check()">{{ __('academicRecord.next_button') }}</button>
+                            <button type="submit" class="btn btn-primary me-3">{{ __('academicRecord.next_button') }}</button>
                         </div>
                     </div>
                 </div>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
 </div>

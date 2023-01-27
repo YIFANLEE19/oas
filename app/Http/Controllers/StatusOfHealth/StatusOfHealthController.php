@@ -32,7 +32,6 @@ class StatusOfHealthController extends Controller
     public function create($id)
     {
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
-        $COMPLETESTATUSOFHEALTH = 7;
         $r = request();
 
         $getAllDiseaseId = $r->disease_id;

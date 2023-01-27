@@ -18,32 +18,24 @@ class AgreementController extends Controller
 {
     //
     public function index($id){
-
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         session(['key'=>$APPLICATION_RECORD_ID]);
         $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
-        
-        if($application_status_log_id == null){
-            $application_status_id = 0;
-            return view('oas.agreements.home',compact('application_status_id','APPLICATION_RECORD_ID'));
-        }else{
-            $application_status_id = $application_status_log_id->application_status_id;
-            return view('oas.agreements.home',compact('application_status_id','APPLICATION_RECORD_ID'));
-        }
+        return view('oas.agreements.home',compact('APPLICATION_RECORD_ID','application_status_log_id'));
     }
 
     public function submit($id){
-        // dd(session('key'));
-        $COMPLETEAGREEMENT = 8;
-        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
-        $find_application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
-        if($find_application_status_log != null){
-            $application_status_log_id = $find_application_status_log->id;
-            $application_status_log = ApplicationStatusLog::find($application_status_log_id);
-            $application_status_log->application_status_id = $COMPLETEAGREEMENT;
-            $application_status_log->save();
-        }
-        Session::flash('application_status_id',$COMPLETEAGREEMENT);
+        // dd(Crypt::encrypt(session('key')));
+
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',session('key'))->first();
+        $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_AGREEMENT');
+        $getApplicationStatusLog->save();
+
+        $data = [
+            'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_AGREEMENT'),
+            'application_record_id' => Crypt::encrypt(session('key')),
+        ];
+
         return back();
     }
 }

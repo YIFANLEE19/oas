@@ -22,7 +22,7 @@ class AcademicRecord extends Model
 
     // In the future, If you want to make the school name become dropdown list. Please seperate the school name become a new table.
 
-    public function school_level()
+    public function schoolLevel()
     {
         return $this->belongsTo(SchoolLevel::class);
     }

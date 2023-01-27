@@ -16,7 +16,7 @@
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
-                    <a href="{{ route('statusOfHealth.home',['id'=>Session::get('data')['application_record_id'] ]) }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
+                    <a href="{{ route('draft.home',['id'=>Session::get('data')['application_record_id'] ]) }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
-                    <a href="{{ route('statusOfHealth.home',['id'=> Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
+                    <a href="{{ route('draft.home',['id'=> Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <div class="d-flex justify-content-end mb-3 mt-3">
+                        <div class="d-flex justify-content-end">
                             <a href="/program_selection" class="btn btn-outline-secondary me-3">{{ __('academicRecord.back_button') }}</a>
                             <button type="submit" class="btn btn-primary me-3">{{ __('academicRecord.next_button') }}</button>
                         </div>
@@ -116,6 +116,8 @@
 </div>
 
 <script>
+    // 1 = no, 2 = yes 
+    // refer to dropdown above
     function setRequired(select,remark_id){
         (select.value == 2)?document.getElementById(remark_id).setAttribute('required',''):document.getElementById(remark_id).removeAttribute('required');
     }
