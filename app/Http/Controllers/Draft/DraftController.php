@@ -45,7 +45,14 @@ class DraftController extends Controller
         session(['key'=>$APPLICATION_RECORD_ID]);
 
         //
-        $allRelationships = GuardianRelationship::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getRelationships = GuardianRelationship::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getReligions = Religion::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getNationalities = Nationality::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getIncomes = Income::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getCountries = Country::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getRaces = Race::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getGenders = Gender::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getMaritals = Marital::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         //ApplicantStatusLog
         $getApplicantStatusLog = ApplicantStatusLog::where('user_id',Auth::id())->first();
         //programme selection
@@ -77,7 +84,14 @@ class DraftController extends Controller
         $getStatusOfHealth = StatusOfHealth::where('application_record_id',$APPLICATION_RECORD_ID)->get();
 
         $data = [
-            'allRelationships' => $allRelationships,
+            'getRaces' => $getRaces,
+            'getReligions' => $getReligions,
+            'getRelationships' => $getRelationships,
+            'getNationalities' => $getNationalities,
+            'getGenders' => $getGenders,
+            'getMaritals' => $getMaritals,
+            'getIncomes' => $getIncomes,
+            'getCountries' => $getCountries,
             'getSelectedCourses' => $getSelectedCourses,
             'applicant_profile' => $applicantProfile,
             'user_detail' => $userDetail,
@@ -98,8 +112,4 @@ class DraftController extends Controller
         return view('oas.draft.home', compact('data','APPLICATION_RECORD_ID'));
     }
 
-    public function updateProgrammeSelection($id)
-    {
-
-    }
 }

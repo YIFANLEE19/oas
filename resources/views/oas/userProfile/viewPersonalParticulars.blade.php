@@ -495,7 +495,7 @@
                                     <div class="col-md">
                                         <label for="marital" class="form-label">{{ __('inputFields.ms') }}<span class="text-danger">*</span></label>
                                         <select name="marital_id" id="marital" class="form-select" required>
-                                            <option value="{{ $applicant_profile->marital_id }}" disabled>{{ $applicant_profile->marital['name'] }}</option>
+                                            <option value="{{ $applicant_profile->marital_id }}" selected hidden>{{ $applicant_profile->marital['name'] }}</option>
                                             @foreach ($data['maritals'] as $marital)
                                                 <option value="{{ $marital->id }}">{{ $marital->name }}</option>
                                             @endforeach
@@ -566,7 +566,7 @@
                                     <div class="col-md">
                                         <label for="c_country" class="form-label">{{ __('inputFields.country') }}<span class="text-danger">*</span></label>
                                         <select name="c_country_id" id="c_country" class="form-select" required>
-                                            <option value="{{ $c_address->country_id }}" selected>{{ $c_address->country['name'] }}</option>
+                                            <option value="{{ $c_address->country_id }}" selected hidden>{{ $c_address->country['name'] }}</option>
                                             @foreach ($data['countries'] as $country)
                                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                                             @endforeach
@@ -593,11 +593,11 @@
                                 <div class="row g-3">
                                     <div class="col-md mb-3">
                                         <label for="p_street1" class="form-label">{{ __('inputFields.address1') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="p_street1" id="p_street1" class="form-control" value="{{ $c_address->street1 }}" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" placeholder="{{ __('inputFields.address1_placeholder') }}" required>
+                                        <input type="text" name="p_street1" id="p_street1" class="form-control" value="{{ $p_address->street1 }}" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" placeholder="{{ __('inputFields.address1_placeholder') }}" required>
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="p_street2" class="form-label">{{ __('inputFields.address2') }}<span class="text-danger">*</span></label>
-                                        <input type="text" name="p_street2" id="p_street2" class="form-control" value="{{ $c_address->street2 }}" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" placeholder="{{ __('inputFields.address2_placeholder') }}" required>
+                                        <input type="text" name="p_street2" id="p_street2" class="form-control" value="{{ $p_address->street2 }}" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" placeholder="{{ __('inputFields.address2_placeholder') }}" required>
                                     </div>
                                 </div>
                                 <div class="row g-3">
@@ -618,7 +618,7 @@
                                     <div class="col-md mb-3">
                                         <label for="p_country" class="form-label">{{ __('inputFields.country') }}<span class="text-danger">*</span></label>
                                         <select name="p_country_id" id="p_country" class="form-select" required>
-                                            <option value="{{ $p_address->country_id }}" selected>{{ $p_address->country['name'] }}</option>
+                                            <option value="{{ $p_address->country_id }}" selected hidden>{{ $p_address->country['name'] }}</option>
                                             @foreach ($data['countries'] as $country)
                                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                                             @endforeach
