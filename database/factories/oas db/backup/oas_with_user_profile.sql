@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2023 at 06:37 AM
+-- Generation Time: Jan 29, 2023 at 12:30 PM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.33
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -1489,7 +1489,7 @@ CREATE TABLE `status_of_healths` (
   `application_record_id` bigint(20) UNSIGNED NOT NULL,
   `disease_id` bigint(20) UNSIGNED NOT NULL,
   `disease_remark` varchar(255) DEFAULT NULL,
-  `disease_status` varchar(255) NOT NULL DEFAULT '1'
+  `disease_status` varchar(255) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------

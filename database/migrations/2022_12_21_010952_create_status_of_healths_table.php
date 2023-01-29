@@ -18,7 +18,7 @@ class CreateStatusOfHealthsTable extends Migration
             $table->foreignId('application_record_id')->constrained()->onUpdate('cascade');
             $table->foreignId('disease_id')->constrained()->onUpdate('cascade');
             $table->string('disease_remark')->nullable();
-            $table->string('disease_status')->default(1);
+            $table->string('disease_status')->default(0);
         });
     }
 

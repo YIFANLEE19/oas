@@ -32,6 +32,7 @@ use App\Models\ProgrammeLevel;
 use App\Models\ProgrammePicked;
 use App\Models\SemesterYearMapping;
 use App\Models\Semester;
+use App\Models\Disease;
 use Auth;
 use DB;
 use Session;
@@ -53,6 +54,7 @@ class DraftController extends Controller
         $getRaces = Race::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         $getGenders = Gender::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         $getMaritals = Marital::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getDiseases = Disease::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         //ApplicantStatusLog
         $getApplicantStatusLog = ApplicantStatusLog::where('user_id',Auth::id())->first();
         //programme selection
@@ -92,6 +94,7 @@ class DraftController extends Controller
             'getMaritals' => $getMaritals,
             'getIncomes' => $getIncomes,
             'getCountries' => $getCountries,
+            'getDiseases' => $getDiseases,
             'getSelectedCourses' => $getSelectedCourses,
             'applicant_profile' => $applicantProfile,
             'user_detail' => $userDetail,

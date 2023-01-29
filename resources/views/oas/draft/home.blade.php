@@ -472,7 +472,7 @@
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h1 class="fw-bold">Status of Health</h1>
-                                    <a data-bs-toggle="modal" data-bs-target="#editprogramselectionmodal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#editStatusOfHealthModal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -490,7 +490,7 @@
                                         @for ($i = 0; $i < count($data['status_of_health']); $i++)
                                             <tr>
                                                 <th>{{ $data['status_of_health'][$i]->disease['name'] }}</th>
-                                                <td>{{ ($data['status_of_health'][$i]->disease_status == 1)? "No" :"Yes"; }}</td>
+                                                <td>{{ ($data['status_of_health'][$i]->disease_status == 0)? "No" :"Yes"; }}</td>
                                                 <td>{{ ($data['status_of_health'][$i]->disease_remark == null)?"-": $data['status_of_health'][$i]->disease_remark ; }}</td>
                                             </tr>
                                         @endfor
@@ -1327,7 +1327,7 @@
                         }
                     </script>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer"> 
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
@@ -1336,4 +1336,79 @@
     </div>
 </div>
 {{-- end edit profile picture modal --}}
+
+{{-- edit status of health --}}
+<div class="modal fade" id="editStatusOfHealthModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editStatusOfHealthModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <form action="{{ route('statusOfHealth.update',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header bg-primary text-white">
+                    <h1 class="modal-title fs-5" id="editStatusOfHealthModalLabel">Edit status of health</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th scope="col">Type of Disease</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">If 'Yes', Please state</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for ($i = 0; $i < count($data['getDiseases']); $i++)
+                                                <tr>
+                                                    <th scope="row">
+                                                        {{ $data['getDiseases'][$i]->name }}
+                                                        <input type="hidden" name="disease_id[]" value="{{ $data['getDiseases'][$i]->id }}">
+                                                    </th>
+                                                    <td>
+                                                        <select name="disease_status[]" id="disease_status[{{ $data['getDiseases'][$i]->id }}]" class="form-select" onchange="setRequired(this,'disease_remark[{{ $data['getDiseases'][$i]->id }}]')">
+                                                            @if ($data['status_of_health'][$i]->disease_status == 0)
+                                                                <option value="0" selected hidden>No</option>
+                                                            @else
+                                                                <option value="1" selected hidden>Yes</option>
+                                                            @endif
+                                                            <option value="0">No</option>
+                                                            <option value="1">Yes</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        @if ($data['status_of_health'][$i]->disease_remark == null)
+                                                            <input type="text" maxlength="100" onkeyup="if (/[^|A-Za-z0-9\s,/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s,/]+/g,'')" name="disease_remark[]" id="disease_remark[{{ $data['getDiseases'][$i]->id }}]" class="form-control">
+                                                        @else
+                                                            <input type="text" maxlength="100" onkeyup="if (/[^|A-Za-z0-9\s,/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s,/]+/g,'')" name="disease_remark[]" id="disease_remark[{{ $data['getDiseases'][$i]->id }}]" class="form-control" value="{{ $data['status_of_health'][$i]->disease_remark }}">
+                                                        @endif
+                                                    </td>  
+                                                </tr>
+                                            @endfor
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    // 1 = no, 2 = yes 
+    // refer to dropdown above
+    function setRequired(select,remark_id){
+        (select.value == 1)?document.getElementById(remark_id).setAttribute('required',''):document.getElementById(remark_id).removeAttribute('required');
+        document.getElementById(remark_id).value='';
+    }
+</script>
+{{-- end edit status of health --}}
 @endsection

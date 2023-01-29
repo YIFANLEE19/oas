@@ -90,8 +90,8 @@
                                             </th>
                                             <td>
                                                 <select name="disease_status[]" id="disease_status[{{ $diseases[$i]->id }}]" class="form-select" onchange="setRequired(this,'disease_remark[{{ $diseases[$i]->id }}]')">
-                                                    <option value="1">No</option>
-                                                    <option value="2">Yes</option>
+                                                    <option value="0">No</option>
+                                                    <option value="1">Yes</option>
                                                 </select>
                                             </td>
                                             <td>
@@ -119,7 +119,7 @@
     // 1 = no, 2 = yes 
     // refer to dropdown above
     function setRequired(select,remark_id){
-        (select.value == 2)?document.getElementById(remark_id).setAttribute('required',''):document.getElementById(remark_id).removeAttribute('required');
+        (select.value == 1)?document.getElementById(remark_id).setAttribute('required',''):document.getElementById(remark_id).removeAttribute('required');
     }
 </script>
 @endsection

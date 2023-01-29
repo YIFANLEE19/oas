@@ -117,7 +117,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <a href="/program_selection" class="btn btn-outline-secondary me-3">{{ __('academicRecord.back_button') }}</a>
+                            <a href="{{ route('programmeSelect.home') }}" class="btn btn-outline-secondary me-3">{{ __('academicRecord.back_button') }}</a>
                             <button type="submit" class="btn btn-primary me-3">{{ __('academicRecord.next_button') }}</button>
                         </div>
                     </div>

@@ -249,6 +249,7 @@ Route::prefix('user/')->middleware('auth')->group(function () {
     Route::controller(StatusOfHealthController::class)->prefix('status-of-health/')->name('statusOfHealth.')->group(function () {
         Route::get('/{id}', 'index')->name('home');
         Route::post('/create/{id}', 'create')->name('create');
+        Route::post('/update/{id}', 'update')->name('update');
     });
 
     Route::controller(AgreementController::class)->prefix('agreements/')->name('agreements.')->group(function () {
