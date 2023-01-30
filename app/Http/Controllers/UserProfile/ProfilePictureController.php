@@ -12,6 +12,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Session;
 use Image;
+use Illuminate\Support\Facades\Crypt;
 
 class ProfilePictureController extends Controller
 {
@@ -59,7 +60,7 @@ class ProfilePictureController extends Controller
 
         ApplicantProfilePicture::create([
             'applicant_profile_id' => $applicant_status_log->applicant_profile_id,
-            'path' => $pictureName
+            'path' => Crypt::encrypt($pictureName),
         ]);
         $applicant_status_log->applicant_profile_status_id = config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE');
         $applicant_status_log->save();

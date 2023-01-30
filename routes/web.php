@@ -262,6 +262,7 @@ Route::prefix('user/')->middleware('auth')->group(function () {
 
     Route::controller(DraftController::class)->prefix('draft/')->name('draft.')->group(function () {
         Route::get('/{id}', 'index')->name('home');
+        Route::post('/submit/{id}', 'submit')->name('submit');
     });
 
     Route::controller(PaymentController::class)->prefix('payment/')->name('payment.')->group(function () {

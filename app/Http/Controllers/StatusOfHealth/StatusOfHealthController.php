@@ -51,13 +51,7 @@ class StatusOfHealthController extends Controller
         $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_STATUS_OF_HEALTH');
         $getApplicationStatusLog->save();
         
-        $data = [
-            'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_STATUS_OF_HEALTH'),
-            'application_record_id' => Crypt::encrypt($APPLICATION_RECORD_ID),
-        ];
-
-        Session::flash('data', $data);
-        return back();
+        return redirect()->route('agreements.home',['id'=> Crypt::encrypt($APPLICATION_RECORD_ID)]);
     }
 
     public function update($id){

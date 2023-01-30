@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 20, 2023 at 06:59 AM
+-- Generation Time: Jan 30, 2023 at 11:36 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -1130,71 +1130,71 @@ CREATE TABLE `programmes` (
 --
 
 INSERT INTO `programmes` (`id`, `en_name`, `programme_level_id`, `programme_type_id`, `programme_code`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Diploma in Accountancy', 4, 1, 'R2/344/4/0188', 1, '2023-01-18 21:35:00', '2023-01-19 19:02:34'),
-(2, 'Diploma in Business Administration', 4, 1, 'R2/345/4/0418', 1, '2023-01-18 21:35:00', '2023-01-19 19:02:46'),
-(3, 'Diploma in Marketing', 4, 1, 'R2/342/4/0135', 1, '2023-01-18 21:35:00', '2023-01-19 19:02:08'),
-(4, 'Diploma in Logistics Management', 4, 1, 'R3/840/4/0034', 1, '2023-01-18 21:35:00', '2023-01-19 19:04:02'),
-(5, 'Bachelor of Business Administration (Honours) in Finance & Investment', 3, 1, 'R/340/6/0246', 1, '2023-01-18 21:35:00', '2023-01-19 18:57:01'),
-(6, 'Bachelor of Business Administration (Honours) in Marketing', 3, 1, 'R/342/6/0060', 1, '2023-01-18 21:35:00', '2023-01-19 18:58:10'),
-(7, 'Bachelor in Accounting (Honours)', 3, 1, 'R/344/6/0152', 1, '2023-01-18 21:35:00', '2023-01-19 18:58:21'),
-(8, 'Diploma in Information Technology', 4, 1, 'R2/482/4/0190', 1, '2023-01-18 21:35:00', '2023-01-19 19:02:57'),
-(9, 'Diploma in Electrical & Electronic Engineering', 4, 1, 'R2/523/4/0308', 1, '2023-01-18 21:35:00', '2023-01-19 19:03:05'),
-(10, 'Bachelor of Software Engineering (Honours)', 3, 1, 'R/481/6/0275', 1, '2023-01-18 21:35:00', '2023-01-19 18:58:57'),
-(11, 'Bachelor of Electronic Engineering with Honours', 3, 1, 'R/523/6/0170', 1, '2023-01-18 21:35:00', '2023-01-19 18:59:07'),
-(12, 'Diploma in Industrial Design', 4, 1, 'R3/214/4/0014', 1, '2023-01-18 21:35:00', '2023-01-19 19:03:12'),
-(13, 'Diploma in Advertising Design', 4, 1, 'R3/214/4/0024', 1, '2023-01-18 21:35:00', '2023-01-19 19:03:21'),
-(14, 'Diploma in Multimedia Design', 4, 1, 'R/213/4/0133', 1, '2023-01-18 21:35:00', '2023-01-19 18:55:11'),
-(15, 'Bachelor of Design (Honours) Computer Graphic Design', 3, 1, 'R/213/6/0132', 1, '2023-01-18 21:35:00', '2023-01-19 18:55:24'),
-(16, 'Diploma in Chinese Studies', 4, 1, 'R2/312/4/0036', 1, '2023-01-18 21:35:00', '2023-01-19 19:01:39'),
-(17, 'Bachelor of Arts (Honours) Chinese Studies', 3, 1, 'R/224/6/0033', 1, '2023-01-18 21:35:00', '2023-01-19 18:56:02'),
-(18, 'Bachelor of Arts (Honours) English Language Teaching', 3, 1, 'R/224/6/0026', 1, '2023-01-18 21:35:00', '2023-01-19 18:55:48'),
-(19, 'Bachelor of Communication (Honours) (Mass Communication)', 3, 1, 'R/321/6/0080', 1, '2023-01-18 21:35:00', '2023-01-19 18:56:39'),
-(20, 'Foundation In Traditional Chinese Medicine', 5, 1, 'R2/010/3/0309', 1, '2023-01-18 21:35:00', '2023-01-19 18:59:38'),
-(21, 'Foundation in Arts', 5, 1, 'R/010/3/0126', 1, '2023-01-18 21:35:00', '2023-01-19 18:54:10'),
-(22, 'Diploma in Early Childhood Education', 4, 1, 'R/143/4/0084', 1, '2023-01-18 21:35:00', '2023-01-19 18:54:38'),
-(23, 'Bachelor of Business Administration (Honours)', 3, 1, 'R/340/6/0466', 1, '2023-01-18 21:35:00', '2023-01-19 18:57:34'),
-(24, 'Master of Business Administration', 2, 1, 'R/340/7/0467', 1, '2023-01-18 21:35:00', '2023-01-19 18:58:00'),
-(25, 'Bachelor of Business Administration (Honours) in Tourism Management', 3, 1, 'R/340/6/0585', 1, '2023-01-18 21:35:00', '2023-01-19 18:57:50'),
-(26, 'Bachelor of Business Administration (Honours) in H', 3, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(27, 'Master of Arts in Chinese Studies', 2, 1, 'R/224/7/0058', 1, '2023-01-18 21:35:00', '2023-01-19 18:56:14'),
-(28, 'Bachelor of Traditional Chinese Medicine (Honours)', 3, 1, 'N/721/6/0061', 1, '2023-01-18 21:35:00', '2023-01-19 18:53:31'),
-(29, 'Bachelor of Psychology (Honours)', 3, 1, 'R/311/6/0083', 1, '2023-01-18 21:35:00', '2023-01-19 18:56:28'),
-(30, 'Bachelor of Early Childhood Education (Honours)', 3, 1, 'R/143/6/0121', 1, '2023-01-18 21:35:00', '2023-01-19 18:54:50'),
-(31, 'Bachelor of Education (Honours) Guidance and Counselling', 3, 1, 'N/145/6/0088', 1, '2023-01-18 21:35:00', '2023-01-19 18:51:08'),
-(32, 'Master of Communication', 2, 1, 'R/321/7/0233', 1, '2023-01-18 21:35:00', '2023-01-19 18:56:48'),
-(33, 'Doctor of Philosophy (Business Administration)', 1, 1, 'N/345/8/1063', 1, '2023-01-18 21:35:00', '2023-01-19 18:53:02'),
-(34, 'Professional Certificate in Aesthetic Treatments & Body Therapy', 6, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(35, 'Professional Certificate in Hairdressing & Hair Design', 6, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(36, 'Diploma in Unreal Engine VR Architecture', 6, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(37, 'Executive Diploma in Tourism Management', 7, 1, 'R/812/4/0149', 1, '2023-01-18 21:35:00', '2023-01-19 18:59:24'),
-(38, 'Executive Diploma in Industrial Design', 7, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(39, 'Executive Diploma in Visual Art', 7, 1, 'R/211/4/0040', 1, '2023-01-18 21:35:00', '2023-01-19 18:55:02'),
-(40, 'Executive Diploma in Advertising Design', 7, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(41, 'Executive Diploma in Multimedia Design', 7, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(42, 'Executive Diploma in Early Childhood Education', 7, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(43, 'Executive Diploma in Business Administration', 7, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(44, 'Executive Diploma in Marketing', 7, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(45, 'Executive Diploma in Logistics Management', 7, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(46, 'Executive Diploma in Chinese Studies', 7, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(47, 'Executive Diploma in English', 7, 1, 'R3/224/4/0001', 1, '2023-01-18 21:35:00', '2023-01-19 19:03:35'),
-(48, 'Executive Diploma in Journalism', 7, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(49, 'Executive Diploma in Information Technology', 7, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(50, 'Executive Diploma in Computer Science', 7, 1, 'R3/481/4/0270', 1, '2023-01-18 21:35:00', '2023-01-19 19:03:49'),
-(51, 'Executive Diploma in Electrical & Electronic Engineering', 7, 1, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(52, 'Doctor of Philosophy (Chinese Studies)', 1, 1, 'N/224/8/0096', 1, '2023-01-18 21:35:00', '2023-01-19 18:52:32'),
-(53, 'Bachelor of Design (Honours) Industrial Design', 3, 1, 'N/214/6/0212', 1, '2023-01-18 21:35:00', '2023-01-19 18:52:13'),
-(54, 'Bachelor of Property Management (Honours)', 3, 1, 'N/345/6/1094', 1, '2023-01-18 21:35:00', '2023-01-19 18:52:47'),
-(55, 'Master of Science in Computer Science', 2, 1, 'N/481/7/0829', 1, '2023-01-18 21:35:00', '2023-01-19 18:53:15'),
-(56, 'Foundation in Science', 5, 1, 'R/010/3/0094', 1, '2023-01-18 21:35:00', '2023-01-19 18:53:58'),
-(57, 'Doctor of Business Administration', 1, 1, 'N/0414/8/0006', 1, '2023-01-18 21:35:00', '2023-01-19 18:50:35'),
-(58, 'Master of Science in Computer Science - Part Time', 2, 2, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(59, 'Master of Communication - Part Time', 2, 2, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(60, 'Master of Business Administration - Part Time', 2, 2, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(61, 'Master of Arts in Chinese Studies - Part Time', 2, 2, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(62, 'M.A in Chinese Studies - Part Time', 2, 2, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(63, 'Doctor of Philosophy (Chinese Studies) - Part Time', 1, 2, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(64, 'Doctor of Philosophy (Business Administration) - Part Time', 1, 2, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00'),
-(65, 'Doctor of Business Administration - Part Time', 1, 2, NULL, 1, '2023-01-18 21:35:00', '2023-01-18 21:35:00');
+(1, 'Diploma in Accountancy', 4, 1, 'R2/344/4/0188', 1, '2023-01-18 13:35:00', '2023-01-19 11:02:34'),
+(2, 'Diploma in Business Administration', 4, 1, 'R2/345/4/0418', 1, '2023-01-18 13:35:00', '2023-01-19 11:02:46'),
+(3, 'Diploma in Marketing', 4, 1, 'R2/342/4/0135', 1, '2023-01-18 13:35:00', '2023-01-19 11:02:08'),
+(4, 'Diploma in Logistics Management', 4, 1, 'R3/840/4/0034', 1, '2023-01-18 13:35:00', '2023-01-19 11:04:02'),
+(5, 'Bachelor of Business Administration (Honours) in Finance & Investment', 3, 1, 'R/340/6/0246', 1, '2023-01-18 13:35:00', '2023-01-19 10:57:01'),
+(6, 'Bachelor of Business Administration (Honours) in Marketing', 3, 1, 'R/342/6/0060', 1, '2023-01-18 13:35:00', '2023-01-19 10:58:10'),
+(7, 'Bachelor in Accounting (Honours)', 3, 1, 'R/344/6/0152', 1, '2023-01-18 13:35:00', '2023-01-19 10:58:21'),
+(8, 'Diploma in Information Technology', 4, 1, 'R2/482/4/0190', 1, '2023-01-18 13:35:00', '2023-01-19 11:02:57'),
+(9, 'Diploma in Electrical & Electronic Engineering', 4, 1, 'R2/523/4/0308', 1, '2023-01-18 13:35:00', '2023-01-19 11:03:05'),
+(10, 'Bachelor of Software Engineering (Honours)', 3, 1, 'R/481/6/0275', 1, '2023-01-18 13:35:00', '2023-01-19 10:58:57'),
+(11, 'Bachelor of Electronic Engineering with Honours', 3, 1, 'R/523/6/0170', 1, '2023-01-18 13:35:00', '2023-01-19 10:59:07'),
+(12, 'Diploma in Industrial Design', 4, 1, 'R3/214/4/0014', 1, '2023-01-18 13:35:00', '2023-01-19 11:03:12'),
+(13, 'Diploma in Advertising Design', 4, 1, 'R3/214/4/0024', 1, '2023-01-18 13:35:00', '2023-01-19 11:03:21'),
+(14, 'Diploma in Multimedia Design', 4, 1, 'R/213/4/0133', 1, '2023-01-18 13:35:00', '2023-01-19 10:55:11'),
+(15, 'Bachelor of Design (Honours) Computer Graphic Design', 3, 1, 'R/213/6/0132', 1, '2023-01-18 13:35:00', '2023-01-19 10:55:24'),
+(16, 'Diploma in Chinese Studies', 4, 1, 'R2/312/4/0036', 1, '2023-01-18 13:35:00', '2023-01-19 11:01:39'),
+(17, 'Bachelor of Arts (Honours) Chinese Studies', 3, 1, 'R/224/6/0033', 1, '2023-01-18 13:35:00', '2023-01-19 10:56:02'),
+(18, 'Bachelor of Arts (Honours) English Language Teaching', 3, 1, 'R/224/6/0026', 1, '2023-01-18 13:35:00', '2023-01-19 10:55:48'),
+(19, 'Bachelor of Communication (Honours) (Mass Communication)', 3, 1, 'R/321/6/0080', 1, '2023-01-18 13:35:00', '2023-01-19 10:56:39'),
+(20, 'Foundation In Traditional Chinese Medicine', 5, 1, 'R2/010/3/0309', 1, '2023-01-18 13:35:00', '2023-01-19 10:59:38'),
+(21, 'Foundation in Arts', 5, 1, 'R/010/3/0126', 1, '2023-01-18 13:35:00', '2023-01-19 10:54:10'),
+(22, 'Diploma in Early Childhood Education', 4, 1, 'R/143/4/0084', 1, '2023-01-18 13:35:00', '2023-01-19 10:54:38'),
+(23, 'Bachelor of Business Administration (Honours)', 3, 1, 'R/340/6/0466', 1, '2023-01-18 13:35:00', '2023-01-19 10:57:34'),
+(24, 'Master of Business Administration', 2, 1, 'R/340/7/0467', 1, '2023-01-18 13:35:00', '2023-01-19 10:58:00'),
+(25, 'Bachelor of Business Administration (Honours) in Tourism Management', 3, 1, 'R/340/6/0585', 1, '2023-01-18 13:35:00', '2023-01-19 10:57:50'),
+(26, 'Bachelor of Business Administration (Honours) in Human Resource Management', 3, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(27, 'Master of Arts in Chinese Studies', 2, 1, 'R/224/7/0058', 1, '2023-01-18 13:35:00', '2023-01-19 10:56:14'),
+(28, 'Bachelor of Traditional Chinese Medicine (Honours)', 3, 1, 'N/721/6/0061', 1, '2023-01-18 13:35:00', '2023-01-19 10:53:31'),
+(29, 'Bachelor of Psychology (Honours)', 3, 1, 'R/311/6/0083', 1, '2023-01-18 13:35:00', '2023-01-19 10:56:28'),
+(30, 'Bachelor of Early Childhood Education (Honours)', 3, 1, 'R/143/6/0121', 1, '2023-01-18 13:35:00', '2023-01-19 10:54:50'),
+(31, 'Bachelor of Education (Honours) Guidance and Counselling', 3, 1, 'N/145/6/0088', 1, '2023-01-18 13:35:00', '2023-01-19 10:51:08'),
+(32, 'Master of Communication', 2, 1, 'R/321/7/0233', 1, '2023-01-18 13:35:00', '2023-01-19 10:56:48'),
+(33, 'Doctor of Philosophy (Business Administration)', 1, 1, 'N/345/8/1063', 1, '2023-01-18 13:35:00', '2023-01-19 10:53:02'),
+(34, 'Professional Certificate in Aesthetic Treatments & Body Therapy', 6, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(35, 'Professional Certificate in Hairdressing & Hair Design', 6, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(36, 'Diploma in Unreal Engine VR Architecture', 6, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(37, 'Executive Diploma in Tourism Management', 7, 1, 'R/812/4/0149', 1, '2023-01-18 13:35:00', '2023-01-19 10:59:24'),
+(38, 'Executive Diploma in Industrial Design', 7, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(39, 'Executive Diploma in Visual Art', 7, 1, 'R/211/4/0040', 1, '2023-01-18 13:35:00', '2023-01-19 10:55:02'),
+(40, 'Executive Diploma in Advertising Design', 7, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(41, 'Executive Diploma in Multimedia Design', 7, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(42, 'Executive Diploma in Early Childhood Education', 7, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(43, 'Executive Diploma in Business Administration', 7, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(44, 'Executive Diploma in Marketing', 7, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(45, 'Executive Diploma in Logistics Management', 7, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(46, 'Executive Diploma in Chinese Studies', 7, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(47, 'Executive Diploma in English', 7, 1, 'R3/224/4/0001', 1, '2023-01-18 13:35:00', '2023-01-19 11:03:35'),
+(48, 'Executive Diploma in Journalism', 7, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(49, 'Executive Diploma in Information Technology', 7, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(50, 'Executive Diploma in Computer Science', 7, 1, 'R3/481/4/0270', 1, '2023-01-18 13:35:00', '2023-01-19 11:03:49'),
+(51, 'Executive Diploma in Electrical & Electronic Engineering', 7, 1, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(52, 'Doctor of Philosophy (Chinese Studies)', 1, 1, 'N/224/8/0096', 1, '2023-01-18 13:35:00', '2023-01-19 10:52:32'),
+(53, 'Bachelor of Design (Honours) Industrial Design', 3, 1, 'N/214/6/0212', 1, '2023-01-18 13:35:00', '2023-01-19 10:52:13'),
+(54, 'Bachelor of Property Management (Honours)', 3, 1, 'N/345/6/1094', 1, '2023-01-18 13:35:00', '2023-01-19 10:52:47'),
+(55, 'Master of Science in Computer Science', 2, 1, 'N/481/7/0829', 1, '2023-01-18 13:35:00', '2023-01-19 10:53:15'),
+(56, 'Foundation in Science', 5, 1, 'R/010/3/0094', 1, '2023-01-18 13:35:00', '2023-01-19 10:53:58'),
+(57, 'Doctor of Business Administration', 1, 1, 'N/0414/8/0006', 1, '2023-01-18 13:35:00', '2023-01-19 10:50:35'),
+(58, 'Master of Science in Computer Science - Part Time', 2, 2, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(59, 'Master of Communication - Part Time', 2, 2, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(60, 'Master of Business Administration - Part Time', 2, 2, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(61, 'Master of Arts in Chinese Studies - Part Time', 2, 2, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(62, 'M.A in Chinese Studies - Part Time', 2, 2, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(63, 'Doctor of Philosophy (Chinese Studies) - Part Time', 1, 2, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(64, 'Doctor of Philosophy (Business Administration) - Part Time', 1, 2, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00'),
+(65, 'Doctor of Business Administration - Part Time', 1, 2, NULL, 1, '2023-01-18 13:35:00', '2023-01-18 13:35:00');
 
 -- --------------------------------------------------------
 
@@ -1413,7 +1413,7 @@ CREATE TABLE `status_of_healths` (
   `application_record_id` bigint(20) UNSIGNED NOT NULL,
   `disease_id` bigint(20) UNSIGNED NOT NULL,
   `disease_remark` varchar(255) DEFAULT NULL,
-  `disease_status` varchar(255) NOT NULL DEFAULT '1'
+  `disease_status` varchar(255) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1424,8 +1424,8 @@ CREATE TABLE `status_of_healths` (
 
 CREATE TABLE `supporting_documents` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `transcript` text DEFAULT NULL,
-  `cert` text DEFAULT NULL
+  `doc` text DEFAULT NULL,
+  `isCert` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1452,8 +1452,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `role_id`, `acc_status_id`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Superadmin', 3, 1, 'superadmin@email.com', NULL, '$2y$10$v.Vu8Thay4FsuMgqCsHU8OY7/LBAngr522t38EOViqWo9VrcIxNXO', NULL, '2023-01-04 07:16:56', '2023-01-04 07:16:56'),
-(2, 'Local Student', 1, 1, 'localstudent@email.com', NULL, '$2y$10$.QcHWlPbZwagZ7uUUEj7seLYT17bmIHpSz5GJl9DJfbl0nUBihPGm', NULL, '2023-01-04 07:35:55', '2023-01-04 07:35:55');
+(1, 'Superadmin', 3, 1, 'superadmin@email.com', NULL, '$2y$10$v.Vu8Thay4FsuMgqCsHU8OY7/LBAngr522t38EOViqWo9VrcIxNXO', NULL, '2023-01-03 23:16:56', '2023-01-03 23:16:56'),
+(2, 'Local Student', 1, 1, 'localstudent@email.com', NULL, '$2y$10$.QcHWlPbZwagZ7uUUEj7seLYT17bmIHpSz5GJl9DJfbl0nUBihPGm', NULL, '2023-01-03 23:35:55', '2023-01-03 23:35:55');
 
 -- --------------------------------------------------------
 

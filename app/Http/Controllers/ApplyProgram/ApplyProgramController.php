@@ -88,13 +88,8 @@ class ApplyProgramController extends Controller
             'application_record_id' => $getApplicationRecordId,
             'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROGRAM_SELECTION'),
         ]);
-        $data = [
-            'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROGRAM_SELECTION'),
-            'application_record_id' => Crypt::encrypt($getApplicationRecordId),
-        ];
-
-        Session::flash('data', $data);
-        return back();
+        
+        return redirect()->route('academicDetail.home',['id'=> Crypt::encrypt($getApplicationRecordId)]);
     }
     /*
     |-----------------------------------

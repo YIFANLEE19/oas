@@ -137,18 +137,6 @@
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end birth date, age, place of birth --}}
 
-    {{-- script --}}
-    <script>
-        var readInput = document.getElementById('read_birth_date').value;
-        var date_of_birth = new Date(readInput);
-        var month_diff = Date.now() - date_of_birth.getTime();
-        var age_df = new Date(month_diff);
-        var year = age_df.getUTCFullYear();
-        var age = Math.abs(year - 1970);
-        document.getElementById("read_age").innerHTML = age;
-    </script>
-    {{-- end script --}}
-
     {{-- gender marital --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -678,4 +666,16 @@
 </div>
 {{-- end modal --}}
 
+{{-- script --}}
+<script>
+    var readInput = document.getElementById('read_birth_date').value;
+    var date_of_birth = new Date(readInput);
+    var month_diff = Date.now() - date_of_birth.getTime();
+    var age_df = new Date(month_diff);
+    var year = age_df.getUTCFullYear();
+    var age = Math.abs(year - 1970);
+    document.getElementById("read_age").innerHTML = age;
+    document.getElementById("age").value = age;
+</script>
+{{-- end script --}}
 @endsection

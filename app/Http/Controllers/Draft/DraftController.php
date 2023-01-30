@@ -57,8 +57,10 @@ class DraftController extends Controller
         $getMaritals = Marital::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         $getDiseases = Disease::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         $getSchoolLevels = SchoolLevel::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
-        //ApplicantStatusLog
+        // Applicant status log
         $getApplicantStatusLog = ApplicantStatusLog::where('user_id',Auth::id())->first();
+        // Application status log
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
         //programme selection
         $getSelectedCourses = ProgrammePicked::where('application_record_id',$APPLICATION_RECORD_ID)->get();
         // personal particulars
@@ -89,6 +91,7 @@ class DraftController extends Controller
         $getStatusOfHealth = StatusOfHealth::where('application_record_id',$APPLICATION_RECORD_ID)->get();
 
         $data = [
+            'getApplicantStatusLog' => $getApplicantStatusLog,
             'getRaces' => $getRaces,
             'getReligions' => $getReligions,
             'getRelationships' => $getRelationships,
@@ -118,6 +121,15 @@ class DraftController extends Controller
         ];
 
         return view('oas.draft.home', compact('data','APPLICATION_RECORD_ID'));
+    }
+
+    public function submit($id){
+
+        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_DRAFT');
+        $getApplicationStatusLog->save();
+        return redirect()->route('home');
     }
 
 }

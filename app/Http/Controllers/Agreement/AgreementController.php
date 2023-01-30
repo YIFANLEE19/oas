@@ -25,17 +25,12 @@ class AgreementController extends Controller
     }
 
     public function submit($id){
-        // dd(Crypt::encrypt(session('key')));
 
-        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',session('key'))->first();
+        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
         $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_AGREEMENT');
         $getApplicationStatusLog->save();
 
-        $data = [
-            'application_status_id' => config('constants.APPLICATION_STATUS_CODE.COMPLETE_AGREEMENT'),
-            'application_record_id' => Crypt::encrypt(session('key')),
-        ];
-
-        return back();
+        return redirect()->route('draft.home',['id'=> Crypt::encrypt($APPLICATION_RECORD_ID)]);
     }
 }
