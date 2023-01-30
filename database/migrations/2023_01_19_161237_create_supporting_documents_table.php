@@ -11,12 +11,14 @@ class CreateSupportingDocumentsTable extends Migration
      *
      * @return void
      */
+    // isCert = 0, false, isCert = 1, true
+
     public function up()
     {
         Schema::create('supporting_documents', function (Blueprint $table) {
             $table->id();
-            $table->text('transcript')->nullable();
-            $table->text('cert')->nullable();
+            $table->text('doc')->nullable();
+            $table->boolean('isCert')->default(0);
         });
     }
 
