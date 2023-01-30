@@ -440,7 +440,7 @@
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h1 class="fw-bold">Academic Record</h1>
-                                    <a data-bs-toggle="modal" data-bs-target="#editprogramselectionmodal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#editAcademicDetailModal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -511,6 +511,35 @@
         </div>
     </div>
 </div>
+
+{{-- edit programme selection modal --}}
+<div class="modal fade" id="editProgrammeSelectionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editProgrammeSelectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <form action="{{ route('programmeSelect.update',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header bg-primary text-white">
+                    <h1 class="modal-title fs-5" id="editProgrammeSelectionModalLabel">Edit academic record</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- end edit programme selection modal --}}
 
 {{-- edit personal particulars modal --}}
 <div class="modal fade" id="editPersonalParticularsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editPersonalParticularsModalLabel" aria-hidden="true">
@@ -1337,6 +1366,70 @@
 </div>
 {{-- end edit profile picture modal --}}
 
+{{-- edit academic record modal --}}
+<div class="modal fade" id="editAcademicDetailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editAcademicDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <form action="{{ route('academicDetail.update',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header bg-primary text-white">
+                    <h1 class="modal-title fs-5" id="editAcademicDetailModalLabel">Edit status of health</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th scope="col">School Level</th>
+                                                <th scope="col">School Name</th>
+                                                <th scope="col">Year Graduation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for ($i = 0; $i < count($data['getSchoolLevels']); $i++)
+                                                <tr>
+                                                    <th scope="row">
+                                                        {{ $data['getSchoolLevels'][$i]->name }}
+                                                        <input type="hidden" name="school_level_id[]" value="{{ $data['getSchoolLevels'][$i]->id }}">
+                                                    </th>
+                                                    @if ($data['getAllAcademicRecord'][$i]->status == 1)
+                                                        <td>
+                                                            <input onkeyup="if (/[^|A-Za-z0-9\s/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/]+/g,'')"  maxlength="50" type="text" name="school_name[]" id="school_name[{{ $data['getSchoolLevels'][$i]->id }}]" class="form-control" value="{{ $data['getAllAcademicRecord'][$i]->school_name }}">
+                                                        </td>
+                                                        <td>
+                                                            <input onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" maxlength="4" type="text" name="school_graduation[]" id="school_graduation[{{ $data['getSchoolLevels'][$i]->id }}]" class="form-control" value="{{ $data['getAllAcademicRecord'][$i]->school_graduation }}">
+                                                        </td>
+                                                    @else
+                                                        <td>
+                                                            <input onkeyup="if (/[^|A-Za-z0-9\s/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/]+/g,'')"  maxlength="50" type="text" name="school_name[]" id="school_name[{{ $data['getSchoolLevels'][$i]->id }}]" class="form-control">
+                                                        </td>
+                                                        <td>
+                                                            <input onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" maxlength="4" type="text" name="school_graduation[]" id="school_graduation[{{ $data['getSchoolLevels'][$i]->id }}]" class="form-control">
+                                                        </td>
+                                                    @endif
+                                                </tr>
+                                            @endfor
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- end edit academic record modal --}}
+
 {{-- edit status of health --}}
 <div class="modal fade" id="editStatusOfHealthModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editStatusOfHealthModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -1344,7 +1437,7 @@
             <form action="{{ route('statusOfHealth.update',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-primary text-white">
-                    <h1 class="modal-title fs-5" id="editStatusOfHealthModalLabel">Edit status of health</h1>
+                    <h1 class="modal-title fs-5" id="editStatusOfHealthModalLabel">Edit academic record</h1>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

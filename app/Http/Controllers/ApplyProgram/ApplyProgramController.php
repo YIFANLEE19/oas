@@ -25,16 +25,17 @@ class ApplyProgramController extends Controller
     */
     public function index()
     {
-        $semester_id;
-        if(date('n') < 3){
-            $semester_id =1;
-        }elseif(date('n') >= 3 && date('n') < 6){
-            $semester_id =2;
-        }elseif(date('n') >= 6 && date('n') < 10){
-            $semester_id =3;
-        }
+        // $semester_id;
+        // if(date('n') < 3){
+        //     $semester_id =1;
+        // }elseif(date('n') >= 3 && date('n') < 6){
+        //     $semester_id =2;
+        // }elseif(date('n') >= 6 && date('n') < 10){
+        //     $semester_id =3;
+        // }
         $getApplicantStatusLog = ApplicantStatusLog::where('user_id',Auth::id())->first();
-        $getSemesterYearMappings = SemesterYearMapping::where('year','>=',date('Y'))->where('semester_id',$semester_id)->get();
+        $getSemesterYearMappings = SemesterYearMapping::where('year','>=',date('Y'))->get();
+        // $getSemesterYearMappings = SemesterYearMapping::where('year','>=',date('Y'))->where('semester_id',$semester_id)->get();
         $getOfferProgrammes = ProgrammeRecord::where('semester_year_mapping_id',$getSemesterYearMappings[0]->id)->get();
         if($getApplicantStatusLog->applicant_profile_status_id == config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')){
             return view('oas.programme_selection.home', compact('getSemesterYearMappings','getOfferProgrammes'));
@@ -95,7 +96,18 @@ class ApplyProgramController extends Controller
         Session::flash('data', $data);
         return back();
     }
-    public function test(){
-        dd('success');
+    /*
+    |-----------------------------------
+    | Update function
+    |-----------------------------------
+    */
+    public function update($id){
+        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        $r = request();
+    }
+
+    public function test(Request $request){
+        $data = ProgrammeRecord::where('semester_year_mapping_id',$request->id)->get();
+        return response()->json($data);
     }
 }

@@ -33,6 +33,7 @@ use App\Models\ProgrammePicked;
 use App\Models\SemesterYearMapping;
 use App\Models\Semester;
 use App\Models\Disease;
+use App\Models\SchoolLevel;
 use Auth;
 use DB;
 use Session;
@@ -55,6 +56,7 @@ class DraftController extends Controller
         $getGenders = Gender::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         $getMaritals = Marital::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         $getDiseases = Disease::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getSchoolLevels = SchoolLevel::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         //ApplicantStatusLog
         $getApplicantStatusLog = ApplicantStatusLog::where('user_id',Auth::id())->first();
         //programme selection
@@ -81,6 +83,7 @@ class DraftController extends Controller
         //profile picture
         $applicant_profile_picture = ApplicantProfilePicture::where('applicant_profile_id',$getApplicantStatusLog->applicant_profile_id)->first();
         //academic record
+        $getAllAcademicRecord = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->get();
         $getAcademicRecord = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('status',1)->get();
         // status of health
         $getStatusOfHealth = StatusOfHealth::where('application_record_id',$APPLICATION_RECORD_ID)->get();
@@ -95,7 +98,9 @@ class DraftController extends Controller
             'getIncomes' => $getIncomes,
             'getCountries' => $getCountries,
             'getDiseases' => $getDiseases,
+            'getSchoolLevels' => $getSchoolLevels,
             'getSelectedCourses' => $getSelectedCourses,
+            'getAllAcademicRecord' => $getAllAcademicRecord,
             'applicant_profile' => $applicantProfile,
             'user_detail' => $userDetail,
             'c_address' => $getCorrespondenceAddress,

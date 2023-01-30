@@ -1,7 +1,6 @@
 @extends('oas.layouts.app')
 
 @section('content')
-
 {{-- modal --}}
 <style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
 @if (Session::has('data') && Session::get('data')['application_status_id'] == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROGRAM_SELECTION'))
@@ -58,11 +57,31 @@
                                 <div class="col-md-6">
                                     <label for="" class="form-label">Intake Month & Year</label>
                                     <select name="semester_year_mapping_id" id="semester_year_mapping_id" class="form-select mb-2">
+                                        <option value="" selected hidden>Please select</option>
                                         @foreach ($getSemesterYearMappings as $getSemesterYearMapping)
                                             <option value="{{ $getSemesterYearMapping->id }}">Month: {{ $getSemesterYearMapping->semester['semester'] }}, Year: {{ $getSemesterYearMapping->year }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                <script>
+                                    $('#semester_year_mapping_id').change(function (){
+                                        var semester_year_mapping_id = $('#semester_year_mapping_id').val();
+                                        // console.log(semester_year_mapping_id);
+                                        $.ajax({
+                                            type:'get',
+                                            url:'/user/programme-select/findProgramme',
+                                            data:{'id':semester_year_mapping_id},
+                                            success:function(data){
+                                                console.log('success');
+                                                console.log(data);
+                                            },
+                                            error:function(){
+
+                                            }
+                                        })
+
+                                    })
+                                </script>
                                 <div class="col-md-6">
                                     <label for="" class="form-label">Programme Level</label>
                                     <select name="programme_level" id="programme_level" class="form-select mb-2" onchange="checkProgrammeLevel()" required>

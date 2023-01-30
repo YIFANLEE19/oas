@@ -80,74 +80,24 @@ class AcademicDetailController extends Controller
 
     }
 
-    public function view()
+    public function update($id)
     {
-        $applicationRecord = ApplicationRecord::where('user_id', Auth::id())->first();
-        $application_status_log_id = ApplicationStatusLog::where('user_id', Auth::id())->first();
-        if ($applicationRecord == null || $application_status_log_id == null) {
-            $application_status_id = 0;
-            return redirect()->route('home');
-        } else {
-            $application_status_id = $application_status_log_id->application_status_id;
-            if ($application_status_id != 6 && $application_status_id < 6) {
-                return redirect()->route('home');
-            }
-        }
-        $applicant_application_id = $applicationRecord->id;
-        $academicRecord = AcademicRecord::where('application_record_id', $applicant_application_id)->get();
-
-        // if user profile 
-        if ($applicationRecord != null) {
-            return view('oas.academic_detail.view', compact('academicRecord'));
-        }
-    }
-
-    public function update()
-    {
+        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         $r = request();
-        $applicationRecord = ApplicationRecord::where('user_id', Auth::id())->first('id');
-        $updateSecondary = AcademicRecord::where('school_level_id', 1)->where('application_record_id', $applicationRecord->id)->update(
-            [
-                'school_name' => $r->school_name[1],
-                'school_graduation' => $r->school_graduation[1],
-            ]
-        );
 
-        $updateUpperSecondary = AcademicRecord::where('school_level_id', 2)->where('application_record_id', $applicationRecord->id)->update([
-            'school_name' => $r->school_name[2],
-            'school_graduation' => $r->school_graduation[2],
-        ]);
+        $getSelectedAcademicRecord = AcademicRecord::where('application_record_id', $APPLICATION_RECORD_ID)->get();
 
-        $updateFoundation = AcademicRecord::where('school_level_id', 3)->where('application_record_id', $applicationRecord->id)->update([
-            'school_name' => $r->school_name[3],
-            'school_graduation' => $r->school_graduation[3],
-        ]);
+        $getAllSchoolLevelId = $r->school_level_id;
+        $getAllSchoolName = $r->school_name;
+        $getAllSchoolGraduation = $r->school_graduation;
 
-        $updateDiploma = AcademicRecord::where('school_level_id', 4)->where('application_record_id', $applicationRecord->id)->update([
-            'school_name' => $r->school_name[4],
-            'school_graduation' => $r->school_graduation[4],
-        ]);
+        for ($i=0; $i < count($getAllSchoolLevelId); $i++) { 
+            $getSelectedAcademicRecord[$i]->school_name = $getAllSchoolName[$i];
+            $getSelectedAcademicRecord[$i]->school_graduation = $getAllSchoolGraduation[$i];
+            $getSelectedAcademicRecord[$i]->status = ($getAllSchoolName[$i] == null?0:1);
+            $getSelectedAcademicRecord[$i]->save();
+        }
 
-        $updateDegree = AcademicRecord::where('school_level_id', 5)->where('application_record_id', $applicationRecord->id)->update([
-            'school_name' => $r->school_name[5],
-            'school_graduation' => $r->school_graduation[5],
-        ]);
-
-        $updatePhd = AcademicRecord::where('school_level_id', 6)->where('application_record_id', $applicationRecord->id)->update([
-            'school_name' => $r->school_name[6],
-            'school_graduation' => $r->school_graduation[6],
-        ]);
-
-        $updateMaster = AcademicRecord::where('school_level_id', 7)->where('application_record_id', $applicationRecord->id)->update([
-            'school_name' => $r->school_name[7],
-            'school_graduation' => $r->school_graduation[7],
-        ]);
-
-        $updateOther = AcademicRecord::where('school_level_id', 8)->where('application_record_id', $applicationRecord->id)->update([
-            'school_name' => $r->school_name[8],
-            'school_graduation' => $r->school_graduation[8],
-        ]);
-        Session::flash('successAcademic', "Academic Record update Successful!");
-        return redirect()->route('draft.home');
+        return back();
     }
 }

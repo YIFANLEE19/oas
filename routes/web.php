@@ -239,11 +239,14 @@ Route::prefix('user/')->middleware('auth')->group(function () {
     Route::controller(ApplyProgramController::class)->prefix('programme-select/')->name('programmeSelect.')->group(function() {
         Route::get('/', 'index')->name('home');
         Route::post('/create','create')->name('create');
+        Route::post('/update/{id}', 'update')->name('update');
+        Route::get('/findProgramme','test')->name('test');
     });
 
     Route::controller(AcademicDetailController::class)->prefix('academic-detail/')->name('academicDetail.')->group(function () {
         Route::get('/{id}', 'index')->name('home');
         Route::post('/create/{id}', 'create')->name('create');
+        Route::post('/update/{id}', 'update')->name('update');
     });
 
     Route::controller(StatusOfHealthController::class)->prefix('status-of-health/')->name('statusOfHealth.')->group(function () {
