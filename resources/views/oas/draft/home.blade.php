@@ -50,7 +50,7 @@
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h1 class="fw-bold">Course Selection</h1>
-                                    <a data-bs-toggle="modal" data-bs-target="#editCourseSelectionModal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#editProgrammeSelectionModal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -536,6 +536,7 @@
 {{-- end confirm modal --}}
 
 {{-- edit programme selection modal --}}
+@livewireStyles
 <div class="modal fade" id="editProgrammeSelectionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editProgrammeSelectionModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
@@ -549,7 +550,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                
+                                <livewire:edit-programme-selection/>
                             </div>
                         </div>
                     </div>
@@ -562,6 +563,7 @@
         </div>
     </div>
 </div>
+@livewireScripts
 {{-- end edit programme selection modal --}}
 
 {{-- edit personal particulars modal --}}

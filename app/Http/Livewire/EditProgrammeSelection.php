@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\SemesterYearMapping;
 use App\Models\ProgrammeRecord;
 
-class ProgrammeSelection extends Component
+class EditProgrammeSelection extends Component
 {
     public $selectedSemesterYearMappingId = null;
     public $getOfferProgrammes = null;
@@ -21,7 +21,7 @@ class ProgrammeSelection extends Component
 
     public function render()
     {
-        return view('livewire.programme-selection',[
+        return view('livewire.edit-programme-selection',[
             'semesterYearMappings' => SemesterYearMapping::where('year','=',date('Y'))->get(),
         ]);
     }
@@ -35,5 +35,4 @@ class ProgrammeSelection extends Component
     {
         $this->programmeLevelId =$programme_level_id;
     }
-
 }

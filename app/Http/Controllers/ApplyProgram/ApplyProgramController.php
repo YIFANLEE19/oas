@@ -98,7 +98,25 @@ class ApplyProgramController extends Controller
     */
     public function update($id){
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        $choicePriorities = array(config('constants.CHOICE_PRIORITY.FIRST_CHOICE'),config('constants.CHOICE_PRIORITY.SECOND_CHOICE'),config('constants.CHOICE_PRIORITY.THIRD_CHOICE'));
         $r = request();
+        $getProgrammePicked = ProgrammePicked::where('application_record_id',$APPLICATION_RECORD_ID)->get();
+        $getAllPostgraduateProgrammeId = $r->postgraduate_programme_id;
+        $getAllUndergraduateProgrammeId = $r->undergraduate_programme_id;
+        if($getAllUndergraduateProgrammeId == null){
+            for($i=0; $i<sizeof($choicePriorities); $i++){
+                $getProgrammePicked[$i]->programme_record_id = $getAllPostgraduateProgrammeId[$i];
+                $getProgrammePicked[$i]->choice_priority_id = $choicePriorities[$i];
+                $getProgrammePicked[$i]->save();
+            }
+        }elseif($getAllPostgraduateProgrammeId == null){
+            for($i=0; $i<sizeof($choicePriorities); $i++){
+                $getProgrammePicked[$i]->programme_record_id = $getAllUndergraduateProgrammeId[$i];
+                $getProgrammePicked[$i]->choice_priority_id = $choicePriorities[$i];
+                $getProgrammePicked[$i]->save();
+            }
+        }
+        return back();
     }
 
     public function test(Request $request){

@@ -14,7 +14,7 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="identity_document_type" class="form-label">Identity Document Type Name</label>
-                            <input type="text" name="identity_document_type" id="identity_document_type" class="form-control">
+                            <input type="text" name="identity_document_type" id="identity_document_type" class="form-control" required>
                         </div>
                     </div>
                     <div class="modal-footer">
