@@ -201,7 +201,7 @@
                 <div class="row g-3">
                     <div class="col-md mb-3">
                         <label for="birth_date" class="form-label">{{ __('inputFields.bd') }}<span class="text-danger">*</span></label>
-                        <input type="date" name="birth_date" id="birth_date" class="form-control" onchange="ageCalculator()" required>
+                        <input type="date" name="birth_date" id="birth_date" class="form-control" onchange="ageCalculator()" max="<?= date('Y-m-d'); ?>" required>
                     </div>
                     <div class="col-md mb-3">
                         <label for="age" class="form-label">{{ __('inputFields.age') }}</label>

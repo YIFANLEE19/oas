@@ -137,6 +137,18 @@
     <div class="border-bottom mt-2 mb-4"></div>
     {{-- end birth date, age, place of birth --}}
 
+    {{-- script --}}
+    <script>
+        var readInput = document.getElementById('read_birth_date').value;
+        var date_of_birth = new Date(readInput);
+        var month_diff = Date.now() - date_of_birth.getTime();
+        var age_df = new Date(month_diff);
+        var year = age_df.getUTCFullYear();
+        var age = Math.abs(year - 1970);
+        document.getElementById("read_age").innerHTML = age;
+    </script>
+    {{-- end script --}}
+
     {{-- gender marital --}}
     <div class="row d-flex flex-row mt-4">
         <div class="col-md-4">
@@ -402,7 +414,7 @@
                                 <div class="row g-3">
                                     <div class="col-md mb-3">
                                         <label for="birth_date" class="form-label">{{ __('inputFields.bd') }}<span class="text-danger">*</span></label>
-                                        <input type="date" name="birth_date" id="birth_date" class="form-control" value="{{ $applicant_profile->birth_date }}" onchange="ageCalculator()">
+                                        <input type="date" name="birth_date" id="birth_date" class="form-control" value="{{ $applicant_profile->birth_date }}" onchange="ageCalculator()" max="<?= date('Y-m-d'); ?>">
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="age" class="form-label">{{ __('inputFields.age') }}</label>
@@ -438,6 +450,7 @@
 
                         {{-- script --}}
                         <script>
+                            ageCalculator()
                             function ageCalculator(){
                                 var user_input = document.getElementById('birth_date').value;
                                 var date_of_birth = new Date(user_input);
@@ -666,16 +679,4 @@
 </div>
 {{-- end modal --}}
 
-{{-- script --}}
-<script>
-    var readInput = document.getElementById('read_birth_date').value;
-    var date_of_birth = new Date(readInput);
-    var month_diff = Date.now() - date_of_birth.getTime();
-    var age_df = new Date(month_diff);
-    var year = age_df.getUTCFullYear();
-    var age = Math.abs(year - 1970);
-    document.getElementById("read_age").innerHTML = age;
-    document.getElementById("age").value = age;
-</script>
-{{-- end script --}}
 @endsection

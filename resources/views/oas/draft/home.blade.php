@@ -1,6 +1,7 @@
 @extends('oas.layouts.app')
 
 @section('content')
+
 {{-- header --}}
 <div class="container">
     <div class="row">
@@ -429,7 +430,7 @@
                             </div>
                             <div class="col-md-4 col-12">
                                 <p class="lead">Preview</p>
-                                <img src="/images/profile_picture/{{ Crypt::decrypt($data['profile_picture']->path) }}" class="img-fluid" width="217px" height="280px">
+                                <img src="/images/profile_picture/{{ $data['profile_picture']->path }}" class="img-fluid" width="217px" height="280px">
                             </div>
                         </div>
                         <div class="border-bottom mb-2"></div>
@@ -503,36 +504,13 @@
                 <div class="card-footer">
                     <div class="d-flex justify-content-end">
                         <a href="#" class="btn btn-outline-secondary me-3">{{ __('academicRecord.back_button') }}</a>
-                        <a data-bs-toggle="modal" data-bs-target="#confirmDraftModal" class="btn btn-primary">{{ __('academicRecord.next_button') }}</a>
+                        <button type="submit" class="btn btn-primary me-3" onClick="check()">{{ __('academicRecord.next_button') }}</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-{{-- confirm draft modal --}}
-<div class="modal fade" id="confirmDraftModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDraftModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form action="{{ route('draft.submit',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-header bg-primary text-white">
-                    <h1 class="modal-title fs-5" id="confirmDraftModalLabel">Confirmation</h1>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to continue? If you continue, the information you provided will not be modified.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Continue</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-{{-- end confirm draft modal --}}
 
 {{-- edit programme selection modal --}}
 <div class="modal fade" id="editProgrammeSelectionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editProgrammeSelectionModalLabel" aria-hidden="true">
@@ -732,11 +710,11 @@
                                 <div class="row g-3">
                                     <div class="col-md mb-3">
                                         <label for="birth_date" class="form-label">{{ __('inputFields.bd') }}<span class="text-danger">*</span></label>
-                                        <input type="date" name="birth_date" id="birth_date" class="form-control" value="{{ $data['applicant_profile']->birth_date }}" onchange="ageCalculator()">
+                                        <input type="date" name="birth_date" id="birth_date" class="form-control" value="{{ $data['applicant_profile']->birth_date }}" onchange="ageCalculator()" max="<?= date('Y-m-d'); ?>">
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="age" class="form-label">{{ __('inputFields.age') }}</label>
-                                        <input type="text" name="age" id="age" value="" class="form-control" placeholder="" disabled>
+                                        <input type="text" name="age" id="age" value="" class="form-control" disabled>
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="place_of_birth" class="form-label">{{ __('inputFields.pob') }}<span class="text-danger">*</span></label>
@@ -767,6 +745,7 @@
                         {{-- end birth date, age, place of birth  --}}    
                         {{-- script --}}
                         <script>
+                            ageCalculator();
                             function ageCalculator(){
                                 var user_input = document.getElementById('birth_date').value;
                                 var date_of_birth = new Date(user_input);
