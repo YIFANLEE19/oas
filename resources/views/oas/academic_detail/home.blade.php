@@ -99,7 +99,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <a href="{{ route('programmeSelect.home') }}">Back</a>
+                            <a href="{{ route('programmeSelect.home') }}" class="btn btn-outline-secondary me-3">Back</a>
                             <button type="submit" class="btn btn-primary me-3">{{ __('academicRecord.next_button') }}</button>
                         </div>
                     </div>

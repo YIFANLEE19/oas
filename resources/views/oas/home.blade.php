@@ -206,7 +206,7 @@
                                     @elseif($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_AGREEMENT'))
                                     <a href="{{ route('draft.home', ['id' => Crypt::encrypt($application_status_log->application_record_id) ]) }}" class="btn btn-primary">Continue draft</a>
                                     @elseif($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_DRAFT'))
-                                    <a href="#" class="btn btn-primary">Continue supporting document</a>
+                                    <a href="{{ route('supportingDocument.home', ['id' => Crypt::encrypt($application_status_log->application_record_id) ]) }}" class="btn btn-primary">Continue supporting document</a>
                                     @endif
                                 </td>
                             </tr>

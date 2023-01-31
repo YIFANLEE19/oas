@@ -37,6 +37,7 @@ use App\Http\Controllers\StatusOfHealth\StatusOfHealthController;
 use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Agreement\AgreementController;
 use App\Http\Controllers\Draft\DraftController;
+use App\Http\Controllers\SupportingDocument\SupportingDocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -268,6 +269,11 @@ Route::prefix('user/')->middleware('auth')->group(function () {
     });
 
     Route::controller(DraftController::class)->prefix('draft/')->name('draft.')->group(function () {
+        Route::get('/{id}', 'index')->name('home');
+        Route::post('/submit/{id}', 'submit')->name('submit');
+    });
+
+    Route::controller(SupportingDocumentController::class)->prefix('supporting-document/')->name('supportingDocument.')->group(function () {
         Route::get('/{id}', 'index')->name('home');
         Route::post('/submit/{id}', 'submit')->name('submit');
     });
