@@ -47,7 +47,7 @@
 {{-- end header --}}
 
 <div class="container mt-2">
-    <form action="{{ route('agreements.submit',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="POST">
+    <form action="{{ route('agreements.submit',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-md-12">

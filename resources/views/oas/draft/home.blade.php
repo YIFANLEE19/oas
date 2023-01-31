@@ -504,13 +504,36 @@
                 <div class="card-footer">
                     <div class="d-flex justify-content-end">
                         <a href="#" class="btn btn-outline-secondary me-3">{{ __('academicRecord.back_button') }}</a>
-                        <button type="submit" class="btn btn-primary me-3" onClick="check()">{{ __('academicRecord.next_button') }}</button>
+                        <a data-bs-toggle="modal" data-bs-target="#confirmModal" class="btn btn-primary me-3">{{ __('academicRecord.next_button') }}</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{{-- confirm modal --}}
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form action="{{ route('draft.submit',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header bg-primary text-white">
+                    <h1 class="modal-title fs-5" id="confirmModalLabel">Confirmation</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to continue. If you continue, the information you provide cannot be modified.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- end confirm modal --}}
 
 {{-- edit programme selection modal --}}
 <div class="modal fade" id="editProgrammeSelectionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editProgrammeSelectionModalLabel" aria-hidden="true">

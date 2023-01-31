@@ -233,6 +233,16 @@
                 </div>
             </div>
             {{-- end programme offered --}}
+            {{-- identity document type --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Identity document type</h5>
+                        <a href="{{ route('identityDocumentType.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end identity document type --}}
         </div>
     </div>
 
