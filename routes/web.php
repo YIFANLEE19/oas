@@ -270,17 +270,17 @@ Route::prefix('user/')->middleware('auth')->group(function () {
 
     Route::controller(DraftController::class)->prefix('draft/')->name('draft.')->group(function () {
         Route::get('/{id}', 'index')->name('home');
-        Route::post('/submit/{id}', 'submit')->name('submit');
+        Route::post('/create/{id}', 'create')->name('create');
     });
 
     Route::controller(SupportingDocumentController::class)->prefix('supporting-document/')->name('supportingDocument.')->group(function () {
         Route::get('/{id}', 'index')->name('home');
-        Route::post('/submit/{id}', 'submit')->name('submit');
+        Route::post('/create/{id}', 'create')->name('create');
     });
 
     Route::controller(PaymentController::class)->prefix('payment/')->name('payment.')->group(function () {
         Route::get('/', 'index')->name('home');
-        Route::post('/create', 'create')->name('create');
+        Route::post('/create/{id}', 'create')->name('create');
     });
 });
 

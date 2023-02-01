@@ -119,8 +119,8 @@ class ApplyProgramController extends Controller
         return back();
     }
 
-    public function test(Request $request){
-        $data = ProgrammeRecord::where('semester_year_mapping_id',$request->id)->get();
-        return response()->json($data);
-    }
+    // public function test(Request $request){
+    //     $data = ProgrammeRecord::where('semester_year_mapping_id',$request->id)->get();
+    //     return response()->json($data);
+    // }
 }

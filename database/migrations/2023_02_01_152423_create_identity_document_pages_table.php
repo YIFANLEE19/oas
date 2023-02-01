@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIdentityDocumentsTable extends Migration
+class CreateIdentityDocumentPagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateIdentityDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('identity_documents', function (Blueprint $table) {
+        Schema::create('identity_document_pages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_detail_id')->constrained()->onUpdate('cascade');
-            $table->foreignId('identity_document_type_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('identity_document_id')->constrained()->onUpdate('cascade');
+            $table->text('page');
         });
     }
 
@@ -27,6 +27,6 @@ class CreateIdentityDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('identity_documents');
+        Schema::dropIfExists('identity_document_pages');
     }
 }

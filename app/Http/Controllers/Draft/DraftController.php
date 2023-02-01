@@ -123,7 +123,7 @@ class DraftController extends Controller
         return view('oas.draft.home', compact('data','APPLICATION_RECORD_ID'));
     }
 
-    public function submit($id){
+    public function create($id){
 
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
