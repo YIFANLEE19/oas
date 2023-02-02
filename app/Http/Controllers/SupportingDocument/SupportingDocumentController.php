@@ -60,6 +60,7 @@ class SupportingDocumentController extends Controller
 
     public function tmpUpload(Request $request)
     {
+        $testarr = array();
         if($request->hasFile('icFront')){
             $icFront = $request->file('icFront');
             $icFrontFileName = 'icFront_'.Auth::user()->name.'_'.date('YmdHii').'_'.$icFront->getClientOriginalName();
@@ -84,16 +85,19 @@ class SupportingDocumentController extends Controller
         } 
         if($request->hasFile('schoolLeavingCerts')){
             $schoolLeavingCerts = $request->file('schoolLeavingCerts');
-            $schoolLeavingCertsFileName = 'schoolLeavingCerts_'.Auth::user()->name.'_'.date('YmdHii').'_'.$schoolLeavingCertsFileName->getClientOriginalName();
-            $schoolLeavingCertsFolder = uniqid('schoolLeavingCerts',true);
-            Session::push('schoolLeavingCertsFolder',$schoolLeavingCertsFolder);
-            Session::push('schoolLeavingCertsFileName',$schoolLeavingCertsFileName);
-            $schoolLeavingCerts->storeAs('/public/images/schoolLeavingCerts/tmp/' . $schoolLeavingCertsFolder, $schoolLeavingCertsFileName);
-            TemporaryFile::create([
-                'folder' => $schoolLeavingCertsFolder,
-                'file' => $schoolLeavingCertsFileName,
-            ]);
+            for ($i=0; $i < count($schoolLeavingCerts); $i++) { 
+                $schoolLeavingCertsFileName[$i] = 'icBack_'.Auth::user()->name.'_'.date('YmdHii').'_'.$schoolLeavingCerts[$i]->getClientOriginalName();
+                $schoolLeavingCertsFolder[$i] = uniqid('schoolLeavingCerts',true);
+                $schoolLeavingCerts[$i]->storeAs('/public/images/schoolLeavingCertsFolder/tmp/' . $schoolLeavingCertsFolder[$i], $schoolLeavingCertsFileName[$i]);
+                $testarr[$i] = $schoolLeavingCertsFolder[$i];
+                TemporaryFile::create([
+                    'folder' => $schoolLeavingCertsFolder[$i],
+                    'file' => $schoolLeavingCertsFileName[$i],
+                ]);
+            }
+            Session::push('testarray',$testarr);
         }
+        
         return '';
     }
 
@@ -102,6 +106,7 @@ class SupportingDocumentController extends Controller
 
         $ic_front_tmp_file = TemporaryFile::where('folder',Session::get('icFrontFolder'))->first();
         $ic_back_tmp_file = TemporaryFile::where('folder',Session::get('icBackFolder'))->first();
+
         if($ic_front_tmp_file){
             Storage::deleteDirectory('/public/images/icFront/tmp/'. $ic_front_tmp_file->folder);
             $ic_front_tmp_file->delete();
