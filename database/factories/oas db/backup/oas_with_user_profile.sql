@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2023 at 11:55 AM
+-- Generation Time: Feb 02, 2023 at 06:05 AM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -748,6 +748,49 @@ INSERT INTO `guardian_relationships` (`id`, `name`, `relationship_code`, `status
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `identity_documents`
+--
+
+CREATE TABLE `identity_documents` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_detail_id` bigint(20) UNSIGNED NOT NULL,
+  `identity_document_type_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `identity_document_pages`
+--
+
+CREATE TABLE `identity_document_pages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `identity_document_id` bigint(20) UNSIGNED NOT NULL,
+  `page` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `identity_document_types`
+--
+
+CREATE TABLE `identity_document_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `type` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `identity_document_types`
+--
+
+INSERT INTO `identity_document_types` (`id`, `type`) VALUES
+(1, 'Identity card - Front'),
+(2, 'Identity card - Back');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `incomes`
 --
 
@@ -858,7 +901,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (41, '2023_01_19_154356_create_programme_records_table', 1),
 (42, '2023_01_19_154423_create_programme_pickeds_table', 1),
 (43, '2023_01_19_161237_create_supporting_documents_table', 1),
-(44, '2023_01_19_161258_create_academic_transcripts_table', 1);
+(44, '2023_01_19_161258_create_academic_transcripts_table', 1),
+(45, '2023_01_31_135818_create_identity_document_types_table', 2),
+(46, '2023_01_31_140039_create_identity_documents_table', 2),
+(47, '2023_02_01_152423_create_identity_document_pages_table', 2),
+(48, '2023_02_02_094132_create_temporary_files_table', 2);
 
 -- --------------------------------------------------------
 
@@ -1507,6 +1554,20 @@ CREATE TABLE `supporting_documents` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `temporary_files`
+--
+
+CREATE TABLE `temporary_files` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `folder` varchar(255) NOT NULL,
+  `file` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -1736,6 +1797,27 @@ ALTER TABLE `guardian_relationships`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `identity_documents`
+--
+ALTER TABLE `identity_documents`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `identity_documents_user_detail_id_foreign` (`user_detail_id`),
+  ADD KEY `identity_documents_identity_document_type_id_foreign` (`identity_document_type_id`);
+
+--
+-- Indexes for table `identity_document_pages`
+--
+ALTER TABLE `identity_document_pages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `identity_document_pages_identity_document_id_foreign` (`identity_document_id`);
+
+--
+-- Indexes for table `identity_document_types`
+--
+ALTER TABLE `identity_document_types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `incomes`
 --
 ALTER TABLE `incomes`
@@ -1868,6 +1950,12 @@ ALTER TABLE `status_of_healths`
 -- Indexes for table `supporting_documents`
 --
 ALTER TABLE `supporting_documents`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `temporary_files`
+--
+ALTER TABLE `temporary_files`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2028,6 +2116,24 @@ ALTER TABLE `guardian_relationships`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT for table `identity_documents`
+--
+ALTER TABLE `identity_documents`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `identity_document_pages`
+--
+ALTER TABLE `identity_document_pages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `identity_document_types`
+--
+ALTER TABLE `identity_document_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `incomes`
 --
 ALTER TABLE `incomes`
@@ -2043,7 +2149,7 @@ ALTER TABLE `maritals`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `nationalities`
@@ -2139,6 +2245,12 @@ ALTER TABLE `status_of_healths`
 -- AUTO_INCREMENT for table `supporting_documents`
 --
 ALTER TABLE `supporting_documents`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `temporary_files`
+--
+ALTER TABLE `temporary_files`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -2255,6 +2367,19 @@ ALTER TABLE `guardian_details`
   ADD CONSTRAINT `guardian_details_income_id_foreign` FOREIGN KEY (`income_id`) REFERENCES `incomes` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `guardian_details_nationality_id_foreign` FOREIGN KEY (`nationality_id`) REFERENCES `nationalities` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `guardian_details_user_detail_id_foreign` FOREIGN KEY (`user_detail_id`) REFERENCES `user_details` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `identity_documents`
+--
+ALTER TABLE `identity_documents`
+  ADD CONSTRAINT `identity_documents_identity_document_type_id_foreign` FOREIGN KEY (`identity_document_type_id`) REFERENCES `identity_document_types` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `identity_documents_user_detail_id_foreign` FOREIGN KEY (`user_detail_id`) REFERENCES `user_details` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `identity_document_pages`
+--
+ALTER TABLE `identity_document_pages`
+  ADD CONSTRAINT `identity_document_pages_identity_document_id_foreign` FOREIGN KEY (`identity_document_id`) REFERENCES `identity_documents` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `payments`

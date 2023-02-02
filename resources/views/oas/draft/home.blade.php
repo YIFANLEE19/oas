@@ -550,7 +550,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <livewire:edit-programme-selection/>
+                                <livewire:edit-programme-selection :APPLICATION_RECORD_ID="$APPLICATION_RECORD_ID"/>
                             </div>
                         </div>
                     </div>

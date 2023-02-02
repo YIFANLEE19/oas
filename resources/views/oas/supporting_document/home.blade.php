@@ -1,7 +1,9 @@
 @extends('oas.layouts.app')
 
 @section('content')
-    
+
+{{-- <img src="{{ Storage::url('images/icFront/icFront63db2e44338104.24879098/icFront_Superadmin_20230202113030_ic-front.png') }}" alt=""> --}}
+
 {{-- header --}}
 <div class="container">
     <div class="row">
@@ -27,8 +29,15 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <div class="card">
-                <form action="{{ route('supportingDocument.create',['id'=>Crypt::encrypt($APPLICATION_RECORD_ID )]) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('supportingDocument.create',['id'=>Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header bg-primary text-white">Submit Supporting Document</div>
                     <div class="card-body">
@@ -59,7 +68,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-12">
-                                    <input type="file" name="schoolLeavingCerts[]" id="schoolLeavingCert" multiple data-max-file-size="5MB" data-max-files="10" required>
+                                    <input type="file" name="schoolLeavingCerts[]" id="schoolLeavingCert" multiple data-max-file-size="5MB" data-max-files="3" data-allow-reorder="true">
                                 </div>
                             </div>
                             {{-- end leaving cert --}}
@@ -126,34 +135,40 @@
 <script src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.js"></script>
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 <script>
-
+    
     // We want to preview images, so we register
     // the Image Preview plugin, We also register 
     // exif orientation (to correct mobile image
     // orientation) and size validation, to prevent
     // large files from being added
     FilePond.registerPlugin(
-        // encodes the file as base64 data
-        FilePondPluginFileEncode,
-        FilePondPluginImageEdit,
-        // validates the size of the file
         FilePondPluginFileValidateSize,
-        
-        // corrects mobile image orientation
+        FilePondPluginFileEncode,
         FilePondPluginImageExifOrientation,
         FilePondPluginImagePreview,
+
     );
     
     // Create a FilePond instance
-    FilePond.create(document.querySelector('input[id="icFront"]'));
-    FilePond.create(document.querySelector('input[id="icBack"]'));
-    FilePond.create(document.querySelector('input[id="schoolLeavingCert"]'));
-    FilePond.create(document.querySelector('input[id="secondarySchoolTranscript"]'));
-    FilePond.create(document.querySelector('input[id="upperSecondarySchoolTranscript"]'));
-    FilePond.create(document.querySelector('input[id="foundationTranscript"]'));
-    FilePond.create(document.querySelector('input[id="diplomaTranscript"]'));
-    FilePond.create(document.querySelector('input[id="degreeTranscript"]'));
-    FilePond.create(document.querySelector('input[id="others"]'));
+    const icFrontPond = FilePond.create(document.querySelector('input[id="icFront"]'));
+    const icBackPond = FilePond.create(document.querySelector('input[id="icBack"]'));
+    const schoolLeavingCertPond = FilePond.create(document.querySelector('input[id="schoolLeavingCert"]'));
+    const secondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="secondarySchoolTranscript"]'));
+    const upperSecondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="upperSecondarySchoolTranscript"]'));
+    const foundationTranscriptPond = FilePond.create(document.querySelector('input[id="foundationTranscript"]'));
+    const diplomaTranscriptPond = FilePond.create(document.querySelector('input[id="diplomaTranscript"]'));
+    const degreeTranscriptPond = FilePond.create(document.querySelector('input[id="degreeTranscript"]'));
+    const othersPond = FilePond.create(document.querySelector('input[id="others"]'));
+
+    FilePond.setOptions({
+        server: {
+            process: '/user/supporting-document/tmp-upload',
+            revert:  '/user/supporting-document/tmp-delete',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        },
+    });
     
 </script>
 @endsection
