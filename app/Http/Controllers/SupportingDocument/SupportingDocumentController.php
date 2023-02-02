@@ -26,6 +26,7 @@ class SupportingDocumentController extends Controller
     public function create(Request $request,$id)
     {
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        // submit ic front & back
         $getIcFrontDocumentId = IdentityDocument::insertGetId([
             'application_record_id' => $APPLICATION_RECORD_ID,
             'identity_document_type_id' => config('constants.IDENTITY_DOCUEMENT_TYPE.IC_FRONT'),
@@ -35,26 +36,28 @@ class SupportingDocumentController extends Controller
             'identity_document_type_id' => config('constants.IDENTITY_DOCUEMENT_TYPE.IC_BACK'),
         ]);
 
-        $ic_front_tmp_file = TemporaryFile::where('folder',Session::get('icFrontFolder'))->first();
-        $ic_back_tmp_file = TemporaryFile::where('folder',Session::get('icBackFolder'))->first();
-        if($ic_front_tmp_file){
-            Storage::copy('/public/images/icFront/tmp/' . $ic_front_tmp_file->folder. '/' . $ic_front_tmp_file->file, '/public/images/icFront/' . $ic_front_tmp_file->folder. '/' . $ic_front_tmp_file->file);
+        $icFrontTmpFile = TemporaryFile::where('folder',Session::get('icFrontFolder'))->first();
+        $icBackTmpFile = TemporaryFile::where('folder',Session::get('icBackFolder'))->first();
+        if($icFrontTmpFile){
+            Storage::copy('/public/images/icFront/tmp/' . $icFrontTmpFile->folder. '/' . $icFrontTmpFile->file, '/public/images/icFront/' . $icFrontTmpFile->folder. '/' . $icFrontTmpFile->file);
             IdentityDocumentPage::create([
                 'identity_document_id' => $getIcFrontDocumentId,
-                'page' => $ic_front_tmp_file->folder . '/' . $ic_front_tmp_file->file,
+                'page' => Crypt::encrypt($icFrontTmpFile->folder . '/' . $icFrontTmpFile->file),
             ]);
-            Storage::deleteDirectory('/public/images/icFront/tmp/'. $ic_front_tmp_file->folder);
-            $ic_front_tmp_file->delete();
+            Storage::deleteDirectory('/public/images/icFront/tmp/'. $icFrontTmpFile->folder);
+            $icFrontTmpFile->delete();
         }
-        if($ic_back_tmp_file){
-            Storage::copy('/public/images/icBack/tmp/' . $ic_back_tmp_file->folder. '/' . $ic_back_tmp_file->file, '/public/images/icBack/' . $ic_back_tmp_file->folder. '/' . $ic_back_tmp_file->file);
+        if($icBackTmpFile){
+            Storage::copy('/public/images/icBack/tmp/' . $icBackTmpFile->folder. '/' . $icBackTmpFile->file, '/public/images/icBack/' . $icBackTmpFile->folder. '/' . $icBackTmpFile->file);
             IdentityDocumentPage::create([
                 'identity_document_id' => $getIcBackDocumentId,
-                'page' => $ic_back_tmp_file->folder . '/' . $ic_back_tmp_file->file,
+                'page' => Crypt::encrypt($icBackTmpFile->folder . '/' . $icBackTmpFile->file),
             ]);
-            Storage::deleteDirectory('/public/images/icBack/tmp/'. $ic_back_tmp_file->folder);
-            $ic_back_tmp_file->delete();
+            Storage::deleteDirectory('/public/images/icBack/tmp/'. $icBackTmpFile->folder);
+            $icBackTmpFile->delete();
         }
+        Session::forgot('icFrontFolder');
+        Session::forgot('icBackFolder');
         return back();
     }
 
@@ -71,6 +74,7 @@ class SupportingDocumentController extends Controller
                 'folder' => $icFrontFolder,
                 'file' => $icFrontFileName,
             ]);
+            return $icFrontFolder;
         }
         if($request->hasFile('icBack')){
             $icBack = $request->file('icBack');
@@ -82,41 +86,27 @@ class SupportingDocumentController extends Controller
                 'folder' => $icBackFolder,
                 'file' => $icBackFileName,
             ]);
+            return $icBackFolder;
         } 
-        if($request->hasFile('schoolLeavingCerts')){
-            $schoolLeavingCerts = $request->file('schoolLeavingCerts');
-            for ($i=0; $i < count($schoolLeavingCerts); $i++) { 
-                $schoolLeavingCertsFileName[$i] = 'icBack_'.Auth::user()->name.'_'.date('YmdHii').'_'.$schoolLeavingCerts[$i]->getClientOriginalName();
-                $schoolLeavingCertsFolder[$i] = uniqid('schoolLeavingCerts',true);
-                $schoolLeavingCerts[$i]->storeAs('/public/images/schoolLeavingCertsFolder/tmp/' . $schoolLeavingCertsFolder[$i], $schoolLeavingCertsFileName[$i]);
-                $testarr[$i] = $schoolLeavingCertsFolder[$i];
-                TemporaryFile::create([
-                    'folder' => $schoolLeavingCertsFolder[$i],
-                    'file' => $schoolLeavingCertsFileName[$i],
-                ]);
-            }
-            Session::push('testarray',$testarr);
-        }
-        
         return '';
     }
 
-    public function tmpDelete()
+    public function tmpDelete(Request $request)
     {
 
-        $ic_front_tmp_file = TemporaryFile::where('folder',Session::get('icFrontFolder'))->first();
-        $ic_back_tmp_file = TemporaryFile::where('folder',Session::get('icBackFolder'))->first();
+        $icFrontTmpFile = TemporaryFile::where('folder',Session::get('icFrontFolder'))->first();
+        $icBackTmpFile = TemporaryFile::where('folder',Session::get('icBackFolder'))->first();
 
-        if($ic_front_tmp_file){
-            Storage::deleteDirectory('/public/images/icFront/tmp/'. $ic_front_tmp_file->folder);
-            $ic_front_tmp_file->delete();
-            Session::remove('icFrontFolder');
+        if($icFrontTmpFile){
+            Storage::deleteDirectory('/public/images/icFront/tmp/'. $icFrontTmpFile->folder);
+            $icFrontTmpFile->delete();
+            Session::forget('icFrontFolder');
             return response('');
         }
-        if($ic_back_tmp_file){
-            Storage::deleteDirectory('/public/images/icBack/tmp/'. $ic_back_tmp_file->folder);
-            $ic_back_tmp_file->delete();
-            Session::remove('icBackFolder');
+        if($icBackTmpFile){
+            Storage::deleteDirectory('/public/images/icBack/tmp/'. $icBackTmpFile->folder);
+            $icBackTmpFile->delete();
+            Session::forget('icBackFolder');
             return response('');
         }
     }

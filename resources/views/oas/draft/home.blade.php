@@ -430,7 +430,7 @@
                             </div>
                             <div class="col-md-4 col-12">
                                 <p class="lead">Preview</p>
-                                <img src="/images/profile_picture/{{ $data['profile_picture']->path }}" class="img-fluid" width="217px" height="280px">
+                                <img src="/images/profile_picture/{{ Crypt::decrypt($data['profile_picture']->path) }}" class="img-fluid" width="217px" height="280px">
                             </div>
                         </div>
                         <div class="border-bottom mb-2"></div>
