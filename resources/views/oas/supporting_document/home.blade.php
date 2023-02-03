@@ -52,11 +52,11 @@
                             <div class="row mb-2">
                                 <div class="col-md-6">
                                     <p class="lead">Identity card - Front<span class="text-danger">*</span></p>
-                                    <input type="file" name="icFront" id="icFront" data-max-file-size="5MB">
+                                    <input type="file" class="filepond" name="icFront" id="icFront" multiple data-max-file-size="5MB" data-max-files="1" data-allow-reorder="true">
                                 </div>
                                 <div class="col-md-6">
                                     <p class="lead">Identity card - Back<span class="text-danger">*</span></p>
-                                    <input type="file" name="icBack" id="icBack" data-max-file-size="5MB">
+                                    <input type="file" class="filepond" name="icBack" id="icBack" multiple data-max-file-size="5MB" data-max-files="1" data-allow-reorder="true">
                                 </div>
                             </div>
                             {{-- end identity card --}}
@@ -68,7 +68,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-12">
-                                    <input type="file" name="schoolLeavingCerts[]" id="schoolLeavingCert" multiple data-max-file-size="5MB" data-max-files="3" data-allow-reorder="true">
+                                    <input type="file" class="filepond" name="schoolLeavingCerts" id="schoolLeavingCerts" multiple data-max-file-size="5MB" data-max-files="10" data-allow-reorder="true">
                                 </div>
                             </div>
                             {{-- end leaving cert --}}
@@ -81,23 +81,23 @@
                             <div class="row mb-2">
                                 <div class="col-md-12">
                                     <p class="lead">Secondary School Certificate and/or Transcript (max 10 files)<span class="text-danger">*</span></p>
-                                    <input type="file" name="secondarySchoolTranscripts[]" id="secondarySchoolTranscript" multiple data-max-file-size="5MB" data-max-files="10">
+                                    <input type="file" class="filepond" name="secondarySchoolTranscripts" id="secondarySchoolTranscripts" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                                 <div class="col-md-12">
                                     <p class="lead">Upper Secondary School Certificate and/or Transcript (max 10 files)<span class="text-danger">*</span></p>
-                                    <input type="file" name="upperSecondarySchoolTranscripts[]" id="upperSecondarySchoolTranscript" multiple data-max-file-size="5MB" data-max-files="10">
+                                    <input type="file" class="filepond" name="upperSecondarySchoolTranscripts" id="upperSecondarySchoolTranscripts" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                                 <div class="col-md-12">
                                     <p class="lead">Foundation Certificate and/or Transcript (max 10 files)</p>
-                                    <input type="file" name="foundationTranscripts[]" id="foundationTranscript" multiple data-max-file-size="5MB" data-max-files="10">
+                                    <input type="file" class="filepond" name="foundationTranscripts" id="foundationTranscripts" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                                 <div class="col-md-12">
                                     <p class="lead">Diploma Certificate and/or Transcript (max 10 files)</p>
-                                    <input type="file" name="diplomaTranscripts[]" id="diplomaTranscript" multiple data-max-file-size="5MB" data-max-files="10">
+                                    <input type="file" class="filepond" name="diplomaTranscripts" id="diplomaTranscripts" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                                 <div class="col-md-12">
                                     <p class="lead">Degree Certificate and/or Transcript (max 10 files)</p>
-                                    <input type="file" name="degreeTranscripts[]" id="degreeTranscript" multiple data-max-file-size="5MB" data-max-files="10">
+                                    <input type="file" class="filepond" name="degreeTranscripts" id="degreeTranscripts" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                             </div>
                             {{-- end transcript --}}
@@ -110,7 +110,7 @@
                             <div class="row mb-2">
                                 <div class="col-md-12">
                                     <p class="lead">Others (max 10 files)</p>
-                                    <input type="file" name="others[]" id="others" multiple data-max-file-size="5MB" data-max-files="10">
+                                    <input type="file" class="filepond" name="others" id="others" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                             </div>
                             {{-- other relevant docs --}}
@@ -150,25 +150,54 @@
     );
     
     // Create a FilePond instance
-    const icFrontPond = FilePond.create(document.querySelector('input[id="icFront"]'));
-    const icBackPond = FilePond.create(document.querySelector('input[id="icBack"]'));
-    const schoolLeavingCertPond = FilePond.create(document.querySelector('input[id="schoolLeavingCert"]'));
-    const secondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="secondarySchoolTranscript"]'));
-    const upperSecondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="upperSecondarySchoolTranscript"]'));
-    const foundationTranscriptPond = FilePond.create(document.querySelector('input[id="foundationTranscript"]'));
-    const diplomaTranscriptPond = FilePond.create(document.querySelector('input[id="diplomaTranscript"]'));
-    const degreeTranscriptPond = FilePond.create(document.querySelector('input[id="degreeTranscript"]'));
-    const othersPond = FilePond.create(document.querySelector('input[id="others"]'));
+    // const icFrontPond = FilePond.create(document.querySelector('input[id="icFront"]'));
+    // const icBackPond = FilePond.create(document.querySelector('input[id="icBack"]'));
+    // const schoolLeavingCertPond = FilePond.create(document.querySelector('input[id="schoolLeavingCerts"]'));
+    // const secondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="secondarySchoolTranscripts"]'));
+    // const upperSecondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="upperSecondarySchoolTranscripts"]'));
+    // const foundationTranscriptPond = FilePond.create(document.querySelector('input[id="foundationTranscripts"]'));
+    // const diplomaTranscriptPond = FilePond.create(document.querySelector('input[id="diplomaTranscripts"]'));
+    // const degreeTranscriptPond = FilePond.create(document.querySelector('input[id="degreeTranscripts"]'));
+    // const othersPond = FilePond.create(document.querySelector('input[id="others"]'));
+
+    const inputElements = document.querySelectorAll('input.filepond');
+    Array.from(inputElements).forEach(inputElement => {
+        FilePond.create(inputElement);
+    })
 
     FilePond.setOptions({
         server: {
             process: '/user/supporting-document/tmp-upload',
-            revert:  '/user/supporting-document/tmp-delete',
+            revert:  (uniqueFileId, load, error) => {
+                deleteFile(uniqueFileId);
+                error('Error occur');
+                load();
+            },
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             }
         },
     });
+
+    function deleteFile(fileName){
+        $.ajax({
+            url: "/user/supporting-document/tmp-delete",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "DELETE",
+            data: {
+                file: fileName,
+            },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(response) {
+                console.log('error')
+            },
+        });
+
+    }
     
 </script>
 @endsection
