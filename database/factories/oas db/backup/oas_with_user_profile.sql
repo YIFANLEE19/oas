@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 02, 2023 at 06:05 AM
+-- Generation Time: Feb 03, 2023 at 02:53 PM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.33
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -753,7 +753,7 @@ INSERT INTO `guardian_relationships` (`id`, `name`, `relationship_code`, `status
 
 CREATE TABLE `identity_documents` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `user_detail_id` bigint(20) UNSIGNED NOT NULL,
+  `application_record_id` bigint(20) UNSIGNED NOT NULL,
   `identity_document_type_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -902,10 +902,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (42, '2023_01_19_154423_create_programme_pickeds_table', 1),
 (43, '2023_01_19_161237_create_supporting_documents_table', 1),
 (44, '2023_01_19_161258_create_academic_transcripts_table', 1),
-(45, '2023_01_31_135818_create_identity_document_types_table', 2),
-(46, '2023_01_31_140039_create_identity_documents_table', 2),
-(47, '2023_02_01_152423_create_identity_document_pages_table', 2),
-(48, '2023_02_02_094132_create_temporary_files_table', 2);
+(49, '2023_01_31_135818_create_identity_document_types_table', 2),
+(50, '2023_01_31_140039_create_identity_documents_table', 2),
+(51, '2023_02_01_152423_create_identity_document_pages_table', 2),
+(52, '2023_02_02_094132_create_temporary_files_table', 2);
 
 -- --------------------------------------------------------
 
@@ -1361,6 +1361,69 @@ CREATE TABLE `programme_records` (
   `programme_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `programme_records`
+--
+
+INSERT INTO `programme_records` (`id`, `semester_year_mapping_id`, `programme_id`) VALUES
+(1, 1, 33),
+(2, 1, 52),
+(3, 1, 57),
+(4, 1, 24),
+(5, 1, 27),
+(6, 1, 32),
+(7, 1, 55),
+(8, 1, 5),
+(9, 1, 6),
+(10, 1, 7),
+(11, 1, 10),
+(12, 1, 11),
+(13, 1, 15),
+(14, 1, 17),
+(15, 1, 18),
+(16, 1, 19),
+(17, 1, 23),
+(18, 1, 25),
+(19, 1, 26),
+(20, 1, 28),
+(21, 1, 29),
+(22, 1, 30),
+(23, 1, 31),
+(24, 1, 53),
+(25, 1, 54),
+(26, 1, 1),
+(27, 1, 2),
+(28, 1, 3),
+(29, 1, 4),
+(30, 1, 8),
+(31, 1, 9),
+(32, 1, 12),
+(33, 1, 13),
+(34, 1, 14),
+(35, 1, 16),
+(36, 1, 22),
+(37, 1, 20),
+(38, 1, 21),
+(39, 1, 56),
+(40, 1, 34),
+(41, 1, 35),
+(42, 1, 36),
+(43, 1, 37),
+(44, 1, 38),
+(45, 1, 39),
+(46, 1, 40),
+(47, 1, 41),
+(48, 1, 42),
+(49, 1, 43),
+(50, 1, 44),
+(51, 1, 45),
+(52, 1, 46),
+(53, 1, 47),
+(54, 1, 48),
+(55, 1, 49),
+(56, 1, 50),
+(57, 1, 51);
+
 -- --------------------------------------------------------
 
 --
@@ -1801,7 +1864,7 @@ ALTER TABLE `guardian_relationships`
 --
 ALTER TABLE `identity_documents`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `identity_documents_user_detail_id_foreign` (`user_detail_id`),
+  ADD KEY `identity_documents_application_record_id_foreign` (`application_record_id`),
   ADD KEY `identity_documents_identity_document_type_id_foreign` (`identity_document_type_id`);
 
 --
@@ -2149,7 +2212,7 @@ ALTER TABLE `maritals`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `nationalities`
@@ -2191,7 +2254,7 @@ ALTER TABLE `programme_pickeds`
 -- AUTO_INCREMENT for table `programme_records`
 --
 ALTER TABLE `programme_records`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `programme_types`
@@ -2372,8 +2435,8 @@ ALTER TABLE `guardian_details`
 -- Constraints for table `identity_documents`
 --
 ALTER TABLE `identity_documents`
-  ADD CONSTRAINT `identity_documents_identity_document_type_id_foreign` FOREIGN KEY (`identity_document_type_id`) REFERENCES `identity_document_types` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `identity_documents_user_detail_id_foreign` FOREIGN KEY (`user_detail_id`) REFERENCES `user_details` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `identity_documents_application_record_id_foreign` FOREIGN KEY (`application_record_id`) REFERENCES `application_records` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `identity_documents_identity_document_type_id_foreign` FOREIGN KEY (`identity_document_type_id`) REFERENCES `identity_document_types` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `identity_document_pages`

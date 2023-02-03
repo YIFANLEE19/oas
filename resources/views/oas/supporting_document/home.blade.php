@@ -84,7 +84,7 @@
                                     <input type="file" class="filepond" name="secondarySchoolTranscripts" id="secondarySchoolTranscripts" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                                 <div class="col-md-12">
-                                    <p class="lead">Upper Secondary School Certificate and/or Transcript (max 10 files)<span class="text-danger">*</span></p>
+                                    <p class="lead">Upper Secondary School Certificate and/or Transcript (max 10 files)</p>
                                     <input type="file" class="filepond" name="upperSecondarySchoolTranscripts" id="upperSecondarySchoolTranscripts" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                                 <div class="col-md-12">
@@ -132,6 +132,7 @@
 <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
 <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.js"></script>
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 <script>
@@ -146,24 +147,31 @@
         FilePondPluginFileEncode,
         FilePondPluginImageExifOrientation,
         FilePondPluginImagePreview,
-
+        FilePondPluginFileValidateType,
     );
     
     // Create a FilePond instance
-    // const icFrontPond = FilePond.create(document.querySelector('input[id="icFront"]'));
-    // const icBackPond = FilePond.create(document.querySelector('input[id="icBack"]'));
-    // const schoolLeavingCertPond = FilePond.create(document.querySelector('input[id="schoolLeavingCerts"]'));
-    // const secondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="secondarySchoolTranscripts"]'));
-    // const upperSecondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="upperSecondarySchoolTranscripts"]'));
-    // const foundationTranscriptPond = FilePond.create(document.querySelector('input[id="foundationTranscripts"]'));
-    // const diplomaTranscriptPond = FilePond.create(document.querySelector('input[id="diplomaTranscripts"]'));
-    // const degreeTranscriptPond = FilePond.create(document.querySelector('input[id="degreeTranscripts"]'));
-    // const othersPond = FilePond.create(document.querySelector('input[id="others"]'));
+    const icFrontPond = FilePond.create(document.querySelector('input[id="icFront"]'),{
+        acceptedFileTypes: ['image/png','image/jpeg','application/pdf'],
+        fileValidateTypeDetectType: (source, type) =>
+        new Promise((resolve, reject) => {
+            // Do custom type detection here and return with promise
+            resolve(type);
+        }),
+    });
+    const icBackPond = FilePond.create(document.querySelector('input[id="icBack"]'));
+    const schoolLeavingCertPond = FilePond.create(document.querySelector('input[id="schoolLeavingCerts"]'));
+    const secondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="secondarySchoolTranscripts"]'));
+    const upperSecondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="upperSecondarySchoolTranscripts"]'));
+    const foundationTranscriptPond = FilePond.create(document.querySelector('input[id="foundationTranscripts"]'));
+    const diplomaTranscriptPond = FilePond.create(document.querySelector('input[id="diplomaTranscripts"]'));
+    const degreeTranscriptPond = FilePond.create(document.querySelector('input[id="degreeTranscripts"]'));
+    const othersPond = FilePond.create(document.querySelector('input[id="others"]'));
 
-    const inputElements = document.querySelectorAll('input.filepond');
-    Array.from(inputElements).forEach(inputElement => {
-        FilePond.create(inputElement);
-    })
+    // const inputElements = document.querySelectorAll('input.filepond');
+    // Array.from(inputElements).forEach(inputElement => {
+    //     FilePond.create(inputElement);
+    // })
 
     FilePond.setOptions({
         server: {
