@@ -63,11 +63,12 @@
                             {{-- leaving cert --}}
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h1 class="fw-bold">Secondary School Leaving Cert</h1>
+                                    <h1 class="fw-bold">School Leaving Cert</h1>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-12">
+                                    <p class="lead">Secondary School<span class="text-danger">*</span></p>
                                     <input type="file" class="filepond" name="schoolLeavingCerts" id="schoolLeavingCerts" multiple data-max-file-size="5MB" data-max-files="10" data-allow-reorder="true">
                                 </div>
                             </div>
@@ -151,27 +152,25 @@
     );
     
     // Create a FilePond instance
-    const icFrontPond = FilePond.create(document.querySelector('input[id="icFront"]'),{
-        acceptedFileTypes: ['image/png','image/jpeg','application/pdf'],
-        fileValidateTypeDetectType: (source, type) =>
-        new Promise((resolve, reject) => {
-            // Do custom type detection here and return with promise
-            resolve(type);
-        }),
-    });
-    const icBackPond = FilePond.create(document.querySelector('input[id="icBack"]'));
-    const schoolLeavingCertPond = FilePond.create(document.querySelector('input[id="schoolLeavingCerts"]'));
-    const secondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="secondarySchoolTranscripts"]'));
-    const upperSecondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="upperSecondarySchoolTranscripts"]'));
-    const foundationTranscriptPond = FilePond.create(document.querySelector('input[id="foundationTranscripts"]'));
-    const diplomaTranscriptPond = FilePond.create(document.querySelector('input[id="diplomaTranscripts"]'));
-    const degreeTranscriptPond = FilePond.create(document.querySelector('input[id="degreeTranscripts"]'));
-    const othersPond = FilePond.create(document.querySelector('input[id="others"]'));
+    // const icFrontPond = FilePond.create(document.querySelector('input[id="icFront"]'));
+    // const icBackPond = FilePond.create(document.querySelector('input[id="icBack"]'));
+    // const schoolLeavingCertPond = FilePond.create(document.querySelector('input[id="schoolLeavingCerts"]'));
+    // const secondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="secondarySchoolTranscripts"]'));
+    // const upperSecondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="upperSecondarySchoolTranscripts"]'));
+    // const foundationTranscriptPond = FilePond.create(document.querySelector('input[id="foundationTranscripts"]'));
+    // const diplomaTranscriptPond = FilePond.create(document.querySelector('input[id="diplomaTranscripts"]'));
+    // const degreeTranscriptPond = FilePond.create(document.querySelector('input[id="degreeTranscripts"]'));
+    // const othersPond = FilePond.create(document.querySelector('input[id="others"]'));
 
-    // const inputElements = document.querySelectorAll('input.filepond');
-    // Array.from(inputElements).forEach(inputElement => {
-    //     FilePond.create(inputElement);
-    // })
+    const inputElements = document.querySelectorAll('input.filepond');
+    Array.from(inputElements).forEach(inputElement => {
+        FilePond.create(inputElement,{
+            acceptedFileTypes: ['image/png','image/jpeg','application/pdf'],
+            fileValidateTypeDetectType: (source, type) => new Promise((resolve, reject) => {
+                resolve(type);
+            }),
+        });
+    })
 
     FilePond.setOptions({
         server: {
