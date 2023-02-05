@@ -20,43 +20,31 @@ use Session;
 class SupportingDocumentController extends Controller
 {
     //
-    public function index($id)
+    public function removeSession()
     {
-        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
-        // if(Session::has('icFrontFolder') || Session::has('icBackFolder') || Session::has('schoolLeavingCertsFolder') || Session::has('secondarySchoolTranscriptsFolder') || Session::has('foundationTranscriptsFolder') || Session::has('diplomaTranscriptsFolder') || Session::has('degreeTranscriptsFolder') || Session::has('othersFolder')){
-        //     Session::forget('icFrontFolder');
-        //     Session::forget('icFrontFileName');
-        //     Session::forget('icBackFolder');
-        //     Session::forget('icBackFileName');
-        //     Session::forget('schoolLeavingCertsFolder');
-        //     Session::forget('schoolLeavingCertsFileName');
-        //     Session::forget('secondarySchoolTranscriptsFolder');
-        //     Session::forget('secondarySchoolTranscriptsFileName');
-        //     Session::forget('foundationTranscriptsFolder');
-        //     Session::forget('foundationTranscriptsFileName');
-        //     Session::forget('diplomaTranscriptsFolder');
-        //     Session::forget('diplomaTranscriptsFileName');
-        //     Session::forget('degreeTranscriptsFolder');
-        //     Session::forget('degreeTranscriptsFileName');
-        //     Session::forget('othersFolder');
-        //     Session::forget('othersFileName');
-        // }
         Session::forget('icFrontFolder');
         Session::forget('icFrontFileName');
         Session::forget('icBackFolder');
         Session::forget('icBackFileName');
         Session::forget('schoolLeavingCertsFolder');
         Session::forget('schoolLeavingCertsFileName');
-        // Session::forget('secondarySchoolTranscriptsFolder');
-        // Session::forget('secondarySchoolTranscriptsFileName');
-        // Session::forget('foundationTranscriptsFolder');
-        // Session::forget('foundationTranscriptsFileName');
-        // Session::forget('diplomaTranscriptsFolder');
-        // Session::forget('diplomaTranscriptsFileName');
-        // Session::forget('degreeTranscriptsFolder');
-        // Session::forget('degreeTranscriptsFileName');
-        // Session::forget('othersFolder');
-        // Session::forget('othersFileName');
+        Session::forget('secondarySchoolTranscriptsFolder');
+        Session::forget('secondarySchoolTranscriptsFileName');
+        Session::forget('upperSecondarySchoolTranscriptsFolder');
+        Session::forget('upperSecondarySchoolTranscriptsFileName');
+        Session::forget('foundationTranscriptsFolder');
+        Session::forget('foundationTranscriptsFileName');
+        Session::forget('diplomaTranscriptsFolder');
+        Session::forget('diplomaTranscriptsFileName');
+        Session::forget('degreeTranscriptsFolder');
+        Session::forget('degreeTranscriptsFileName');
+        Session::forget('othersFolder');
+        Session::forget('othersFileName');
+    }
+    public function index($id)
+    {
+        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        $this->removeSession();
         return view('oas.supporting_document.home', compact(['APPLICATION_RECORD_ID']));
     }
 
@@ -68,76 +56,192 @@ class SupportingDocumentController extends Controller
         $getIcBackFileName = Session::get('icBackFileName');
         $getSchoolLeavingCertsFolder = Session::get('schoolLeavingCertsFolder');
         $getSchoolLeavingCertsFileName = Session::get('schoolLeavingCertsFileName');
-        dd(count($getSchoolLeavingCertsFolder));
-        // $getSecondarySchoolTranscriptsFolder = Session::get('secondarySchoolTranscriptsFolder');
-        // $getSecondarySchoolTranscriptsFileName = Session::get('secondarySchoolTranscriptsFileName');
-        // $getFoundationTranscriptsFolder = Session::get('foundationTranscriptsFolder');
-        // $getFoundationTranscriptsFileName =  Session::get('foundationTranscriptsFileName');
-        // $getDiplomaTranscriptsFolder = Session::get('diplomaTranscriptsFolder');
-        // $getDiplomaTranscriptsFileName = Session::get('diplomaTranscriptsFileName');
-        // $getDegreeTranscriptsFolder = Session::get('degreeTranscriptsFolder');
-        // $getDegreeTranscriptsFileName = Session::get('degreeTranscriptsFileName');
-        // $getOthersFolder = Session::get('othersFolder');
-        // $getOthersFileName = Session::get('othersFileName');
-
+        $getSecondarySchoolTranscriptsFolder = Session::get('secondarySchoolTranscriptsFolder');
+        $getSecondarySchoolTranscriptsFileName = Session::get('secondarySchoolTranscriptsFileName');
+        $getUpperSecondarySchoolTranscriptsFolder = Session::get('upperSecondarySchoolTranscriptsFolder');
+        $getUpperSecondarySchoolTranscriptsFileName = Session::get('upperSecondarySchoolTranscriptsFileName');
+        $getFoundationTranscriptsFolder = Session::get('foundationTranscriptsFolder');
+        $getFoundationTranscriptsFileName =  Session::get('foundationTranscriptsFileName');
+        $getDiplomaTranscriptsFolder = Session::get('diplomaTranscriptsFolder');
+        $getDiplomaTranscriptsFileName = Session::get('diplomaTranscriptsFileName');
+        $getDegreeTranscriptsFolder = Session::get('degreeTranscriptsFolder');
+        $getDegreeTranscriptsFileName = Session::get('degreeTranscriptsFileName');
+        $getOthersFolder = Session::get('othersFolder');
+        $getOthersFileName = Session::get('othersFileName');
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        // get school level record id
+        $getSecondarySchoolRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.SECONDARY'))->first();
+        $getUpperSecondarySchoolRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.UPPERSECONDARY'))->first();
+        $getFoundationRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.FOUNDATION'))->first();
+        $getDiplomaRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.DIPLOMA'))->first();
+        $getDegreeRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.DEGREE'))->first();
+        $getPhdRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.PHD'))->first();
+        $getMasterRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.MASTER'))->first();
+        $getOtherRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.OTHER'))->first();
+        // create ic front document 
+        $getIcFrontDocumentId = IdentityDocument::insertGetId([
+            'application_record_id' => $APPLICATION_RECORD_ID,
+            'identity_document_type_id' => config('constants.IDENTITY_DOCUEMENT_TYPE.IC_FRONT'),
+        ]); 
+        $getIcBackDocumentId = IdentityDocument::insertGetId([
+            'application_record_id' => $APPLICATION_RECORD_ID,
+            'identity_document_type_id' => config('constants.IDENTITY_DOCUEMENT_TYPE.IC_BACK'),
+        ]);
+        for($i=0; $i < count($getIcFrontFolder); $i++) {
+            $temporary = TemporaryFile::where('folder',$getIcFrontFolder[$i])->where('file',$getIcFrontFileName[$i])->first();
+            if($temporary){
+                $createIcFrontDocumentPage = IdentityDocumentPage::create([
+                    'identity_document_id' => $getIcFrontDocumentId,
+                    'page' => $getIcFrontFolder[$i].'/'. $getIcFrontFileName[$i],
+                ]);
+                Storage::move('/public/images/icFront/tmp/'.$getIcFrontFolder[$i].'/'.$getIcFrontFileName[$i], '/public/images/icFront/'.$getIcFrontFolder[$i].'/'.$getIcFrontFileName[$i]);
+                Storage::deleteDirectory('/public/images/icFront/tmp/'. $getIcFrontFolder[$i]);
+                $temporary->delete();
+            }
+        }
+        for($i=0; $i < count($getIcFrontFolder); $i++) {
+            $temporary = TemporaryFile::where('folder',$getIcBackFolder[$i])->where('file',$getIcBackFileName[$i])->first();
+            if($temporary){
+                $createIcBackDocumentPage = IdentityDocumentPage::create([
+                    'identity_document_id' => $getIcBackDocumentId,
+                    'page' => $getIcBackFolder[$i].'/'. $getIcBackFileName[$i],
+                ]);
+                Storage::move('/public/images/icBack/tmp/'.$getIcBackFolder[$i].'/'.$getIcBackFileName[$i], '/public/images/icBack/'.$getIcBackFolder[$i].'/'.$getIcBackFileName[$i]);
+                Storage::deleteDirectory('/public/images/icBack/tmp/'. $getIcBackFolder[$i]);
+                $temporary->delete();
+            }
+        }
+        for($i=0; $i < count($getSchoolLeavingCertsFolder); $i++) {
+            $temporary = TemporaryFile::where('folder',$getSchoolLeavingCertsFolder[$i])->where('file',$getSchoolLeavingCertsFileName[$i])->first();
+            if($temporary){
+                $getLeavingCertDocumentId = SupportingDocument::insertGetId([
+                    'doc' => $getSchoolLeavingCertsFolder[$i].'/'. $getSchoolLeavingCertsFileName[$i],
+                    'isCert' => config('constants.IS_CERT.TRUE'),
+                ]);
+                $createAcademicTranscript = AcademicTranscript::create([
+                    'academic_record_id' => $getSecondarySchoolRecordId->id,
+                    'supporting_document_id' => $getLeavingCertDocumentId,
+                    'school_level_id' => config('constants.SCHOOL_LEVEL.SECONDARY'),
+                ]);
+                Storage::move('/public/images/schoolLeavingCerts/tmp/'.$getSchoolLeavingCertsFolder[$i].'/'.$getSchoolLeavingCertsFileName[$i], '/public/images/schoolLeavingCerts/'.$getSchoolLeavingCertsFolder[$i].'/'.$getSchoolLeavingCertsFileName[$i]);
+                Storage::deleteDirectory('/public/images/schoolLeavingCerts/tmp/'. $getSchoolLeavingCertsFolder[$i]);
+                $temporary->delete();
+            }
+        }
+        for($i=0; $i < count($getSecondarySchoolTranscriptsFolder); $i++){
+            $temporary = TemporaryFile::where('folder',$getSecondarySchoolTranscriptsFolder[$i])->where('file',$getSecondarySchoolTranscriptsFileName[$i])->first();
+            if($temporary){
+                $getSecondarySchoolTranscriptDocumentId = SupportingDocument::insertGetId([
+                    'doc' => $getSecondarySchoolTranscriptsFolder[$i].'/'. $getSecondarySchoolTranscriptsFileName[$i],
+                    'isCert' => config('constants.IS_CERT.FALSE'), 
+                ]);
+                $createAcademicTranscript = AcademicTranscript::create([
+                    'academic_record_id' => $getSecondarySchoolRecordId->id,
+                    'supporting_document_id' => $getSecondarySchoolTranscriptDocumentId,
+                    'school_level_id' => config('constants.SCHOOL_LEVEL.SECONDARY'),
+                ]);
+                Storage::move('/public/images/secondarySchoolTranscripts/tmp/'.$getSecondarySchoolTranscriptsFolder[$i].'/'.$getSecondarySchoolTranscriptsFileName[$i], '/public/images/secondarySchoolTranscripts/'.$getSecondarySchoolTranscriptsFolder[$i].'/'.$getSecondarySchoolTranscriptsFileName[$i]);
+                Storage::deleteDirectory('/public/images/secondarySchoolTranscripts/tmp/'. $getSecondarySchoolTranscriptsFolder[$i]);
+                $temporary->delete();
+            }
+        }
 
-        // $getSecondarySchoolRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.SECONDARY'))->first();
-        // $getUpperSecondarySchoolRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.UPPERSECONDARY'))->first();
-        // $getFoundationRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.FOUNDATION'))->first();
-        // $getDiplomaRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.DIPLOMA'))->first();
-        // $getDegreeRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.DEGREE'))->first();
-        // $getPhdRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.PHD'))->first();
-        // $getMasterRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.MASTER'))->first();
-        // $getOtherRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.OTHER'))->first();
-
-        // $getIcFrontDocumentId = IdentityDocument::insertGetId([
-        //     'application_record_id' => $APPLICATION_RECORD_ID,
-        //     'identity_document_type_id' => config('constants.IDENTITY_DOCUEMENT_TYPE.IC_FRONT'),
-        // ]); 
-        // $getIcBackDocumentId = IdentityDocument::insertGetId([
-        //     'application_record_id' => $APPLICATION_RECORD_ID,
-        //     'identity_document_type_id' => config('constants.IDENTITY_DOCUEMENT_TYPE.IC_BACK'),
-        // ]);
-        // for ($i=0; $i < sizeof(session('icFrontFolder')); $i++) { 
-        //     $temporary = TemporaryFile::where('folder',Session::get('icFrontFolder')[$i])->where('file',Session::get('icFrontFileName')[$i])->first();
-        //     if($temporary){
-        //         $createIcFrontDocumentPage = IdentityDocumentPage::create([
-        //             'identity_document_id' => $getIcFrontDocumentId,
-        //             'page' => Session::get('icFrontFolder')[$i].'/'. Session::get('icFrontFileName')[$i],
-        //         ]);
-        //         Storage::deleteDirectory('/public/images/icFront/tmp/'. Session::get('icFrontFolder')[$i]);
-        //         $temporary->delete();
-        //     }
-        // }
-        // for ($i=0; $i < count($getIcBackFolder); $i++) { 
-        //     $temporary = TemporaryFile::where('folder',$getIcBackFolder[$i])->where('file',$getIcBackFileName[$i])->first();
-        //     if($temporary){
-        //         $createIcBackDocumentPage = IdentityDocumentPage::create([
-        //             'identity_document_id' => $getIcBackDocumentId,
-        //             'page' => $getIcBackFolder[$i].'/'. $getIcBackFileName[$i],
-        //         ]);
-        //         Storage::deleteDirectory('/public/images/icBack/tmp/'. $getIcBackFolder[$i]);
-        //         $temporary->delete();
-        //     }
-        // }
-        
-        // for($i=0; $i < count($getSchoolLeavingCertsFolder); $i++) {
-        //     $temporary = TemporaryFile::where('folder',$getSchoolLeavingCertsFolder[$i])->where('file',$getSchoolLeavingCertsFileName[$i])->first();
-        //     if($temporary){
-        //         $getLeavingCertDocumentId = SupportingDocument::insertGetId([
-        //             'doc' => $getSchoolLeavingCertsFolder[$i].'/'. $getSchoolLeavingCertsFileName[$i],
-        //             'isCert' => config('constants.IS_CERT.TRUE'),
-        //         ]);
-        //         $createAcademicTranscript = AcademicTranscript::create([
-        //             'academic_record_id' => $getSecondarySchoolRecordId->id,
-        //             'supporting_document_id' => $getLeavingCertDocumentId,
-        //             'school_level_id' => config('constants.SCHOOL_LEVEL.SECONDARY'),
-        //         ]);
-        //         Storage::deleteDirectory('/public/images/schoolLeavingCerts/tmp/'. $getSchoolLeavingCertsFolder[$i]);
-        //         $temporary->delete();
-        //     }
-        // }
+        if(Session::has('upperSecondarySchoolTranscriptsFolder')){
+            for($i=0; $i < count($getUpperSecondarySchoolTranscriptsFolder); $i++){
+                $temporary = TemporaryFile::where('folder',$getUpperSecondarySchoolTranscriptsFolder[$i])->where('file',$getUpperSecondarySchoolTranscriptsFileName[$i])->first();
+                if($temporary){
+                    $getUpperSecondarySchoolTranscriptDocumentId = SupportingDocument::insertGetId([
+                        'doc' => $getUpperSecondarySchoolTranscriptsFolder[$i].'/'. $getUpperSecondarySchoolTranscriptsFileName[$i],
+                        'isCert' => config('constants.IS_CERT.FALSE'), 
+                    ]);
+                    $createAcademicTranscript = AcademicTranscript::create([
+                        'academic_record_id' => $getUpperSecondarySchoolRecordId->id,
+                        'supporting_document_id' => $getUpperSecondarySchoolTranscriptDocumentId,
+                        'school_level_id' => config('constants.SCHOOL_LEVEL.UPPERSECONDARY'),
+                    ]);
+                    Storage::move('/public/images/upperSecondarySchoolTranscripts/tmp/'.$getUpperSecondarySchoolTranscriptsFolder[$i].'/'.$getUpperSecondarySchoolTranscriptsFileName[$i], '/public/images/upperSecondarySchoolTranscripts/'.$getUpperSecondarySchoolTranscriptsFolder[$i].'/'.$getUpperSecondarySchoolTranscriptsFileName[$i]);
+                    Storage::deleteDirectory('/public/images/secondarySchoolTranscripts/tmp/'. $getUpperSecondarySchoolTranscriptsFolder[$i]);
+                    $temporary->delete();
+                }
+            }
+        }
+        if(Session::has('foundationTranscriptsFolder')){
+            for($i=0; $i < count($getFoundationTranscriptsFolder); $i++){
+                $temporary = TemporaryFile::where('folder',$getFoundationTranscriptsFolder[$i])->where('file',$getFoundationTranscriptsFileName[$i])->first();
+                if($temporary){
+                    $getFoundationTranscriptDocumentId = SupportingDocument::insertGetId([
+                        'doc' => $getFoundationTranscriptsFolder[$i].'/'. $getFoundationTranscriptsFileName[$i],
+                        'isCert' => config('constants.IS_CERT.FALSE'), 
+                    ]);
+                    $createAcademicTranscript = AcademicTranscript::create([
+                        'academic_record_id' => $getFoundationRecordId->id,
+                        'supporting_document_id' => $getFoundationTranscriptDocumentId,
+                        'school_level_id' => config('constants.SCHOOL_LEVEL.FOUNDATION'),
+                    ]);
+                    Storage::move('/public/images/foundationTranscripts/tmp/'.$getFoundationTranscriptsFolder[$i].'/'.$getFoundationTranscriptsFileName[$i], '/public/images/foundationTranscripts/'.$getFoundationTranscriptsFolder[$i].'/'.$getFoundationTranscriptsFileName[$i]);
+                    Storage::deleteDirectory('/public/images/foundationTranscripts/tmp/'. $getFoundationTranscriptsFolder[$i]);
+                    $temporary->delete();
+                }
+            }
+        }
+        if(Session::has('diplomaTranscriptsFolder')){
+            for($i=0; $i < count($getDiplomaTranscriptsFolder); $i++){
+                $temporary = TemporaryFile::where('folder',$getDiplomaTranscriptsFolder[$i])->where('file',$getDiplomaTranscriptsFileName[$i])->first();
+                if($temporary){
+                    $getDiplomaTranscriptDocumentId = SupportingDocument::insertGetId([
+                        'doc' => $getDiplomaTranscriptsFolder[$i].'/'. $getDiplomaTranscriptsFileName[$i],
+                        'isCert' => config('constants.IS_CERT.FALSE'), 
+                    ]);
+                    $createAcademicTranscript = AcademicTranscript::create([
+                        'academic_record_id' => $getDiplomaRecordId->id,
+                        'supporting_document_id' => $getDiplomaTranscriptDocumentId,
+                        'school_level_id' => config('constants.SCHOOL_LEVEL.DIPLOMA'),
+                    ]);
+                    Storage::move('/public/images/diplomaTranscripts/tmp/'.$getDiplomaTranscriptsFolder[$i].'/'.$getDiplomaTranscriptsFileName[$i], '/public/images/diplomaTranscripts/'.$getDiplomaTranscriptsFolder[$i].'/'.$getDiplomaTranscriptsFileName[$i]);
+                    Storage::deleteDirectory('/public/images/diplomaTranscripts/tmp/'. $getDiplomaTranscriptsFolder[$i]);
+                    $temporary->delete();
+                }
+            }
+        }
+        if(Session::has('degreeTranscriptsFolder')){
+            for($i=0; $i < count($getDegreeTranscriptsFolder); $i++){
+                $temporary = TemporaryFile::where('folder',$getDegreeTranscriptsFolder[$i])->where('file',$getDegreeTranscriptsFileName[$i])->first();
+                if($temporary){
+                    $getDegreeTranscriptDocumentId = SupportingDocument::insertGetId([
+                        'doc' => $getDegreeTranscriptsFolder[$i].'/'. $getDegreeTranscriptsFileName[$i],
+                        'isCert' => config('constants.IS_CERT.FALSE'), 
+                    ]);
+                    $createAcademicTranscript = AcademicTranscript::create([
+                        'academic_record_id' => $getDegreeRecordId->id,
+                        'supporting_document_id' => $getDegreeTranscriptDocumentId,
+                        'school_level_id' => config('constants.SCHOOL_LEVEL.DEGREE'),
+                    ]);
+                    Storage::move('/public/images/degreeTranscripts/tmp/'.$getDegreeTranscriptsFolder[$i].'/'.$getDegreeTranscriptsFileName[$i], '/public/images/degreeTranscripts/'.$getDegreeTranscriptsFolder[$i].'/'.$getDegreeTranscriptsFileName[$i]);
+                    Storage::deleteDirectory('/public/images/degreeTranscripts/tmp/'. $getDegreeTranscriptsFolder[$i]);
+                    $temporary->delete();
+                }
+            }
+        }
+        if(Session::has('othersFolder')){
+            for($i=0; $i < count($getOthersFolder); $i++){
+                $temporary = TemporaryFile::where('folder',$getOthersFolder[$i])->where('file',$getOthersFileName[$i])->first();
+                if($temporary){
+                    $getOthersDocumentId = SupportingDocument::insertGetId([
+                        'doc' => $getOthersFolder[$i].'/'. $getOthersFileName[$i],
+                        'isCert' => config('constants.IS_CERT.FALSE'), 
+                    ]);
+                    $createAcademicTranscript = AcademicTranscript::create([
+                        'academic_record_id' => $getOtherRecordId->id,
+                        'supporting_document_id' => $getOthersDocumentId,
+                        'school_level_id' => config('constants.SCHOOL_LEVEL.OTHER'),
+                    ]);
+                    Storage::move('/public/images/others/tmp/'.$getOthersFolder[$i].'/'.$getOthersFileName[$i], '/public/images/others/'.$getOthersFolder[$i].'/'.$getOthersFileName[$i]);
+                    Storage::deleteDirectory('/public/images/others/tmp/'. $getOthersFolder[$i]);
+                    $temporary->delete();
+                }
+            }
+        }
+        $this->removeSession();
         return back();
     }
 
@@ -196,9 +300,22 @@ class SupportingDocumentController extends Controller
             ]);
             $folderName = $secondarySchoolTranscriptsFolder;
         } 
+        if($request->hasFile('upperSecondarySchoolTranscripts')){
+            $upperSecondarySchoolTranscripts = $request->file('upperSecondarySchoolTranscripts');
+            $upperSecondarySchoolTranscriptsFileName = 'upperSecondarySchoolTranscripts_'.Auth::user()->name.'_'.date('YmdHii').'_'.$upperSecondarySchoolTranscripts->getClientOriginalName();
+            $upperSecondarySchoolTranscriptsFolder = uniqid('upperSecondarySchoolTranscripts',true);
+            Session::push('upperSecondarySchoolTranscriptsFolder',$upperSecondarySchoolTranscriptsFolder);
+            Session::push('upperSecondarySchoolTranscriptsFileName',$upperSecondarySchoolTranscriptsFileName);
+            $upperSecondarySchoolTranscripts->storeAs('/public/images/upperSecondarySchoolTranscripts/tmp/' . $upperSecondarySchoolTranscriptsFolder, $upperSecondarySchoolTranscriptsFileName);
+            TemporaryFile::create([
+                'folder' => $upperSecondarySchoolTranscriptsFolder,
+                'file' => $upperSecondarySchoolTranscriptsFileName,
+            ]);
+            $folderName = $upperSecondarySchoolTranscriptsFolder;
+        } 
         if($request->hasFile('foundationTranscripts')){
             $foundationTranscripts = $request->file('foundationTranscripts');
-            $foundationTranscriptsFileName = 'foundationTranscripts_'.Auth::user()->name.'_'.date('YmdHii').'_'.$secondarySchoolTranscripts->getClientOriginalName();
+            $foundationTranscriptsFileName = 'foundationTranscripts_'.Auth::user()->name.'_'.date('YmdHii').'_'.$foundationTranscripts->getClientOriginalName();
             $foundationTranscriptsFolder = uniqid('foundationTranscripts',true);
             Session::push('foundationTranscriptsFolder',$foundationTranscriptsFolder);
             Session::push('foundationTranscriptsFileName',$foundationTranscriptsFileName);
@@ -257,6 +374,7 @@ class SupportingDocumentController extends Controller
         $icBackTmpFile = TemporaryFile::where('folder',$request->file)->first();
         $schoolLeavingCertsTmpFile = TemporaryFile::where('folder',$request->file)->first();
         $secondarySchoolTranscriptsTmpFile = TemporaryFile::where('folder',$request->file)->first();
+        $upperSecondarySchoolTranscriptsTmpFile = TemporaryFile::where('folder',$request->file)->first();
         $foundationTranscriptsTmpFile = TemporaryFile::where('folder',$request->file)->first();
         $diplomaTranscriptsTmpFile = TemporaryFile::where('folder',$request->file)->first();
         $degreeTranscriptsTmpFile = TemporaryFile::where('folder',$request->file)->first();
@@ -264,18 +382,56 @@ class SupportingDocumentController extends Controller
         $result = 'not found';
         
         if($icFrontTmpFile){
-            Storage::deleteDirectory('/public/images/icFront/tmp/'. $icFrontTmpFile->folder);
-            $icFrontTmpFile->delete();
-            Session::forget('icFrontFolder');
-            Session::forget('icFrontFileName');
-            $result = 'success';
+            $icFrontFolderArr = array();
+            $icFrontFileNameArr = array();   
+            if(Session::has('icFrontFolder')){
+                for($i=0; $i < count(Session::get('icFrontFolder')); $i++){
+                    if(Session::get('icFrontFolder')[$i] != $icFrontTmpFile->folder){
+                        array_push($icFrontFolderArr, Session::get('icFrontFolder')[$i]);
+                    }
+                }
+                for($i=0; $i < count(Session::get('icFrontFileName')); $i++){
+                    if(Session::get('icFrontFileName')[$i] != $icFrontTmpFile->file){
+                        array_push($icFrontFileNameArr, Session::get('icFrontFileName')[$i]);
+                    }
+                }
+                Session::forget(['icFrontFolder','icFrontFileName']);
+                for($i=0; $i< sizeof($icFrontFolderArr); $i++){
+                    Session::push('icFrontFolder', $icFrontFolderArr[$i]);
+                } 
+                for($i=0; $i< sizeof($icFrontFileNameArr); $i++){
+                    Session::push('icFrontFileName', $icFrontFileNameArr[$i]);
+                } 
+                Storage::deleteDirectory('/public/images/icFront/tmp/'. $icFrontTmpFile->folder);
+                $icFrontTmpFile->delete();
+                $result = 'success';
+            }
         }
         if($icBackTmpFile){
-            Storage::deleteDirectory('/public/images/icBack/tmp/'. $icBackTmpFile->folder);
-            $icBackTmpFile->delete();
-            Session::forget('icBackFolder');
-            Session::forget('icBackFileName');
-            $result = 'success';
+            $icBackFolderArr = array();
+            $icBackFileNameArr = array();   
+            if(Session::has('icBackFolder')){
+                for($i=0; $i < count(Session::get('icBackFolder')); $i++){
+                    if(Session::get('icBackFolder')[$i] != $icBackTmpFile->folder){
+                        array_push($icBackFolderArr, Session::get('icBackFolder')[$i]);
+                    }
+                }
+                for($i=0; $i < count(Session::get('icBackFileName')); $i++){
+                    if(Session::get('icBackFileName')[$i] != $icBackTmpFile->file){
+                        array_push($icBackFileNameArr, Session::get('icBackFileName')[$i]);
+                    }
+                }
+                Session::forget(['icBackFolder','icBackFileName']);
+                for($i=0; $i< sizeof($icBackFolderArr); $i++){
+                    Session::push('icBackFolder', $icBackFolderArr[$i]);
+                } 
+                for($i=0; $i< sizeof($icBackFileNameArr); $i++){
+                    Session::push('icBackFileName', $icBackFileNameArr[$i]);
+                } 
+                Storage::deleteDirectory('/public/images/icBack/tmp/'. $icBackTmpFile->folder);
+                $icBackTmpFile->delete();
+                $result = 'success';
+            }
         }
         if($schoolLeavingCertsTmpFile){
             $schoolLeavingCertsFolderArr = array();
@@ -304,8 +460,6 @@ class SupportingDocumentController extends Controller
             }   
         }
         if($secondarySchoolTranscriptsTmpFile){
-
-            
             $secondarySchoolTranscriptsFolderArr = array();
             $secondarySchoolTranscriptsFileNameArr = array();
             if(Session::has('secondarySchoolTranscriptsFolder')){
@@ -331,8 +485,33 @@ class SupportingDocumentController extends Controller
                 $result = 'success';
             }
         }
+        if($upperSecondarySchoolTranscriptsTmpFile){
+            $upperSecondarySchoolTranscriptsFolderArr = array();
+            $upperSecondarySchoolTranscriptsFileNameArr = array();
+            if(Session::has('upperSecondarySchoolTranscriptsFolder')){
+                for ($i=0; $i < count(Session::get('upperSecondarySchoolTranscriptsFolder')) ; $i++) { 
+                    if(Session::get('upperSecondarySchoolTranscriptsFolder')[$i] != $upperSecondarySchoolTranscriptsTmpFile->folder){
+                        array_push($upperSecondarySchoolTranscriptsFolderArr, Session::get('upperSecondarySchoolTranscriptsFolder')[$i]);
+                    }
+                }
+                for ($i=0; $i < count(Session::get('upperSecondarySchoolTranscriptsFileName')) ; $i++) { 
+                    if(Session::get('upperSecondarySchoolTranscriptsFileName')[$i] != $upperSecondarySchoolTranscriptsTmpFile->file){
+                        array_push($upperSecondarySchoolTranscriptsFileNameArr, Session::get('upperSecondarySchoolTranscriptsFileName')[$i]);
+                    }
+                }
+                Session::forget(['upperSecondarySchoolTranscriptsFolder','upperSecondarySchoolTranscriptsFileName']);
+                for($i=0; $i< sizeof($upperSecondarySchoolTranscriptsFolderArr); $i++){
+                    Session::push('upperSecondarySchoolTranscriptsFolder', $upperSecondarySchoolTranscriptsFolderArr[$i]);
+                } 
+                for($i=0; $i< sizeof($upperSecondarySchoolTranscriptsFileNameArr); $i++){
+                    Session::push('upperSecondarySchoolTranscriptsFileName', $upperSecondarySchoolTranscriptsFileNameArr[$i]);
+                }
+                Storage::deleteDirectory('/public/images/upperSecondarySchoolTranscripts/tmp/'. $upperSecondarySchoolTranscriptsTmpFile->folder);
+                $upperSecondarySchoolTranscriptsTmpFile->delete();
+                $result = 'success';
+            }
+        }
         if($foundationTranscriptsTmpFile){
-            
             $foundationTranscriptsFolderArr = array();
             $foundationTranscriptsFileNameArr = array();
             if(Session::has('foundationTranscriptsFolder')){
@@ -369,7 +548,7 @@ class SupportingDocumentController extends Controller
                 }
                 for ($i=0; $i < count(Session::get('diplomaTranscriptsFileName')) ; $i++) { 
                     if(Session::get('diplomaTranscriptsFileName')[$i] != $diplomaTranscriptsTmpFile->file){
-                        $diplomaTranscriptsFileNameArr[$i] = Session::get('diplomaTranscriptsFileName')[$i];
+                        array_push($diplomaTranscriptsFileNameArr, Session::get('diplomaTranscriptsFileName')[$i]);
                     }
                 }
                 Session::forget(['diplomaTranscriptsFolder','diplomaTranscriptsFileName']);
@@ -411,7 +590,6 @@ class SupportingDocumentController extends Controller
             }
         }
         if($othersTmpFile){
-            
             $othersFolderArr = array();
             $othersFileNameArr = array();
             if(Session::has('othersFolder')){

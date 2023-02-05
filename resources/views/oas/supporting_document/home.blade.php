@@ -52,11 +52,11 @@
                             <div class="row mb-2">
                                 <div class="col-md-6">
                                     <p class="lead">Identity card - Front<span class="text-danger">*</span></p>
-                                    <input type="file" class="filepond" name="icFront" id="icFront" multiple data-max-file-size="5MB" data-max-files="1" data-allow-reorder="true">
+                                    <input type="file" class="filepond" name="icFront" id="icFront" multiple data-max-file-size="5MB" data-max-files="1" data-allow-reorder="true" required>
                                 </div>
                                 <div class="col-md-6">
                                     <p class="lead">Identity card - Back<span class="text-danger">*</span></p>
-                                    <input type="file" class="filepond" name="icBack" id="icBack" multiple data-max-file-size="5MB" data-max-files="1" data-allow-reorder="true">
+                                    <input type="file" class="filepond" name="icBack" id="icBack" multiple data-max-file-size="5MB" data-max-files="1" data-allow-reorder="true" required>
                                 </div>
                             </div>
                             {{-- end identity card --}}
@@ -69,7 +69,7 @@
                             <div class="row mb-2">
                                 <div class="col-md-12">
                                     <p class="lead">Secondary School<span class="text-danger">*</span></p>
-                                    <input type="file" class="filepond" name="schoolLeavingCerts" id="schoolLeavingCerts" multiple data-max-file-size="5MB" data-max-files="10" data-allow-reorder="true">
+                                    <input type="file" class="filepond" name="schoolLeavingCerts" id="schoolLeavingCerts" multiple data-max-file-size="5MB" data-max-files="10" data-allow-reorder="true" required>
                                 </div>
                             </div>
                             {{-- end leaving cert --}}
@@ -82,7 +82,7 @@
                             <div class="row mb-2">
                                 <div class="col-md-12">
                                     <p class="lead">Secondary School Certificate and/or Transcript (max 10 files)<span class="text-danger">*</span></p>
-                                    <input type="file" class="filepond" name="secondarySchoolTranscripts" id="secondarySchoolTranscripts" multiple data-max-file-size="5MB" data-max-files="10">
+                                    <input type="file" class="filepond" name="secondarySchoolTranscripts" id="secondarySchoolTranscripts" multiple data-max-file-size="5MB" data-max-files="10" required>
                                 </div>
                                 <div class="col-md-12">
                                     <p class="lead">Upper Secondary School Certificate and/or Transcript (max 10 files)</p>

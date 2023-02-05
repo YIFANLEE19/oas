@@ -129,7 +129,7 @@ class DraftController extends Controller
         $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
         $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_DRAFT');
         $getApplicationStatusLog->save();
-        return redirect()->route('home');
+        return redirect()->route('supportingDocument.home',['id'=> Crypt::encrypt($APPLICATION_RECORD_ID)]);
     }
 
 }
