@@ -207,6 +207,8 @@
                                     <a href="{{ route('draft.home', ['id' => Crypt::encrypt($application_status_log->application_record_id) ]) }}" class="btn btn-primary">Continue draft</a>
                                     @elseif($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_DRAFT'))
                                     <a href="{{ route('supportingDocument.home', ['id' => Crypt::encrypt($application_status_log->application_record_id) ]) }}" class="btn btn-primary">Continue supporting document</a>
+                                    @elseif($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_SUPPORTING_DOCUEMENT'))
+                                    <a href="{{ route('payment.home', ['id' => Crypt::encrypt($application_status_log->application_record_id) ]) }}" class="btn btn-primary">Continue payment</a>
                                     @endif
                                 </td>
                             </tr>

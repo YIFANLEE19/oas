@@ -137,12 +137,6 @@
 <script src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.js"></script>
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 <script>
-    
-    // We want to preview images, so we register
-    // the Image Preview plugin, We also register 
-    // exif orientation (to correct mobile image
-    // orientation) and size validation, to prevent
-    // large files from being added
     FilePond.registerPlugin(
         FilePondPluginFileValidateSize,
         FilePondPluginFileEncode,
@@ -151,17 +145,6 @@
         FilePondPluginFileValidateType,
     );
     
-    // Create a FilePond instance
-    // const icFrontPond = FilePond.create(document.querySelector('input[id="icFront"]'));
-    // const icBackPond = FilePond.create(document.querySelector('input[id="icBack"]'));
-    // const schoolLeavingCertPond = FilePond.create(document.querySelector('input[id="schoolLeavingCerts"]'));
-    // const secondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="secondarySchoolTranscripts"]'));
-    // const upperSecondarySchoolTranscriptPond = FilePond.create(document.querySelector('input[id="upperSecondarySchoolTranscripts"]'));
-    // const foundationTranscriptPond = FilePond.create(document.querySelector('input[id="foundationTranscripts"]'));
-    // const diplomaTranscriptPond = FilePond.create(document.querySelector('input[id="diplomaTranscripts"]'));
-    // const degreeTranscriptPond = FilePond.create(document.querySelector('input[id="degreeTranscripts"]'));
-    // const othersPond = FilePond.create(document.querySelector('input[id="others"]'));
-
     const inputElements = document.querySelectorAll('input.filepond');
     Array.from(inputElements).forEach(inputElement => {
         FilePond.create(inputElement,{

@@ -281,7 +281,7 @@ Route::prefix('user/')->middleware('auth')->group(function () {
     });
 
     Route::controller(PaymentController::class)->prefix('payment/')->name('payment.')->group(function () {
-        Route::get('/', 'index')->name('home');
+        Route::get('/{id}', 'index')->name('home');
         Route::post('/create/{id}', 'create')->name('create');
     });
 });

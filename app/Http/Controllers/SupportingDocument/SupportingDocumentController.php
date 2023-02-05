@@ -14,6 +14,7 @@ use App\Models\IdentityDocumentPage;
 use App\Models\AcademicRecord;
 use App\Models\SupportingDocument;
 use App\Models\AcademicTranscript;
+use App\Models\ApplicationStatusLog;
 use Auth;
 use Session;
 
@@ -242,7 +243,10 @@ class SupportingDocumentController extends Controller
             }
         }
         $this->removeSession();
-        return back();
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_SUPPORTING_DOCUEMENT');
+        $getApplicationStatusLog->save();
+        return redirect()->route('payment.home',['id'=> Crypt::encrypt($APPLICATION_RECORD_ID)]);
     }
 
     public function tmpUpload(Request $request)

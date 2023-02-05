@@ -2,30 +2,19 @@
 
 namespace App\Http\Controllers\Payment;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use App\Models\Payment;
 use DB;
 use Auth;
-use App\Models\Payment;
-use App\Models\ApplicationRecord;
-use App\Models\ApplicantProfilePicture;
-use App\Models\ApplicantGuardianList;
-use App\Models\EmergencyContactList;
-use App\Models\ApplicationStatusLog;
 use Session;
 
 class PaymentController extends Controller
 {
-    public function index(){
-        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first();
-        if($application_status_log_id == null){
-            $application_status_id = 0;
-            return view('oas.payment.home',compact('application_status_id'));
-        }else{
-            $application_status_id = $application_status_log_id->application_status_id;
-            return view('oas.payment.home',compact('application_status_id'));
-        }
+    public function index($id){
+        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        return view('oas.payment.home', compact(['APPLICATION_RECORD_ID']));
     }
     //
     public function create(){
