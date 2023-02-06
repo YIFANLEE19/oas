@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Payment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
+use App\Models\TemporaryFile;
 use App\Models\Payment;
 use DB;
 use Auth;
@@ -12,40 +14,91 @@ use Session;
 
 class PaymentController extends Controller
 {
-    public function index($id){
+    public function removeSession()
+    {
+        Session::forget(['paymentSlipFileName','paymentSlipFolder']);
+    }
+    public function index($id)
+    {
+        $this->removeSession();
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         return view('oas.payment.home', compact(['APPLICATION_RECORD_ID']));
     }
     //
-    public function create(){
-        $r=request();  //received the data by GET or POST mothod
-        $COMPLETEPAYMENT = 11;
-       
-        $r->validate([
-            'payment' => 'required|file|mimes:jpeg,jpg,png,pdf|max:5120',
-        ]);
-    
-        $payment=$r->file('payment');                       
-        $paymentName=date('YmdHi').$payment->getClientOriginalName();
-        $payment->move('payment',$paymentName);   //payments is the location 
-
-        // get user applicant profile id 
-        $applicationRecord = ApplicationRecord::where('user_id',Auth::id())->first('id');
-
-        Payment::create([
-            'application_record_id' => $applicationRecord->id,
-            'payment_slip'=>$paymentName
-        ]);
-
-        $find_application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->first();
-        if($find_application_status_log != null){
-            $application_status_log_id = $find_application_status_log->id;
-            $application_status_log = ApplicationStatusLog::find($application_status_log_id);
-            $application_status_log->application_status_id = $COMPLETEPAYMENT;
-            $application_status_log->save();
+    public function create($id)
+    {
+        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        $getPaymentSlipFolder = Session::get('paymentSlipFolder');
+        $getPaymentSlipFileName = Session::get('paymentSlipFileName');
+        for($i=0; $i < count($getPaymentSlipFolder); $i++) {
+            $temporary = TemporaryFile::where('folder',$getPaymentSlipFolder[$i])->where('file',$getPaymentSlipFileName[$i])->first();
+            if($temporary){
+                $createPaymentSlip = Payment::create([
+                    'application_record_id' => $APPLICATION_RECORD_ID,
+                    'payment_slip' => $getPaymentSlipFolder[$i].'/'. $getPaymentSlipFileName[$i],
+                ]);
+                Storage::move('/public/images/paymentSlip/tmp/'.$getPaymentSlipFolder[$i].'/'.$getPaymentSlipFileName[$i], '/public/images/paymentSlip/'.$getPaymentSlipFolder[$i].'/'.$getPaymentSlipFileName[$i]);
+                Storage::deleteDirectory('/public/images/paymentSlip/tmp/'. $getPaymentSlipFolder[$i]);
+                $temporary->delete();
+            }
         }
- 
-        Session::flash('application_status_id',$COMPLETEPAYMENT); 
-        return back();
+        $this->removeSession();
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_PAYMENT');
+        $getApplicationStatusLog->save();
+        return redirect()->route('home');
+    }
+
+    public function tmpUpload(Request $request)
+    {
+        $folderName = '';
+        if($request->hasFile('paymentSlip')){
+            $paymentSlip = $request->file('paymentSlip');
+            $paymentSlipFileName = 'paymentSlip_'.Auth::user()->name.'_'.date('YmdHii').'_'.$paymentSlip->getClientOriginalName();
+            $paymentSlipFolder = uniqid('paymentSlip', true);
+            Session::push('paymentSlipFileName', $paymentSlipFileName);
+            Session::push('paymentSlipFolder', $paymentSlipFolder);
+            $paymentSlip->storeAs('/public/images/paymentSlip/tmp/' . $paymentSlipFolder, $paymentSlipFileName);
+            TemporaryFile::create([
+                'folder' => $paymentSlipFolder,
+                'file' => $paymentSlipFileName,
+            ]);
+            $folderName = $paymentSlipFolder;
+        }
+        return $folderName;
+    }
+
+    public function tmpDelete(Request $request)
+    {
+        $paymentSlipTmpFile = TemporaryFile::where('folder', $request->file)->first();
+        $result = 'not found';
+
+        if($paymentSlipTmpFile){
+            $paymentSlipFolderArr = array();
+            $paymentSlipFileNameArr = array();
+            if(Session::has('paymentSlipFolder')){
+                for($i=0; $i < count(Session::get('paymentSlipFolder')); $i++){
+                    if(Session::get('paymentSlipFolder')[$i] != $paymentSlipTmpFile->folder){
+                        array_push($paymentSlipFolderArr, Session::get('paymentSlipFolder')[$i]);
+                    }
+                }
+                for($i=0; $i < count(Session::get('paymentSlipFileName')); $i++){
+                    if(Session::get('paymentSlipFileName')[$i] != $paymentSlipTmpFile->file){
+                        array_push($paymentSlipFileNameArr, Session::get('paymentSlipFileName')[$i]);
+                    }
+                }
+                $this->removeSession();
+                for($i=0; $i< sizeof($paymentSlipFolderArr); $i++){
+                    Session::push('paymentSlipFolder', $paymentSlipFolderArr[$i]);
+                } 
+                for($i=0; $i< sizeof($paymentSlipFileNameArr); $i++){
+                    Session::push('paymentSlipFileName', $paymentSlipFileNameArr[$i]);
+                } 
+                Storage::deleteDirectory('/public/images/paymentSlip/tmp/'. $paymentSlipTmpFile->folder);
+                $paymentSlipTmpFile->delete();
+                $result = 'success';
+            }
+        }
+        return $result;
     }
 }

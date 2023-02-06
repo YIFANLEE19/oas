@@ -283,6 +283,8 @@ Route::prefix('user/')->middleware('auth')->group(function () {
     Route::controller(PaymentController::class)->prefix('payment/')->name('payment.')->group(function () {
         Route::get('/{id}', 'index')->name('home');
         Route::post('/create/{id}', 'create')->name('create');
+        Route::post('/tmp-upload','tmpUpload')->name('tmpUpload');
+        Route::delete('/tmp-delete','tmpDelete')->name('tmpDelete');
     });
 });
 

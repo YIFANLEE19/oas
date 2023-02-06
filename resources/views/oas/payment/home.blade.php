@@ -72,7 +72,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="lead">Payment slip</p>
-                                <input type="file" name="paymentPond" id="paymentPond" data-max-file-size="5MB">
+                                <input type="file" name="paymentSlip" id="paymentPond" multiple data-max-file-size="5MB" data-max-files="1" data-allow-reorder="true" required>
                             </div>
                         </div>
                     </div>
@@ -110,15 +110,41 @@
             resolve(type);
         }),
     });
+
     FilePond.setOptions({
         server: {
             process: '/user/payment/tmp-upload',
-            revert:  '/user/payment/tmp-delete ',
+            revert:  (uniqueFileId, load, error) => {
+                deleteFile(uniqueFileId);
+                error('Error occur');
+                load();
+            },
             headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
             }
         },
     });
+
+
+    function deleteFile(fileName){
+        $.ajax({
+            url: "/user/payment/tmp-delete",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "DELETE",
+            data: {
+                file: fileName,
+            },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(response) {
+                console.log('error')
+            },
+        });
+
+    }
 </script>
 
 @endsection

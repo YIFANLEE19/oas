@@ -49,7 +49,7 @@ class SupportingDocumentController extends Controller
         return view('oas.supporting_document.home', compact(['APPLICATION_RECORD_ID']));
     }
 
-    public function create(Request $request,$id)
+    public function create($id)
     {
         $getIcFrontFolder = Session::get('icFrontFolder');
         $getIcFrontFileName = Session::get('icFrontFileName');
