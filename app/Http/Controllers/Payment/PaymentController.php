@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use App\Models\TemporaryFile;
 use App\Models\Payment;
+use App\Models\ApplicationStatusLog;
 use DB;
 use Auth;
 use Session;
