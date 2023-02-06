@@ -12,10 +12,10 @@
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('button.home') }}</a></li>
-                      <li class="breadcrumb-item active fw-bold" aria-current="page">Submit Supporting Document</li>
+                      <li class="breadcrumb-item active fw-bold" aria-current="page">{{ __('supportingDocs.title') }}</li>
                     </ol>
                 </nav>
-                <h1 class="fw-bold">Submit Supporting Document</h1>
+                <h1 class="fw-bold">{{ __('supportingDocs.title') }}</h1>
                 <p><span class="fw-bold">Step 6 of 7</span> Completed</p>
                 <div class="progress mb-2" style="height: 10px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 84%" aria-valuenow="84" aria-valuemin="0" aria-valuemax="100"></div>
@@ -39,14 +39,14 @@
             <div class="card">
                 <form action="{{ route('supportingDocument.create',['id'=>Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="card-header bg-primary text-white">Submit Supporting Document</div>
+                    <div class="card-header bg-primary text-white">{{ __('supportingDocs.card-header-1') }}</div>
                     <div class="card-body">
                         {{-- <input type="file" id="icFront" data-max-files="10" multiple data-max-file-size="1MB"/> --}}
                         <div class="container">
                             {{-- identity card --}}
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h1 class="fw-bold">Identity card</h1>
+                                    <h1 class="fw-bold">{{ __('supportingDocs.type-1') }}</h1>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -63,7 +63,7 @@
                             {{-- leaving cert --}}
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h1 class="fw-bold">School Leaving Cert</h1>
+                                    <h1 class="fw-bold">{{ __('supportingDocs.type-2') }}</h1>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -76,7 +76,7 @@
                             {{-- transcript --}}
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h1 class="fw-bold">Academic Transcript</h1>
+                                    <h1 class="fw-bold">{{ __('supportingDocs.type-3') }}</h1>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -105,7 +105,7 @@
                             {{-- other relevant docs --}}
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h1 class="fw-bold">Other Relevant Document</h1>
+                                    <h1 class="fw-bold">{{ __('supportingDocs.type-4') }}</h1>
                                 </div>
                             </div>
                             <div class="row mb-2">

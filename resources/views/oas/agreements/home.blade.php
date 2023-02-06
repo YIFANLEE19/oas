@@ -52,66 +52,47 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">{{ __('agreements.header') }}</div>
+                    <div class="card-header bg-primary text-white">{{ __('agreements.card-header-1') }}</div>
                         <div class="card-body">
-                    {{--Refund Policy for New Students' Withdrawal--}}
-                            <div class="row px-3 mt-3 mb-3">
-                                <div class="card-header bg-primary text-white px-3 py-2">{{ __('agreements.consent1_header') }}</div>
-                                    <div class="col-sm-12 pt-2">
-                                        <p class="lead">{{ __('agreements.consent1_title') }}</p>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h2 class="fw-bold">{{ __('agreements.section-1') }}</h2>
+                                        <p class="lead">{{ __('agreements.section-1-paragraph') }}</p>
                                         <ul>
-                                            <li>{{ __('agreements.consent1_content1') }}</li>
-                                            <li>{{ __('agreements.consent1_content2') }}</li>
-                                            <li>{{ __('agreements.consent1_content3') }}</li>
-                                            <li>{{ __('agreements.consent1_content4') }}</li>
+                                            <li>{{ __('agreements.section-1-item-1') }}</li>
+                                            <li>{{ __('agreements.section-1-item-2') }}</li>
+                                            <li>{{ __('agreements.section-1-item-3') }}</li>
+                                            <li>{{ __('agreements.section-1-item-4') }}</li>
                                         </ul>
-                                </div>
-                            </div>
-
-                            {{--Southern Holistic Education 南方整体教育--}}
-                            <div class="row px-3 mt-3 mb-3">
-                                <div class="card-header bg-primary text-white px-3 py-2">{{ __('agreements.consent2_header') }}</div>
-                                    <div class="col-sm-12 pt-2">
-                                        <p class="lead">{{ __('agreements.consent2_title') }}</p>
+                                        <h2 class="fw-bold">{{ __('agreements.section-2') }}</h2>
+                                        <p class="lead">{{ __('agreements.section-2-paragraph') }}</p>
                                         <ul>
-                                            <li>{{ __('agreements.consent2_content1') }}</li>
-                                            <li>{{ __('agreements.consent2_content2') }} </li>
+                                            <li>{{ __('agreements.section-2-item-1') }}</li>
+                                            <li>{{ __('agreements.section-2-item-2') }}</li>
                                         </ul>
+                                        <h2 class="fw-bold">{{ __('agreements.section-3') }}</h2>
+                                        <p class="lead">{{ __('agreements.section-3-paragraph') }}</p>
+                                        <h2 class="fw-bold">{{ __('agreements.section-4') }}</h2>
+                                        <p class="lead">{{ __('agreements.section-4-paragraph-1') }}</p>
+                                        <p>{{ __('agreements.section-4-paragraph-2') }} <a href="{{ __('agreements.section-4-reference-link') }}">{{ __('agreements.section-4-reference-text') }}</a></p>
+                                        <ul>
+                                            <li>{{ __('agreements.section-4-paragraph-4') }} <a href="mailto:reg@sc.edu.my">{{ __('agreements.email') }}</a></li>
+                                            <li>{{ __('agreements.section-4-paragraph-5') }}</li>
+                                            <li>{{ __('agreements.section-4-paragraph-6') }}</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-
-                            {{--Letter of Guarantee 担保信--}}
-                            <div class="row px-3 mt-3 mb-3">
-                                <div class="card-header bg-primary text-white px-3 py-2">{{ __('agreements.consent3_header') }}</div>
-                                    <div class="col-sm-12 pt-2">
-                                        <p>{{ __('agreements.consent3_content') }}</p>
-                                </div>
-                            </div>
-
-                            {{--Self Declaration 宣誓书--}}
-                            <div class="row px-3 mt-3 mb-3">
-                                <div class="card-header bg-primary text-white px-3 py-2">{{ __('agreements.consent4_header') }}</div>
-                                    <div class="col-sm-12 pt-2">
-                                        <p class="lead">{{ __('agreements.consent4_title') }}</p>
-                                            <p>{{ __('agreements.consent4_reference') }} <a href="{{ __('agreements.consent4_reference_link') }}" target="_blank">{{ __('agreements.consent4_reference_title') }}</a></p>
-                                            <p>{{ __('agreements.consent4_content1') }} <a href="{{ __('agreements.consent4_email') }}">{{ __('agreements.consent4_email_title') }}</a>{{ __('agreements.consent4_content1_2') }}<br />
-                                                {{ __('agreements.consent4_content1_br') }}</p>
-                                            <p>{{ __('agreements.consent4_content2') }}</p>
-                                            <p>{{ __('agreements.consent4_content3') }}</p>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row px-3 mt-3 mb-3">
-                                <div class="col-md-12 mt-4">
-                                    <div class="d-flex flex-row">
-                                        <input class="form-check-input me-2" type="checkbox" value="" aria-label="Checkbox for following text input" required/>
-                                        <span><span style="color: #F00">*</span><strong>{{ __('agreements.consent_agree') }}<strong></span>
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value=""required/>
+                                        <label class="form-check-label"><span class="text-danger">*</span>{{ __('agreements.agree-msg-1') }}</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        
                         <div class="card-footer">
                         <div class="row">
                             <div class="col-sm-12">

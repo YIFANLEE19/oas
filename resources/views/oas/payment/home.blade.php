@@ -30,44 +30,44 @@
             <form action="{{ route('payment.create',['id'=>Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
-                    <div class="card-header bg-primary text-white">Submit payment slip</div>
+                    <div class="card-header bg-primary text-white">{{ __('payment.card-header-1') }}</div>
                     <div class="card-body">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="alert alert-warning" role="alert">
-                                        <h4 class="alert-heading fw-bold">Payment instruction</h4>
-                                        <p class="lead">Please provide us the official bank-in slip with the below details in a SINGLE PAGE:</p>
+                                        <h4 class="alert-heading fw-bold">{{ __('payment.instruction-title') }}</h4>
+                                        <p class="lead">{{ __('payment.instruction-paragraph') }}</p>
                                         <ol>
-                                            <li>Transaction Amount</li>
-                                            <li>Beneficiary Bank and Beneficiary Bank Account Number</li>
-                                            <li>Transaction Status (Successful)</li>
-                                            <li>Transaction Date</li>
+                                            <li>{{ __('payment.instruction-item-1') }}</li>
+                                            <li>{{ __('payment.instruction-item-2') }}</li>
+                                            <li>{{ __('payment.instruction-item-3') }}</li>
+                                            <li>{{ __('payment.instruction-item-4') }}</li>
                                         </ol>
                                         <hr>
-                                        <h4 class="alert-heading fw-bold">Payment method</h4>
+                                        <h4 class="alert-heading fw-bold">{{ __('payment.method-title') }}</h4>
                                         <div class="container-fluid">
                                             <div class="row mb-2">
-                                                <div class="col-md-2">Payee Name:</div>
-                                                <div class="col-md-8 fw-bold">KOLEJ UNIVERSITI SELATAN</div>
+                                                <div class="col-md-2">{{ __('payment.payee-label') }}</div>
+                                                <div class="col-md-8 fw-bold">{{ __('payment.payee-name') }}</div>
                                             </div>
                                             <div class="row mb-2">
-                                                <div class="col-md-2">Current Accoun No:</div>
-                                                <div class="col-md-2 fw-bold">PUBLIC BANK</div>
-                                                <div class="col-md-2 fw-bold">315 001 222 6</div>
+                                                <div class="col-md-2">{{ __('payment.account-label') }}</div>
+                                                <div class="col-md-2 fw-bold">{{ __('payment.account-name-1') }}</div>
+                                                <div class="col-md-2 fw-bold">{{ __('payment.account-no-1') }}</div>
                                             </div>
                                             <div class="row mb-2">
-                                                <div class="col-md-2 offset-md-2 fw-bold">CIMB BANK</div>
-                                                <div class="col-md-2 fw-bold">800 628 951 5</div>
+                                                <div class="col-md-2 offset-md-2 fw-bold">{{ __('payment.account-name-2') }}</div>
+                                                <div class="col-md-2 fw-bold">{{ __('payment.account-no-2') }}</div>
                                             </div>
                                             <div class="row mb-2">
-                                                <div class="col-md-2 offset-md-2 fw-bold">RHB BANK</div>
-                                                <div class="col-md-2 fw-bold">201 400 000 497 39</div>
+                                                <div class="col-md-2 offset-md-2 fw-bold">{{ __('payment.account-name-3') }}</div>
+                                                <div class="col-md-2 fw-bold">{{ __('payment.account-no-3') }}</div>
                                             </div>
                                         </div>
                                         <hr>
-                                        <p class="lead">The Application Fee is <span class="fw-bold">RM400.00</span></p>
-                                        <p><span class="text-danger">*</span>Application & registration fee, development fee, student union fee and international student administration fee are <span class="fw-bold">non-refundable</span> regardless of the application date of the withdrawal.</p>
+                                        <p class="lead">{{ __('payment.fee-title') }} <span class="fw-bold">{{ __('payment.fee-amount') }}</span></p>
+                                        <p><span class="text-danger">*</span>{{ __('payment.fee-msg-1') }} <span class="fw-bold">{{ __('payment.fee-bold-msg-1') }}</span> {{ __('payment.fee-msg-2') }}</p>
                                     </div>
                                 </div>
                             </div>

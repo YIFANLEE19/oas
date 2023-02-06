@@ -42,14 +42,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header bg-primary text-white">Draft of Information</div>
+                <div class="card-header bg-primary text-white">{{ __('draft.card-header-1') }}</div>
                 <div class="card-body">
                     <div class="container">
                         {{-- course selection --}}
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h1 class="fw-bold">Course Selection</h1>
+                                    <h1 class="fw-bold">{{ __('draft.section-1') }}</h1>
                                     <a data-bs-toggle="modal" data-bs-target="#editProgrammeSelectionModal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h1 class="fw-bold">Personal Particulars</h1>
+                                    <h1 class="fw-bold">{{ __('draft.section-2') }}</h1>
                                     <a data-bs-toggle="modal" data-bs-target="#editPersonalParticularsModal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
@@ -221,7 +221,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h1 class="fw-bold">Parent/Guardian Particulars</h1>
+                                    <h1 class="fw-bold">{{ __('draft.section-3') }}</h1>
                                     <a data-bs-toggle="modal" data-bs-target="#editParentGuardianParticularsModal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
@@ -316,7 +316,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h1 class="fw-bold">Emergency contact</h1>
+                                    <h1 class="fw-bold">{{ __('draft.section-4') }}</h1>
                                     <a data-bs-toggle="modal" data-bs-target="#editEmergencyContactModal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
@@ -409,7 +409,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h1 class="fw-bold">Profile picture</h1>
+                                    <h1 class="fw-bold">{{ __('draft.section-4') }}</h1>
                                     <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editProfilePictureModal"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
@@ -439,7 +439,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h1 class="fw-bold">Academic Record</h1>
+                                    <h1 class="fw-bold">{{ __('draft.section-6') }}</h1>
                                     <a data-bs-toggle="modal" data-bs-target="#editAcademicDetailModal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
@@ -471,7 +471,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h1 class="fw-bold">Status of Health</h1>
+                                    <h1 class="fw-bold">{{ __('draft.section-7') }}</h1>
                                     <a data-bs-toggle="modal" data-bs-target="#editStatusOfHealthModal" class="btn btn-secondary"><i class="bi bi-pencil"></i></a>
                                 </div>
                             </div>
