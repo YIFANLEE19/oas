@@ -48,11 +48,19 @@ class SupportingDocumentController extends Controller
         // Application status log
         $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
         $this->removeSession();
-        return view('oas.supporting_document.home', compact(['APPLICATION_RECORD_ID','getApplicationStatusLog']));
+        if($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_DRAFT')){
+            return view('oas.supporting_document.home', compact(['APPLICATION_RECORD_ID','getApplicationStatusLog']));
+        }
+        return redirect()->route('home');
     }
 
     public function create($id)
-    {
+    {        
+        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        if($getApplicationStatusLog->application_status_id != config('constants.APPLICATION_STATUS_CODE.COMPLETE_DRAFT')){
+            return redirect()->route('home');
+        }
         $getIcFrontFolder = Session::get('icFrontFolder');
         $getIcFrontFileName = Session::get('icFrontFileName');
         $getIcBackFolder = Session::get('icBackFolder');
@@ -71,7 +79,6 @@ class SupportingDocumentController extends Controller
         $getDegreeTranscriptsFileName = Session::get('degreeTranscriptsFileName');
         $getOthersFolder = Session::get('othersFolder');
         $getOthersFileName = Session::get('othersFileName');
-        $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         // get school level record id
         $getSecondarySchoolRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.SECONDARY'))->first();
         $getUpperSecondarySchoolRecordId = AcademicRecord::where('application_record_id',$APPLICATION_RECORD_ID)->where('school_level_id',config('constants.SCHOOL_LEVEL.UPPERSECONDARY'))->first();
@@ -245,7 +252,7 @@ class SupportingDocumentController extends Controller
             }
         }
         $this->removeSession();
-        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        
         $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_SUPPORTING_DOCUEMENT');
         $getApplicationStatusLog->save();
         return redirect()->route('payment.home',['id'=> Crypt::encrypt($APPLICATION_RECORD_ID)]);

@@ -120,14 +120,20 @@ class DraftController extends Controller
             'academic_record' => $getAcademicRecord,
             'status_of_health' => $getStatusOfHealth,
         ];
-
-        return view('oas.draft.home', compact('data','APPLICATION_RECORD_ID'));
+        if($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_AGREEMENT')){
+            return view('oas.draft.home', compact('data','APPLICATION_RECORD_ID'));
+        }
+        return redirect()->route('home');
+        
     }
 
     public function create($id){
 
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        if($getApplicationStatusLog->application_status_id != config('constants.APPLICATION_STATUS_CODE.COMPLETE_AGREEMENT')){
+            return redirect()->route('home');
+        }
         $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_DRAFT');
         $getApplicationStatusLog->save();
         return redirect()->route('supportingDocument.home',['id'=> Crypt::encrypt($APPLICATION_RECORD_ID)]);

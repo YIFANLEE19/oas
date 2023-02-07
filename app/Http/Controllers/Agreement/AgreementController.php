@@ -20,14 +20,20 @@ class AgreementController extends Controller
     public function index($id){
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         session(['key'=>$APPLICATION_RECORD_ID]);
-        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
-        return view('oas.agreements.home',compact('APPLICATION_RECORD_ID','application_status_log_id'));
+        $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        if($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_STATUS_OF_HEALTH')){
+            return view('oas.agreements.home',compact('APPLICATION_RECORD_ID'));
+        }
+        return redirect()->route('home');
     }
 
     public function submit($id){
 
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        if($getApplicationStatusLog->application_status_id != config('constants.APPLICATION_STATUS_CODE.COMPLETE_STATUS_OF_HEALTH')){
+            return redirect()->route('home');
+        }
         $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_AGREEMENT');
         $getApplicationStatusLog->save();
 

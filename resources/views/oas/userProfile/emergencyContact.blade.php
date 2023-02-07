@@ -135,7 +135,7 @@
                     <div class="col-md mb-3">
                         <label for="relationship" class="form-label">{{ __('inputFields.relationship') }}</label>
                         <select name="guardian_relationship_id1" id="relationship1" class="form-select" required>
-                            <option selected disabled>{{ __('inputFields.relationship_placeholder') }}</option>
+                            <option value="" selected disabled>{{ __('inputFields.relationship_placeholder') }}</option>
                             @foreach ($allRelationships as $relationship)
                                 <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                             @endforeach
@@ -171,7 +171,7 @@
                     <div class="col-md mb-3">
                         <label for="relationship" class="form-label">{{ __('inputFields.relationship') }}</label>
                         <select name="guardian_relationship_id2" id="relationship2" class="form-select" required>
-                            <option selected disabled>{{ __('inputFields.relationship_placeholder') }}</option>
+                            <option value="" selected disabled>{{ __('inputFields.relationship_placeholder') }}</option>
                             @foreach ($allRelationships as $relationship)
                                 <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                             @endforeach

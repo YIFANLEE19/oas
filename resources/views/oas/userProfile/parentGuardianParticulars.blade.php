@@ -176,7 +176,7 @@
                     <div class="col-md mb-3">
                         <label for="relationship" class="form-label">{{ __('inputFields.relationship') }}<span class="text-danger">*</span></label>
                         <select name="guardian_relationship_id" id="relationship" class="form-select" required>
-                            <option disabled selected hidden>{{ __('inputFields.relationship_placeholder') }}</option>
+                            <option value="" disabled selected hidden>{{ __('inputFields.relationship_placeholder') }}</option>
                             @foreach ($data['relationships'] as $relationship)
                                 <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                             @endforeach
@@ -185,7 +185,7 @@
                     <div class="col-md mb-3">
                         <label for="nationality" class="form-label">{{ __('inputFields.nationality') }}<span class="text-danger">*</span></label>
                         <select name="nationality_id" id="nationality" class="form-select" required>
-                            <option disabled selected hidden>{{ __('inputFields.nationality_placeholder') }}</option>
+                            <option value="" disabled selected hidden>{{ __('inputFields.nationality_placeholder') }}</option>
                             @foreach ($data['nationalities'] as $nationality)
                                 <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
                             @endforeach
@@ -210,7 +210,7 @@
                     <div class="col-md mb-3">
                         <label for="income" class="form-label">{{ __('inputFields.income_range') }}<span class="text-danger">*</span></label>
                         <select name="income_id" id="income" class="form-select" required>
-                            <option disabled selected hiddend>{{ __('inputFields.income_placeholder') }}</option>
+                            <option value="" disabled selected hiddend>{{ __('inputFields.income_placeholder') }}</option>
                             @foreach ($data['incomes'] as $income)
                                 <option value="{{ $income->id }}">{{ $income->range }}</option>
                             @endforeach
@@ -275,7 +275,7 @@
                     <div class="col-md mb-3">
                         <label for="p_country" class="form-label">{{ __('inputFields.country') }}<span class="text-danger">*</span></label>
                         <select name="p_country_id" id="p_country" class="form-select" required>
-                            <option disabled selected hiddend>{{ __('inputFields.country_placeholder') }}</option>
+                            <option value="" disabled selected hiddend>{{ __('inputFields.country_placeholder') }}</option>
                             @foreach ($data['countries'] as $country)
                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach

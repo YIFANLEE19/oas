@@ -23,13 +23,20 @@ class PaymentController extends Controller
     {
         $this->removeSession();
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
-        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
-        return view('oas.payment.home', compact(['APPLICATION_RECORD_ID','application_status_log_id']));
+        $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        if($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_SUPPORTING_DOCUEMENT')){
+            return view('oas.payment.home', compact(['APPLICATION_RECORD_ID']));
+        }
+        return redirect()->route('home');
     }
     //
     public function create($id)
     {
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        if($getApplicationStatusLog->application_status_id != config('constants.APPLICATION_STATUS_CODE.COMPLETE_SUPPORTING_DOCUEMENT')){
+            return redirect()->route('home');
+        }
         $getPaymentSlipFolder = Session::get('paymentSlipFolder');
         $getPaymentSlipFileName = Session::get('paymentSlipFileName');
         for($i=0; $i < count($getPaymentSlipFolder); $i++) {
@@ -45,7 +52,7 @@ class PaymentController extends Controller
             }
         }
         $this->removeSession();
-        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        
         $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_PAYMENT');
         $getApplicationStatusLog->save();
         return redirect()->route('home');

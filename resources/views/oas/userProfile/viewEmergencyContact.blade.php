@@ -195,7 +195,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="relationship" class="form-label">{{ __('inputFields.relationship') }}</label>
                                         <select name="guardian_relationship_id1" id="relationship1" class="form-select" required>
-                                            <option value="{{ $emergency_contact1->guardian_relationship_id }}" selected>{{ $emergency_contact1->guardianRelationship['name'] }}</option>
+                                            <option value="{{ $emergency_contact1->guardian_relationship_id }}" selected hidden>{{ $emergency_contact1->guardianRelationship['name'] }}</option>
                                             @foreach ($allRelationships as $relationship)
                                                 <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                                             @endforeach
@@ -231,7 +231,7 @@
                                     <div class="col-md mb-3">
                                         <label for="relationship" class="form-label">{{ __('inputFields.relationship') }}</label>
                                         <select name="guardian_relationship_id2" id="relationship2" class="form-select" required>
-                                            <option value="{{ $emergency_contact2->guardian_relationship_id }}" selected>{{ $emergency_contact2->guardianRelationship['name'] }}</option>
+                                            <option value="{{ $emergency_contact2->guardian_relationship_id }}" selected hidden>{{ $emergency_contact2->guardianRelationship['name'] }}</option>
                                             @foreach ($allRelationships as $relationship)
                                                 <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                                             @endforeach

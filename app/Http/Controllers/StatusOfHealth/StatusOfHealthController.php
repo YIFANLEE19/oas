@@ -24,14 +24,21 @@ class StatusOfHealthController extends Controller
     {
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         $diseases = Disease::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
-        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
-        return view('oas.status_of_health.home', compact(['diseases','APPLICATION_RECORD_ID','application_status_log_id']));
+        $application_status_log = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        if($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_ACADEMIC_DETAIL')){
+            return view('oas.status_of_health.home', compact(['diseases','APPLICATION_RECORD_ID']));
+        }
+        return redirect()->route('home');
 
     }
 
     public function create($id)
     {
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        if($getApplicationStatusLog->application_status_id != config('constants.APPLICATION_STATUS_CODE.COMPLETE_ACADEMIC_DETAIL')){
+            return redirect()->route('home');
+        }
         $r = request();
 
         $getAllDiseaseId = $r->disease_id;
@@ -47,7 +54,6 @@ class StatusOfHealthController extends Controller
             ]);
         }
 
-        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
         $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_STATUS_OF_HEALTH');
         $getApplicationStatusLog->save();
         

@@ -23,18 +23,26 @@ class AcademicDetailController extends Controller
     {
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         $school_level = SchoolLevel::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
-        $application_status_log_id = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
-        return view('oas.academic_detail.home', compact('school_level','APPLICATION_RECORD_ID','application_status_log_id'));
+        $application_status_log = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        if($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROGRAM_SELECTION')){
+            return view('oas.academic_detail.home', compact('school_level','APPLICATION_RECORD_ID'));
+        }
+        return redirect()->route('home');
     }
     /**
      * create new SchoolLevel function
      */
     public function create($id)
     {
-        $r = request();
-
         // get application record id
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+
+        if($getApplicationStatusLog->application_status_id != config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROGRAM_SELECTION')){
+            return redirect()->route('home');
+        }
+        
+        $r = request();
         $SCHOOL_LEVEL = array(config('constants.SCHOOL_LEVEL.SECONDARY'),config('constants.SCHOOL_LEVEL.UPPERSECONDARY'),config('constants.SCHOOL_LEVEL.FOUNDATION'),config('constants.SCHOOL_LEVEL.DIPLOMA'),config('constants.SCHOOL_LEVEL.DEGREE'),config('constants.SCHOOL_LEVEL.PHD'),config('constants.SCHOOL_LEVEL.MASTER'),config('constants.SCHOOL_LEVEL.OTHER'));
 
         $getAllSchoolName = $r->school_name;
@@ -66,7 +74,7 @@ class AcademicDetailController extends Controller
             ]);
         }
 
-        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        
         $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_ACADEMIC_DETAIL');
         $getApplicationStatusLog->save();
 
