@@ -59,7 +59,8 @@
         <div class="col-md-4">
             <div class="d-flex flex-column">
                 <h4 class="fw-bold">{{ __('userProfile.title4') }}</h4>
-                <img src="/images/profile_picture/{{ Crypt::decrypt($applicant_profile_picture->path) }}" class="img-fluid" width="217px" height="280px">
+                <img src="{{ Storage::url('images/profile_picture/'.Crypt::decrypt($applicant_profile_picture->path)) }}" alt="" class="img-fluid" width="217px" height="280px">
+                {{-- <img src="/images/profile_picture/{{ Crypt::decrypt($applicant_profile_picture->path) }}" class="img-fluid" width="217px" height="280px"> --}}
             </div>
             <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#editModal">{{ __('button.edit_profile_picture') }}</button>
 

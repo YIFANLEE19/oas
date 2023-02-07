@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Session;
 use Image;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilePictureController extends Controller
 {
@@ -102,9 +103,12 @@ class ProfilePictureController extends Controller
         $picture = $request->file('picture');
         $pictureName = 'profile_picture_'.Auth::user()->name.'_'.date('YmdHii').$picture->getClientOriginalName();
         $pictureResize = Image::make($picture->getRealPath());
-        $pictureResize->resize(config('constants.PROFILE_PICTURE.WIDTH'),config('constants.PROFILE_PICTURE.HEIGHT'));
-        $pictureResize->save(public_path('images/profile_picture/'.$pictureName));
+        $pictureResize->resize(config('constants.PROFILE_PICTURE.WIDTH'),config('constants.PROFILE_PICTURE.HEIGHT'))->encode();
+        Storage::put('public/images/profile_picture/'.$pictureName , $pictureResize);
+        // $pictureResize->save(public_path('images/profile_picture/'.$pictureName));
         $applicant_profile_picture = ApplicantProfilePicture::find($APPLICANT_PROFILE_PICTURE_ID);
+        $test = Crypt::decrypt($applicant_profile_picture->path);
+        Storage::deleteDirectory('public/images/profile_picture/'.$test);
         $applicant_profile_picture->path = Crypt::encrypt($pictureName);
         $applicant_profile_picture->applicant_profile_id = $APPLICANT_PROFILE_ID;
         $applicant_profile_picture->save();
