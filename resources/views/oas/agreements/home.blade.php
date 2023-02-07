@@ -11,8 +11,8 @@
             <div class="modal-content">
                 <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode0ModalLabel">{{ __('modal.thank_you') }}</h1></div>
                 <div class="modal-body">
-                    <p>{{ __('modal.complete_ar_modal_description1') }}</p>
-                    <p>{{ __('modal.complete_ar_modal_description2') }}</p>
+                    <p>{{ __('modal.complete_agree_modal_description1') }}</p>
+                    <p>{{ __('modal.complete_agree_modal_description2') }}</p>
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
@@ -97,8 +97,8 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="d-flex justify-content-end">
-                                    <a href="{{ route('statusOfHealth.home',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" class="btn btn-outline-secondary me-3">{{ __('agreements.back_button') }}</a>
-                                    <button class="btn btn-primary">{{ __('agreements.next_button') }}</button>
+                                    <a href="{{ route('statusOfHealth.home',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" class="btn btn-outline-secondary me-3">{{ __('button.back') }}</a>
+                                    <button class="btn btn-primary">{{ __('button.next') }}</button>
                                 </div>
                             </div>
                         </div> 

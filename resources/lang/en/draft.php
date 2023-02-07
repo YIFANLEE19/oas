@@ -20,6 +20,12 @@ return [
     'section-5' => 'Profile Picture',
     'section-6' => 'Academic Record',
     'section-7' => 'Status of Health',
-
+    /*
+    |--------------------------------------------------------------------------
+    | alert message
+    |--------------------------------------------------------------------------
+    */
+    'alert-msg-1' => 'Please confirm the draft of your information before submit',
+    ''
 
 ];

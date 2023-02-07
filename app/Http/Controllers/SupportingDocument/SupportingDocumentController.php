@@ -45,8 +45,10 @@ class SupportingDocumentController extends Controller
     public function index($id)
     {
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
+        // Application status log
+        $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
         $this->removeSession();
-        return view('oas.supporting_document.home', compact(['APPLICATION_RECORD_ID']));
+        return view('oas.supporting_document.home', compact(['APPLICATION_RECORD_ID','getApplicationStatusLog']));
     }
 
     public function create($id)

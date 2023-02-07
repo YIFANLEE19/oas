@@ -91,6 +91,7 @@ class DraftController extends Controller
         $getStatusOfHealth = StatusOfHealth::where('application_record_id',$APPLICATION_RECORD_ID)->get();
 
         $data = [
+            'getApplicationStatusLog' =>$getApplicationStatusLog,
             'getApplicantStatusLog' => $getApplicantStatusLog,
             'getRaces' => $getRaces,
             'getReligions' => $getReligions,

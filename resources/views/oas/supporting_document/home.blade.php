@@ -3,6 +3,26 @@
 @section('content')
 
 {{-- <img src="{{ Storage::url('images/icFront/icFront63db2e44338104.24879098/icFront_Superadmin_20230202113030_ic-front.png') }}" alt=""> --}}
+{{-- modal --}}
+<style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
+@if ($getApplicationStatusLog->application_status_id >= config('constants.APPLICATION_STATUS_CODE.COMPLETE_SUPPORTING_DOCUEMENT'))
+    <script>$(function(){$('#statusCode0Modal').modal('show');});</script>  
+    <div class="modal fade" id="statusCode0Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode0ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode0ModalLabel">{{ __('modal.thank_you') }}</h1></div>
+                <div class="modal-body">
+                    <p>{{ __('modal.complete_sd_modal_description1') }}</p>
+                    <p>{{ __('modal.complete_sd_modal_description2') }}</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
+                    <a href="{{ route('payment.home',['id'=> Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 
 {{-- header --}}
 <div class="container">
@@ -16,7 +36,7 @@
                     </ol>
                 </nav>
                 <h1 class="fw-bold">{{ __('supportingDocs.title') }}</h1>
-                <p><span class="fw-bold">Step 6 of 7</span> Completed</p>
+                <p><span class="fw-bold">{{ __('step.step-6') }}</span> {{ __('step.completed') }}</p>
                 <div class="progress mb-2" style="height: 10px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 84%" aria-valuenow="84" aria-valuemin="0" aria-valuemax="100"></div>
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary opacity-25" role="progressbar" style="width: 16%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -51,11 +71,11 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    <p class="lead">Identity card - Front<span class="text-danger">*</span></p>
+                                    <p class="lead">{{ __('inputFields.ic-front') }}<span class="text-danger">*</span></p>
                                     <input type="file" class="filepond" name="icFront" id="icFront" multiple data-max-file-size="5MB" data-max-files="1" data-allow-reorder="true" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="lead">Identity card - Back<span class="text-danger">*</span></p>
+                                    <p class="lead">{{ __('inputFields.ic-back') }}<span class="text-danger">*</span></p>
                                     <input type="file" class="filepond" name="icBack" id="icBack" multiple data-max-file-size="5MB" data-max-files="1" data-allow-reorder="true" required>
                                 </div>
                             </div>
@@ -68,7 +88,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-12">
-                                    <p class="lead">Secondary School<span class="text-danger">*</span></p>
+                                    <p class="lead">{{ __('inputFields.secondary-school') }} ({{ __('inputFields.max-file') }})<span class="text-danger">*</span></p>
                                     <input type="file" class="filepond" name="schoolLeavingCerts" id="schoolLeavingCerts" multiple data-max-file-size="5MB" data-max-files="10" data-allow-reorder="true" required>
                                 </div>
                             </div>
@@ -81,23 +101,23 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-12">
-                                    <p class="lead">Secondary School Certificate and/or Transcript (max 10 files)<span class="text-danger">*</span></p>
+                                    <p class="lead">{{ __('inputFields.at-secondary-school') }} ({{ __('inputFields.max-file') }})<span class="text-danger">*</span></p>
                                     <input type="file" class="filepond" name="secondarySchoolTranscripts" id="secondarySchoolTranscripts" multiple data-max-file-size="5MB" data-max-files="10" required>
                                 </div>
                                 <div class="col-md-12">
-                                    <p class="lead">Upper Secondary School Certificate and/or Transcript (max 10 files)</p>
+                                    <p class="lead">{{ __('inputFields.at-uppersecondary-school') }} ({{ __('inputFields.max-file') }})</p>
                                     <input type="file" class="filepond" name="upperSecondarySchoolTranscripts" id="upperSecondarySchoolTranscripts" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                                 <div class="col-md-12">
-                                    <p class="lead">Foundation Certificate and/or Transcript (max 10 files)</p>
+                                    <p class="lead">{{ __('inputFields.at-foundation') }} ({{ __('inputFields.max-file') }})</p>
                                     <input type="file" class="filepond" name="foundationTranscripts" id="foundationTranscripts" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                                 <div class="col-md-12">
-                                    <p class="lead">Diploma Certificate and/or Transcript (max 10 files)</p>
+                                    <p class="lead">{{ __('inputFields.at-diploma') }} ({{ __('inputFields.max-file') }})</p>
                                     <input type="file" class="filepond" name="diplomaTranscripts" id="diplomaTranscripts" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                                 <div class="col-md-12">
-                                    <p class="lead">Degree Certificate and/or Transcript (max 10 files)</p>
+                                    <p class="lead">{{ __('inputFields.at-degree') }} ({{ __('inputFields.max-file') }})</p>
                                     <input type="file" class="filepond" name="degreeTranscripts" id="degreeTranscripts" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                             </div>
@@ -110,7 +130,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-12">
-                                    <p class="lead">Others (max 10 files)</p>
+                                    <p class="lead">{{ __('inputFields.at-others') }}  ({{ __('inputFields.max-file') }})</p>
                                     <input type="file" class="filepond" name="others" id="others" multiple data-max-file-size="5MB" data-max-files="10">
                                 </div>
                             </div>
@@ -119,8 +139,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <a href="#" class="btn btn-outline-secondary me-3">Back</a>
-                            <button type="submit" class="btn btn-primary me-3">Next</button>
+                            <a href="#" class="btn btn-outline-secondary me-3">{{ __('button.back') }}</a>
+                            <button type="submit" class="btn btn-primary me-3">{{ __('button.next') }}</button>
                         </div>
                     </div>
                 </form>

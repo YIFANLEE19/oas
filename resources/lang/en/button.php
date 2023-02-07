@@ -10,6 +10,9 @@ return [
     'edit_personal_particulars' => 'Edit personal particulars',
     'edit_parent_guardian_particulars' => 'Edit parent/guardian particulars',
     'edit_emergency_contact' => 'Edit emergency contact',
+    'edit_academic_record' => 'Edit academic record',
+    'edit_status_of_health' => 'Edit status of health',
     'close' => 'Close',
     'save_changes' => 'Save changes',
+    'next' => 'Next',
 ];

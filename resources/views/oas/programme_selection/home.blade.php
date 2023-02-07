@@ -34,7 +34,7 @@
                     </ol>
                 </nav>
                 <h1 class="fw-bold">{{ __('programmeSelect.title') }}</h1>
-                <p><span class="fw-bold">Step 1 of 7</span> Completed</p>
+                <p><span class="fw-bold">{{ __('step.step-1') }}</span> {{ __('step.completed') }}</p>
                 <div class="progress mb-2" style="height: 10px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 14%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100"></div>
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary opacity-25" role="progressbar" style="width: 86%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -51,14 +51,14 @@
             <form action="{{ route('programmeSelect.create') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
-                    <div class="card-header bg-primary text-white">{{ __('programmeSelect.title') }}</div>
+                    <div class="card-header bg-primary text-white">{{ __('programmeSelect.card-header-1') }}</div>
                     <div class="card-body">
                         <livewire:programme-selection/>
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
                             <a href="{{ route('home') }}" class="btn btn-outline-secondary me-3">{{ __('button.back_to_home_page') }}</a>
-                            <button type="submit" class="btn btn-primary me-3">{{ __('statusOfHealth.next_button') }}</button>
+                            <button type="submit" class="btn btn-primary me-3">{{ __('button.continue') }}</button>
                         </div>
                     </div>
                 </div>

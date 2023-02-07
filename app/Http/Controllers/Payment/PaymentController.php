@@ -23,7 +23,8 @@ class PaymentController extends Controller
     {
         $this->removeSession();
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
-        return view('oas.payment.home', compact(['APPLICATION_RECORD_ID']));
+        $application_status_log_id = ApplicationStatusLog::where('user_id',Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
+        return view('oas.payment.home', compact(['APPLICATION_RECORD_ID','application_status_log_id']));
     }
     //
     public function create($id)

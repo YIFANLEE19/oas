@@ -206,6 +206,16 @@ return [
     /*
     |
     |--------------------------------------------------------------------------
+    | Supporting Document - complete modal
+    |--------------------------------------------------------------------------
+    |
+    */
+    'complete_sd_modal_description1' => 'You had successfully submit all the supporting document.',
+    'complete_sd_modal_description2' => 'If you want to go ahead and submit your payment slip please click Continue.',
+
+    /*
+    |
+    |--------------------------------------------------------------------------
     | Draft of Information- complete modal
     |--------------------------------------------------------------------------
     |

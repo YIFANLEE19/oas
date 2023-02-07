@@ -1,6 +1,26 @@
 @extends('oas.layouts.app')
 
 @section('content')
+{{-- modal --}}
+<style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
+@if ($data['getApplicationStatusLog']->application_status_id >= config('constants.APPLICATION_STATUS_CODE.COMPLETE_DRAFT'))
+    <script>$(function(){$('#statusCode0Modal').modal('show');});</script>  
+    <div class="modal fade" id="statusCode0Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="statusCode0ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header"><h1 class="modal-title fs-5" id="statusCode0ModalLabel">{{ __('modal.thank_you') }}</h1></div>
+                <div class="modal-body">
+                    <p>{{ __('modal.complete_draft_modal_description1') }}</p>
+                    <p>{{ __('modal.complete_draft_modal_description2') }}</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('home') }}" type="button" class="btn btn-outline-secondary">{{ __('button.back_to_home_page') }}</a>
+                    <a href="{{ route('supportingDocument.home',['id'=> Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" type="button" class="btn btn-primary">{{ __('button.continue') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 
 {{-- header --}}
 <div class="container">
@@ -14,7 +34,7 @@
                     </ol>
                 </nav>
                 <h1 class="fw-bold">{{ __('draft.title') }}</h1>
-                <p><span class="fw-bold">Step 5 of 7</span> Completed</p>
+                <p><span class="fw-bold">{{ __('step.step-5') }}</span> {{ __('step.completed') }}</p>
                 <div class="progress mb-2" style="height: 10px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 56%" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100"></div>
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary opacity-25" role="progressbar" style="width: 44%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -30,7 +50,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                Please confirm the draft of your information before submit
+                {{ __('draft.alert-msg-1') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
@@ -56,28 +76,28 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Intake Month & Year:</p>
+                                <p class="lead">{{ __('inputFields.intake-my-label') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
-                                <p class="fw-bold">Month: {{ $data['getSelectedCourses'][0]->programmeRecord['semesterYearMapping']->semester['semester'] }} ,Year: {{ $data['getSelectedCourses'][0]->programmeRecord['semesterYearMapping']->year }}</p>  
+                                <p class="fw-bold">{{ __('inputFields.month') }} {{ $data['getSelectedCourses'][0]->programmeRecord['semesterYearMapping']->semester['semester'] }} ,{{ __('inputFields.year') }} {{ $data['getSelectedCourses'][0]->programmeRecord['semesterYearMapping']->year }}</p>  
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Course Selected:</p>
+                                <p class="lead">{{ __('inputFields.course-selected') }}</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 @if ($data['getSelectedCourses'][0]->programmeRecord['programme']->programme_level_id == 1 || $data['getSelectedCourses'][0]->programmeRecord['programme']->programme_level_id == 2)
-                                    <p class="fw-bold">Postgraduate</p>
+                                    <p class="fw-bold">{{ __('inputFields.postgraduate') }}</p>
                                 @else
-                                    <p class="fw-bold">Undergraduate</p>
+                                    <p class="fw-bold">{{ __('inputFields.undergraduate') }}</p>
                                 @endif
                             </div>
                         </div>
                         @for ($i = 0; $i < count($data['getSelectedCourses']); $i++)
                             <div class="row">
                                 <div class="col-md-6 col-12">
-                                    <p class="lead">Choice {{ $i % 3 + 1 }}:</p>
+                                    <p class="lead">{{ __('inputFields.choice') }} {{ $i % 3 + 1 }}:</p>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <p class="fw-bold">{{ $data['getSelectedCourses'][$i]->programmeRecord['programme']->en_name }}</p>
@@ -97,7 +117,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">English name:</p>
+                                <p class="lead">{{ __('inputFields.en_name') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['user_detail']->en_name }}</p>
@@ -105,7 +125,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Chinese name:</p>
+                                <p class="lead">{{ __('inputFields.ch_name') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 @if ($data['user_detail']->ch_name == null)
@@ -117,7 +137,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Identity card/other certifcate:</p>
+                                <p class="lead">{{ __('inputFields.ic') }}/{{ __('inputFields.without_ic') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold" id="read_ic">{{ $data['user_detail']->ic }}</p>
@@ -125,7 +145,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Race:</p>
+                                <p class="lead">{{ __('inputFields.race') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['applicant_profile']->race['name'] }}</p>
@@ -133,7 +153,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Religion:</p>
+                                <p class="lead">{{ __('inputFields.religion') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['applicant_profile']->religion['name'] }}</p>
@@ -141,7 +161,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Nationality:</p>
+                                <p class="lead">{{ __('inputFields.nationality') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['applicant_profile']->nationality['name'] }}</p>
@@ -149,7 +169,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Birth date(Y-M-D):</p>
+                                <p class="lead">{{ __('inputFields.bd') }}(Y-M-D):</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['applicant_profile']->birth_date }}</p>
@@ -157,7 +177,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Gender:</p>
+                                <p class="lead">{{ __('inputFields.gender') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['applicant_profile']->gender['name'] }}</p>
@@ -165,7 +185,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Marital Status:</p>
+                                <p class="lead">{{ __('inputFields.ms') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['applicant_profile']->marital['name'] }}</p>
@@ -173,7 +193,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Email address:</p>
+                                <p class="lead">{{ __('inputFields.email') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['user_detail']->email }}</p>
@@ -181,7 +201,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Tel no. (H/P):</p>
+                                <p class="lead">{{ __('inputFields.tel_hp') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['user_detail']->tel_hp }}</p>
@@ -189,7 +209,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Tel no. (H):</p>
+                                <p class="lead">{{ __('inputFields.tel_h') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 @if ($data['user_detail']->tel_h != null)
@@ -201,7 +221,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Correspondence Address:</p>
+                                <p class="lead">{{ __('inputFields.c_address') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['c_address']->street1 }}, {{ $data['c_address']->street2 }}, {{ $data['c_address']->zipcode }}, {{ $data['c_address']->city }}, {{ $data['c_address']->state }}, {{ $data['c_address']->country['name'] }}.</p>
@@ -209,7 +229,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Permanent Address:</p>
+                                <p class="lead">{{ __('inputFields.p_address') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['p_address']->street1 }}, {{ $data['p_address']->street2 }}, {{ $data['p_address']->zipcode }}, {{ $data['p_address']->city }}, {{ $data['p_address']->state }}, {{ $data['p_address']->country['name'] }}.</p>
@@ -228,7 +248,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">English name:</p>
+                                <p class="lead">{{ __('inputFields.en_name') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['guardian_user_detail']->en_name }}</p>
@@ -236,7 +256,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Chinese name:</p>
+                                <p class="lead">{{ __('inputFields.ch_name') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 @if ($data['guardian_user_detail']->ch_name == null)
@@ -248,7 +268,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Identity card/Passport:</p>
+                                <p class="lead">{{ __('inputFields.ic_or_passport') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold" id="read_pg_ic">{{ $data['guardian_user_detail']->ic }}</p>
@@ -256,7 +276,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Relationship:</p>
+                                <p class="lead">{{ __('inputFields.relationship') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['guardian_detail']->guardianRelationship['name'] }}</p>
@@ -264,7 +284,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Nationality:</p>
+                                <p class="lead">{{ __('inputFields.nationality') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['guardian_detail']->nationality['name'] }}</p>
@@ -272,7 +292,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Occupation:</p>
+                                <p class="lead">{{ __('inputFields.occupation') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['guardian_detail']->occupation }}</p>
@@ -280,7 +300,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Family income:</p>
+                                <p class="lead">{{ __('inputFields.income') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['guardian_detail']->income['range'] }}</p>
@@ -288,7 +308,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Tel no(H/P):</p>
+                                <p class="lead">{{ __('inputFields.tel_hp') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['guardian_user_detail']->tel_hp }}</p>
@@ -296,7 +316,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Email address:</p>
+                                <p class="lead">{{ __('inputFields.email') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['guardian_user_detail']->email }}</p>
@@ -304,7 +324,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Permanent address:</p>
+                                <p class="lead">{{ __('inputFields.p_address') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['pg_p_address']->street1 }}, {{ $data['pg_p_address']->street2 }}, {{ $data['pg_p_address']->zipcode }}, {{ $data['pg_p_address']->city }}, {{ $data['pg_p_address']->state }}, {{ $data['pg_p_address']->country['name'] }}.</p>
@@ -323,12 +343,12 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>Person 1</h2>
+                                <h2>{{ __('inputFields.p1') }}</h2>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">English name:</p>
+                                <p class="lead">{{ __('inputFields.en_name') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['emergency_contact_user_detail1']->en_name }}</p>
@@ -336,7 +356,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Chinese name:</p>
+                                <p class="lead">{{ __('inputFields.ch_name') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 @if ($data['emergency_contact_user_detail1']->ch_name != null)
@@ -348,7 +368,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Relationship:</p>
+                                <p class="lead">{{ __('inputFields.relationship') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['emergency_contact1']->guardianRelationship['name'] }}</p>
@@ -356,7 +376,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Tel no.(H/P):</p>
+                                <p class="lead">{{ __('inputFields.tel_hp') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['emergency_contact_user_detail1']->tel_hp }}</p>
@@ -364,12 +384,12 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>Person 2</h2>
+                                <h2>{{ __('inputFields.p2') }}</h2>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">English name:</p>
+                                <p class="lead">{{ __('inputFields.en_name') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['emergency_contact_user_detail2']->en_name }}</p>
@@ -377,7 +397,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Chinese name:</p>
+                                <p class="lead">{{ __('inputFields.ch_name') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 @if ($data['emergency_contact_user_detail2']->ch_name != null)
@@ -389,7 +409,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Relationship:</p>
+                                <p class="lead">{{ __('inputFields.relationship') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['emergency_contact2']->guardianRelationship['name'] }}</p>
@@ -397,7 +417,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <p class="lead">Tel no.(H/P):</p>
+                                <p class="lead">{{ __('inputFields.tel_hp') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['emergency_contact_user_detail2']->tel_hp }}</p>
@@ -449,9 +469,9 @@
                                 <table class="table">
                                     <thead class="table-primary">
                                         <tr>
-                                            <th scope="col">School Level</th>
-                                            <th scope="col">School Name</th>
-                                            <th scope="col">Year Graduation</th>
+                                            <th scope="col">{{ __('academicRecord.table-header-1') }}</th>
+                                            <th scope="col">{{ __('academicRecord.table-header-2') }}</th>
+                                            <th scope="col">{{ __('academicRecord.table-header-3') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -481,9 +501,9 @@
                                 <table class="table">
                                     <thead class="table-primary">
                                         <tr>
-                                            <th scope="col">Disease</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Remark</th>
+                                            <th scope="col">{{ __('statusOfHealth.table-header-1') }}</th>
+                                            <th scope="col">{{ __('statusOfHealth.table-header-2') }}</th>
+                                            <th scope="col">{{ __('statusOfHealth.table-header-4') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -503,8 +523,8 @@
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-end">
-                        <a href="#" class="btn btn-outline-secondary me-3">{{ __('academicRecord.back_button') }}</a>
-                        <a data-bs-toggle="modal" data-bs-target="#confirmModal" class="btn btn-primary me-3">{{ __('academicRecord.next_button') }}</a>
+                        <a href="#" class="btn btn-outline-secondary me-3">{{ __('button.back') }}</a>
+                        <a data-bs-toggle="modal" data-bs-target="#confirmModal" class="btn btn-primary me-3">{{ __('button.next') }}</a>
                     </div>
                 </div>
             </div>
@@ -526,8 +546,8 @@
                     <p>Are you sure you want to continue. If you continue, the information you provide cannot be modified.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Continue</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('button.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('button.continue') }}</button>
                 </div>
             </form>
         </div>
@@ -543,7 +563,7 @@
             <form action="{{ route('programmeSelect.update',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-primary text-white">
-                    <h1 class="modal-title fs-5" id="editProgrammeSelectionModalLabel">Edit academic record</h1>
+                    <h1 class="modal-title fs-5" id="editProgrammeSelectionModalLabel">{{ __('button.edit_academic_record') }}</h1>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -556,8 +576,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('button.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('button.save_changes') }}</button>
                 </div>
             </form>
         </div>
@@ -573,7 +593,7 @@
             <form action="{{ route('personalParticulars.update') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-primary text-white">
-                    <h1 class="modal-title fs-5" id="editPersonalParticularsModalLabel">Edit personal particulars</h1>
+                    <h1 class="modal-title fs-5" id="editPersonalParticularsModalLabel">{{ __('button.edit_personal_particulars') }}</h1>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -985,8 +1005,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('button.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('button.save_changes') }}</button>
                 </div>
             </form>
         </div>
@@ -1001,7 +1021,7 @@
             <form action="{{ route('parentGuardianParticulars.update') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-primary text-white">
-                    <h1 class="modal-title fs-5" id="editParentGuardianParticularsModalLabel">Edit parent/guardian particulars</h1>
+                    <h1 class="modal-title fs-5" id="editParentGuardianParticularsModalLabel">{{ __('button.edit_parent_guardian_particulars') }}</h1>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -1237,8 +1257,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('button.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('button.save_changes') }}</button>
                 </div>
             </form>
         </div>
@@ -1265,7 +1285,7 @@
                         {{-- person 1 --}}
                         <div class="row">
                             <div class="col-md-12">
-                                <h4 class="fw-bold">Person 1</h4>
+                                <h4 class="fw-bold">{{ __('inputFields.p1') }}</h4>
                             </div>
                             <div class="col-md-12">
                                 <div class="row g-2">
@@ -1300,7 +1320,7 @@
                         {{-- person 2 --}}
                         <div class="row">
                             <div class="col-md-12">
-                                <h4 class="fw-bold">Person 2</h4>
+                                <h4 class="fw-bold">{{ __('inputFields.p2') }}</h4>
                             </div>
                             <div class="col-md-12">
                                 <div class="row g-2">
@@ -1335,8 +1355,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('button.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('button.save_changes') }}</button>
                 </div>
             </form>
         </div>
@@ -1351,7 +1371,7 @@
             <form action="{{ route('profilePicture.update') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-primary text-white">
-                    <h1 class="modal-title fs-5" id="editProfilePictureModalLabel">Edit profile picture</h1>
+                    <h1 class="modal-title fs-5" id="editProfilePictureModalLabel">{{ __('button.edit_profile_picture') }}</h1>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -1383,8 +1403,8 @@
                     </script>
                 </div>
                 <div class="modal-footer"> 
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('button.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('button.save_changes') }}</button>
                 </div>
             </form>
         </div>
@@ -1399,7 +1419,7 @@
             <form action="{{ route('academicDetail.update',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-primary text-white">
-                    <h1 class="modal-title fs-5" id="editAcademicDetailModalLabel">Edit status of health</h1>
+                    <h1 class="modal-title fs-5" id="editAcademicDetailModalLabel">{{ __('button.edit_academic_record') }}</h1>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -1410,9 +1430,9 @@
                                     <table class="table">
                                         <thead class="table-primary">
                                             <tr>
-                                                <th scope="col">School Level</th>
-                                                <th scope="col">School Name</th>
-                                                <th scope="col">Year Graduation</th>
+                                                <th scope="col">{{ __('academicRecord.table-header-1') }}</th>
+                                                <th scope="col">{{ __('academicRecord.table-header-2') }}</th>
+                                                <th scope="col">{{ __('academicRecord.table-header-3') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1447,8 +1467,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('button.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('button.save_changes') }}</button>
                 </div>
             </form>
         </div>
@@ -1463,7 +1483,7 @@
             <form action="{{ route('statusOfHealth.update',['id' => Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-primary text-white">
-                    <h1 class="modal-title fs-5" id="editStatusOfHealthModalLabel">Edit academic record</h1>
+                    <h1 class="modal-title fs-5" id="editStatusOfHealthModalLabel">{{ __('button.edit_status_of_health') }}</h1>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -1474,9 +1494,9 @@
                                     <table class="table">
                                         <thead class="table-primary">
                                             <tr>
-                                                <th scope="col">Type of Disease</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">If 'Yes', Please state</th>
+                                                <th scope="col">{{ __('statusOfHealth.table-header-1') }}</th>
+                                                <th scope="col">{{ __('statusOfHealth.table-header-2') }}</th>
+                                                <th scope="col">{{ __('statusOfHealth.table-header-3') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1493,8 +1513,8 @@
                                                             @else
                                                                 <option value="1" selected hidden>Yes</option>
                                                             @endif
-                                                            <option value="0">No</option>
-                                                            <option value="1">Yes</option>
+                                                            <option value="0">{{ __('statusOfHealth.option-0') }}</option>
+                                                            <option value="1">{{ __('statusOfHealth.option-1') }}</option>
                                                         </select>
                                                     </td>
                                                     <td>
@@ -1514,8 +1534,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('button.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('button.save_changes') }}</button>
                 </div>
             </form>
         </div>

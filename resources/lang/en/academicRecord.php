@@ -8,13 +8,9 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'title' => 'Academic Records',
-    'current_step' => 'Step 2 of 7 : Academic Record',
-    'next_step' => 'Next : Status Of Health',
-    'header' => 'Academic Record',
-    'back_button' => 'Back',
-    'next_button' => 'Next',
-    'table_title1' => 'School Level',
-    'table_title2' => 'School Name',
-    'table_title3' => 'Year Graduation',
+    'title' => 'Academic Record',
+    'card-header-1' => 'Academic Record',
+    'table-header-1' => 'School Level',
+    'table-header-2' => 'School Name',
+    'table-header-3' => 'Year Graduation',
 ];

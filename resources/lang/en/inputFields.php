@@ -70,5 +70,31 @@ return [
     'reminder_msg1' => 'Please reconfirm the information before submitting',
 
     'preview' => 'Preview',
-    
+
+    'dropdown-hint' => 'Please select',
+    'intake-my-label' => 'Intake Month & Year',
+    'month' => 'Month: ',
+    'year' => 'Year:',
+    'programme-level-label' => 'Programme Level',
+    'postgraduate' => 'Postgraduate',
+    'undergraduate' => 'Undergraduate',
+    'programme-1' => 'Programme 1',
+    'programme-2' => 'Programme 2',
+    'programme-3' => 'Programme 3',
+    'postgraduate-dropdown-hint' => 'Please select postgraduate programme',
+    'undergraduate-dropdown-hint' => 'Please select undergraduate programme',
+    'course-selected' => 'Course Selected:',
+    'choice' => 'Choice',
+
+    'ic-front' => 'Identity card - Front',
+    'ic-back' => 'Identity card - Back',
+    'secondary-school' => 'Secondary School',
+    'at-secondary-school' => 'Secondary School Certificate and/or Transcript',
+    'at-uppersecondary-school' => 'Upper Secondary School Certificate and/or Transcript',
+    'at-foundation' => 'Foundation Certificate and/or Transcript',
+    'at-diploma' => 'Diploma Certificate and/or Transcript',
+    'at-degree' => 'Degree Certificate and/or Transcript',
+    'at-others' => 'Others',
+    'max-file' => 'max 10 files'
+
 ];

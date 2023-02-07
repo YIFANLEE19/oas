@@ -1,7 +1,6 @@
 @extends('oas.layouts.app')
 
 @section('content')
-
 {{-- modal --}}
 <style>.modal-backdrop {background-color: rgb(50, 47, 47);}</style>
 @if ($application_status_log_id->application_status_id >= config('constants.APPLICATION_STATUS_CODE.COMPLETE_ACADEMIC_DETAIL'))
@@ -35,7 +34,7 @@
                     </ol>
                 </nav>
                 <h1 class="fw-bold">{{ __('academicRecord.title') }}</h1>
-                <p><span class="fw-bold">Step 2 of 7</span> Completed</p>
+                <p><span class="fw-bold">{{ __('step.step-2') }}</span> {{ __('step.completed') }}</p>
                 <div class="progress mb-2" style="height: 10px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary opacity-25" role="progressbar" style="width: 72%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -67,15 +66,15 @@
             <form action="{{ route('academicDetail.create',['id'=>Crypt::encrypt($APPLICATION_RECORD_ID)]) }}" method="POST" enctype="multipart/form-data">
             @csrf
                 <div class="card">
-                    <div class="card-header bg-primary text-white">Academic Record</div>
+                    <div class="card-header bg-primary text-white">{{ __('academicRecord.card-header-1') }}</div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="table-primary">
                                     <tr>
-                                        <th scope="col">School Level</th>
-                                        <th scope="col">School Name</th>
-                                        <th scope="col">Year Graduation</th>
+                                        <th scope="col">{{ __('academicRecord.table-header-1') }}</th>
+                                        <th scope="col">{{ __('academicRecord.table-header-2') }}</th>
+                                        <th scope="col">{{ __('academicRecord.table-header-3') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -99,8 +98,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <a href="{{ route('programmeSelect.home') }}" class="btn btn-outline-secondary me-3">Back</a>
-                            <button type="submit" class="btn btn-primary me-3">{{ __('academicRecord.next_button') }}</button>
+                            <a href="{{ route('programmeSelect.home') }}" class="btn btn-outline-secondary me-3">{{ __('button.back') }}</a>
+                            <button type="submit" class="btn btn-primary me-3">{{ __('button.next') }}</button>
                         </div>
                     </div>
                 </div>
