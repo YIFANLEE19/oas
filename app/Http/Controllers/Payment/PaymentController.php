@@ -37,7 +37,7 @@ class PaymentController extends Controller
             if($temporary){
                 $createPaymentSlip = Payment::create([
                     'application_record_id' => $APPLICATION_RECORD_ID,
-                    'payment_slip' => $getPaymentSlipFolder[$i].'/'. $getPaymentSlipFileName[$i],
+                    'payment_slip' => Crypt::encrypt($getPaymentSlipFolder[$i].'/'. $getPaymentSlipFileName[$i]),
                 ]);
                 Storage::move('/public/images/paymentSlip/tmp/'.$getPaymentSlipFolder[$i].'/'.$getPaymentSlipFileName[$i], '/public/images/paymentSlip/'.$getPaymentSlipFolder[$i].'/'.$getPaymentSlipFileName[$i]);
                 Storage::deleteDirectory('/public/images/paymentSlip/tmp/'. $getPaymentSlipFolder[$i]);

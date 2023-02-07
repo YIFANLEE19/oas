@@ -95,7 +95,7 @@ class SupportingDocumentController extends Controller
             if($temporary){
                 $createIcFrontDocumentPage = IdentityDocumentPage::create([
                     'identity_document_id' => $getIcFrontDocumentId,
-                    'page' => $getIcFrontFolder[$i].'/'. $getIcFrontFileName[$i],
+                    'page' => Crypt::encrypt($getIcFrontFolder[$i].'/'. $getIcFrontFileName[$i]),
                 ]);
                 Storage::move('/public/images/icFront/tmp/'.$getIcFrontFolder[$i].'/'.$getIcFrontFileName[$i], '/public/images/icFront/'.$getIcFrontFolder[$i].'/'.$getIcFrontFileName[$i]);
                 Storage::deleteDirectory('/public/images/icFront/tmp/'. $getIcFrontFolder[$i]);
@@ -107,7 +107,7 @@ class SupportingDocumentController extends Controller
             if($temporary){
                 $createIcBackDocumentPage = IdentityDocumentPage::create([
                     'identity_document_id' => $getIcBackDocumentId,
-                    'page' => $getIcBackFolder[$i].'/'. $getIcBackFileName[$i],
+                    'page' => Crypt::encrypt($getIcBackFolder[$i].'/'. $getIcBackFileName[$i]),
                 ]);
                 Storage::move('/public/images/icBack/tmp/'.$getIcBackFolder[$i].'/'.$getIcBackFileName[$i], '/public/images/icBack/'.$getIcBackFolder[$i].'/'.$getIcBackFileName[$i]);
                 Storage::deleteDirectory('/public/images/icBack/tmp/'. $getIcBackFolder[$i]);
@@ -118,7 +118,7 @@ class SupportingDocumentController extends Controller
             $temporary = TemporaryFile::where('folder',$getSchoolLeavingCertsFolder[$i])->where('file',$getSchoolLeavingCertsFileName[$i])->first();
             if($temporary){
                 $getLeavingCertDocumentId = SupportingDocument::insertGetId([
-                    'doc' => $getSchoolLeavingCertsFolder[$i].'/'. $getSchoolLeavingCertsFileName[$i],
+                    'doc' => Crypt::encrypt($getSchoolLeavingCertsFolder[$i].'/'. $getSchoolLeavingCertsFileName[$i]),
                     'isCert' => config('constants.IS_CERT.TRUE'),
                 ]);
                 $createAcademicTranscript = AcademicTranscript::create([
@@ -135,7 +135,7 @@ class SupportingDocumentController extends Controller
             $temporary = TemporaryFile::where('folder',$getSecondarySchoolTranscriptsFolder[$i])->where('file',$getSecondarySchoolTranscriptsFileName[$i])->first();
             if($temporary){
                 $getSecondarySchoolTranscriptDocumentId = SupportingDocument::insertGetId([
-                    'doc' => $getSecondarySchoolTranscriptsFolder[$i].'/'. $getSecondarySchoolTranscriptsFileName[$i],
+                    'doc' => Crypt::encrypt($getSecondarySchoolTranscriptsFolder[$i].'/'. $getSecondarySchoolTranscriptsFileName[$i]),
                     'isCert' => config('constants.IS_CERT.FALSE'), 
                 ]);
                 $createAcademicTranscript = AcademicTranscript::create([
@@ -154,7 +154,7 @@ class SupportingDocumentController extends Controller
                 $temporary = TemporaryFile::where('folder',$getUpperSecondarySchoolTranscriptsFolder[$i])->where('file',$getUpperSecondarySchoolTranscriptsFileName[$i])->first();
                 if($temporary){
                     $getUpperSecondarySchoolTranscriptDocumentId = SupportingDocument::insertGetId([
-                        'doc' => $getUpperSecondarySchoolTranscriptsFolder[$i].'/'. $getUpperSecondarySchoolTranscriptsFileName[$i],
+                        'doc' => Crypt::encrypt($getUpperSecondarySchoolTranscriptsFolder[$i].'/'. $getUpperSecondarySchoolTranscriptsFileName[$i]),
                         'isCert' => config('constants.IS_CERT.FALSE'), 
                     ]);
                     $createAcademicTranscript = AcademicTranscript::create([
@@ -173,7 +173,7 @@ class SupportingDocumentController extends Controller
                 $temporary = TemporaryFile::where('folder',$getFoundationTranscriptsFolder[$i])->where('file',$getFoundationTranscriptsFileName[$i])->first();
                 if($temporary){
                     $getFoundationTranscriptDocumentId = SupportingDocument::insertGetId([
-                        'doc' => $getFoundationTranscriptsFolder[$i].'/'. $getFoundationTranscriptsFileName[$i],
+                        'doc' => Crypt::encrypt($getFoundationTranscriptsFolder[$i].'/'. $getFoundationTranscriptsFileName[$i]),
                         'isCert' => config('constants.IS_CERT.FALSE'), 
                     ]);
                     $createAcademicTranscript = AcademicTranscript::create([
@@ -192,7 +192,7 @@ class SupportingDocumentController extends Controller
                 $temporary = TemporaryFile::where('folder',$getDiplomaTranscriptsFolder[$i])->where('file',$getDiplomaTranscriptsFileName[$i])->first();
                 if($temporary){
                     $getDiplomaTranscriptDocumentId = SupportingDocument::insertGetId([
-                        'doc' => $getDiplomaTranscriptsFolder[$i].'/'. $getDiplomaTranscriptsFileName[$i],
+                        'doc' => Crypt::encrypt($getDiplomaTranscriptsFolder[$i].'/'. $getDiplomaTranscriptsFileName[$i]),
                         'isCert' => config('constants.IS_CERT.FALSE'), 
                     ]);
                     $createAcademicTranscript = AcademicTranscript::create([
@@ -211,7 +211,7 @@ class SupportingDocumentController extends Controller
                 $temporary = TemporaryFile::where('folder',$getDegreeTranscriptsFolder[$i])->where('file',$getDegreeTranscriptsFileName[$i])->first();
                 if($temporary){
                     $getDegreeTranscriptDocumentId = SupportingDocument::insertGetId([
-                        'doc' => $getDegreeTranscriptsFolder[$i].'/'. $getDegreeTranscriptsFileName[$i],
+                        'doc' => Crypt::encrypt($getDegreeTranscriptsFolder[$i].'/'. $getDegreeTranscriptsFileName[$i]),
                         'isCert' => config('constants.IS_CERT.FALSE'), 
                     ]);
                     $createAcademicTranscript = AcademicTranscript::create([
@@ -230,7 +230,7 @@ class SupportingDocumentController extends Controller
                 $temporary = TemporaryFile::where('folder',$getOthersFolder[$i])->where('file',$getOthersFileName[$i])->first();
                 if($temporary){
                     $getOthersDocumentId = SupportingDocument::insertGetId([
-                        'doc' => $getOthersFolder[$i].'/'. $getOthersFileName[$i],
+                        'doc' => Crypt::encrypt($getOthersFolder[$i].'/'. $getOthersFileName[$i]),
                         'isCert' => config('constants.IS_CERT.FALSE'), 
                     ]);
                     $createAcademicTranscript = AcademicTranscript::create([
