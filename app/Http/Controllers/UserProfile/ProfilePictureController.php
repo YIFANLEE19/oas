@@ -108,7 +108,7 @@ class ProfilePictureController extends Controller
         // $pictureResize->save(public_path('images/profile_picture/'.$pictureName));
         $applicant_profile_picture = ApplicantProfilePicture::find($APPLICANT_PROFILE_PICTURE_ID);
         $test = Crypt::decrypt($applicant_profile_picture->path);
-        Storage::deleteDirectory('public/images/profile_picture/'.$test);
+        Storage::delete('public/images/profile_picture/'.$test);
         $applicant_profile_picture->path = Crypt::encrypt($pictureName);
         $applicant_profile_picture->applicant_profile_id = $APPLICANT_PROFILE_ID;
         $applicant_profile_picture->save();
