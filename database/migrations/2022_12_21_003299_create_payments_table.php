@@ -16,7 +16,7 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('application_record_id')->constrained()->onUpdate('cascade');
-            $table->string('payment_slip');
+            $table->text('payment_slip');
             $table->timestamps();
         });
     }
