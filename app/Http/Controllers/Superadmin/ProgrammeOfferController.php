@@ -19,7 +19,8 @@ class ProgrammeOfferController extends Controller
     */
     public function index()
     {
-        $programmes = Programme::all();
+        $programmes = Programme::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
+        $getAllProgrammes = Programme::all();
         $mappingItems = array();
         $getDifferentSemesterYearMappings = ProgrammeRecord::select('semester_year_mapping_id')->distinct()->get();
         $getProgrammeOffers = ProgrammeRecord::all();
@@ -28,10 +29,10 @@ class ProgrammeOfferController extends Controller
                 $mappingItems[] = $getDifferentSemesterYearMapping->semester_year_mapping_id;
             }
             $semesterYearMappings = SemesterYearMapping::whereNotIn('id',$mappingItems)->get();
-            return view('oas.superadmin.programmeOffer.home', compact(['programmes','getDifferentSemesterYearMappings','semesterYearMappings','getProgrammeOffers']));
+            return view('oas.superadmin.programmeOffer.home', compact(['programmes','getAllProgrammes','getDifferentSemesterYearMappings','semesterYearMappings','getProgrammeOffers']));
         }
         $semesterYearMappings = SemesterYearMapping::all();
-        return view('oas.superadmin.programmeOffer.home', compact(['programmes','getDifferentSemesterYearMappings','semesterYearMappings','getProgrammeOffers']));
+        return view('oas.superadmin.programmeOffer.home', compact(['programmes','getAllProgrammes','getDifferentSemesterYearMappings','semesterYearMappings','getProgrammeOffers']));
     }
     /*
     |-----------------------------------------------------------
@@ -49,5 +50,49 @@ class ProgrammeOfferController extends Controller
             ]);
         }
         return back();
+    }
+    /*
+    |-----------------------------------------------------------
+    | Remove function
+    |-----------------------------------------------------------
+    */
+    public function delete()
+    {
+        $r = request();
+        $getSemesterYearMappingId = $r->semester_year_mapping_id;
+        $getProgrammeId = $r->programme_id;
+
+        $checkProgramme = ProgrammeRecord::where('semester_year_mapping_id', $getSemesterYearMappingId)->where('programme_id',$getProgrammeId)->first();
+        if($checkProgramme == null){
+            Session::flash('error',"It is not offered this semester!");
+            return back();
+        }else{
+            $checkProgramme->delete();
+            Session::flash('success',"Successful removal!");
+            return redirect()->route('programmeOffer.home');
+        }
+    }
+    /*
+    |-----------------------------------------------------------
+    | Update function
+    |-----------------------------------------------------------
+    */
+    public function update()
+    {
+        $r = request();
+        $getSemesterYearMappingId = $r->semester_year_mapping_id;
+        $getProgrammeId = $r->programme_id;
+        $checkProgramme = ProgrammeRecord::where('semester_year_mapping_id', $getSemesterYearMappingId)->where('programme_id',$getProgrammeId)->first();
+        if($checkProgramme != null){
+            Session::flash('alreadyOffer',"Already offer");
+            return back();
+        }else{
+            ProgrammeRecord::create([
+                'semester_year_mapping_id' => $getSemesterYearMappingId,
+                'programme_id' => $getProgrammeId,
+            ]);
+            Session::flash('notYetOffer',"Programme add successfully");
+            return back();
+        }
     }
 }

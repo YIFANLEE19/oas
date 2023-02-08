@@ -3,15 +3,87 @@
 @section('content')
 
     <div class="container">
-        {{-- header --}}
         <div class="row">
             <div class="col-xl-12">
                 <h1>Manage</h1>
                 <p>Something here...</p>
             </div>
         </div>
-        {{-- end header --}}
-
+    </div>
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Programme</h1>
+            </div>
+            {{-- programme --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Programme</h5>
+                        <a href="{{ route('programme.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end programme --}}
+            {{-- programme offered --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Programme offer</h5>
+                        <a href="{{ route('programmeOffer.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end programme offered --}}
+            {{-- programme level --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Programme Level</h5>
+                        <a href="{{ route('programmeLevel.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end programme level --}}
+            {{-- programme type --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Programme Type</h5>
+                        <a href="{{ route('programmeType.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end programme type --}}
+            {{-- semester --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Semester</h5>
+                        <a href="{{ route('semester.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end semester --}}
+            {{-- semester year mapping --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Semester Year Mapping</h5>
+                        <a href="{{ route('semesterYearMapping.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end semester year mapping --}}
+        </div>
+    </div>
+    
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="fw-bold">Admin account</h1>
+            </div>
+        </div>
         <div class="row">
             {{-- accStatus --}}
             <div class="col-md-3 mb-3">
@@ -23,16 +95,6 @@
                 </div>
             </div>
             {{-- end accStatus --}}
-            {{-- addressType --}}
-            <div class="col-md-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Address type</h5>
-                        <a href="{{ route('addressType.home') }}" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-            </div>
-            {{-- end addressType --}}
             {{-- admin account --}}
             <div class="col-md-3 mb-3">
                 <div class="card shadow">
@@ -43,6 +105,25 @@
                 </div>
             </div>
             {{-- end admin account --}}
+        </div>
+    </div>
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="fw-bold">Others</h1>
+            </div>
+        </div>
+        <div class="row">
+            {{-- addressType --}}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Address type</h5>
+                        <a href="{{ route('addressType.home') }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {{-- end addressType --}}
             {{-- applicationStatus --}}
             <div class="col-md-3 mb-3">
                 <div class="card shadow">
@@ -163,26 +244,6 @@
                 </div>
             </div>
             {{-- end school level --}}
-            {{-- programme level --}}
-            <div class="col-md-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Programme Level</h5>
-                        <a href="{{ route('programmeLevel.home') }}" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-            </div>
-            {{-- end programme level --}}
-            {{-- programme type --}}
-            <div class="col-md-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Programme Type</h5>
-                        <a href="{{ route('programmeType.home') }}" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-            </div>
-            {{-- end programme type --}}
             {{-- applicantProfileStatus --}}
             <div class="col-md-3 mb-3">
                 <div class="card shadow">
@@ -193,46 +254,6 @@
                 </div>
             </div>
             {{-- end applicantProfileStatus --}}
-            {{-- semester --}}
-            <div class="col-md-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Semester</h5>
-                        <a href="{{ route('semester.home') }}" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-            </div>
-            {{-- end semester --}}
-            {{-- semester year mapping --}}
-            <div class="col-md-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Semester Year Mapping</h5>
-                        <a href="{{ route('semesterYearMapping.home') }}" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-            </div>
-            {{-- end semester year mapping --}}
-            {{-- programme --}}
-            <div class="col-md-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Programme</h5>
-                        <a href="{{ route('programme.home') }}" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-            </div>
-            {{-- end programme --}}
-            {{-- programme offered --}}
-            <div class="col-md-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Programme offer</h5>
-                        <a href="{{ route('programmeOffer.home') }}" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-            </div>
-            {{-- end programme offered --}}
             {{-- identity document type --}}
             <div class="col-md-3 mb-3">
                 <div class="card shadow">

@@ -190,19 +190,88 @@
                 </table>
             </div>
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">Edit</div>
-                    <div class="card-body">
-                        <div class="mb-2">
-                            <label for="id" class="form-label">Semester & year</label>
-                            <select name="" id="" class="form-select mb-2">
-                                @foreach ($getDifferentSemesterYearMappings as $getDifferentSemesterYearMapping)
-                                    <option value="">Semester: {{ $getDifferentSemesterYearMapping->semesterYearMapping['semester']->semester }}, Year: {{ $getDifferentSemesterYearMapping->semesterYearMapping['year'] }}</option>
-                                @endforeach
-                            </select>
+                <form action="{{ route('programmeOffer.update') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card mb-2">
+                        <div class="card-header bg-primary text-white">Add programme</div>
+                        <div class="card-body">
+                            @if (Session::has('alreadyOffer'))
+                                <div class="mb-2">
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        {{ Session::get('alreadyOffer') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            @endif
+                            @if (Session::has('notYetOffer'))
+                                <div class="mb-2">
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        {{ Session::get('notYetOffer') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="mb-2">
+                                <label for="id" class="form-label">Semester & year</label>
+                                <select name="semester_year_mapping_id" id="semester_year_mapping_id" class="form-select mb-2">
+                                    @foreach ($getDifferentSemesterYearMappings as $getDifferentSemesterYearMapping)
+                                        <option value="{{ $getDifferentSemesterYearMapping->semester_year_mapping_id }}">Semester: {{ $getDifferentSemesterYearMapping->semesterYearMapping['semester']->semester }}, Year: {{ $getDifferentSemesterYearMapping->semesterYearMapping['year'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="programme_id">All Programme</label>
+                                <select name="programme_id" id="programme_id" class="form-select mb-2">
+                                    @foreach ($getAllProgrammes as $programme)
+                                        <option value="{{ $programme->id }}">{{ $programme->en_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add</button>
                         </div>
                     </div>
-                </div>
+                </form>
+                <form action="{{ route('programmeOffer.delete') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card mb-2">
+                        <div class="card-header bg-primary text-white">Remove programme</div>
+                        <div class="card-body">
+                            @if (Session::has('error'))
+                                <div class="mb-2">
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        {{ Session::get('error') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            @endif
+                            @if (Session::has('success'))
+                                <div class="mb-2">
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        {{ Session::get('success') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="mb-2">
+                                <label for="id" class="form-label">Semester & year</label>
+                                <select name="semester_year_mapping_id" id="semester_year_mapping_id" class="form-select mb-2">
+                                    @foreach ($getDifferentSemesterYearMappings as $getDifferentSemesterYearMapping)
+                                        <option value="{{ $getDifferentSemesterYearMapping->semester_year_mapping_id }}">Semester: {{ $getDifferentSemesterYearMapping->semesterYearMapping['semester']->semester }}, Year: {{ $getDifferentSemesterYearMapping->semesterYearMapping['year'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="programme_id">All Programme</label>
+                                <select name="programme_id" id="programme_id" class="form-select mb-2">
+                                    @foreach ($getAllProgrammes as $programme)
+                                        <option value="{{ $programme->id }}">{{ $programme->en_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Remove</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -191,9 +191,9 @@ Route::prefix('superadmin/')->middleware('admin')->group(function(){
 
     Route::controller(ProgrammeOfferController::class)->prefix('programme-offer/')->name('programmeOffer.')->group(function () {
         Route::get('/', 'index')->name('home');
-        Route::post('/select-semester-year-mapping')->name('selectSemesterYearMapping');
         Route::post('/create', 'create')->name('create');
         Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
     });
 
     Route::controller(SemesterYearMappingController::class)->prefix('semester-year-mapping/')->name('semesterYearMapping.')->group(function () {
