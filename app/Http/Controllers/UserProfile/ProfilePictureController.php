@@ -57,8 +57,7 @@ class ProfilePictureController extends Controller
         $pictureName = 'profile_picture_'.Auth::user()->name.'_'.date('YmdHii').$picture->getClientOriginalName();
         $pictureResize = Image::make($picture->getRealPath());
         $pictureResize->resize(config('constants.PROFILE_PICTURE.WIDTH'),config('constants.PROFILE_PICTURE.HEIGHT'));
-        $pictureResize->save(public_path('images/profile_picture/'.$pictureName));
-
+        Storage::put('public/images/profile_picture/'.$pictureName , $pictureResize);
         ApplicantProfilePicture::create([
             'applicant_profile_id' => $applicant_status_log->applicant_profile_id,
             'path' => Crypt::encrypt($pictureName),
