@@ -109,7 +109,7 @@ class SupportingDocumentController extends Controller
                 $temporary->delete();
             }
         }
-        for($i=0; $i < count($getIcFrontFolder); $i++) {
+        for($i=0; $i < count($getIcBackFolder); $i++) {
             $temporary = TemporaryFile::where('folder',$getIcBackFolder[$i])->where('file',$getIcBackFileName[$i])->first();
             if($temporary){
                 $createIcBackDocumentPage = IdentityDocumentPage::create([
