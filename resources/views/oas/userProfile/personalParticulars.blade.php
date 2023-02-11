@@ -63,7 +63,7 @@
 
 {{-- form --}}
 <div class="container">
-    <form action="{{ route('personalParticulars.create') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('personalParticulars.create') }}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         @csrf
         {{-- name --}}
         <div class="row d-flex flex-row mt-4">
@@ -75,11 +75,12 @@
                 <div class="row g-2">
                     <div class="col-md mb-3">
                         <label for="en_name" class="form-label">{{ __('inputFields.en_name') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="en_name" id="en_name" class="form-control text-capitalize" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
+                        <input type="text" name="en_name" id="en_name" class="form-control text-capitalize" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required maxlength="80" aria-required="true">
+                        <div class="invalid-feedback">Please fill in the name</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="ch_name" class="form-label">{{ __('inputFields.ch_name') }}</label>
-                        <input type="text" name="ch_name" id="ch_name" class="form-control">
+                        <input type="text" name="ch_name" id="ch_name" class="form-control" maxlength="10">
                     </div>
                 </div>
             </div>
@@ -101,23 +102,26 @@
             </div>
             <div class="col-md-8">
                 <div class="row" id="ic_section">
-                    <label for="ic" class="form-label">{{ __('inputFields.ic') }}<span class="text-danger">*</span></label>
-                    <div class="col-md d-flex flex-row align-items-center mb-3">
-                        <input type="text" name="ic1" id="ic1" class="form-control" maxlength="6" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
+                    <div class="col-md-12">
+                        <label for="ic" class="form-label">{{ __('inputFields.ic') }}<span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-md-3 d-flex flex-row align-items-center mb-3">
+                        <input type="text" name="ic1" id="ic1" class="form-control" minlength="6" maxlength="6" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" aria-required="true" required>
                         <span class="ms-4">-</span>
                     </div>
-                    <div class="col-md d-flex flex-row align-items-center mb-3">
-                        <input type="text" name="ic2" id="ic2" class="form-control" maxlength="2" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
+                    <div class="col-md-2 d-flex flex-row align-items-center mb-3">
+                        <input type="text" name="ic2" id="ic2" class="form-control" minlength="2" maxlength="2" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" aria-required="true" required="true">
                         <span class="ms-4">-</span>
                     </div>
-                    <div class="col-md mb-3">
-                        <input type="text" name="ic3" id="ic3" class="form-control" maxlength="4" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
+                    <div class="col-md-2 mb-3">
+                        <input type="text" name="ic3" id="ic3" class="form-control" minlength="4" maxlength="4" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                     </div>
                 </div>
                 <div class="row" id="passport_section" style="display: none;">
                     <label for="ic" class="form-label">{{ __('inputFields.without_ic') }}<span class="text-danger">*</span></label>
                     <div class="col-md mb-3">
                         <input type="text" name="passport" id="passport" class="form-control" onkeyup="if (/[^|A-Za-z0-9-]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9-]+/g,'')">
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                 </div>
             </div>
@@ -139,6 +143,7 @@
                                 <option value="{{ $race->id }}">{{ $race->name }}</option>
                             @endforeach
                         </select>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="religion" class="form-label">{{ __('inputFields.religion') }}<span class="text-danger">*</span></label>
@@ -148,13 +153,15 @@
                                 <option value="{{ $religion->id }}">{{ $religion->name }}</option>
                             @endforeach
                         </select>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="nationality" class="form-label">{{ __('inputFields.nationality') }}<span class="text-danger">*</span></label>
-                        <select name="nationality_id" id="nationality" class="form-select" required>
-                            <option value="131" selected>Malaysia</option>
+                        <select name="nationality_id" id="nationality" class="form-select" required style="pointer-events: none">
+                            <option value="131">Malaysia</option>
                             <option value="161">Non-Malaysian</option>
                         </select>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                 </div>
             </div>
@@ -202,6 +209,7 @@
                     <div class="col-md mb-3">
                         <label for="birth_date" class="form-label">{{ __('inputFields.bd') }}<span class="text-danger">*</span></label>
                         <input type="date" name="birth_date" id="birth_date" class="form-control" onchange="ageCalculator()" max="<?= date('Y-m-d'); ?>" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="age" class="form-label">{{ __('inputFields.age') }}</label>
@@ -228,6 +236,7 @@
                             <option value="Terengganu">Terengganu</option>
                             <option value="other">Other</option>
                         </select>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                 </div>
             </div>
@@ -285,6 +294,7 @@
                                 <option value="{{ $marital->id }}">{{ $marital->name }}</option>
                             @endforeach
                         </select>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                 </div>
             </div>
@@ -300,15 +310,17 @@
                 <div class="row g-3">
                     <div class="col-md mb-3">
                         <label for="email" class="form-label">{{ __('inputFields.email') }}<span class="text-danger">*</span></label>
-                        <input type="email" name="email" id="email" class="form-control" required>
+                        <input type="email" name="email" id="email" class="form-control" onkeyup="if (/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$+/g.test(this.value)) this.value = this.value.replace(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$+/g,'')" maxlength="64" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="tel_hp" class="form-label">{{ __('inputFields.tel_hp') }}<span class="text-danger">*</span></label>
                         <input type="text" name="tel_hp" id="tel_hp" class="form-control" maxlength="13" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                     <div class="col-md mb-3">
-                            <label for="tel_h" class="form-label">{{ __('inputFields.tel_h') }}</label>
-                            <input type="text" name="tel_h" id="tel_h" class="form-control" maxlength="13" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')">
+                        <label for="tel_h" class="form-label">{{ __('inputFields.tel_h') }}</label>
+                        <input type="text" name="tel_h" id="tel_h" class="form-control" maxlength="13" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')">
                     </div>
                 </div>
             </div>
@@ -327,26 +339,31 @@
                             {{ __('inputFields.address1') }}<span class="text-danger">*</span>
                         </label>
                         <input type="text" name="c_street1" id="c_street1" class="form-control" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" placeholder="{{ __('inputFields.address1_placeholder') }}" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="c_street2" class="form-label">{{ __('inputFields.address2') }}<span class="text-danger">*</span></label>
                         <input type="text" name="c_street2" id="c_street2" class="form-control" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" placeholder="{{ __('inputFields.address2_placeholder') }}" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md mb-3">
                         <label for="c_zipcode" class="form-label">{{ __('inputFields.zipcode') }}<span class="text-danger">*</span></label>
                         <input type="text" name="c_zipcode" id="c_zipcode" class="form-control" minlength="5" maxlength="5" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="c_city" class="form-label">{{ __('inputFields.city') }}<span class="text-danger">*</span></label>
                         <input type="text" name="c_city" id="c_city" class="form-control" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md mb-3">
                         <label for="c_state" class="form-label">{{ __('inputFields.state') }}<span class="text-danger">*</span></label>
                         <input type="text" name="c_state" id="c_state" class="form-control" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                     <div class="col-md">
                         <label for="c_country" class="form-label">{{ __('inputFields.country') }}<span class="text-danger">*</span></label>
@@ -356,6 +373,7 @@
                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                 </div>
             </div>
@@ -376,26 +394,31 @@
                     <div class="col-md mb-3">
                         <label for="p_street1" class="form-label">{{ __('inputFields.address1') }}<span class="text-danger">*</span></label>
                         <input type="text" name="p_street1" id="p_street1" class="form-control" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" placeholder="{{ __('inputFields.address1_placeholder') }}" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="p_street2" class="form-label">{{ __('inputFields.address2') }}<span class="text-danger">*</span></label>
                         <input type="text" name="p_street2" id="p_street2" class="form-control" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" placeholder="{{ __('inputFields.address2_placeholder') }}" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md mb-3">
                         <label for="p_zipcode" class="form-label">{{ __('inputFields.zipcode') }}<span class="text-danger">*</span></label>
                         <input type="text" name="p_zipcode" id="p_zipcode" class="form-control" minlength="5" maxlength="5" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="p_city" class="form-label">{{ __('inputFields.city') }}<span class="text-danger">*</span></label>
                         <input type="text" name="p_city" id="p_city" class="form-control" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md mb-3">
                         <label for="p_state" class="form-label">{{ __('inputFields.state') }}<span class="text-danger">*</span></label>
                         <input type="text" name="p_state" id="p_state" class="form-control" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="p_country" class="form-label">{{ __('inputFields.country') }}<span class="text-danger">*</span></label>
@@ -405,6 +428,7 @@
                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
+                        <div class="invalid-feedback">Error message</div>
                     </div>
                 </div>
             </div>
@@ -465,4 +489,27 @@
     </form>
 </div>
 {{-- end form --}}
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
 @endsection

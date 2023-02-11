@@ -78,7 +78,7 @@ class PersonalParticularController extends Controller
     public function create()
     {
         $r = request();
-
+        dd('break');
         if($r->passport == ''){
             $this->finalIC = $r->ic1.'-'.$r->ic2.'-'.$r->ic3;
         }else{
