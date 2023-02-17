@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2023 at 08:51 AM
+-- Generation Time: Feb 17, 2023 at 09:12 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -345,7 +345,7 @@ INSERT INTO `countries` (`id`, `name`, `country_code`, `status`) VALUES
 (43, 'Central African Republic', '114000000', 0),
 (44, 'Chad', '114800000', 0),
 (45, 'Chile', '615200000', 0),
-(46, 'China', '215600000', 0),
+(46, 'China', '215600000', 1),
 (47, 'Christmas Island', '216200000', 0),
 (48, 'Cocos Islands', '216600000', 0),
 (49, 'Colombia', '617000000', 0),
@@ -400,7 +400,7 @@ INSERT INTO `countries` (`id`, `name`, `country_code`, `status`) VALUES
 (98, 'Hungary', '334800000', 0),
 (99, 'Iceland', '335200000', 0),
 (100, 'India', '235600000', 0),
-(101, 'Indonesia', '236000000', 0),
+(101, 'Indonesia', '236000000', 1),
 (102, 'Iran', '236400000', 0),
 (103, 'Iraq', '236800000', 0),
 (104, 'Ireland', '337200000', 0),
@@ -506,7 +506,7 @@ INSERT INTO `countries` (`id`, `name`, `country_code`, `status`) VALUES
 (204, 'Somalia', '170600000', 0),
 (205, 'South Africa', '171000000', 0),
 (206, 'South Georgia And The South Sandwich Islands', '723900000', 0),
-(207, 'South Korea', '241000000', 0),
+(207, 'South Korea', '241000000', 1),
 (208, 'Spain', '372400000', 0),
 (209, 'Sri Lanka', '214400000', 0),
 (210, 'Sudan', '173600000', 0),
@@ -516,7 +516,7 @@ INSERT INTO `countries` (`id`, `name`, `country_code`, `status`) VALUES
 (214, 'Sweden', '375200000', 0),
 (215, 'Switzerland', '375600000', 0),
 (216, 'Syria', '276000000', 0),
-(217, 'Taiwan', '215800000', 0),
+(217, 'Taiwan', '215800000', 1),
 (218, 'Tajikistan', '276200000', 0),
 (219, 'Tanzania', '183400000', 0),
 (220, 'Tatarstan', '364373000', 0),
@@ -1483,6 +1483,15 @@ CREATE TABLE `semester_year_mappings` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `semester_year_mappings`
+--
+
+INSERT INTO `semester_year_mappings` (`id`, `semester_id`, `year`, `created_at`, `updated_at`) VALUES
+(1, 1, '2023', '2023-02-17 08:07:31', '2023-02-17 08:07:31'),
+(2, 2, '2023', '2023-02-17 08:07:37', '2023-02-17 08:07:37'),
+(3, 3, '2023', '2023-02-17 08:07:42', '2023-02-17 08:07:42');
+
 -- --------------------------------------------------------
 
 --
@@ -2195,7 +2204,7 @@ ALTER TABLE `semesters`
 -- AUTO_INCREMENT for table `semester_year_mappings`
 --
 ALTER TABLE `semester_year_mappings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `status_of_healths`
