@@ -1488,11 +1488,11 @@ INSERT INTO `religions` (`id`, `name`, `religion_code`, `status`) VALUES
 (2, 'Christian', '200', 1),
 (3, 'Buddhism', '300', 1),
 (4, 'Hindu', '400', 1),
-(5, 'Sikhism', '500', 1),
+(5, 'Sikhism', '500', 0),
 (6, 'Taoism', '600', 1),
-(7, 'Confucianism', '700', 1),
-(8, 'Bahai', '800', 1),
-(9, 'Tribal/Folk/Other Traditional Chinese Religion', '900', 1),
+(7, 'Confucianism', '700', 0),
+(8, 'Bahai', '800', 0),
+(9, 'Tribal/Folk/Other Traditional Chinese Religion', '900', 0),
 (10, 'Free Thinker', '1000', 1),
 (11, 'Other', '9000', 1);
 
