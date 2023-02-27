@@ -305,15 +305,6 @@ INSERT INTO `genders` (`id`, `name`, `gender_code`, `status`) VALUES
 -- Table structure for table `guardian_details`
 --
 
-CREATE TABLE `guardian_details` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `occupation` varchar(191) DEFAULT NULL,
-  `income_id` bigint(20) UNSIGNED NOT NULL,
-  `guardian_relationship_id` bigint(20) UNSIGNED NOT NULL,
-  `nationality_id` bigint(20) UNSIGNED NOT NULL,
-  `user_detail_id` bigint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 INSERT INTO `guardian_relationships` (`id`, `name`, `relationship_code`, `status`) VALUES
 (1, 'Mother', '100', 1),
 (2, 'Father', '110', 1),
