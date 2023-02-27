@@ -17,4 +17,8 @@ class ApplicationRecord extends Model
         'user_id',
         'applicant_profile_id',
     ];
+    public function cmsApplicantData()
+    {
+        return $this->hasOne(CmsApplicantData::class);
+    }
 }

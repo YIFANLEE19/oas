@@ -64,6 +64,17 @@
                                 @endif
                             </div>
                         </div>
+                        <hr>
+                        <div class="row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <b>New User?
+
+                                    <a class="btn btn-link" href="{{ route('register') }}">
+                                        {{ __('Create a New Account') }}
+                                    </a>
+                                </b>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

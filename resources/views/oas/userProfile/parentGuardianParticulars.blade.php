@@ -77,7 +77,7 @@
 
 {{-- form --}}
 <div class="container">
-    <form action="{{ route('parentGuardianParticulars.create') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('parentGuardianParticulars.create') }}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         @csrf
         {{-- name --}}
         <div class="row d-flex flex-row mt-4">
@@ -90,10 +90,11 @@
                     <div class="col-md mb-3">
                         <label for="en_name" class="form-label">{{ __('inputFields.en_name') }}<span class="text-danger">*</span></label>
                         <input type="text" name="en_name" id="en_name" class="form-control text-capitalize" placeholder="" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required>
+                        <div class="invalid-feedback">{{ __('inputFields.name_error') }}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="ch_name" class="form-label">{{ __('inputFields.ch_name') }}</label>
-                        <input type="text" name="ch_name" id="ch_name" class="form-control" placeholder="">
+                        <input type="text" name="ch_name" id="ch_name" class="form-control" onkeyup="value=value.replace(/[^\u4E00-\u9FA50-9]/g,'')" placeholder="">
                     </div>
                 </div>
             </div>
@@ -116,15 +117,15 @@
             <div class="col-md-8">
                 <div class="row" id="ic_section">
                     <label for="ic" class="form-label">{{ __('inputFields.ic') }}<span class="text-danger">*</span></label>
-                    <div class="col-md d-flex flex-row align-items-center mb-3">
+                    <div class="col-md-3 d-flex flex-row align-items-center mb-3">
                         <input type="text" name="ic1" id="ic1" class="form-control" placeholder="" minlength="6" maxlength="6" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                         <span class="ms-4">-</span>
                     </div>
-                    <div class="col-md d-flex flex-row align-items-center mb-3">
+                    <div class="col-md-2 d-flex flex-row align-items-center mb-3">
                         <input type="text" name="ic2" id="ic2" class="form-control" placeholder="" minlength="2" maxlength="2" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                         <span class="ms-4">-</span>
                     </div>
-                    <div class="col-md mb-3">
+                    <div class="col-md-2 mb-3">
                         <input type="text" name="ic3" id="ic3" class="form-control" placeholder="" minlength="4" maxlength="4" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
                     </div>
                 </div>
@@ -132,6 +133,7 @@
                     <label for="ic" class="form-label">{{ __('inputFields.passport') }}<span class="text-danger">*</span></label>
                     <div class="col-md mb-3">
                         <input type="text" name="passport" id="passport" class="form-control" placeholder="" onkeyup="if (/[^|A-Za-z0-9-]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9-]+/g,'')">
+                        <div class="invalid-feedback">{{ __('inputFields.passport_error') }}</div>
                     </div>
                 </div>
             </div>
@@ -181,6 +183,7 @@
                                 <option value="{{ $relationship->id }}">{{ $relationship->name }}</option>
                             @endforeach
                         </select>
+                        <div class="invalid-feedback">{{ __('inputFields.relationship_error') }}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="nationality" class="form-label">{{ __('inputFields.nationality') }}<span class="text-danger">*</span></label>
@@ -270,7 +273,25 @@
                 <div class="row g-3">
                     <div class="col-md mb-3">
                         <label for="p_state" class="form-label">{{ __('inputFields.state') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="p_state" id="p_state" class="form-control" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
+                        <select name="p_state" id="p_state" class="form-select" required>
+                            <option disabled selected hidden value="">{{ __('inputFields.pob_placeholder') }}</option>
+                            <option value="Johor">Johor</option>
+                            <option value="Kedah">Kedah</option>
+                            <option value="Kelantan">Kelantan</option>
+                            <option value="Kuala Lumpur">Kuala Lumpur</option>
+                            <option value="Melaka">Melaka</option>
+                            <option value="Negeri Sembilan">Negeri Sembilan</option>
+                            <option value="Pahang">Pahang</option>
+                            <option value="Pulau Pinang">Pulau Pinang</option>
+                            <option value="Perak">Perak</option>
+                            <option value="Perlis">Perlis</option>
+                            <option value="Sabah">Sabah</option>
+                            <option value="Sarawak">Sarawak</option>
+                            <option value="Selangor">Selangor</option>
+                            <option value="Terengganu">Terengganu</option>
+                            <option value="Wilayah Persekutuan">Wilayah Persekutuan</option>
+                            <option value="Others">Others</option>
+                        </select>
                     </div>
                     <div class="col-md mb-3">
                         <label for="p_country" class="form-label">{{ __('inputFields.country') }}<span class="text-danger">*</span></label>
@@ -295,6 +316,7 @@
             </div>
             <div class="row">
                 <div class="d-flex justify-content-end">
+                    <a href="{{ route('personalParticulars.view') }}" class="btn btn-outline-secondary me-2">{{ __('button.back') }}</a>
                     <button type="submit" class="btn btn-primary">{{ __('button.submit_button') }}</button>
                 </div>
             </div>
@@ -304,4 +326,25 @@
     </form>
 </div>
 {{-- end form --}}
+<script>
+    (function () {
+      'use strict'
+    
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll('.needs-validation')
+    
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+    
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+</script>
 @endsection

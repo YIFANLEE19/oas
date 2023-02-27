@@ -49,7 +49,7 @@
             'COMPLETE_DRAFT' => 5,
             'COMPLETE_SUPPORTING_DOCUEMENT' => 6,
             'COMPLETE_PAYMENT' => 7,
-
+            'COMPLETE_CHECKING_PAYMENT_SLIP' => 8,
         ],
     /*
     |-----------------------------------------------------------

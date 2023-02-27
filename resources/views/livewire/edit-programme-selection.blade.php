@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="form-label">{{ __('inputFields.intake-my-label') }}</label>
-                <select name="semester_year_mapping_id" id="semester_year_mapping_id" class="form-select mb-2" wire:model="selectedSemesterYearMappingId">
+                <select name="semester_year_mapping_id" id="semester_year_mapping_id" class="form-select mb-2" wire:model="selectedSemesterYearMappingId" required>
                     <option value="" selected hidden>{{ __('inputFields.dropdown-hint') }}</option>
                     @foreach ($semesterYearMappings as $semesterYearMapping)
                         <option value="{{ $semesterYearMapping->id }}">{{ __('inputFields.month') }} {{ $semesterYearMapping->semester['semester'] }}, {{ __('inputFields.year') }} {{ $semesterYearMapping->year }}</option>

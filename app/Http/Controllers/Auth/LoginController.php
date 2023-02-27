@@ -48,13 +48,13 @@ class LoginController extends Controller
             return $this->redirectTo = '/home';
         }
         elseif(Auth::user()->role_id == 3){
-            return $this->redirectTo = '/superadmin';
+            return $this->redirectTo = '/admin-dashboard';
         }else{
             /**
              * TODO
              *  change when admin dashboard created!!
              */
-            return $this->redirectTo = '/superadmin';
+            return $this->redirectTo = '/admin-dashboard';
         }
     }
 }

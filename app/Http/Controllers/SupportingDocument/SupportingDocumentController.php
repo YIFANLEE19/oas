@@ -48,7 +48,7 @@ class SupportingDocumentController extends Controller
         // Application status log
         $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
         $this->removeSession();
-        if($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_DRAFT')){
+        if($getApplicationStatusLog->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_DRAFT')){
             return view('oas.supporting_document.home', compact(['APPLICATION_RECORD_ID','getApplicationStatusLog']));
         }
         return redirect()->route('home');

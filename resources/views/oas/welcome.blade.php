@@ -94,7 +94,6 @@
                     <div class="row mt-3 mb-3 text-center">
                         <div class="col-md-12">
                             <a href="{{ route('login') }}" class="btn btn-primary btn-lg me-2">{{ __('welcome.applyButton') }}</a>
-                            <a href="https://www.southern.edu.my/" class="btn btn-outline-primary btn-lg">{{ __('welcome.officialWebsiteButton') }}</a>
                         </div>
                     </div>
                 </div>
@@ -110,6 +109,7 @@
                         <div class="col-md-12 text-center px-4 py-4">
                             <p class="lead px-0 py-0 mt-0 my-0">{{ __('welcome.description2') }}</p>
                             <p class="lead px-0 py-0 mt-0 my-0">{{ __('welcome.description3') }}</p>
+                            <a href="{{ __('welcome.descriptionlink') }}" class="lead px-0 py-0 mt-0 my-0 text-white">{{ __('welcome.descriptionlink') }}</a>
                         </div>
                     </div>
                 </div>

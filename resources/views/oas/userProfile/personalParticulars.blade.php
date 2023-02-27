@@ -75,12 +75,12 @@
                 <div class="row g-2">
                     <div class="col-md mb-3">
                         <label for="en_name" class="form-label">{{ __('inputFields.en_name') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="en_name" id="en_name" class="form-control text-capitalize" onkeyup="if (/[^|A-Za-z0-9\s/.]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.]+/g,'')" required maxlength="80" aria-required="true">
-                        <div class="invalid-feedback">Please fill in the name</div>
+                        <input type="text" name="en_name" id="en_name" class="form-control text-capitalize" onkeyup="if (/[^|A-Za-z0-9\s/.\-]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9\s/.\-]+/g,'')" required maxlength="80" aria-required="true">
+                        <div class="invalid-feedback">{{ __('inputFields.name_error') }}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="ch_name" class="form-label">{{ __('inputFields.ch_name') }}</label>
-                        <input type="text" name="ch_name" id="ch_name" class="form-control" maxlength="10">
+                        <input type="text" name="ch_name" id="ch_name" class="form-control" onkeyup="value=value.replace(/[^\u4E00-\u9FA50-9]/g,'')" maxlength="10">
                     </div>
                 </div>
             </div>
@@ -120,8 +120,8 @@
                 <div class="row" id="passport_section" style="display: none;">
                     <label for="ic" class="form-label">{{ __('inputFields.without_ic') }}<span class="text-danger">*</span></label>
                     <div class="col-md mb-3">
-                        <input type="text" name="passport" id="passport" class="form-control" onkeyup="if (/[^|A-Za-z0-9-]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9-]+/g,'')">
-                        <div class="invalid-feedback">Error message</div>
+                        <input type="text" name="passport" id="passport" class="form-control" onkeyup="if (/[^|A-Za-z0-9-/]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9-/]+/g,'')">
+                        <div class="invalid-feedback">{{ __('inputFields.passport_error') }}</div>
                     </div>
                 </div>
             </div>
@@ -143,7 +143,7 @@
                                 <option value="{{ $race->id }}">{{ $race->name }}</option>
                             @endforeach
                         </select>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{__('inputFields.race_error')}}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="religion" class="form-label">{{ __('inputFields.religion') }}<span class="text-danger">*</span></label>
@@ -153,15 +153,15 @@
                                 <option value="{{ $religion->id }}">{{ $religion->name }}</option>
                             @endforeach
                         </select>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{__('inputFields.religion_error')}}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="nationality" class="form-label">{{ __('inputFields.nationality') }}<span class="text-danger">*</span></label>
                         <select name="nationality_id" id="nationality" class="form-select" required style="pointer-events: none">
-                            <option value="131">Malaysia</option>
+                            <option value="131" selected>Malaysia</option>
                             <option value="161">Non-Malaysian</option>
                         </select>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{ __('inputFields.nationality_error') }}</div>
                     </div>
                 </div>
             </div>
@@ -209,7 +209,7 @@
                     <div class="col-md mb-3">
                         <label for="birth_date" class="form-label">{{ __('inputFields.bd') }}<span class="text-danger">*</span></label>
                         <input type="date" name="birth_date" id="birth_date" class="form-control" onchange="ageCalculator()" max="<?= date('Y-m-d'); ?>" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{__('inputFields.bd_error')}}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="age" class="form-label">{{ __('inputFields.age') }}</label>
@@ -223,20 +223,20 @@
                             <option value="Kedah">Kedah</option>
                             <option value="Kelantan">Kelantan</option>
                             <option value="Kuala Lumpur">Kuala Lumpur</option>
-                            <option value="Labuan">Labuan</option>
-                            <option value="Malacca">Malacca</option>
+                            <option value="Melaka">Melaka</option>
                             <option value="Negeri Sembilan">Negeri Sembilan</option>
                             <option value="Pahang">Pahang</option>
-                            <option value="Penang">Penang</option>
+                            <option value="Pulau Pinang">Pulau Pinang</option>
                             <option value="Perak">Perak</option>
                             <option value="Perlis">Perlis</option>
                             <option value="Sabah">Sabah</option>
                             <option value="Sarawak">Sarawak</option>
                             <option value="Selangor">Selangor</option>
                             <option value="Terengganu">Terengganu</option>
-                            <option value="other">Other</option>
+                            <option value="Wilayah Persekutuan">Wilayah Persekutuan</option>
+                            <option value="Others">Others</option>
                         </select>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{__('inputFields.pob_error')}}</div>
                     </div>
                 </div>
             </div>
@@ -294,7 +294,7 @@
                                 <option value="{{ $marital->id }}">{{ $marital->name }}</option>
                             @endforeach
                         </select>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{__('inputFields.ms_error')}}</div>
                     </div>
                 </div>
             </div>
@@ -311,16 +311,16 @@
                     <div class="col-md mb-3">
                         <label for="email" class="form-label">{{ __('inputFields.email') }}<span class="text-danger">*</span></label>
                         <input type="email" name="email" id="email" class="form-control" onkeyup="if (/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$+/g.test(this.value)) this.value = this.value.replace(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$+/g,'')" maxlength="64" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{__('inputFields.email_error')}}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="tel_hp" class="form-label">{{ __('inputFields.tel_hp') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="tel_hp" id="tel_hp" class="form-control" maxlength="13" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <input type="text" name="tel_hp" id="tel_hp" class="form-control" minlength="8" maxlength="20" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
+                        <div class="invalid-feedback">{{__('inputFields.tel_hp_error')}}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="tel_h" class="form-label">{{ __('inputFields.tel_h') }}</label>
-                        <input type="text" name="tel_h" id="tel_h" class="form-control" maxlength="13" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')">
+                        <input type="text" name="tel_h" id="tel_h" class="form-control" minlength="8" maxlength="20" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')">
                     </div>
                 </div>
             </div>
@@ -338,32 +338,50 @@
                         <label for="c_street1" class="form-label">
                             {{ __('inputFields.address1') }}<span class="text-danger">*</span>
                         </label>
-                        <input type="text" name="c_street1" id="c_street1" class="form-control" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" placeholder="{{ __('inputFields.address1_placeholder') }}" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <input type="text" name="c_street1" id="c_street1" class="form-control" onkeyup="if (/[^|A-Za-z0-9/.\s\-,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s\-,]+/g,'')" placeholder="{{ __('inputFields.address1_placeholder') }}" required>
+                        <div class="invalid-feedback">{{ __('inputFields.address1_error') }}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="c_street2" class="form-label">{{ __('inputFields.address2') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="c_street2" id="c_street2" class="form-control" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" placeholder="{{ __('inputFields.address2_placeholder') }}" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <input type="text" name="c_street2" id="c_street2" class="form-control" onkeyup="if (/[^|A-Za-z0-9/.\s\-,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s\-,]+/g,'')" placeholder="{{ __('inputFields.address2_placeholder') }}" required>
+                        <div class="invalid-feedback">{{ __('inputFields.address2_error') }}</div>
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md mb-3">
                         <label for="c_zipcode" class="form-label">{{ __('inputFields.zipcode') }}<span class="text-danger">*</span></label>
                         <input type="text" name="c_zipcode" id="c_zipcode" class="form-control" minlength="5" maxlength="5" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{ __('inputFields.zipcode_error') }}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="c_city" class="form-label">{{ __('inputFields.city') }}<span class="text-danger">*</span></label>
                         <input type="text" name="c_city" id="c_city" class="form-control" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{ __('inputFields.city_error') }}</div>
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md mb-3">
                         <label for="c_state" class="form-label">{{ __('inputFields.state') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="c_state" id="c_state" class="form-control" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <select name="c_state" id="c_state" class="form-select" required>
+                            <option disabled selected hidden value="">{{ __('inputFields.pob_placeholder') }}</option>
+                            <option value="Johor">Johor</option>
+                            <option value="Kedah">Kedah</option>
+                            <option value="Kelantan">Kelantan</option>
+                            <option value="Kuala Lumpur">Kuala Lumpur</option>
+                            <option value="Melaka">Melaka</option>
+                            <option value="Negeri Sembilan">Negeri Sembilan</option>
+                            <option value="Pahang">Pahang</option>
+                            <option value="Pulau Pinang">Pulau Pinang</option>
+                            <option value="Perak">Perak</option>
+                            <option value="Perlis">Perlis</option>
+                            <option value="Sabah">Sabah</option>
+                            <option value="Sarawak">Sarawak</option>
+                            <option value="Selangor">Selangor</option>
+                            <option value="Terengganu">Terengganu</option>
+                            <option value="Wilayah Persekutuan">Wilayah Persekutuan</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <div class="invalid-feedback">{{ __('inputFields.state_error') }}</div>
                     </div>
                     <div class="col-md">
                         <label for="c_country" class="form-label">{{ __('inputFields.country') }}<span class="text-danger">*</span></label>
@@ -373,7 +391,7 @@
                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{ __('inputFields.country_error') }}</div>
                     </div>
                 </div>
             </div>
@@ -393,32 +411,50 @@
                 <div class="row g-3">
                     <div class="col-md mb-3">
                         <label for="p_street1" class="form-label">{{ __('inputFields.address1') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="p_street1" id="p_street1" class="form-control" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" placeholder="{{ __('inputFields.address1_placeholder') }}" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <input type="text" name="p_street1" id="p_street1" class="form-control" onkeyup="if (/[^|A-Za-z0-9/.\s\-,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s\-,]+/g,'')" placeholder="{{ __('inputFields.address1_placeholder') }}" required>
+                        <div class="invalid-feedback">{{ __('inputFields.address1_error') }}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="p_street2" class="form-label">{{ __('inputFields.address2') }}<span class="text-danger">*</span></label>
                         <input type="text" name="p_street2" id="p_street2" class="form-control" onkeyup="if (/[^|A-Za-z0-9/.\s,]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z0-9/.\s,]+/g,'')" placeholder="{{ __('inputFields.address2_placeholder') }}" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{ __('inputFields.address2_error') }}</div>
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md mb-3">
                         <label for="p_zipcode" class="form-label">{{ __('inputFields.zipcode') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="p_zipcode" id="p_zipcode" class="form-control" minlength="5" maxlength="5" onkeyup="if (/[^|0-9]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9]+/g,'')" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <input type="text" name="p_zipcode" id="p_zipcode" class="form-control" minlength="5" maxlength="5" onkeyup="if (/[^|0-9{5}]+/g.test(this.value)) this.value = this.value.replace(/[^|0-9{5}]+/g,'')" required>
+                        <div class="invalid-feedback">{{ __('inputFields.zipcode_error') }}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="p_city" class="form-label">{{ __('inputFields.city') }}<span class="text-danger">*</span></label>
                         <input type="text" name="p_city" id="p_city" class="form-control" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{ __('inputFields.city_error') }}</div>
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md mb-3">
                         <label for="p_state" class="form-label">{{ __('inputFields.state') }}<span class="text-danger">*</span></label>
-                        <input type="text" name="p_state" id="p_state" class="form-control" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
-                        <div class="invalid-feedback">Error message</div>
+                        <select name="p_state" id="p_state" class="form-select" required>
+                            <option disabled selected hidden value="">{{ __('inputFields.pob_placeholder') }}</option>
+                            <option value="Johor">Johor</option>
+                            <option value="Kedah">Kedah</option>
+                            <option value="Kelantan">Kelantan</option>
+                            <option value="Kuala Lumpur">Kuala Lumpur</option>
+                            <option value="Melaka">Melaka</option>
+                            <option value="Negeri Sembilan">Negeri Sembilan</option>
+                            <option value="Pahang">Pahang</option>
+                            <option value="Pulau Pinang">Pulau Pinang</option>
+                            <option value="Perak">Perak</option>
+                            <option value="Perlis">Perlis</option>
+                            <option value="Sabah">Sabah</option>
+                            <option value="Sarawak">Sarawak</option>
+                            <option value="Selangor">Selangor</option>
+                            <option value="Terengganu">Terengganu</option>
+                            <option value="Wilayah Persekutuan">Wilayah Persekutuan</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <div class="invalid-feedback">{{ __('inputFields.state_error') }}</div>
                     </div>
                     <div class="col-md mb-3">
                         <label for="p_country" class="form-label">{{ __('inputFields.country') }}<span class="text-danger">*</span></label>
@@ -428,7 +464,7 @@
                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
-                        <div class="invalid-feedback">Error message</div>
+                        <div class="invalid-feedback">{{ __('inputFields.country_error') }}</div>
                     </div>
                 </div>
             </div>
@@ -491,7 +527,6 @@
 {{-- end form --}}
 
 <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {
   'use strict'
 

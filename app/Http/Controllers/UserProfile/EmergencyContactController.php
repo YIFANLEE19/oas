@@ -52,12 +52,12 @@ class EmergencyContactController extends Controller
         $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
 
         $user_detail_id1 = UserDetail::insertGetId([
-            'en_name' => $r->en_name1,
+            'en_name' => ucwords($r->en_name1),
             'ch_name' => $r->ch_name1,
             'tel_hp' => $r->tel_hp1,
         ]);
         $user_detail_id2 = UserDetail::insertGetId([
-            'en_name' => $r->en_name2,
+            'en_name' => ucwords($r->en_name2),
             'ch_name' => $r->ch_name2,
             'tel_hp' => $r->tel_hp2,
         ]);
@@ -130,12 +130,12 @@ class EmergencyContactController extends Controller
         $emergency_contact2->user_detail_id = $USER_DETAIL_ID2;
 
         $user_detail1 = UserDetail::find($USER_DETAIL_ID1);
-        $user_detail1->en_name = $r->en_name1;
+        $user_detail1->en_name = ucwords($r->en_name1);
         $user_detail1->ch_name = $r->ch_name1;
         $user_detail1->tel_hp = $r->tel_hp1;
 
         $user_detail2 = UserDetail::find($USER_DETAIL_ID2);
-        $user_detail2->en_name = $r->en_name2;
+        $user_detail2->en_name = ucwords($r->en_name2);
         $user_detail2->ch_name = $r->ch_name2;
         $user_detail2->tel_hp = $r->tel_hp2;
 

@@ -120,7 +120,7 @@ class DraftController extends Controller
             'academic_record' => $getAcademicRecord,
             'status_of_health' => $getStatusOfHealth,
         ];
-        if($application_status_log->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_AGREEMENT')){
+        if($getApplicationStatusLog->application_status_id == config('constants.APPLICATION_STATUS_CODE.COMPLETE_AGREEMENT')){
             return view('oas.draft.home', compact('data','APPLICATION_RECORD_ID'));
         }
         return redirect()->route('home');

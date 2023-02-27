@@ -159,15 +159,11 @@
     @csrf
     <div class="container">
         <div class="row mb-4 mt-4">
-            <div class="col-sm-9">
+            <div class="col-sm-12">
                 <label for="picture" class="form-label">Photo (<span class="text-danger fw-bold">{{ __('inputFields.photo_format1') }}</span>) and <span class="fw-bold text-danger">{{ __('inputFields.photo_format2') }}</span> <span class="text-danger">*</span></label>
                 <div class="d-flex flex-column">
-                    <input class="form-control me-3 mb-4" name="picture" id="picture" type="file" accept=".jpg, .jpeg, .png" onchange="previewPhoto(event)">
+                    <input class="form-control me-3 mb-4" name="picture" id="picturePond" type="file" multiple data-max-file-size="5MB" data-max-files="1" data-allow-reorder="true" required>
                 </div>
-            </div>
-            <div class="col-sm-3 d-flex flex-column justify-content-end">
-                <p class="text-secondary">Preview</p>
-                <img id="preview_location" name="preview_location" class="img-fluid" width="217px" height="280px">
             </div>
         </div>
         <hr>
@@ -188,14 +184,63 @@
 {{-- end submit photo --}}
 
 {{-- script --}}
+
+{{-- filepond --}}
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.js"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 <script>
-    // image preview
-    var previewPhoto = function(event){
-        var previewLocation = document.getElementById('preview_location');
-        previewLocation.src = URL.createObjectURL(event.target.files[0]);
-        previewLocation.onload = function(){
-            URL.revokeObjectURL(previewLocation.src);
-        }
+    FilePond.registerPlugin(
+        FilePondPluginFileValidateSize,
+        FilePondPluginFileEncode,
+        FilePondPluginImageExifOrientation,
+        FilePondPluginImagePreview,
+        FilePondPluginFileValidateType,
+    );
+    const picturePond = FilePond.create(document.querySelector('input[id="picturePond"]'),{
+        acceptedFileTypes: ['image/png','image/jpeg'],
+        fileValidateTypeDetectType: (source, type) => new Promise((resolve, reject) => {
+            resolve(type);
+        }),
+    });
+
+    FilePond.setOptions({
+        server: {
+            process: '/user-profile/profile-picture/TmpUpload',
+            revert:  (uniqueFileId, load, error) => {
+                deleteFile(uniqueFileId);
+                error('Error occur');
+                load();
+            },
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        },
+    });
+
+
+    function deleteFile(fileName){
+        $.ajax({
+            url: "/user-profile/profile-picture/TmpDelete",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "DELETE",
+            data: {
+                file: fileName,
+            },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(response) {
+                console.log('error')
+            },
+        });
+
     }
 </script>
 {{-- end script --}}

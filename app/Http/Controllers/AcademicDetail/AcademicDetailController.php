@@ -18,7 +18,15 @@ use Illuminate\Support\Facades\Crypt;
 
 class AcademicDetailController extends Controller
 {
-
+    /**
+     * Return academic details page that can let applicant insert their academic details.
+     * The url argument must specify an absolute 
+     * <a href="{{ route('academicDetail.home',['id'=>Crypt::encypt(applicationRecordId)]) }}"></a>
+     * This method will return all the school's level where status is active and the 
+     * application status log.
+     * 
+     * @param id encrypted application record id
+     */
     public function index($id)
     {
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
@@ -30,25 +38,33 @@ class AcademicDetailController extends Controller
         return redirect()->route('home');
     }
     /**
-     * create new SchoolLevel function
+     * Store the academic details in to databases using AcademicRecord models
+     * This method will store all the school's level data into databases, it's 
+     * required to insert at least one pair of data.
+     * If not fulfill the requirements it will return the error message through 
+     * the Session::flash('key','value').
+     * 
+     * @param id encrypted application record id
+     */
+    /**
+     * #TODO1: only store the filled data
      */
     public function create($id)
     {
-        // get application record id
+        $r = request();
+        // used to validate the data
+        $seenPair = false;
+        // get all data
+        $getAllSchoolName = $r->school_name;
+        $getAllSchoolGraduation = $r->school_graduation;
+        // decrypt application record id
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         $getApplicationStatusLog = ApplicationStatusLog::where('user_id', Auth::id())->where('application_record_id',$APPLICATION_RECORD_ID)->first();
-
         if($getApplicationStatusLog->application_status_id != config('constants.APPLICATION_STATUS_CODE.COMPLETE_PROGRAM_SELECTION')){
             return redirect()->route('home');
         }
-        
-        $r = request();
+        // array for storing all school level id
         $SCHOOL_LEVEL = array(config('constants.SCHOOL_LEVEL.SECONDARY'),config('constants.SCHOOL_LEVEL.UPPERSECONDARY'),config('constants.SCHOOL_LEVEL.FOUNDATION'),config('constants.SCHOOL_LEVEL.DIPLOMA'),config('constants.SCHOOL_LEVEL.DEGREE'),config('constants.SCHOOL_LEVEL.PHD'),config('constants.SCHOOL_LEVEL.MASTER'),config('constants.SCHOOL_LEVEL.OTHER'));
-
-        $getAllSchoolName = $r->school_name;
-        $getAllSchoolGraduation = $r->school_graduation;
-
-        $seenPair = false;
         // validation
         for ($i=0; $i < count($getAllSchoolName); $i++) {
             if($getAllSchoolName[$i] != null && $getAllSchoolGraduation[$i] != null){
@@ -63,7 +79,7 @@ class AcademicDetailController extends Controller
             Session::flash('error', 'Please key in a school name and graduation date information.');
             return back();
         }
-
+        // store the academic record to database
         for ($i=0; $i < count($SCHOOL_LEVEL); $i++) { 
             AcademicRecord::create([
                 'school_level_id' => $SCHOOL_LEVEL[$i],
@@ -73,32 +89,33 @@ class AcademicDetailController extends Controller
                 'status' => ($getAllSchoolName[$i] == null ? 0 : 1),
             ]);
         }
-
-        
+        // update the application status
         $getApplicationStatusLog->application_status_id = config('constants.APPLICATION_STATUS_CODE.COMPLETE_ACADEMIC_DETAIL');
         $getApplicationStatusLog->save();
-
         return redirect()->route('statusOfHealth.home',['id'=> Crypt::encrypt($APPLICATION_RECORD_ID)]);
     }
-
+    /**
+     * This method can let users update the academic details.
+     * 
+     * @param id encrypted application record id
+     */
+    /**
+     * #TODO1: try using updateOrInsert() function
+     */
     public function update($id)
     {
         $APPLICATION_RECORD_ID = Crypt::decrypt($id);
         $r = request();
-
         $getSelectedAcademicRecord = AcademicRecord::where('application_record_id', $APPLICATION_RECORD_ID)->get();
-
         $getAllSchoolLevelId = $r->school_level_id;
         $getAllSchoolName = $r->school_name;
         $getAllSchoolGraduation = $r->school_graduation;
-
         for ($i=0; $i < count($getAllSchoolLevelId); $i++) { 
             $getSelectedAcademicRecord[$i]->school_name = $getAllSchoolName[$i];
             $getSelectedAcademicRecord[$i]->school_graduation = $getAllSchoolGraduation[$i];
             $getSelectedAcademicRecord[$i]->status = ($getAllSchoolName[$i] == null?0:1);
             $getSelectedAcademicRecord[$i]->save();
         }
-
         return back();
     }
 }
