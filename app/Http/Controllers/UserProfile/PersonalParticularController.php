@@ -86,7 +86,7 @@ class PersonalParticularController extends Controller
         }
 
         $user_detail_id = UserDetail::insertGetId([
-            'en_name' => ucwords($r->en_name),
+            'en_name' => $r->en_name,
             'ch_name' => $r->ch_name,
             'ic' => $this->finalIC,
             'email' => $r->email,
@@ -135,7 +135,7 @@ class PersonalParticularController extends Controller
             'applicant_profile_status_id' => config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'),
         ]);
         // Session::flash('applicant_profile_status_code',config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS'));
-        return redirect()->route('parentGuardianParticulars.home');
+        return back();
     }
 
     /*
@@ -146,13 +146,13 @@ class PersonalParticularController extends Controller
     public function view()
     {        
         $applicant_status_log = ApplicantStatusLog::where('user_id',Auth::id())->first();
-        // if($applicant_status_log == null){
-        //     return redirect()->route('home');
-        // }else{
-        //     if($applicant_status_log->applicant_profile_status_id != config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PERSONAL_PARTICULARS')){
-        //         return redirect()->route('home');
-        //     }
-        // }
+        if($applicant_status_log == null){
+            return redirect()->route('home');
+        }else{
+            if($applicant_status_log->applicant_profile_status_id != config('constants.APPLICANT_PROFILE_STATUS_CODE.COMPLETE_PROFILE_PICTURE')){
+                return redirect()->route('home');
+            }
+        }
 
         $getRaces = Race::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
         $getReligions = Religion::where('status',config('constants.COL_ACTIVE.ACTIVE'))->get();
@@ -209,7 +209,7 @@ class PersonalParticularController extends Controller
         }
 
         $user_detail = UserDetail::find($USER_DETAIL_ID);
-        $user_detail->en_name = ucwords($r->en_name);
+        $user_detail->en_name = $r->en_name;
         $user_detail->ch_name = $r->ch_name;
         $user_detail->ic = $this->finalIC;
         $user_detail->email = $r->email;

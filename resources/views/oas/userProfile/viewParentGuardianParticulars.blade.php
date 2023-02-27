@@ -414,25 +414,7 @@
                                 <div class="row g-3">
                                     <div class="col-md mb-3">
                                         <label for="p_state" class="form-label">{{ __('inputFields.state') }}<span class="text-danger">*</span></label>
-                                        <select name="p_state" id="p_state" class="form-select" required>
-                                            <option disabled selected hidden value="">{{ __('inputFields.pob_placeholder') }}</option>
-                                            <option value="Johor">Johor</option>
-                                            <option value="Kedah">Kedah</option>
-                                            <option value="Kelantan">Kelantan</option>
-                                            <option value="Kuala Lumpur">Kuala Lumpur</option>
-                                            <option value="Melaka">Melaka</option>
-                                            <option value="Negeri Sembilan">Negeri Sembilan</option>
-                                            <option value="Pahang">Pahang</option>
-                                            <option value="Pulau Pinang">Pulau Pinang</option>
-                                            <option value="Perak">Perak</option>
-                                            <option value="Perlis">Perlis</option>
-                                            <option value="Sabah">Sabah</option>
-                                            <option value="Sarawak">Sarawak</option>
-                                            <option value="Selangor">Selangor</option>
-                                            <option value="Terengganu">Terengganu</option>
-                                            <option value="Wilayah Persekutuan">Wilayah Persekutuan</option>
-                                            <option value="Others">Others</option>
-                                        </select>
+                                        <input type="text" name="p_state" id="p_state" class="form-control" value="{{ $p_address->state }}" onkeyup="if (/[^|A-Za-z/.\s]+/g.test(this.value)) this.value = this.value.replace(/[^|A-Za-z/.\s]+/g,'')" required>
                                     </div>
                                     <div class="col-md mb-3">
                                         <label for="p_country" class="form-label">{{ __('inputFields.country') }}<span class="text-danger">*</span></label>

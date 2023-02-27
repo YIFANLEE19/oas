@@ -80,7 +80,7 @@ class ParentGuardianParticularController extends Controller
         }
 
         $user_detail_id = UserDetail::insertGetId([
-            'en_name' => ucwords($r->en_name),
+            'en_name' => $r->en_name,
             'ch_name' => $r->ch_name,
             'ic' => $this->finalIC,
             'email' => $r->email,
@@ -175,7 +175,7 @@ class ParentGuardianParticularController extends Controller
         }
 
         $user_detail = UserDetail::find($USER_DETAIL_ID);
-        $user_detail->en_name = ucwords($r->en_name);
+        $user_detail->en_name = $r->en_name;
         $user_detail->ch_name = $r->ch_name;
         $user_detail->ic = $this->finalIC;
         $user_detail->email = $r->email;

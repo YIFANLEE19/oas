@@ -1,31 +1,30 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\AdminAccountController;
-use App\Http\Controllers\Admin\AccStatusController;
-use App\Http\Controllers\Admin\IncomeController;
-use App\Http\Controllers\Admin\GenderController;
-use App\Http\Controllers\Admin\MaritalController;
-use App\Http\Controllers\Admin\NationalityController;
-use App\Http\Controllers\Admin\ReligionController;
-use App\Http\Controllers\Admin\RaceController;
-use App\Http\Controllers\Admin\GuardianRelationshipController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AddressTypeController;
-use App\Http\Controllers\Admin\ApplicationStatusController;
-use App\Http\Controllers\Admin\CountryController;
-use App\Http\Controllers\Admin\SchoolLevelController;
-use App\Http\Controllers\Admin\DiseaseController;
-use App\Http\Controllers\Admin\ProgrammeLevelController;
-use App\Http\Controllers\Admin\ProgrammeTypeController;
-use App\Http\Controllers\Admin\ApplicantProfileStatusController;
-use App\Http\Controllers\Admin\SemesterController;
-use App\Http\Controllers\Admin\ProgrammeController;
-use App\Http\Controllers\Admin\ProgrammeOfferController;
-use App\Http\Controllers\Admin\SemesterYearMappingController;
-use App\Http\Controllers\Admin\IdentityDocumentTypeController;
-use App\Http\Controllers\Admin\FormController;
+use App\Http\Controllers\Superadmin\RoleController;
+use App\Http\Controllers\Superadmin\AdminAccountController;
+use App\Http\Controllers\Superadmin\AccStatusController;
+use App\Http\Controllers\Superadmin\IncomeController;
+use App\Http\Controllers\Superadmin\GenderController;
+use App\Http\Controllers\Superadmin\MaritalController;
+use App\Http\Controllers\Superadmin\NationalityController;
+use App\Http\Controllers\Superadmin\ReligionController;
+use App\Http\Controllers\Superadmin\RaceController;
+use App\Http\Controllers\Superadmin\GuardianRelationshipController;
+use App\Http\Controllers\Superadmin\SuperadminController;
+use App\Http\Controllers\Superadmin\AddressTypeController;
+use App\Http\Controllers\Superadmin\ApplicationStatusController;
+use App\Http\Controllers\Superadmin\CountryController;
+use App\Http\Controllers\Superadmin\SchoolLevelController;
+use App\Http\Controllers\Superadmin\DiseaseController;
+use App\Http\Controllers\Superadmin\ProgrammeLevelController;
+use App\Http\Controllers\Superadmin\ProgrammeTypeController;
+use App\Http\Controllers\Superadmin\ApplicantProfileStatusController;
+use App\Http\Controllers\Superadmin\SemesterController;
+use App\Http\Controllers\Superadmin\ProgrammeController;
+use App\Http\Controllers\Superadmin\ProgrammeOfferController;
+use App\Http\Controllers\Superadmin\SemesterYearMappingController;
+use App\Http\Controllers\Superadmin\IdentityDocumentTypeController;
 
 use App\Http\Controllers\UserProfile\PersonalParticularController;
 use App\Http\Controllers\UserProfile\ParentGuardianParticularController;
@@ -52,7 +51,7 @@ use App\Http\Controllers\SupportingDocument\SupportingDocumentController;
 */
 
 Route::controller(DataFlowController::class)->group(function(){
-    Route::get('/test/{id}','index')->name('dataflow');
+    Route::get('/test','index');
 });
 
 Route::get('/', function () {
@@ -63,10 +62,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// admin
-Route::prefix('admin-dashboard/')->middleware('admin')->group(function(){
+// superadmin
+Route::prefix('superadmin/')->middleware('admin')->group(function(){
 
-    Route::controller(AdminController::class)->name('superadmin.')->group(function(){
+    Route::controller(SuperadminController::class)->name('superadmin.')->group(function(){
         Route::get('/','index')->name('home');
     });
 
@@ -208,11 +207,6 @@ Route::prefix('admin-dashboard/')->middleware('admin')->group(function(){
         Route::post('/create', 'create')->name('create');
         Route::post('/update', 'update')->name('update');
     });
-
-    Route::controller(FormController::class)->prefix('application-form/')->name('applicationForm.')->group(function() {
-        Route::get('/{id}','index')->name('home');
-    });
-
 });
 
 // user profile 
@@ -244,8 +238,6 @@ Route::prefix('user-profile/')->middleware('auth')->group(function(){
         Route::post('/create','create')->name('create');
         Route::get('/view','view')->name('view');
         Route::post('/update','update')->name('update');
-        Route::post('/TmpUpload','TmpUpload')->name('TmpUpload');
-        Route::delete('/TmpDelete','TmpDelete')->name('TmpDelete');
     });
 
 });

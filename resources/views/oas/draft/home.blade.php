@@ -99,7 +99,7 @@
                                 <p class="lead">{{ __('inputFields.en_name') }}:</p>
                             </div>
                             <div class="col-md-6 col-12">
-                                <p class="fw-bold text-capitalize">{{ $data['user_detail']->en_name }}</p>
+                                <p class="fw-bold">{{ $data['user_detail']->en_name }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -152,14 +152,6 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <p class="fw-bold">{{ $data['applicant_profile']->birth_date }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 col-12">
-                                <p class="lead">{{ __('inputFields.pob') }}:</p>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <p class="fw-bold">{{ $data['applicant_profile']->place_of_birth }}</p>
                             </div>
                         </div>
                         <div class="row">
